@@ -30,3 +30,8 @@ caption{
 .margin-top{
 	margin-top: 80px;
 }
+
+.centered{
+	width: 50%;
+	margin-left: 20%;
+}
