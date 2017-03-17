@@ -1,0 +1,25 @@
+﻿<%-- FOOTER DE FREIRE --%>
+
+<div id="footer">
+        <span class="tablon">Tablón</span> 
+        es una aplicación de ejemplo desarrollada por manuel.freire@fdi.ucm.es
+	<%-- debug session and parameters - remove this if using production --%>
+	<%@ include file="../fragments/debug.jspf" %>
+</div>
+</body>
+
+<%_- NUESTRO FOOTER --%>
+
+	<!-- FOOTER -->
+	<div class="container">
+		<hr>
+		<div class="col-lg-12">
+			<div class="col-md-8">
+				<a href="#">T&eacute;rminos del servicio</a>    
+				<a href="admin.html">Administraci&oacute;n</a>
+			</div>
+			<div class="col-md-4">
+				<p class="muted pull-right">© 2017 CardEx. All rights reserved</p>
+			</div>
+		</div>
+	</div>
