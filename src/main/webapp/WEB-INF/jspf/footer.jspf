@@ -1,14 +1,14 @@
-ï»¿<%-- FOOTER DE FREIRE --%>
+<%-- FOOTER DE FREIRE --%>
 
 <div id="footer">
-        <span class="tablon">TablÃ³n</span> 
-        es una aplicaciÃ³n de ejemplo desarrollada por manuel.freire@fdi.ucm.es
+        <span class="tablon">Tablón</span> 
+        es una aplicación de ejemplo desarrollada por manuel.freire@fdi.ucm.es
 	<%-- debug session and parameters - remove this if using production --%>
-	<%@ include file="../fragments/debug.jspf" %>
+	<%-- @ include file="../fragments/debug.jspf" --%>
 </div>
 </body>
 
-<%_- NUESTRO FOOTER --%>
+<%-- NUESTRO FOOTER --%>
 
 	<!-- FOOTER -->
 	<div class="container">
@@ -19,7 +19,7 @@
 				<a href="admin.html">Administraci&oacute;n</a>
 			</div>
 			<div class="col-md-4">
-				<p class="muted pull-right">Â© 2017 CardEx. All rights reserved</p>
+				<p class="muted pull-right">© 2017 CardEx. All rights reserved</p>
 			</div>
 		</div>
 	</div>
