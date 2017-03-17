@@ -1,0 +1,6 @@
+<s:url value="/static/img/spring.jpg" var="logo" />
+
+<div>
+Aquí iría tu cabecera
+<img src="${logo}"/>
+</div>
