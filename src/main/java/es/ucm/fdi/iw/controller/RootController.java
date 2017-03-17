@@ -8,7 +8,41 @@ public class RootController {
 
 	@GetMapping({"/", "/index"})
 	String root() {
-		return "test";
+		return "index";
+	}
+	
+	@GetMapping({"/home"})
+	String home() {
+		return "home";
+	}
+	
+	@GetMapping({"/gestionDeTusCartas"})
+	String gestionCartas() {
+		return "gestionTusCartas";
+	}
+	@GetMapping({"/intercambio"})
+	String intercambio() {
+		return "intercambio";
+	}
+	
+	@GetMapping({"/historial"})
+	String historial() {
+		return "historial";
+	}
+	
+	@GetMapping({"/admin"})
+	String admin() {
+		return "admin";
+	}
+	
+	@GetMapping({"/login_admin"})
+	String loginAdmin() {
+		return "login_admin";
+	}
+	
+	@GetMapping({"/perfil"})
+	String perfil() {
+		return "perfil";
 	}
 	
 }

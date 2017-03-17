@@ -1,0 +1,30 @@
+/*Estilos administrador*/
+.admin-menu{
+	float:left;
+	width: 10%;
+	height: 100%;
+}
+.admin-table{
+	float:left;
+	width: 85%;
+	margin-left: 10px;
+}
+.form-search{
+	float: right;
+	margin-bottom: 10px;
+}
+td, th,{
+	text-align: center;
+}
+
+caption{
+	color: #337AB7;
+}
+
+.extended{
+	width:100%;
+}
+
+.margin-top{
+	margin-top: 80px;
+}

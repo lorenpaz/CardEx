@@ -1,0 +1,116 @@
+.amarillo {
+	color:#F1AF10;
+}
+
+.blanco {
+	color:#FFFFFF;
+}
+
+#carta1 {
+	background-color: #000000;
+	margin: 0;
+}
+
+#MainTable {
+		width: 800;
+}
+
+#secondparagraph {
+	background-color: #6E6E6E;
+	width: 400;
+	height: 200;
+}
+
+#firstparagraph {
+	background-color: #1C1C1C;
+	width: 300;
+	height: 100;
+}
+
+table#details {
+	width: 100;
+	border: 0;
+	border-spacing: 0;
+	padding: 0;
+}
+
+table#details2 {
+	
+}
+
+
+.datacell {
+	margin-left: 10px;
+}
+
+
+.offer-column{
+	width: 25%;
+	float: left;
+	padding: 0px;
+	text-align: center;
+}
+.offer-column .list-group{
+	display: block;
+}
+
+.row {
+	margin: auto;
+	text-align: center;
+  width: 200px; 
+}
+
+#intercambio{
+	height: 600px;
+	width: 100%;
+	padding: 10px;
+}
+
+/*#offer-group{
+	border: solid 2px blue;
+	height: 600px;
+	width: 40%;
+}*/
+
+#filter{
+	margin-bottom: 30px;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	text-align: center;
+}
+
+#intercambio-column{
+	padding-right: 1px;
+	padding-left: 1px;
+	background-color: lightblue;
+	border-right: 5px solid white;
+}
+#pide-column{
+	border: 1px solid lightblue;
+	height: auto;
+	background-color: lightblue;
+	
+}
+#ofrece-column{
+	border: 1px solid lightblue;
+	border-right:0px;
+	background-color: lightblue;
+	height: auto;
+}
+#action{
+	height:50%;
+	padding-left: 20px;
+}
+
+#action button{
+	margin-bottom:10px;
+	margin-top: 10px;
+	text-align: center;
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+	width: 70%;
+	font-weight: bold;
+}
+

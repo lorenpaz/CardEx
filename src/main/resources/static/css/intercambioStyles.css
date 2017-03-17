@@ -1,0 +1,74 @@
+.centered{
+    margin: 0 auto;
+}
+
+.cantidad-carta{
+	width: 40px;
+	text-align: center;
+}
+
+.col-intercambio{
+	width: 40%;
+	float: left;
+}
+
+.img-exchange{
+	width: 20%;
+	margin: 0 auto;
+	float: left;
+}
+
+.img-exchange img{
+	margin: 0 auto;
+    width: 65%;
+    padding-left: 9%;
+    padding-top: 45%;
+}
+
+
+
+#pide-column{
+
+}
+#ofrece-column{
+
+}
+
+caption{
+	color: #337AB7;
+}
+
+th{
+	text-align: center;
+}
+
+h3, h6{
+	font-weight: bold;
+}
+
+.col-contraoferta{
+	width: 25%;
+	float: left;
+}
+
+.col-contraoferta .cantidad-carta{
+	width: 40%;
+}
+
+.img-contraoferta{
+	width: 20%;
+	margin: 0 auto;
+	float: left;
+}
+
+.img-contraoferta img{
+	margin: 0 auto;
+    width: 65%;
+    padding-left: 9%;
+    padding-top: 45%;
+}
+
+.estadoCarta{
+	display: inline-block;
+	min-width:70px;
+}
