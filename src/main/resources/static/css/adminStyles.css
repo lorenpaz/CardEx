@@ -1,4 +1,5 @@
 /*Estilos administrador*/
+
 .admin-menu{
 	float:left;
 	width: 10%;
@@ -23,6 +24,7 @@ caption{
 
 .extended{
 	width:100%;
+	margin-top: 30px;
 }
 
 .margin-top{
