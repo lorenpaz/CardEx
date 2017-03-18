@@ -132,17 +132,9 @@
             </div>
     </div>
 </div>
-    </div>
-	
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <link href="static/css/adminStyles.css" rel="stylesheet" type="text/css">
-    <script src="static/js/jquery-3.1.1.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
-		<script>
-		$( function() {
+	<script>
+		$(function() {
 			$( "#tabs" ).tabs();
 	  } );
 	 </script>    
