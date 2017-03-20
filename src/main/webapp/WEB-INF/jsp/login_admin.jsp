@@ -3,7 +3,7 @@
     
 		<div class="container">
 			<div class="col-lg-2 margin-top centered">
-			  <form class="centered" action="users_admin.html">
+			  <form class="centered" action="admin">
 				<h1>Administrador</h1>
 				<div class="form-group">
 				  <label for="user">Usuario:</label>

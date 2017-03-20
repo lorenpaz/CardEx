@@ -64,7 +64,7 @@
 	<div id="carta1" title="Magic: The Gathering">
 		<table id="MainTable">
 			<td>
-				<img src="../../resources/img/carta.png" alt="Fuerza de Voluntad" width="200" height="300"/>
+				<img src="static/img/carta.png" alt="Fuerza de Voluntad" width="200" height="300"/>
 			</td>
 			<td>
 				<div id="firstparagraph">
@@ -130,7 +130,7 @@
     <!-- Placed at the end of the document so the pages load faster 
     <script src="../../resources/js/jquery-3.1.1.min.js"></script>
 	<script src="../../resources/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-    <script src="../../resources/js/bootstrap.min.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>-->
 	<script>
 			$(function () {
 			$("#carta1").dialog({
@@ -146,6 +146,6 @@
 				$("#carta1").dialog('close'); // open
 			});
 		});
-	</script>-->
+	</script>
 
 <%@ include file="../jspf/footer.jspf" %>

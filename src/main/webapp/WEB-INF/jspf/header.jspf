@@ -31,7 +31,6 @@
 
 <%-- nuestro body --%>
   <body>
-
 	<nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -40,11 +39,11 @@
 		
 		<div id="navbar" class="collapse navbar-collapse right">
           <ul class="nav navbar-nav">
-            <li><a href="home.html">Inicio</a></li>
-            <li class="active"><a href="perfil.html">Perfil</a></li>
-			<li><a href="gestionDeTusCartas.html">Gesti&oacute;n de cartas</a></li>
-            <li><a href="historial.html">Historial</a></li>
-			<li><a href="index.html">Cerrar sesi&oacute;n</a></li>
+            <li><a href="home">Inicio</a></li>
+            <li class="active"><a href="perfil">Perfil</a></li>
+			<li><a href="gestionDeTusCartas">Gesti&oacute;n de cartas</a></li>
+            <li><a href="historial">Historial</a></li>
+			<li><a href="index">Cerrar sesi&oacute;n</a></li>
           </ul>
         </div><!--/.nav-collapse -->
 		
