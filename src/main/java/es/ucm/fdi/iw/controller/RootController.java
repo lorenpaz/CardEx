@@ -9,21 +9,48 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller	
 public class RootController {
-
+	
 	@GetMapping({"/", "/index"})
-	String root() {
+	String index(Model model) {
+		List<String> listaCSS = new ArrayList<String>();
+		
+		List<String> listaJS = new ArrayList<String>();
+		
+		model.addAttribute("pageExtraCSS",listaCSS);
+		model.addAttribute("pageExtraScripts",listaJS);
+				
 		return "index";
 	}
 	
 	@GetMapping({"/home"})
-	String home() {
+	String home(Model model) {
+		List<String> listaCSS = new ArrayList<String>();
+		listaCSS .add("styleHome.css");
+		
+		List<String> listaJS = new ArrayList<String>();
+		listaJS.add("jquery-3.1.1.min.js");
+		listaJS.add("jquery-ui-1.12.1/jquery-ui.min.js");
+		listaJS.add("bootstrap.min.js");
+		
+		model.addAttribute("pageExtraCSS",listaCSS);
+		model.addAttribute("pageExtraScripts",listaJS);
+				
 		return "home";
 	}
 	
 	@GetMapping({"/gestionDeTusCartas"})
-	String gestionCartas() {
-		return "gestionTusCartas";
+	String gestionCartas(Model model) {
+		List<String> listaCSS = new ArrayList<String>();
+		listaCSS .add("adminStyles.css");
+		
+		List<String> listaJS = new ArrayList<String>();
+		
+		model.addAttribute("pageExtraCSS",listaCSS);
+		model.addAttribute("pageExtraScripts",listaJS);
+		
+		return "gestionDeTusCartas";
 	}
+	
 	@GetMapping({"/intercambio"})
 	String intercambio(Model model) {
 		
@@ -41,7 +68,18 @@ public class RootController {
 	}
 	
 	@GetMapping({"/historial"})
-	String historial() {
+	String historial(Model model) {
+		
+		List<String> listaCSS = new ArrayList<String>();
+		listaCSS.add("styleHistorial.css");
+		
+		List<String> listaJS = new ArrayList<String>();
+		listaJS.add("jquery-3.1.1.min.js");
+		listaJS.add("bootstrap.min.js");
+		
+		model.addAttribute("pageExtraCSS",listaCSS);
+		model.addAttribute("pageExtraScripts",listaJS);
+		
 		return "historial";
 	}
 	
