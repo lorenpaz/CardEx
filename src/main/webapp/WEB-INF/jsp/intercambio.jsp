@@ -73,12 +73,5 @@
         </div>
     </div>
 	
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-	<!--   <link href="static/css/intercambioStyles.css" rel="stylesheet" type="text/css">
-    <script src="static/js/jquery-3.1.1.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script> -->
     
     <%@ include file="../jspf/footer.jspf" %>

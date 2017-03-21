@@ -1,7 +1,7 @@
 <%@ include file="../jspf/header.jspf" %>
-    <div class="container">
+<div class="container">
 	
-        <div class="principal">
+    <div class="principal">
         <div class="col-lg-6 col-sm-6 extended">
             <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
                 <div class="btn-group" role="group">
@@ -127,9 +127,8 @@
                     </div>
                 </div>
               </div>
-            </div>
-            
-            </div>
+            </div>     
+        </div>
     </div>
 </div>
 
