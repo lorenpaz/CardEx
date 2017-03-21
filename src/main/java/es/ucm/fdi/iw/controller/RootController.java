@@ -35,7 +35,7 @@ public class RootController {
 	@GetMapping({"/gestion_cartas"})
 	String gestionCartas(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
-		listaCSS .add("adminStyles.css");
+		listaCSS .add("gestionStyles.css");
 		
 		List<String> listaJS = new ArrayList<String>();
 		

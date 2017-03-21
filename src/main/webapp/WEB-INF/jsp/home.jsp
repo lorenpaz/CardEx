@@ -30,7 +30,7 @@
             <div id="ofrece-column" class="offer-column">
                 <h3>Ofrece</h3>
                 <ul class="list-group">
-                    <li class="list-group-item r" id="c">Carta1</li>
+                    <li class="list-group-item r">Carta1</li>
                     <li class="list-group-item r">Carta2</li>
                     <li class="list-group-item r">Carta3</li>
                     <li class="list-group-item r">Carta4</li>
