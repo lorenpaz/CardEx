@@ -77,5 +77,5 @@
 			</div>
 			<button type="submit" class="btn btn-default right">Registrar</button>
 		</div>
-    </div><!-- /.container -->
+</div>			<!-- /.container -->
 <%@ include file="../jspf/footer.jspf" %>

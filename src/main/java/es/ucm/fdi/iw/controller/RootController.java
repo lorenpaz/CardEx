@@ -12,15 +12,7 @@ public class RootController {
 	
 	@GetMapping({"/", "/index"})
 	String index(Model model) {
-		/*
-		 * Si no se pasa nada no hace falta
-		 * List<String> listaCSS = new ArrayList<String>();
-		
-		List<String> listaJS = new ArrayList<String>();
-		
-		model.addAttribute("pageExtraCSS",listaCSS);
-		model.addAttribute("pageExtraScripts",listaJS);
-				*/
+
 		return "index";
 	}
 	

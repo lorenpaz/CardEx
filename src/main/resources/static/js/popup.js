@@ -9,7 +9,11 @@ $(document).ready(function() {
 			window.setTimeout(function(){
 				$('.window-container.'+type).addClass('window-container-visible');
 			}, 100);
-			
+			$(window).resize(function() {
+				  // This will execute whenever the window is resized
+				  $(window).height(); // New height
+				  $(window).width(); // New width
+				});
 		});
 	});
 	

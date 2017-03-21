@@ -53,7 +53,7 @@
                         <td></td>
                         <td><form method="post"><span class="glyphicon glyphicon-remove"></span></form></td>
                       </tr>
-                    </table>     
+                  </table>     
                 </div>
                 <div class="tab-pane fade in" id="tab2">
                   <div>
@@ -94,7 +94,6 @@
 	                    </tr>
                   	</table>
                 </div>
-                    <div>
                         <table class="table table-striped table-hover">
 	                         <caption>Todas las colecciones</caption>
 	                        <th>#</th>
@@ -130,7 +129,6 @@
             </div>     
         </div>
     </div>
-</div>
 
 <script>
 $(function() {

@@ -6,7 +6,7 @@
 	            <div id="ofrece-column" class="offer-column col-intercambio">
 	                <h3>Tú</h3>
 	                <table class="table table-striped">
-	                <caption>Ofreces</caption>
+	                  <caption>Ofreces</caption>
                       <th>Carta</th>
                       <th>Estado</th>
                       <th>Cantidad</th>
@@ -41,31 +41,31 @@
 	            <div id="pide-column" class="offer-column col-intercambio">
 	                <h3>Pepe</h3>
 	                <table class="table table-striped">
-	                <caption>Pides</caption>
-                      <th>Carta</th>
-                      <th>Estado</th>
-                      <th>Cantidad</th>
-                      <tr>
-                      	<td>Carta 5</td>
-                      	<td><span class="estadoCarta label label-success">Nueva</span></td>
-                      	<td><button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
-						<input type="text" name="quantity" class="cantidad-carta" value="0">
-						<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus"></span></button></td>
-                      </tr>
-                      <tr>
-                      	<td>Carta 6</td>
-                      	<td><span class="estadoCarta label label-success">Nueva</span></td>
-                      	<td><button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
-						<input type="text" name="quantity" class="cantidad-carta" value="0">
-						<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus"></span></button></td>
-                      </tr>
-                      <tr>
-                      	<td>Carta 6</td>
-                      	<td><span class="estadoCarta label label-danger">Deteriorada</span></td>
-                      	<td><button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
-						<input type="text" name="quantity" class="cantidad-carta" value="0">
-						<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus"></span></button></td>
-                      </tr>
+		                <caption>Pides</caption>
+	                      <th>Carta</th>
+	                      <th>Estado</th>
+	                      <th>Cantidad</th>
+	                      <tr>
+	                      	<td>Carta 5</td>
+	                      	<td><span class="estadoCarta label label-success">Nueva</span></td>
+	                      	<td><button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
+							<input type="text" name="quantity" class="cantidad-carta" value="0">
+							<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus"></span></button></td>
+	                      </tr>
+	                      <tr>
+	                      	<td>Carta 6</td>
+	                      	<td><span class="estadoCarta label label-success">Nueva</span></td>
+	                      	<td><button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
+							<input type="text" name="quantity" class="cantidad-carta" value="0">
+							<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus"></span></button></td>
+	                      </tr>
+	                      <tr>
+	                      	<td>Carta 6</td>
+	                      	<td><span class="estadoCarta label label-danger">Deteriorada</span></td>
+	                      	<td><button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-minus"></span></button>
+							<input type="text" name="quantity" class="cantidad-carta" value="0">
+							<button type="button" class="btn btn-xs"><span class="glyphicon glyphicon-plus"></span></button></td>
+	                      </tr>
                     </table>
 	            </div>
             	<button class="btn btn-primary">Ofrecer</button>
