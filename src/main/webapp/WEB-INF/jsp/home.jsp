@@ -1,7 +1,7 @@
 <%@ include file="../jspf/header.jspf" %>
 <div class="container">
 	
-	<form id="filter" class="form-inline form-search" method="post">
+		<form id="filter" class="form-inline form-search" method="get">
            	<label>Filtros de b&uacute;squeda</label>
 			<label>Carta
             		<input type="search" class="form-control" value=""></label>
@@ -131,7 +131,7 @@
     <script src="../../resources/js/jquery-3.1.1.min.js"></script>
 	<script src="../../resources/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="../../resources/js/bootstrap.min.js"></script>-->
-	<script>
+	<!--   <script>
 			$(function () {
 			$("#carta1").dialog({
 				autoOpen: false,
@@ -146,6 +146,6 @@
 				$("#carta1").dialog('close'); // open
 			});
 		});
-	</script>
+	</script>-->
 
 <%@ include file="../jspf/footer.jspf" %>

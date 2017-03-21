@@ -61,7 +61,7 @@
 			</div>
 			
 			<div class="offer-column">
-				<h3>Buscacas</h3>
+				<h3>Buscadas</h3>
 				<table class="table table-striped">    
 				  <th>Carta</th>
 				  <th></th>

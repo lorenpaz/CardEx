@@ -1,4 +1,4 @@
-<%@ include file="../jspf/header.jspf" %>
+<%@ include file="../jspf/header2.jspf" %>
 <div class="container">
 		<div class="zona-info col-sm-6">
 			<h3 class="center">Ponte en contacto con otros jugadores</h3>

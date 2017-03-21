@@ -40,7 +40,7 @@ public class RootController {
 		return "home";
 	}
 	
-	@GetMapping({"/gestionDeTusCartas"})
+	@GetMapping({"/gestion_cartas"})
 	String gestionCartas(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS .add("adminStyles.css");
@@ -50,7 +50,7 @@ public class RootController {
 		model.addAttribute("pageExtraCSS",listaCSS);
 		model.addAttribute("pageExtraScripts",listaJS);
 		
-		return "gestionDeTusCartas";
+		return "gestion_cartas";
 	}
 	
 	@GetMapping({"/intercambio"})

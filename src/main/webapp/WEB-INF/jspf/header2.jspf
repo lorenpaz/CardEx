@@ -31,21 +31,20 @@
 
 <%-- nuestro body --%>
   <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-			<img src="static/img/logo.png" alt="Logo" class="logo">
+			<img src="static/img/logo.png" class="logo">
         </div>
-		
-		<div id="navbar" class="collapse navbar-collapse right">
-          <ul class="nav navbar-nav">
-            <li class="enlace"><a href="home">Inicio</a></li>
-            <li class="enlace"><a href="perfil">Perfil</a></li>  <!-- clase 'active' -->
-			<li class="enlace"><a href="gestionDeTusCartas">Gesti&oacute;n de cartas</a></li>
-            <li class="enlace"><a href="historial">Historial</a></li>
-			<li class="enlace"><a href="index">Cerrar sesi&oacute;n</a></li>
-          </ul>
+		<form action="home" method="get">
+		<button type="submit" class="btn btn-default btn-sm btn-login right">Login</button>
+		</form>form>		
+        <div id="navbar" class="collapse navbar-collapse login-form right">
+			<label class="font-white">Usuario</label>
+			<input >
+			<label class="font-white">Contrase&ntilde;a</label>
+			<input >
+			
         </div><!--/.nav-collapse -->
-		
       </div>
     </nav>
