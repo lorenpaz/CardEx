@@ -45,7 +45,6 @@
             <li class="enlace"><a href="historial">Historial</a></li>
 			<li class="enlace"><a href="index">Cerrar sesi&oacute;n</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
-		
+        </div>
       </div>
     </nav>

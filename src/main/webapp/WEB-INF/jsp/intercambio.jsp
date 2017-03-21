@@ -1,6 +1,6 @@
 <%@ include file="../jspf/header.jspf" %>
 
-<div class="container">
+	<div class="container">
         <div class="extended" id="intercambio">
         	<div class="centered text-center">
 	            <div id="ofrece-column" class="offer-column col-intercambio">
@@ -72,6 +72,5 @@
             </div>
         </div>
     </div>
-	
     
     <%@ include file="../jspf/footer.jspf" %>

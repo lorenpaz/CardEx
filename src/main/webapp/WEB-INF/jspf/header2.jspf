@@ -37,14 +37,13 @@
 			<img src="static/img/logo.png" class="logo">
         </div>
 		<form action="home" method="get">
-		<button type="submit" class="btn btn-default btn-sm btn-login right">Login</button>
+			<button type="submit" class="btn btn-default btn-sm btn-login right">Login</button>
 		</form>form>		
         <div id="navbar" class="collapse navbar-collapse login-form right">
 			<label class="font-white">Usuario</label>
 			<input >
 			<label class="font-white">Contrase&ntilde;a</label>
 			<input >
-			
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </nav>
