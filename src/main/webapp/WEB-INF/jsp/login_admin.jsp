@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<%-- Nuestro header --%>
-	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-	<title>CardEx</title>
-	
-	<!-- Bootstrap Core CSS -->
-	<link href="static/css/bootstrap.min.css" rel="stylesheet">
-	<!-- MetisMenu CSS -->
-	<link href="static/css/metisMenu.min.css" rel="stylesheet">
-	<!-- Custom CSS -->
-	<link href="static/css/sb-admin-2.min.css" rel="stylesheet">
-	<!-- Custom Fonts -->
-	<link href="static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href="static/css/main.css" rel="stylesheet" type="text/css">
-	<link href="static/css/adminStyles.css" rel="stylesheet" type="text/css">
-</head>
-<body>
+<%@ include file="../jspf/header.jspf" %>
     
 <div class="container">
 	<div class="col-lg-2 margin-top centered">
