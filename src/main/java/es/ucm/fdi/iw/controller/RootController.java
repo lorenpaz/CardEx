@@ -19,12 +19,15 @@ public class RootController {
 	@GetMapping({"/home"})
 	String home(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
-		listaCSS .add("styleHome.css");
+		listaCSS.add("styleHome.css");
+		listaCSS.add("popup.css");
 		
 		List<String> listaJS = new ArrayList<String>();
 		listaJS.add("jquery-3.1.1.min.js");
 		listaJS.add("jquery-ui-1.12.1/jquery-ui.min.js");
 		listaJS.add("bootstrap.min.js");
+		listaJS.add("popup.js");
+		
 		
 		model.addAttribute("pageExtraCSS",listaCSS);
 		model.addAttribute("pageExtraScripts",listaJS);

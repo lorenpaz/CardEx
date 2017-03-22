@@ -30,7 +30,7 @@
             <div id="ofrece-column" class="offer-column">
                 <h3>Ofrece</h3>
                 <ul class="list-group">
-                    <li class="list-group-item r">Carta1</li>
+                    <li class="list-group-item r"><a class="popup-trigger">Carta1</a></li>
                     <li class="list-group-item r">Carta2</li>
                     <li class="list-group-item r">Carta3</li>
                     <li class="list-group-item r">Carta4</li>
@@ -45,18 +45,113 @@
                     <li class="list-group-item"><br></li>
                 </ul>
             </div>
-			
-           <!-- <div id="action" class="offer-column">
-                <div class="list-group">
-                    <button class="list-group-item btn btn-primary">Aceptar</button>
-                    <button class="list-group-item">Rechazar</button>
-                    <button class="list-group-item">Hacer controferta</button>
-                </div>
-            </div>-->
 			<div id="action" class="row">
 				<button class="btn-primary">Hacer oferta</button>
 			</div>
 		</div>
+		
+		<div class="popup">
+					<!--Cartas -->
+			<div id="carta1" title="Magic: The Gathering">
+				<table id="MainTable">
+					<td>
+						<img src="static/img/carta.png" alt="Fuerza de Voluntad" width="200" height="300"/>
+					</td>
+					<td>
+						<div id="firstparagraph">
+							<!--Detalles carta-->
+							<table id="details2">
+								<tr>
+									<td></td>
+								</tr>
+								<tr>
+									<td class="amarillo datacell"><strong> <p>Fuerza de Voluntad / Force of Will</strong></p></td>
+								</tr>
+								<tr>
+									<td class="blanco datacell"><strong> <p>Color:</strong>Azul</p></td>
+								</tr>
+								<tr>
+									<td class="blanco datacell"><strong> <p>Tipo: </strong>Instant&aacute;neo</p></td>
+								</tr>
+								<tr>
+									<td class="blanco datacell"><strong> <p>Tipo de criatura: </strong>N/A</p></td>
+								</tr>
+								<tr>
+									<td class="blanco datacell"><strong> <p>Coste: </strong>
+									</p></td>
+								</tr>
+								<tr>
+									<td class="blanco datacell"><strong> <p>Fuerza: </strong>-</p></td>
+								</tr>
+								<tr>
+									<td class="blanco datacell"><strong> <p>Resistencia: </strong>-</p></td>
+								</tr>
+								<tr>
+									<td class="blanco datacell"><strong> <p>Frecuencia: </strong>Infrecuente</p></td>
+								</tr>		
+							</table>
+						</div>
+						<!--Detalles 2 Carta -->
+						<div id="secondparagraph">
+							<table id="details">
+								<tr>
+									<td class="blanco datacell"><strong> <p>Texto: </strong></p></td>
+								</tr>
+								<tr>
+									<td class="blanco datacell"><p>Puedes pagar 1 vida y retirar del juego una carta azul de tu mano en vez de pagar el coste de invocacion de la Fuerza de voluntad.</p></td>
+								</tr>
+								<tr>
+									<td></td>
+								</tr>
+								<tr>
+									<td class="blanco datacell"><p>Precio: 85 € </p></td>
+								</tr>			
+								<tr>
+								<td></td>
+								</tr>
+							</table>
+						</div>
+					<td>
+				</table>
+			</div>
+		  <span class="popup-btn-close">close</span>
+		</div>
 </div>
+
+		<script>
+		// Popup Window
+		var scrollTop = '';
+		var newHeight = '100';
+
+		$(window).bind('scroll', function() {
+		   scrollTop = $( window ).scrollTop();
+		   newHeight = scrollTop + 100;
+		});
+		
+		$('.popup-trigger').click(function(e) {
+  		 e.stopPropagation();
+		 if(jQuery(window).width() < 767) {
+		   $(this).after( $( ".popup" ) );
+		   $('.popup').show().addClass('popup-mobile').css('top', 0);
+		   $('html, body').animate({
+				scrollTop: $('.popup').offset().top
+			}, 500);   
+		 } else {
+		   $('.popup').removeClass('popup-mobile').css('top', newHeight).toggle();
+		 };
+		});
+		
+		$('html').click(function() {
+		 $('.popup').hide();
+		});
+
+		$('.popup-btn-close').click(function(e){
+		  $('.popup').hide();
+		});
+
+		$('.popup').click(function(e){
+		  e.stopPropagation();
+		});
+		</script>
 
 <%@ include file="../jspf/footer.jspf" %>
