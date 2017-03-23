@@ -88,3 +88,18 @@
     -webkit-border-radius:0 !important;
 }
 
+
+label{
+	display: block;
+	text-align: center;
+}
+
+.form-control{
+	width: 40%;
+	margin: 0 auto;
+}
+
+#settingsButton{
+	margin: 1% 41% 0 41%;
+    width: 18%;
+}
