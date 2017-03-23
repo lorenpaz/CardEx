@@ -9,20 +9,20 @@
 		<div class="zona-registro col-sm-6">
 			<h3> ¿Aún no tienes cuenta? Regístrate.</h3>
 			<div class="form-group">
-				<label>Nombre
-				<input class="form-control"></label>
-				<label>Apellidos
-				<input class="form-control"></label>
-				<label>E-Mail
-				<input class="form-control"></label>
-				<label>Nombre de usuario
-				<input class="form-control"></label>
-				<label>Contraseña
-				<input class="form-control"></label>
-				<label>Confirmar contraseña
-				<input class="form-control"></label>
-				<label>Provincia
-				<select class="form-control">
+				<label for="nameform">Nombre</label>
+				<input id="nameform" class="form-control">
+				<label for="surnameform">Apellidos</label>
+				<input id="surnameform" class="form-control">
+				<label for="mailform">E-Mail</label>
+				<input id="mailform" class="form-control">
+				<label for="usernameform">Nombre de usuario</label>
+				<input id="usernameform" class="form-control">
+				<label for="passform">Contraseña</label>
+				<input id="passform" class="form-control">
+				<label for="repassform">Confirmar contraseña</label>
+				<input id="repassform" class="form-control">
+				<label for="provform">Provincia</label>
+				<select id="provform" class="form-control">
 					<option>A Coruña</option>
 					<option>Álava</option>
 					<option>Albacete</option>
@@ -73,7 +73,7 @@
 					<option>Vizcaya</option>
 					<option>Zamora</option>
 					<option>Zaragoza</option>
-				</select></label>
+				</select>
 			</div>
 			<button type="submit" class="btn btn-default right">Registrar</button>
 		</div>
