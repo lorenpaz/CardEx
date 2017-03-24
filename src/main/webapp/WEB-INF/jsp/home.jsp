@@ -8,7 +8,7 @@
             <label>Usuario
             <input type="search" class="form-control" value=""></label>
 			<label>Valoraci&oacute;n
-			<input id="input-21e" value="3" type="text" class="rating" data-min=0 data-max=5 data-step=0.5 data-size="xs" displayonly title="">
+			<input id="input-21e" value="3" type="text" class="rating" data-min=0 data-max=5 data-step=0.5 data-size="xs" title="">
 			<input type="submit" class="btn btn-primary" value="Buscar"></label>
         </form>
 		
@@ -104,7 +104,7 @@
 									<td></td>
 								</tr>
 								<tr>
-									<td class="blanco datacell"><p>Precio: 85 € </p></td>
+									<td class="blanco datacell"><p>Precio: 85 €</p></td>
 								</tr>			
 								<tr>
 								<td></td>
