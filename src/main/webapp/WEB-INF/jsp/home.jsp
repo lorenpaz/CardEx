@@ -3,12 +3,12 @@
 <div class="container">
 	
 		<form id="filter" class="form-inline form-search" method="get">
-           	<label>Filtros de b&uacute;squeda</label>
 			<label>Carta
             <input type="search" class="form-control" value=""></label>
             <label>Usuario
             <input type="search" class="form-control" value=""></label>
 			<label>Valoraci&oacute;n
+			<input id="input-21e" value="3" type="text" class="rating" data-min=0 data-max=5 data-step=0.5 data-size="xs" displayonly title="">
 			<input type="submit" class="btn btn-primary" value="Buscar"></label>
         </form>
 		
@@ -46,7 +46,7 @@
                 </ul>
             </div>
 			<div id="action" class="row">
-				<button class="btn-primary">Hacer oferta</button>
+				<a href="intercambio"><button class="btn-primary">Hacer oferta</button></a>
 			</div>
 		</div>
 		

@@ -47,32 +47,32 @@
 			</div>
 			<div class="tab-pane fade in" id="tab2">
 				Valoración media del usuario
-				<input id="input-21e" value="3" type="text" class="rating" readonly data-min=0 data-max=5 data-step=0.5 data-size="sm" readonly:true title="">
+				<input id="input-21e" value="3" type="text" class="rating" readonly data-min=0 data-max=5 data-step=0.5 data-size="sm" title="">
 				<table class="table table-sm">
 					<td>
 						<form action="" method="POST">
 						Valora al usuario (este apartado no aparece a veces)
 						<textarea id="opinion" rows="4" cols="50" class="center"></textarea>
-						<input id="input-21e" value="3" type="text" class="rating" data-min=0 data-max=5 data-step=0.5 data-size="xs" rating-disabled title="">
+						<input id="input-21e" value="3" type="text" class="rating" data-min=0 data-max=5 data-step=0.5 data-size="xs" title="">
 						<button type="submit" class="btn btn-sm btn-success right">Valorar</button>
 						</form>
 					</td>
 					<tr>
 					  <th scope="row">Pepe</th>
 					  <td>Me has intercambiado tu mejor cromo. ¡Gracias! <br>
-						<input id="input-21e" value="4" type="text" class="rating" readonly data-min=0 data-max=5 data-step=0.5 data-size="xs" rating-disabled title="">
+						<input id="input-21e" value="4" type="text" class="rating" readonly data-min=0 data-max=5 data-step=0.5 data-size="xs" title="">
 					  </td>
 					</tr>
 					<tr>
 					  <th scope="row">Ignacio</th>
 					  <td>No me ha gustado que hayas llegado tarde a la quedada
-					  	<input id="input-21e" value="1" type="text" class="rating" readonly data-min=0 data-max=5 data-step=0.5 data-size="xs" rating-disabled title="">
+					  	<input id="input-21e" value="1" type="text" class="rating" readonly data-min=0 data-max=5 data-step=0.5 data-size="xs" title="">
 					  </td>
 					</tr>
 					<tr>
 					  <th scope="row">Lorenzo</th>
 					  <td>Muy buen coleccionista de cromos
-						<input id="input-21e" value="5" type="text" class="rating" readonly data-min=0 data-max=5 data-step=0.5 data-size="xs" rating-disabled title="">		  
+						<input id="input-21e" value="5" type="text" class="rating" readonly data-min=0 data-max=5 data-step=0.5 data-size="xs" title="">		  
 					  </td>
 					</tr>
 				</table>   

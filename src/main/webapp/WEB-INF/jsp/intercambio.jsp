@@ -77,6 +77,4 @@
         </div>
     </div>
     
-    <script src="static/js/intercambio.js"></script>
-    
     <%@ include file="../jspf/footer.jspf" %>
