@@ -10,12 +10,6 @@
 	
 	<!-- Bootstrap Core CSS -->
 	<link href="${prefix}css/bootstrap.min.css" rel="stylesheet">
-	<!-- MetisMenu CSS -->
-	<link href="${prefix}css/metisMenu.min.css" rel="stylesheet">
-	<!-- Custom CSS -->
-	<link href="${prefix}css/sb-admin-2.min.css" rel="stylesheet">
-	<!-- Custom Fonts -->
-	<link href="${prefix}css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="${prefix}css/main.css" rel="stylesheet" type="text/css">
 	
 	<%-- pageExtraCSS --%>

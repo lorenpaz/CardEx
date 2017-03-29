@@ -3,7 +3,6 @@
 	width: 20%;
 	float: left;
 	padding: 0px;
-	text-align: center;
 }
 .offer-column .list-group{
 	display: block;
@@ -24,9 +23,7 @@
 }
 
 #cartas-column{
-	padding-right: 1px;
-	background-color: lightblue;
-	border-right: 5px solid white;
+	width: 100%;
 }
 
 #cambiar-column{
@@ -36,11 +33,21 @@
 	
 }
 #buscadas-column{
-	width: 30%;
+	width: 50%;
 	border-right:0px;
 	height: auto;
 }
 
-#buscadas-column th {
+h3{
+	text-align: center;
+}
+
+.cantidad-carta{
+	width: 40px;
+	text-align: center;
+}
+
+.drop-cell{
+	height: 30px;
 	text-align: center;
 }

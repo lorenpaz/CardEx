@@ -50,7 +50,8 @@ public class RootController {
 		listaCSS .add("gestionStyles.css");
 		
 		List<String> listaJS = new ArrayList<String>();
-		
+		listaJS.add("drag.js");	
+
 		model.addAttribute("pageExtraCSS",listaCSS);
 		model.addAttribute("pageExtraScripts",listaJS);
 		
