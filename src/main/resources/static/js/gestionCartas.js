@@ -13,7 +13,7 @@ function drop(ev, col) {
     var newElement = document.createElement("tr");
     var newTd = document.createElement("td");
     if(col === 1){
-    	newTd.innerHTML = "<span class='glyphicon glyphicon-remove'></span>";
+    	newTd.innerHTML = "<button type='button' class='btn btn-link btn-xs'><span class='glyphicon glyphicon-remove'></span></button>";
     	newElement.appendChild(org);
     	newElement.appendChild(newTd);
     	var parent = ev.target.parentNode;
@@ -30,7 +30,7 @@ function drop(ev, col) {
     						" <button type='button' class='btn btn-xs' onclick='incrSpinner(event)'>"+
     						"<span class='glyphicon glyphicon-plus'></span></button>";
     	var newTd4 = document.createElement("td");
-    	newTd4.innerHTML =	"<span class='glyphicon glyphicon-remove'></span></td>";
+    	newTd4.innerHTML =	"<button type='button' class='btn btn-link btn-xs'><span class='glyphicon glyphicon-remove'></span></button></td>";
     	newElement.appendChild(org);
     	newElement.appendChild(newTd);
     	newElement.appendChild(newTd2);
@@ -58,4 +58,8 @@ function incrSpinner(e){
 	element.value = num;
 	
 }
+
+$(document).ready(function() {
+    $('#example').dataTable();
+} );
 
