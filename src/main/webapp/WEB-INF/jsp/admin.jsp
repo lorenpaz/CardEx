@@ -71,14 +71,14 @@
 	                      <td>15/02/2014</td>
 	                      <td>Activo</td>
 	                      <td></td>
-	                      <td><form method="post"><span class="glyphicon glyphicon-remove"></span></form></td>
+	                      <td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></form></td>
 	                    </tr>
 	                    <tr>
 	                      <td>2</td>
 	                      <td>Paul</td>
 	                      <td>23/05/2015</td>
 	                      <td>Inactivo</td>
-	                      <td><form method="post"><span class="glyphicon glyphicon-ok"></span></form></td>
+	                      <td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-ok"></span></button></form></td>
 	                      <td></td>
 	                    </tr>
 	                    <tr>
@@ -87,7 +87,7 @@
 	                      <td>31/03/16</td>
 	                      <td>Activo</td>
 	                      <td></td>
-	                      <td><form method="post"><span class="glyphicon glyphicon-remove"></span></form></td>
+	                      <td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></form></td>
 	                    </tr>
 	                  </table>     
 	                </div>
