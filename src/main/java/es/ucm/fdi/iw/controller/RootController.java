@@ -47,10 +47,13 @@ public class RootController {
 	@GetMapping({"/gestion_cartas"})
 	String gestionCartas(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
-		listaCSS .add("gestionStyles.css");
+		listaCSS.add("bootstrap.min.css");
+		listaCSS.add("jquery.dataTables.min.css");
+		listaCSS.add("gestionStyles.css");
 		
 		List<String> listaJS = new ArrayList<String>();
 		listaJS.add("jquery-3.1.1.min.js");
+		listaJS.add("jquery.dataTables.min.js");
 		listaJS.add("gestionCartas.js");	
 
 		model.addAttribute("pageExtraCSS",listaCSS);

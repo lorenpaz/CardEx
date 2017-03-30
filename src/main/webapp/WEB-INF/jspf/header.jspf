@@ -15,12 +15,7 @@
 	<%-- pageExtraCSS --%>
 	<c:forEach var="i" items="${pageExtraCSS}" >
         <link rel="stylesheet" href="${prefix}css/${i}" type="text/css">
-    </c:forEach>
-	
-	<%-- pageExtraScripts --%>
-	<c:forEach var="i" items="${pageExtraScripts}" >
-        <script src="${prefix}js/${i}"></script>
-    </c:forEach>    
+    </c:forEach> 
 
 </head>
 

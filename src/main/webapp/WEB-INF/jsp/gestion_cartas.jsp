@@ -48,7 +48,16 @@
 					<a href="#" class="list-group-item">Wild mongrel</a>
 					<a href="#" class="list-group-item">River boa</a>
 				</div> -->
-				<table class="table table-striped">
+				<table class="table table-striped" id="paginacionTabla">
+				  <thead>
+				  	<tr>
+				  		<th></th>
+				  		<th></th>
+				  		<th></th>
+				  		<th></th>
+				  	</tr>
+				  </thead>
+				  <tbody>
 					<tr>
 						<td id="card1" draggable="true" ondragstart="drag(event)">Force of will</td>
 						<td id="card2" draggable="true" ondragstart="drag(event)">Masticore</td>
@@ -67,6 +76,42 @@
 						<td id="card11" draggable="true" ondragstart="drag(event)">Air Lion</td>
 						<td id="card12" draggable="true" ondragstart="drag(event)">Earth Dolphin</td>
 					</tr>
+					
+					<tr>
+						<td id="card13" draggable="true" ondragstart="drag(event)">Pithing Needle</td>
+						<td id="card14" draggable="true" ondragstart="drag(event)">Arcbound Ravager</td>
+						<td id="card15" draggable="true" ondragstart="drag(event)">Blinkmoth Nexus</td>
+						<td id="card16" draggable="true" ondragstart="drag(event)">Brain Freeze</td>
+					</tr>
+					
+					<tr>
+						<td id="card17" draggable="true" ondragstart="drag(event)">Browbeat</td>
+						<td id="card18" draggable="true" ondragstart="drag(event)">Cabal Coffers</td>
+						<td id="card19" draggable="true" ondragstart="drag(event)">Chalice of the Void</td>
+						<td id="card20" draggable="true" ondragstart="drag(event)">Isochron Scepter</td>
+					</tr>
+					
+					<tr>
+						<td id="card21" draggable="true" ondragstart="drag(event)">Counterbalance</td>
+						<td id="card22" draggable="true" ondragstart="drag(event)">Cranial Plating</td>
+						<td id="card23" draggable="true" ondragstart="drag(event)">Crucible of Worlds</td>
+						<td id="card24" draggable="true" ondragstart="drag(event)">Dark Confidant</td>
+					</tr>
+					
+					<tr>
+						<td id="card25" draggable="true" ondragstart="drag(event)">Green Elephant</td>
+						<td id="card26" draggable="true" ondragstart="drag(event)">Software Artifact</td>
+						<td id="card27" draggable="true" ondragstart="drag(event)">Air Lion</td>
+						<td id="card28" draggable="true" ondragstart="drag(event)">Earth Dolphin</td>
+					</tr>
+					
+					<tr>
+						<td id="card29" draggable="true" ondragstart="drag(event)">Green Elephant</td>
+						<td id="card30" draggable="true" ondragstart="drag(event)">Software Artifact</td>
+						<td id="card31" draggable="true" ondragstart="drag(event)">Air Lion</td>
+						<td id="card32" draggable="true" ondragstart="drag(event)">Earth Dolphin</td>
+					</tr>
+				  </tbody>
 				</table>
             </div>
 

@@ -59,7 +59,7 @@ function incrSpinner(e){
 	
 }
 
-$(document).ready(function() {
-    $('#example').dataTable();
-} );
 
+$(document).ready(function() {
+    $('#paginacionTabla').DataTable();
+} );
