@@ -10,7 +10,7 @@
 	
 	<!-- Bootstrap Core CSS -->
 	<link href="${prefix}css/bootstrap.min.css" rel="stylesheet">
-	<link href="${prefix}css/main.css" rel="stylesheet" type="text/css">
+	<link href="${prefix}css/header.css" rel="stylesheet" type="text/css">
 	
 	<%-- pageExtraCSS --%>
 	<c:forEach var="i" items="${pageExtraCSS}" >
