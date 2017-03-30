@@ -63,3 +63,16 @@
 	font-weight: bold;
 }
 
+#MainTable img{
+    margin-right: 30px;
+} 
+
+.nostyle {
+	color:black;
+	    text-decoration: none;
+}
+.nostyle:hover {
+	color: #0000ff;
+	text-decoration: none;
+}
+

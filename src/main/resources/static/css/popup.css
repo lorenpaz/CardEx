@@ -3,7 +3,7 @@ a.popup-trigger:link {
 }
 			
 			/* Styling the Popup Window */
-			  	.popup {display: none; position: absolute; top: 100px; left: 50%; width: 700px; margin-left: -350px; padding: 50px 30px;
-  					background: #fff; color: #333; font-size: 19px; line-height: 30px; border: 10px solid #150E2D; z-index: 9999;}
-  			    .popup-btn-close {position: absolute; top: 8px; right: 14px; color: #4EBD79; font-size: 14px; font-weight: bold; text-transform: uppercase; cursor: pointer;}	
+			  	.popup {display: none; position: absolute; top: 100px; left: 55%; width: 600px; margin-left: -350px; padding: 50px 30px; height: 400px;
+  					background: #e9f1de; color: #333; font-size: 15px; line-height: 15px; border: 10px solid #8d8c90; z-index: 9999;}
+  			    .popup-btn-close {position: absolute; top: 8px; right: 14px; color: #8d8e89; font-size: 14px; font-weight: bold; text-transform: uppercase; cursor: pointer;}	
   	

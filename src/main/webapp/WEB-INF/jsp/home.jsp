@@ -30,7 +30,7 @@
             <div id="ofrece-column" class="offer-column">
                 <h3>Ofrece</h3>
                 <ul class="list-group">
-                    <li class="list-group-item r"><a class="popup-trigger">Carta1</a></li>
+                    <li class="list-group-item r"><a class="popup-trigger nostyle">Carta1</a></li>
                     <li class="list-group-item r">Carta2</li>
                     <li class="list-group-item r">Carta3</li>
                     <li class="list-group-item r">Carta4</li>
@@ -95,7 +95,7 @@
 						<div id="secondparagraph">
 							<table id="details">
 								<tr>
-									<td class="blanco datacell"><strong> <p>Texto: </strong></p></td>
+									<td class="blanco datacell"><strong> <p>Informaci&oacute;n: </strong></p></td>
 								</tr>
 								<tr>
 									<td class="blanco datacell"><p>Puedes pagar 1 vida y retirar del juego una carta azul de tu mano en vez de pagar el coste de invocacion de la Fuerza de voluntad.</p></td>
@@ -104,7 +104,7 @@
 									<td></td>
 								</tr>
 								<tr>
-									<td class="blanco datacell"><p>Precio: 85 €</p></td>
+									<td class="blanco datacell"><p>Precio: 85 $</p></td>
 								</tr>			
 								<tr>
 								<td></td>
