@@ -3,6 +3,8 @@ package es.ucm.fdi.iw.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,9 +37,9 @@ public class RootController {
 		listaJS.add("jquery-3.1.1.min.js");
 		listaJS.add("jquery-ui-1.12.1/jquery-ui.min.js");
 		listaJS.add("bootstrap.min.js");
-		listaJS.add("popup.js");
-		listaJS.add("star-rating.min.js");		
-		
+		listaJS.add("star-rating.min.js");	
+		listaJS.add("popup.js");	
+		listaJS.add("home.js");
 		model.addAttribute("pageExtraCSS",listaCSS);
 		model.addAttribute("pageExtraScripts",listaJS);
 				
@@ -142,4 +144,29 @@ public class RootController {
 		return "perfil";
 	}
 	
+
+	
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 	@GetMapping("/login")
+	 	String login() {
+	 	return "login";
+	 	}
+	 @GetMapping("/login/{role}")
+	 String login(@PathVarable String role, HttpSession s) {
+		 s.setAttribute("role", role);
+		 return "login";
+	 }
+	 @GetMapping("/logout")
+	String logout(HttpSession s){
+		 s.invalidate();
+		 return "login";
+	 }
+	 
+	 return "redirect:login";
+	 *
+	 */
 }
