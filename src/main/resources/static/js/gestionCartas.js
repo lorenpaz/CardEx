@@ -61,5 +61,9 @@ function incrSpinner(e){
 
 
 $(document).ready(function() {
-    $('#paginacionTabla').DataTable();
+    $('#paginacionTabla').DataTable({
+    	"lengthMenu": [5, 10, 25, 50, 75, 100 ],
+    	"pageLength": 5,
+    	"lengthChange": false
+    });
 } );

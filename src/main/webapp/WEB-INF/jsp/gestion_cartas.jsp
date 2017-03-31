@@ -99,17 +99,17 @@
 					</tr>
 					
 					<tr>
-						<td id="card25" draggable="true" ondragstart="drag(event)">Green Elephant</td>
-						<td id="card26" draggable="true" ondragstart="drag(event)">Software Artifact</td>
-						<td id="card27" draggable="true" ondragstart="drag(event)">Air Lion</td>
-						<td id="card28" draggable="true" ondragstart="drag(event)">Earth Dolphin</td>
+						<td id="card25" draggable="true" ondragstart="drag(event)">Lorem ipsum Mega</td>
+						<td id="card26" draggable="true" ondragstart="drag(event)">Lorem ipsum 7</td>
+						<td id="card27" draggable="true" ondragstart="drag(event)">Lorem ipsum</td>
+						<td id="card28" draggable="true" ondragstart="drag(event)">Lorem ipsum3</td>
 					</tr>
 					
 					<tr>
-						<td id="card29" draggable="true" ondragstart="drag(event)">Green Elephant</td>
-						<td id="card30" draggable="true" ondragstart="drag(event)">Software Artifact</td>
-						<td id="card31" draggable="true" ondragstart="drag(event)">Air Lion</td>
-						<td id="card32" draggable="true" ondragstart="drag(event)">Earth Dolphin</td>
+						<td id="card29" draggable="true" ondragstart="drag(event)">Lorem ipsum4</td>
+						<td id="card30" draggable="true" ondragstart="drag(event)">Lorem ipsum5</td>
+						<td id="card31" draggable="true" ondragstart="drag(event)">Lorem ipsum6</td>
+						<td id="card32" draggable="true" ondragstart="drag(event)">Lorem ipsum7</td>
 					</tr>
 				  </tbody>
 				</table>
