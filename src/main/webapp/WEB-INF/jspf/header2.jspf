@@ -26,14 +26,14 @@
         <div class="navbar-header">
 			<img src="${prefix}img/logo.png" class="logo">
         </div>
-		<form action="home" method="get">
-			<button type="submit" class="btn btn-default btn-sm btn-login right">Login</button>
-		</form>form>		
+		<form action="login" method="post">
+			<button type="submit" class="btn btn-default btn-sm btn-login right">Login</button>	
         <div id="navbar" class="collapse navbar-collapse login-form right">
-			<label class="font-white">Usuario</label>
-			<input >
-			<label class="font-white">Contrase&ntilde;a</label>
-			<input >
+			<label class="font-white" for="login">Usuario</label>
+			<input type="text" id="login" name="login">
+			<label class="font-white" for="password">Contrase&ntilde;a</label>
+			<input type="password" id="password">
         </div>
+        </form>	
       </div>
     </nav>

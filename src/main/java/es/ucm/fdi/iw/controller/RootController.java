@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller	
 public class RootController {
@@ -81,6 +84,22 @@ public class RootController {
 		return "intercambio";
 	}
 	
+	 @PostMapping("/login")
+	 String login(@RequestParam("login") String formLogin, HttpSession session) {
+		 if(formLogin != null)
+			 session.setAttribute("user", formLogin);
+		 return "redirect:home";
+	 }
+	 
+	/**
+	 * Logout (also returns to home view).
+	 */
+	 @GetMapping("/logout")
+	String logout(HttpSession session){
+		 session.invalidate();
+		 return "redirect:index";
+	 }
+	 
 	@GetMapping({"/historial"})
 	String historial(Model model) {
 		
@@ -144,29 +163,4 @@ public class RootController {
 		return "perfil";
 	}
 	
-
-	
-	/*
-	 * 
-	 * 
-	 * 
-	 * 
-	 	@GetMapping("/login")
-	 	String login() {
-	 	return "login";
-	 	}
-	 @GetMapping("/login/{role}")
-	 String login(@PathVarable String role, HttpSession s) {
-		 s.setAttribute("role", role);
-		 return "login";
-	 }
-	 @GetMapping("/logout")
-	String logout(HttpSession s){
-		 s.invalidate();
-		 return "login";
-	 }
-	 
-	 return "redirect:login";
-	 *
-	 */
 }

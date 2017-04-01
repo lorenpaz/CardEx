@@ -29,11 +29,12 @@
 		
 		<div id="navbar" class="collapse navbar-collapse right">
           <ul class="nav navbar-nav">
+          	<li class="mensajeBienvenido">Bienvenido ${user}!</li>
             <li class="enlace"><a href="home">Inicio</a></li>
             <li class="enlace"><a href="perfil">Perfil</a></li>  <!-- clase 'active' -->
 			<li class="enlace"><a href="gestion_cartas">Gesti&oacute;n de cartas</a></li>
             <li class="enlace"><a href="historial">Historial</a></li>
-			<li class="enlace"><a href="index">Cerrar sesi&oacute;n</a></li>
+			<li class="enlace"><a href="logout">Cerrar sesi&oacute;n</a></li>
           </ul>
         </div>
       </div>
