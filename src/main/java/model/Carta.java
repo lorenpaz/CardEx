@@ -2,7 +2,12 @@ package model;
 
 import java.util.List;
 
+import javax.persistence.*;
+
+@Entity
 public class Carta {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idCarta;
 	private String name;
 	private String manaCost;
@@ -14,7 +19,9 @@ public class Carta {
 	private List<String> types;
 	private List<String> subtypes;
 	private String rarity;
+	@OneToMany(mappedBy="code")
 	private String set;
+	private String setName;
 	private String text;
 	private String artist;
 	private String number;
@@ -27,6 +34,11 @@ public class Carta {
 	private List<String> foreignNames;
 	private List<String> printings;
 	private String id;
+	@ManyToMany(mappedBy="buscadas")
+	private List<Usuario> usuariosBuscanCarta;
+	
+	@OneToMany(mappedBy="idCarta")
+	private List<CartasOfrecidasUsuario> usuariosOfrecenCarta;
 	
 	public Integer getIdCarta() {
 		return idCarta;
@@ -171,6 +183,24 @@ public class Carta {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public List<Usuario> getUsuariosBuscanCarta() {
+		return usuariosBuscanCarta;
+	}
+	public void setUsuariosBuscanCarta(List<Usuario> usuariosBuscanCarta) {
+		this.usuariosBuscanCarta = usuariosBuscanCarta;
+	}
+	public String getSetName() {
+		return setName;
+	}
+	public void setSetName(String setName) {
+		this.setName = setName;
+	}
+	public List<CartasOfrecidasUsuario> getUsuariosOfrecenCarta() {
+		return usuariosOfrecenCarta;
+	}
+	public void setUsuariosOfrecenCarta(List<CartasOfrecidasUsuario> usuariosOfrecenCarta) {
+		this.usuariosOfrecenCarta = usuariosOfrecenCarta;
 	}
 	
 	

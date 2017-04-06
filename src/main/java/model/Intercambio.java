@@ -1,6 +1,11 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
 public class Intercambio {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idIntercambio;
 	private Integer idUsuarioOfrece;
 	private Integer idUsuarioRecibe;

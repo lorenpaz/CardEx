@@ -1,8 +1,12 @@
 package model;
 
 import java.util.List;
+import javax.persistence.*;
 
+@Entity
 public class Usuario {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idUsuario;
 	private String nombre;
 	private String apellidos;
@@ -15,9 +19,13 @@ public class Usuario {
 	private String fechaAta;
 	private boolean activo;
 	
-	private List<Carta> Ofrecidas;
-	private List<Carta> Buscadas;
+	@OneToMany(mappedBy="idUsuario")
+	private List<CartasOfrecidasUsuario> ofrecidas;
+	@ManyToMany
+	private List<Carta> buscadas;
+	@ManyToMany
 	private List<Valoracion> valoracionesRecibidas;
+	@ManyToMany
 	private List<Valoracion> valoracionesDadas;
 	
 	public List<Valoracion> getValoracionesRecibidas() {
@@ -98,17 +106,17 @@ public class Usuario {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	public List<Carta> getOfrecidas() {
-		return Ofrecidas;
+	public List<CartasOfrecidasUsuario> getOfrecidas() {
+		return ofrecidas;
 	}
-	public void setOfrecidas(List<Carta> ofrecidas) {
-		Ofrecidas = ofrecidas;
+	public void setOfrecidas(List<CartasOfrecidasUsuario> ofrecidas) {
+		this.ofrecidas = ofrecidas;
 	}
 	public List<Carta> getBuscadas() {
-		return Buscadas;
+		return buscadas;
 	}
 	public void setBuscadas(List<Carta> buscadas) {
-		Buscadas = buscadas;
+		this.buscadas = buscadas;
 	}
 	
 	

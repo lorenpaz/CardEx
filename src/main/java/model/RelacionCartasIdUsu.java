@@ -1,6 +1,8 @@
 package model;
 
-public class CartasBuscadasUsuario {
+import java.io.Serializable;
+
+public class RelacionCartasIdUsu implements Serializable{
 	private Integer idUsuario;
 	private Integer idCarta;
 	
@@ -16,7 +18,4 @@ public class CartasBuscadasUsuario {
 	public void setIdCarta(Integer idCarta) {
 		this.idCarta = idCarta;
 	}
-	
-	
-
 }

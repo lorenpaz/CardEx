@@ -1,23 +1,20 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
+@IdClass(RelacionCartasIdUsu.class)
 public class CartasOfrecidasUsuario {
-	private Integer idUsuario;
-	private Integer idCarta;
+
+	@Id
+	@ManyToOne
+	private Usuario usuario;
+	@Id
+	@ManyToOne
+	private Carta Carta;
 	private Integer cantidad;
 	private String estadoCarta;
 	
-	public Integer getIdUsuario() {
-		return idUsuario;
-	}
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-	public Integer getIdCarta() {
-		return idCarta;
-	}
-	public void setIdCarta(Integer idCarta) {
-		this.idCarta = idCarta;
-	}
 	public Integer getCantidad() {
 		return cantidad;
 	}

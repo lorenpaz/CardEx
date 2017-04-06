@@ -1,6 +1,10 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
 public class CartasIntercambio {
+	
 	private Integer idIntercambio;
 	private Integer idCarta;
 	private String estadoCarta;

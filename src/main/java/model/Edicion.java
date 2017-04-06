@@ -1,6 +1,13 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
 public class Edicion {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	@ManyToOne
 	private String code;
 	private String name;
 	private String type;
@@ -9,6 +16,13 @@ public class Edicion {
 	private String releaseDate;
 	private String block;
 	private String magicCardsInfoCode;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	public String getType() {
 		return type;
