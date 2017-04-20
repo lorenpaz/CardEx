@@ -5,8 +5,28 @@ import javax.persistence.*;
 //@Entity
 //@IdClass(RelacionCartasIdUsu.class)
 public class CartasOfrecidasUsuario {
+	
+	private long id;
 
-//	@Id
+public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public Carta getCarta() {
+		return carta;
+	}
+	public void setCarta(Carta carta) {
+		this.carta = carta;
+	}
+	//	@Id
 //	@ManyToOne
 	private Usuario usuario;
 //	@Id
