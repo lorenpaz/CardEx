@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Valoracion {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idValoracion;
+	private long id;
 	private Integer idUsuarioQueValora;
 	private Integer idUsuarioValorado;
 	private String comentario;
@@ -20,11 +20,11 @@ public class Valoracion {
 	private List<Usuario> usuariosQueValoran;
 	
 	
-	public Integer getIdValoracion() {
-		return idValoracion;
+	public long getId() {
+		return id;
 	}
-	public void setIdValoracion(Integer idValoracion) {
-		this.idValoracion = idValoracion;
+	public void setId(long idValoracion) {
+		this.id = idValoracion;
 	}
 	public Integer getIdUsuarioQueValora() {
 		return idUsuarioQueValora;

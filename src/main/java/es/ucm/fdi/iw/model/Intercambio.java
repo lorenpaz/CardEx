@@ -6,16 +6,16 @@ import javax.persistence.*;
 public class Intercambio {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idIntercambio;
+	private long id;
 	private Integer idUsuarioOfrece;
 	private Integer idUsuarioRecibe;
 	private String estadoIntercambio;
 	
-	public Integer getIdIntercambio() {
-		return idIntercambio;
+	public long getId() {
+		return id;
 	}
-	public void setIdIntercambio(Integer idIntercambio) {
-		this.idIntercambio = idIntercambio;
+	public void setId(long idIntercambio) {
+		this.id = idIntercambio;
 	}
 	public Integer getIdUsuarioOfrece() {
 		return idUsuarioOfrece;

@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Carta {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idCarta;
+	private long id;
 	private String name;
 	private String manaCost;
 	private Integer cmc;
@@ -33,18 +33,18 @@ public class Carta {
 	private List<String> rulings;
 	private List<String> foreignNames;
 	private List<String> printings;
-	private String id;
+	//private String id;
 //	@ManyToMany(mappedBy="buscadas")
 	private List<Usuario> usuariosBuscanCarta;
 	
 //	@OneToMany(mappedBy="carta")
 	private List<CartasOfrecidasUsuario> usuariosOfrecenCarta;
 	
-	public Integer getIdCarta() {
-		return idCarta;
+	public long getId() {
+		return id;
 	}
-	public void setIdCarta(Integer idCarta) {
-		this.idCarta = idCarta;
+	public void setId(long idCarta) {
+		this.id = idCarta;
 	}
 	public String getName() {
 		return name;
@@ -178,12 +178,12 @@ public class Carta {
 	public void setPrintings(List<String> printings) {
 		this.printings = printings;
 	}
-	public String getId() {
+	/*public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
+	}*/
 	public List<Usuario> getUsuariosBuscanCarta() {
 		return usuariosBuscanCarta;
 	}

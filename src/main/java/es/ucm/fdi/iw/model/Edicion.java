@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Edicion {
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private long id;
 //	@OneToMany(targetEntity=Carta.class,  mappedBy="set")
 	private List<String> code;
 	private String name;
@@ -19,10 +19,10 @@ public class Edicion {
 	private String block;
 	private String magicCardsInfoCode;
 	
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

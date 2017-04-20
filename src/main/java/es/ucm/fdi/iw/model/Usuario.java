@@ -1,13 +1,16 @@
 package es.ucm.fdi.iw.model;
 
 import java.util.List;
+
 import javax.persistence.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //@Entity
 public class Usuario {
+	private static BCryptPasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idUsuario;
+	private long id;
 	private String nombre;
 	private String apellidos;
 	private String email;
@@ -28,6 +31,16 @@ public class Usuario {
 //	@ManyToMany
 	private List<Valoracion> valoracionesDadas;
 	
+	public Usuario(){ }
+	
+	public static Usuario crearUsuario(String login, String pass, String role) {
+		Usuario u = new Usuario();
+		u.usuario = login;
+		u.contraseña = generateHashedAndSalted(pass);
+		u.rol = role;
+		return u;
+	}
+	
 	public List<Valoracion> getValoracionesRecibidas() {
 		return valoracionesRecibidas;
 	}
@@ -40,11 +53,11 @@ public class Usuario {
 	public void setValoracionesDadas(List<Valoracion> valoracionesDadas) {
 		this.valoracionesDadas = valoracionesDadas;
 	}
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public long getId() {
+		return id;
 	}
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setId(long idUsuario) {
+		this.id = idUsuario;
 	}
 	public String getNombre() {
 		return nombre;
@@ -117,6 +130,14 @@ public class Usuario {
 	}
 	public void setBuscadas(List<Carta> buscadas) {
 		this.buscadas = buscadas;
+	}
+	
+	public static String generateHashedAndSalted(String pass) {
+		return bcryptEncoder.encode(pass);
+	}
+	
+	public boolean isPassValid(String pass) {
+		return bcryptEncoder.matches(pass, contraseña);		
 	}
 	
 	
