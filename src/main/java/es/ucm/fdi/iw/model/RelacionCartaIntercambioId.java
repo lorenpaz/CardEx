@@ -4,19 +4,19 @@ import java.io.Serializable;
 
 
 public class RelacionCartaIntercambioId implements Serializable{
-	private Integer idIntercambio;
-	private Integer idCarta;
+	private Integer intercambio;
+	private Integer carta;
 	
 	public Integer getIdIntercambio() {
-		return idIntercambio;
+		return intercambio;
 	}
 	public void setIdIntercambio(Integer idIntercambio) {
-		this.idIntercambio = idIntercambio;
+		this.intercambio = idIntercambio;
 	}
 	public Integer getIdCarta() {
-		return idCarta;
+		return carta;
 	}
 	public void setIdCarta(Integer idCarta) {
-		this.idCarta = idCarta;
+		this.carta = idCarta;
 	}
 }

@@ -1,14 +1,16 @@
-package model;
+package es.ucm.fdi.iw.model;
+
+import java.util.List;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 public class Edicion {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	@ManyToOne
-	private String code;
+//	@OneToMany(targetEntity=Carta.class,  mappedBy="set")
+	private List<String> code;
 	private String name;
 	private String type;
 	private Integer mkm_id;
@@ -44,7 +46,8 @@ public class Edicion {
 	}
 	public String getReleaseDate() {
 		return releaseDate;
-	}
+	}@Id
+//	@G
 	public void setReleaseDate(String releaseDate) {
 		this.releaseDate = releaseDate;
 	}
@@ -60,10 +63,10 @@ public class Edicion {
 	public void setMagicCardsInfoCode(String magicCardsInfoCode) {
 		this.magicCardsInfoCode = magicCardsInfoCode;
 	}
-	public String getCode() {
+	public List<String> getCode() {
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(List<String> code) {
 		this.code = code;
 	}
 	public String getName() {

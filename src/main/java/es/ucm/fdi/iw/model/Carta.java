@@ -1,13 +1,13 @@
-package model;
+package es.ucm.fdi.iw.model;
 
 import java.util.List;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 public class Carta {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idCarta;
 	private String name;
 	private String manaCost;
@@ -19,7 +19,7 @@ public class Carta {
 	private List<String> types;
 	private List<String> subtypes;
 	private String rarity;
-	@OneToMany(mappedBy="code")
+//	@ManyToOne(targetEntity=Edicion.class)
 	private String set;
 	private String setName;
 	private String text;
@@ -34,10 +34,10 @@ public class Carta {
 	private List<String> foreignNames;
 	private List<String> printings;
 	private String id;
-	@ManyToMany(mappedBy="buscadas")
+//	@ManyToMany(mappedBy="buscadas")
 	private List<Usuario> usuariosBuscanCarta;
 	
-	@OneToMany(mappedBy="idCarta")
+//	@OneToMany(mappedBy="carta")
 	private List<CartasOfrecidasUsuario> usuariosOfrecenCarta;
 	
 	public Integer getIdCarta() {

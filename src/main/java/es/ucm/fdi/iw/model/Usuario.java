@@ -1,12 +1,12 @@
-package model;
+package es.ucm.fdi.iw.model;
 
 import java.util.List;
 import javax.persistence.*;
 
-@Entity
+//@Entity
 public class Usuario {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idUsuario;
 	private String nombre;
 	private String apellidos;
@@ -19,13 +19,13 @@ public class Usuario {
 	private String fechaAta;
 	private boolean activo;
 	
-	@OneToMany(mappedBy="idUsuario")
+//	@OneToMany(mappedBy="usuario")
 	private List<CartasOfrecidasUsuario> ofrecidas;
-	@ManyToMany
+//	@ManyToMany
 	private List<Carta> buscadas;
-	@ManyToMany
+//	@ManyToMany
 	private List<Valoracion> valoracionesRecibidas;
-	@ManyToMany
+//	@ManyToMany
 	private List<Valoracion> valoracionesDadas;
 	
 	public List<Valoracion> getValoracionesRecibidas() {

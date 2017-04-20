@@ -2,13 +2,13 @@ package es.ucm.fdi.iw.model;
 
 import javax.persistence.*;
 
-@Entity
-@IdClass(RelacionCartaIntercambioId.class)
+//@Entity
+//@IdClass(RelacionCartaIntercambioId.class)
 public class CartasIntercambio {
-	@Id
-	private Intercambio Intercambio;
-	@Id
-	private Carta Carta;
+//	@Id
+	private Intercambio intercambio;
+//	@Id
+	private Carta carta;
 	private String estadoCarta;
 	private Integer cantidad;
 	private String tipo;
@@ -20,16 +20,16 @@ public class CartasIntercambio {
 		this.tipo = tipo;
 	}
 	public Intercambio getIntercambio() {
-		return Intercambio;
+		return intercambio;
 	}
 	public void setIntercambio(Intercambio intercambio) {
-		Intercambio = intercambio;
+		this.intercambio = intercambio;
 	}
 	public Carta getCarta() {
-		return Carta;
+		return carta;
 	}
 	public void setCarta(Carta carta) {
-		Carta = carta;
+		this.carta = carta;
 	}
 	public String getEstadoCarta() {
 		return estadoCarta;

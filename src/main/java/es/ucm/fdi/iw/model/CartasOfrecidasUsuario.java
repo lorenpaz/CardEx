@@ -1,17 +1,17 @@
-package model;
+package es.ucm.fdi.iw.model;
 
 import javax.persistence.*;
 
-@Entity
-@IdClass(RelacionCartasIdUsu.class)
+//@Entity
+//@IdClass(RelacionCartasIdUsu.class)
 public class CartasOfrecidasUsuario {
 
-	@Id
-	@ManyToOne
+//	@Id
+//	@ManyToOne
 	private Usuario usuario;
-	@Id
-	@ManyToOne
-	private Carta Carta;
+//	@Id
+//	@ManyToOne
+	private Carta carta;
 	private Integer cantidad;
 	private String estadoCarta;
 	

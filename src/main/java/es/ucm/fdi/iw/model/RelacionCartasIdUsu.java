@@ -1,21 +1,21 @@
-package model;
+package es.ucm.fdi.iw.model;
 
 import java.io.Serializable;
 
 public class RelacionCartasIdUsu implements Serializable{
-	private Integer idUsuario;
-	private Integer idCarta;
+	private Integer usuario;
+	private Integer carta;
 	
 	public Integer getIdUsuario() {
-		return idUsuario;
+		return usuario;
 	}
 	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+		this.usuario = idUsuario;
 	}
 	public Integer getIdCarta() {
-		return idCarta;
+		return carta;
 	}
 	public void setIdCarta(Integer idCarta) {
-		this.idCarta = idCarta;
+		this.carta = idCarta;
 	}
 }

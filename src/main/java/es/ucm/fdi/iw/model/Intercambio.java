@@ -1,11 +1,11 @@
-package model;
+package es.ucm.fdi.iw.model;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 public class Intercambio {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idIntercambio;
 	private Integer idUsuarioOfrece;
 	private Integer idUsuarioRecibe;

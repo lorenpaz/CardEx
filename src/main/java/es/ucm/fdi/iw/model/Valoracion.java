@@ -1,22 +1,22 @@
-package model;
+package es.ucm.fdi.iw.model;
 
 import java.util.List;
 
 import javax.persistence.*;
 
 
-@Entity
+//@Entity
 public class Valoracion {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idValoracion;
 	private Integer idUsuarioQueValora;
 	private Integer idUsuarioValorado;
 	private String comentario;
 	private Integer valor;
-	@ManyToMany(mappedBy="valoracionesRecibidas")
+//	@ManyToMany(mappedBy="valoracionesRecibidas")
 	private List<Usuario> usuariosValorados;
-	@ManyToMany(mappedBy="valoracionesDadas")
+//	@ManyToMany(mappedBy="valoracionesDadas")
 	private List<Usuario> usuariosQueValoran;
 	
 	
