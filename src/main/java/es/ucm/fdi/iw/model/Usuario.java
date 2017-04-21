@@ -5,11 +5,10 @@ import java.util.List;
 import javax.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-//@Entity
+@Entity
 public class Usuario {
 	private static BCryptPasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+
 	private long id;
 	private String nombre;
 	private String apellidos;
@@ -23,12 +22,12 @@ public class Usuario {
 	private boolean activo;
 	
 //	@OneToMany(mappedBy="usuario")
-	private List<CartasOfrecidasUsuario> ofrecidas;
+	//private List<CartasOfrecidasUsuario> ofrecidas;
 //	@ManyToMany
-	private List<Carta> buscadas;
-//	@ManyToMany
+//	private List<Carta> buscadas;
+	
 	private List<Valoracion> valoracionesRecibidas;
-//	@ManyToMany
+	
 	private List<Valoracion> valoracionesDadas;
 	
 	public Usuario(){ }
@@ -40,19 +39,22 @@ public class Usuario {
 		u.rol = role;
 		return u;
 	}
-	
+	@OneToMany(targetEntity=Valoracion.class, mappedBy="usuarioQueValora")
 	public List<Valoracion> getValoracionesRecibidas() {
 		return valoracionesRecibidas;
 	}
 	public void setValoracionesRecibidas(List<Valoracion> valoracionesRecibidas) {
 		this.valoracionesRecibidas = valoracionesRecibidas;
 	}
+	@OneToMany(targetEntity=Valoracion.class,  mappedBy="usuarioValorado")
 	public List<Valoracion> getValoracionesDadas() {
 		return valoracionesDadas;
 	}
 	public void setValoracionesDadas(List<Valoracion> valoracionesDadas) {
 		this.valoracionesDadas = valoracionesDadas;
 	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
@@ -119,18 +121,18 @@ public class Usuario {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	public List<CartasOfrecidasUsuario> getOfrecidas() {
-		return ofrecidas;
-	}
-	public void setOfrecidas(List<CartasOfrecidasUsuario> ofrecidas) {
-		this.ofrecidas = ofrecidas;
-	}
-	public List<Carta> getBuscadas() {
-		return buscadas;
-	}
-	public void setBuscadas(List<Carta> buscadas) {
-		this.buscadas = buscadas;
-	}
+//	public List<CartasOfrecidasUsuario> getOfrecidas() {
+//		return ofrecidas;
+//	}
+//	public void setOfrecidas(List<CartasOfrecidasUsuario> ofrecidas) {
+//		this.ofrecidas = ofrecidas;
+//	}
+//	public List<Carta> getBuscadas() {
+//		return buscadas;
+//	}
+//	public void setBuscadas(List<Carta> buscadas) {
+//		this.buscadas = buscadas;
+//	}
 	
 	public static String generateHashedAndSalted(String pass) {
 		return bcryptEncoder.encode(pass);

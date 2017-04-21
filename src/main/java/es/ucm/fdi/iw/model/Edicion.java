@@ -4,13 +4,12 @@ import java.util.List;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class Edicion {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+
 	private long id;
-//	@OneToMany(targetEntity=Carta.class,  mappedBy="set")
-	private List<String> code;
+
+	private List<Carta> code;
 	private String name;
 	private String type;
 	private Integer mkm_id;
@@ -19,6 +18,8 @@ public class Edicion {
 	private String block;
 	private String magicCardsInfoCode;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
@@ -46,8 +47,7 @@ public class Edicion {
 	}
 	public String getReleaseDate() {
 		return releaseDate;
-	}@Id
-//	@G
+	}
 	public void setReleaseDate(String releaseDate) {
 		this.releaseDate = releaseDate;
 	}
@@ -63,10 +63,12 @@ public class Edicion {
 	public void setMagicCardsInfoCode(String magicCardsInfoCode) {
 		this.magicCardsInfoCode = magicCardsInfoCode;
 	}
-	public List<String> getCode() {
+	
+	@OneToMany(targetEntity=Carta.class,  mappedBy="set")
+	public List<Carta> getCode() {
 		return code;
 	}
-	public void setCode(List<String> code) {
+	public void setCode(List<Carta> code) {
 		this.code = code;
 	}
 	public String getName() {

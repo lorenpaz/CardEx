@@ -4,23 +4,22 @@ import java.util.List;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class Carta {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+
 	private long id;
 	private String name;
 	private String manaCost;
 	private Integer cmc;
-	private List<String> colors;
-	private List<String> colorIdentity;
+	private String[] colors;
+	private String[] colorIdentity;
 	private String type;
-	private List<String> supertypes;
-	private List<String> types;
-	private List<String> subtypes;
+	private String[] supertypes;
+	private String[] types;
+	private String[] subtypes;
 	private String rarity;
-//	@ManyToOne(targetEntity=Edicion.class)
-	private String set;
+
+	private Edicion set;
 	private String setName;
 	private String text;
 	private String artist;
@@ -30,16 +29,18 @@ public class Carta {
 	private String layout;
 	private String multiverseid;
 	private String imageUrl;
-	private List<String> rulings;
-	private List<String> foreignNames;
-	private List<String> printings;
-	//private String id;
+	private String[] rulings;
+	private String[] foreignNames;
+	private String[] printings;
+
 //	@ManyToMany(mappedBy="buscadas")
-	private List<Usuario> usuariosBuscanCarta;
+	//private List<Usuario> usuariosBuscanCarta;
 	
 //	@OneToMany(mappedBy="carta")
-	private List<CartasOfrecidasUsuario> usuariosOfrecenCarta;
+	//private List<CartasOfrecidasUsuario> usuariosOfrecenCarta;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
@@ -64,16 +65,16 @@ public class Carta {
 	public void setCmc(Integer cmc) {
 		this.cmc = cmc;
 	}
-	public List<String> getColors() {
+	public String[] getColors() {
 		return colors;
 	}
-	public void setColors(List<String> colors) {
+	public void setColors(String[] colors) {
 		this.colors = colors;
 	}
-	public List<String> getColorIdentity() {
+	public String[] getColorIdentity() {
 		return colorIdentity;
 	}
-	public void setColorIdentity(List<String> colorIdentity) {
+	public void setColorIdentity(String[] colorIdentity) {
 		this.colorIdentity = colorIdentity;
 	}
 	public String getType() {
@@ -82,22 +83,22 @@ public class Carta {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public List<String> getSupertypes() {
+	public String[] getSupertypes() {
 		return supertypes;
 	}
-	public void setSupertypes(List<String> supertypes) {
+	public void setSupertypes(String[] supertypes) {
 		this.supertypes = supertypes;
 	}
-	public List<String> getTypes() {
+	public String[] getTypes() {
 		return types;
 	}
-	public void setTypes(List<String> types) {
+	public void setTypes(String[] types) {
 		this.types = types;
 	}
-	public List<String> getSubtypes() {
+	public String[] getSubtypes() {
 		return subtypes;
 	}
-	public void setSubtypes(List<String> subtypes) {
+	public void setSubtypes(String[] subtypes) {
 		this.subtypes = subtypes;
 	}
 	public String getRarity() {
@@ -106,10 +107,11 @@ public class Carta {
 	public void setRarity(String rarity) {
 		this.rarity = rarity;
 	}
-	public String getSet() {
+	@ManyToOne(targetEntity=Edicion.class)
+	public Edicion getSet() {
 		return set;
 	}
-	public void setSet(String set) {
+	public void setSet(Edicion set) {
 		this.set = set;
 	}
 	public String getText() {
@@ -160,48 +162,42 @@ public class Carta {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	public List<String> getRulings() {
+	public String[] getRulings() {
 		return rulings;
 	}
-	public void setRulings(List<String> rulings) {
+	public void setRulings(String[] rulings) {
 		this.rulings = rulings;
 	}
-	public List<String> getForeignNames() {
+	public String[] getForeignNames() {
 		return foreignNames;
 	}
-	public void setForeignNames(List<String> foreignNames) {
+	public void setForeignNames(String[] foreignNames) {
 		this.foreignNames = foreignNames;
 	}
-	public List<String> getPrintings() {
+	public String[] getPrintings() {
 		return printings;
 	}
-	public void setPrintings(List<String> printings) {
+	public void setPrintings(String[] printings) {
 		this.printings = printings;
 	}
-	/*public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}*/
-	public List<Usuario> getUsuariosBuscanCarta() {
+	/*public List<Usuario> getUsuariosBuscanCarta() {
 		return usuariosBuscanCarta;
-	}
-	public void setUsuariosBuscanCarta(List<Usuario> usuariosBuscanCarta) {
+	}*/
+	/*public void setUsuariosBuscanCarta(List<Usuario> usuariosBuscanCarta) {
 		this.usuariosBuscanCarta = usuariosBuscanCarta;
-	}
+	}*/
 	public String getSetName() {
 		return setName;
 	}
 	public void setSetName(String setName) {
 		this.setName = setName;
 	}
-	public List<CartasOfrecidasUsuario> getUsuariosOfrecenCarta() {
+	/*public List<CartasOfrecidasUsuario> getUsuariosOfrecenCarta() {
 		return usuariosOfrecenCarta;
 	}
 	public void setUsuariosOfrecenCarta(List<CartasOfrecidasUsuario> usuariosOfrecenCarta) {
 		this.usuariosOfrecenCarta = usuariosOfrecenCarta;
-	}
+	}*/
 	
 	
 }

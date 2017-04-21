@@ -1,42 +1,39 @@
 package es.ucm.fdi.iw.model;
 
-import java.util.List;
 
 import javax.persistence.*;
 
 
-//@Entity
+@Entity
 public class Valoracion {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+
 	private long id;
-	private Integer idUsuarioQueValora;
-	private Integer idUsuarioValorado;
+	private Usuario usuarioQueValora;
+	private Usuario usuarioValorado;
 	private String comentario;
 	private Integer valor;
-//	@ManyToMany(mappedBy="valoracionesRecibidas")
-	private List<Usuario> usuariosValorados;
-//	@ManyToMany(mappedBy="valoracionesDadas")
-	private List<Usuario> usuariosQueValoran;
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
 	public void setId(long idValoracion) {
 		this.id = idValoracion;
 	}
-	public Integer getIdUsuarioQueValora() {
-		return idUsuarioQueValora;
+	@ManyToOne(targetEntity=Usuario.class)
+	public Usuario getUsuarioQueValora() {
+		return usuarioQueValora;
 	}
-	public void setIdUsuarioQueValora(Integer idUsuarioQueValora) {
-		this.idUsuarioQueValora = idUsuarioQueValora;
+	public void setUsuarioQueValora(Usuario idUsuarioQueValora) {
+		this.usuarioQueValora = idUsuarioQueValora;
 	}
-	public Integer getIdUsuarioValorado() {
-		return idUsuarioValorado;
+	@ManyToOne(targetEntity=Usuario.class)
+	public Usuario getUsuarioValorado() {
+		return usuarioValorado;
 	}
-	public void setIdUsuarioValorado(Integer idUsuarioValorado) {
-		this.idUsuarioValorado = idUsuarioValorado;
+	public void setUsuarioValorado(Usuario idUsuarioValorado) {
+		this.usuarioValorado = idUsuarioValorado;
 	}
 	public String getComentario() {
 		return comentario;
