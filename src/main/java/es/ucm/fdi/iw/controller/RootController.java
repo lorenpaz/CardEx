@@ -28,6 +28,12 @@ public class RootController {
 		return "index";
 	}
 
+	@GetMapping({"/info" })
+	String info(Model model) {
+
+		return "info";
+	}
+	
 	@GetMapping({ "/home" })
 	String home(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
@@ -86,10 +92,9 @@ public class RootController {
 	@PostMapping("/login")
 	String login(@RequestParam("login") String formLogin, HttpSession session) {
 		if (formLogin != null) {
-			if (formLogin == "admin") {
+			if (formLogin.equals("admin")) {
 				return "redirect:admin";
 			}
-
 			session.setAttribute("user", formLogin);
 		}
 		return "redirect:home";
@@ -132,20 +137,6 @@ public class RootController {
 		model.addAttribute("pageExtraScripts", listaJS);
 
 		return "admin";
-	}
-
-	@GetMapping({ "/login_admin" })
-	String loginAdmin(Model model) {
-
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("adminStyles.css");
-
-		List<String> listaJS = new ArrayList<String>();
-
-		model.addAttribute("pageExtraCSS", listaCSS);
-		model.addAttribute("pageExtraScripts", listaJS);
-
-		return "login_admin";
 	}
 
 	@GetMapping({ "/perfil" })
