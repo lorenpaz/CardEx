@@ -28,16 +28,16 @@ public class RootController {
 		return "index";
 	}
 
-	@GetMapping({"/info" })
+	@GetMapping({ "/info" })
 	String info(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("infoStyle.css");
 		model.addAttribute("pageExtraCSS", listaCSS);
 		return "info";
 	}
-	
+
 	@GetMapping({ "/home" })
-	String home(Model model) {
+	String home(Model model, HttpSession session) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("styleHome.css");
 		listaCSS.add("popup.css");
@@ -52,12 +52,14 @@ public class RootController {
 		listaJS.add("home.js");
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-
+		if (session.getAttribute("user") == null) {
+			return "redirect:index";
+		}
 		return "home";
 	}
 
 	@GetMapping({ "/gestion_cartas" })
-	String gestionCartas(Model model) {
+	String gestionCartas(Model model, HttpSession session) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("bootstrap.min.css");
 		listaCSS.add("jquery.dataTables.min.css");
@@ -70,12 +72,14 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-
+		if (session.getAttribute("user") == null) {
+			return "redirect:index";
+		}
 		return "gestion_cartas";
 	}
 
 	@GetMapping({ "/intercambio" })
-	String intercambio(Model model) {
+	String intercambio(Model model, HttpSession session) {
 
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("intercambioStyles.css");
@@ -87,6 +91,9 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
+		if (session.getAttribute("user") == null) {
+			return "redirect:index";
+		}
 
 		return "intercambio";
 	}
@@ -112,7 +119,7 @@ public class RootController {
 	}
 
 	@GetMapping({ "/historial" })
-	String historial(Model model) {
+	String historial(Model model, HttpSession session) {
 
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("styleHistorial.css");
@@ -123,11 +130,14 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
+		if (session.getAttribute("user") == null) {
+			return "redirect:index";
+		}
 		return "historial";
 	}
 
 	@GetMapping({ "/admin" })
-	String admin(Model model) {
+	String admin(Model model, HttpSession session) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("adminStyles.css");
 
@@ -137,12 +147,14 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-
+		if (session.getAttribute("user") == null) {
+			return "redirect:index";
+		}
 		return "admin";
 	}
 
 	@GetMapping({ "/perfil" })
-	String perfil(Model model) {
+	String perfil(Model model, HttpSession session) {
 
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("star-rating.min.css");
@@ -156,6 +168,9 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
+		if (session.getAttribute("user") == null) {
+			return "redirect:index";
+		}
 		return "perfil";
 	}
 
