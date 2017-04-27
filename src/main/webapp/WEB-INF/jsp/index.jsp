@@ -4,6 +4,7 @@
 			<h3 class="center">Ponte en contacto con otros jugadores</h3>
 			<img src="static/img/intercambio.png" class="logo-intercambio">
 			<h3 class="center">Intercambia tus cartas<br> Magic: The Gathering</h3>
+			<a href="info"><br><h4 class="center">M&aacute;s informaci&oacute;n</h4></a>
 		</div>
 
 		<div class="zona-registro col-sm-6">
