@@ -30,7 +30,9 @@ public class RootController {
 
 	@GetMapping({"/info" })
 	String info(Model model) {
-
+		List<String> listaCSS = new ArrayList<String>();
+		listaCSS.add("infoStyle.css");
+		model.addAttribute("pageExtraCSS", listaCSS);
 		return "info";
 	}
 	
