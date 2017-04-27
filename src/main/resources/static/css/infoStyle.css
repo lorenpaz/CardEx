@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+/*Estilos pagina info */
+div #sobrePagina {
+	width: 800px;
+	margin: 0 auto;
+	padding: 20px 20px 20px 20px; border 2px #337AB7 solid;
+	border-radius: 5px;
+}
