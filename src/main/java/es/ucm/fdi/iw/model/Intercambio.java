@@ -2,32 +2,37 @@ package es.ucm.fdi.iw.model;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class Intercambio {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.AUTO)
+
 	private long id;
-	private Integer idUsuarioOfrece;
-	private Integer idUsuarioRecibe;
+	private Usuario usuarioOfrece;
+	private Usuario usuarioRecibe;
 	private String estadoIntercambio;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
 		return id;
 	}
 	public void setId(long idIntercambio) {
 		this.id = idIntercambio;
 	}
-	public Integer getIdUsuarioOfrece() {
-		return idUsuarioOfrece;
+	
+	@ManyToOne(targetEntity=Usuario.class)
+	public Usuario getUsuarioOfrece() {
+		return usuarioOfrece;
 	}
-	public void setIdUsuarioOfrece(Integer idUsuarioOfrece) {
-		this.idUsuarioOfrece = idUsuarioOfrece;
+	public void setUsuarioOfrece(Usuario usuarioOfrece) {
+		this.usuarioOfrece = usuarioOfrece;
 	}
-	public Integer getIdUsuarioRecibe() {
-		return idUsuarioRecibe;
+	
+	@ManyToOne(targetEntity=Usuario.class)
+	public Usuario getUsuarioRecibe() {
+		return usuarioRecibe;
 	}
-	public void setIdUsuarioRecibe(Integer idUsuarioRecibe) {
-		this.idUsuarioRecibe = idUsuarioRecibe;
+	public void setUsuarioRecibe(Usuario usuarioRecibe) {
+		this.usuarioRecibe = usuarioRecibe;
 	}
 	public String getEstadoIntercambio() {
 		return estadoIntercambio;
