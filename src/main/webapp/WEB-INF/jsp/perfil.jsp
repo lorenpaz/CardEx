@@ -12,14 +12,14 @@
 			<button type="button" id="favorites" class="btn btn-primery"
 				href="#tab1" data-toggle="tab">
 				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-				<div class="hidden-xs">InformaciÃ³n Personal</div>
+				<div class="hidden-xs">Información Personal</div>
 			</button>
 		</div>
 		<div class="btn-group" role="group">
 			<button type="button" id="stars" class="btn btn-default" href="#tab2"
 				data-toggle="tab">
 				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-				<div class="hidden-xs">ValoraciÃ³n</div>
+				<div class="hidden-xs">Valoración</div>
 			</button>
 		</div>
 		<div class="btn-group" role="group">
@@ -54,7 +54,7 @@
 				</table>
 			</div>
 			<div class="tab-pane fade in" id="tab2">
-				ValoraciÃ³n media del usuario <input id="input-21e" value="3"
+				Valoración media del usuario <input id="input-21e" value="3"
 					type="text" class="rating" readonly data-min=0 data-max=5
 					data-step=0.5 data-size="sm" title="">
 				<table class="table table-sm">
@@ -69,7 +69,7 @@
 					</td>
 					<tr>
 						<th scope="row">Pepe</th>
-						<td>Me has intercambiado tu mejor cromo. Â¡Gracias! <br>
+						<td>Me has intercambiado tu mejor cromo. ¡Gracias! <br>
 							<input id="input-21e" value="4" type="text" class="rating"
 							readonly data-min=0 data-max=5 data-step=0.5 data-size="xs"
 							title="">
@@ -95,9 +95,9 @@
 				<div class="form-group margin-top30 fg-form">
 					<label for="usernameform">Cambiar nombre de usuario</label> <input
 						id="usernameform" class="form-control"> <label
-						for="passform">Cambiar contraseÃ±a</label> <input id="passform"
+						for="passform">Cambiar contraseña</label> <input id="passform"
 						class="form-control"> <label for="repassform">Confirmar
-						contraseÃ±a</label> <input id="repassform" class="form-control"> <label
+						contraseña</label> <input id="repassform" class="form-control"> <label
 						for="mailform">E-Mail</label> <input id="mailform"
 						class="form-control"> <label for="provform">Provincia</label>
 					<select id="provform" class="form-control">

@@ -55,6 +55,9 @@ public class RootController {
 		if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
+		if (session.getAttribute("user").equals("admin")) {
+			return "redirect:admin";
+		}
 		return "home";
 	}
 
@@ -75,6 +78,9 @@ public class RootController {
 		if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
+		if (session.getAttribute("user").equals("admin")) {
+			return "redirect:admin";
+		}
 		return "gestion_cartas";
 	}
 
@@ -94,6 +100,9 @@ public class RootController {
 		if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
+		if (session.getAttribute("user").equals("admin")) {
+			return "redirect:admin";
+		}
 
 		return "intercambio";
 	}
@@ -101,10 +110,10 @@ public class RootController {
 	@PostMapping("/login")
 	String login(@RequestParam("login") String formLogin, HttpSession session) {
 		if (formLogin != null) {
+			session.setAttribute("user", formLogin);
 			if (formLogin.equals("admin")) {
 				return "redirect:admin";
 			}
-			session.setAttribute("user", formLogin);
 		}
 		return "redirect:home";
 	}
@@ -133,6 +142,9 @@ public class RootController {
 		if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
+		if (session.getAttribute("user").equals("admin")) {
+			return "redirect:admin";
+		}
 		return "historial";
 	}
 
@@ -147,8 +159,11 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-		if (session.getAttribute("user") == null) {
+		if (session.getAttribute("user") == null ) {
 			return "redirect:index";
+		}
+		if (!session.getAttribute("user").equals("admin")) {
+			return "redirect:home";
 		}
 		return "admin";
 	}
@@ -170,6 +185,9 @@ public class RootController {
 		model.addAttribute("pageExtraScripts", listaJS);
 		if (session.getAttribute("user") == null) {
 			return "redirect:index";
+		}
+		if (session.getAttribute("user").equals("admin")) {
+			return "redirect:admin";
 		}
 		return "perfil";
 	}

@@ -32,7 +32,7 @@
 <body>
 	<div class="container">
 		<div class="extended text-right">
-		<p><h5>Bienvenido, <span class="text-primary">Administrador</span></h5> <a href="index"> <span class="badge"> Cerrar sesión</span></a></p>
+		<p><h5>Bienvenido, <span class="text-primary">Administrador</span></h5> <a href="logout"> <span class="badge"> Cerrar sesión</span></a></p>
 		</div>
 	    <div class="principal">
 	        <div class="col-lg-6 col-sm-6 extended">
