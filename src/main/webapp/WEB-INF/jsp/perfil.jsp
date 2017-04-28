@@ -93,23 +93,25 @@
 			</div>
 			<div class="tab-pane fade in" id="tab3">
 				<div class="form-group margin-top30 fg-form">
-					<label for="usernameform">Cambiar nombre de usuario</label> <input
-						id="usernameform" class="form-control"> <label
-						for="passform">Cambiar contraseña</label> <input id="passform"
-						class="form-control"> <label for="repassform">Confirmar
-						contraseña</label> <input id="repassform" class="form-control"> <label
-						for="mailform">E-Mail</label> <input id="mailform"
-						class="form-control"> <label for="provform">Provincia</label>
-					<select id="provform" class="form-control">
-						<option>Madrid</option>
-						<option>Murcia</option>
-						<option>Barcelona</option>
-						<option>Cuenca</option>
-						<option>Guadalajara</option>
-						<option>Toledo</option>
-					</select>
-					<button id="settingsButton" type="submit" class="btn btn-default">Guardar
-						cambios</button>
+					<form action="" method="post">
+						<label for="usernameform">Cambiar nombre de usuario</label> <input
+							id="usernameform" class="form-control"> <label
+							for="passform">Cambiar contraseña</label> <input id="passform"
+							class="form-control"> <label for="repassform">Confirmar
+							contraseña</label> <input id="repassform" class="form-control"> <label
+							for="mailform">E-Mail</label> <input id="mailform"
+							class="form-control"> <label for="provform">Provincia</label>
+						<select id="provform" class="form-control">
+							<option>Madrid</option>
+							<option>Murcia</option>
+							<option>Barcelona</option>
+							<option>Cuenca</option>
+							<option>Guadalajara</option>
+							<option>Toledo</option>
+						</select>
+						<button id="settingsButton" type="submit" class="btn btn-default">Guardar
+							cambios</button>
+					</form>
 				</div>
 
 			</div>
