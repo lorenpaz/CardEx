@@ -10,11 +10,11 @@
 		<div class="zona-registro col-sm-6">
 			<h3> ¿Aún no tienes cuenta? Regístrate.</h3>
 			<div class="form-group">
-				<form action="" method="post">
+				<form action="register" method="post">
 					<label for="nameform">Nombre</label>
-					<input id="nameform" class="form-control">
+					<input id="nameform" class="form-control" name="nombre">
 					<label for="surnameform">Apellidos</label>
-					<input id="surnameform" class="form-control">
+					<input id="surnameform" class="form-control" name="apellidos">
 					<label for="mailform">E-Mail</label>
 					<input id="mailform" class="form-control">
 					<label for="usernameform">Nombre de usuario</label>

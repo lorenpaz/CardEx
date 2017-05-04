@@ -3,7 +3,10 @@ package es.ucm.fdi.iw.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +14,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import es.ucm.fdi.iw.model.Usuario;
 
 @Controller
 public class RootController {
+	@PersistenceContext
+	private EntityManager entityManager; 
 
 	// Incluimos ${prefix} en todas las páginas
 	@ModelAttribute
@@ -24,7 +33,7 @@ public class RootController {
 
 	@GetMapping({ "/", "/index" })
 	String index(Model model) {
-
+		
 		return "index";
 	}
 
@@ -115,6 +124,16 @@ public class RootController {
 				return "redirect:admin";
 			}
 		}
+		return "redirect:home";
+	}
+	@Transactional
+	@RequestMapping(value="/register", method = RequestMethod.POST)
+	String register(@RequestParam("nombre") String formNombre, 
+			@RequestParam("apellidos") String formApellidos,
+			HttpSession session) {
+		
+		Usuario u = Usuario.crearUsuario(formNombre, formApellidos, "cliente");
+		entityManager.persist(u);
 		return "redirect:home";
 	}
 

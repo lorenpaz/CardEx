@@ -1,9 +1,10 @@
 package es.ucm.fdi.iw.model;
 
 import java.util.List;
-
 import javax.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+
 
 @Entity
 public class Usuario {
@@ -29,10 +30,10 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public static Usuario crearUsuario(String login, String pass, String role) {
+	public static Usuario crearUsuario(String usuario, String contraseña, String role) {
 		Usuario u = new Usuario();
-		u.usuario = login;
-		u.contraseña = generateHashedAndSalted(pass);
+		u.usuario = usuario;
+		u.contraseña = generateHashedAndSalted(contraseña);
 		u.rol = role;
 		return u;
 	}
