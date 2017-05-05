@@ -7,6 +7,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Entity
+@NamedQueries(
+		@NamedQuery(name="allUsers", query="select u FROM Usuario u" )
+		)
 public class Usuario {
 	private static BCryptPasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
 
@@ -29,7 +32,7 @@ public class Usuario {
 
 	public Usuario() {
 	}
-
+	
 	public static Usuario crearUsuario(String usuario, String contraseña, String role) {
 		Usuario u = new Usuario();
 		u.usuario = usuario;

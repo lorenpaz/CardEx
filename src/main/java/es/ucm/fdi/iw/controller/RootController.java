@@ -4,25 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Usuario;
 
 @Controller
 public class RootController {
-	@PersistenceContext
+	@Autowired
 	private EntityManager entityManager; 
 
 	// Incluimos ${prefix} en todas las páginas
@@ -36,7 +35,18 @@ public class RootController {
 		
 		return "index";
 	}
+	
+	@GetMapping("/login") 
+	String login() {
+		return "login";
+	}
 
+	@GetMapping("/logout") 
+	String logout() {
+		return "logout";
+	}
+
+	
 	@GetMapping({ "/info" })
 	String info(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
@@ -116,34 +126,15 @@ public class RootController {
 		return "intercambio";
 	}
 
-	@PostMapping("/login")
-	String login(@RequestParam("login") String formLogin, HttpSession session) {
-		if (formLogin != null) {
-			session.setAttribute("user", formLogin);
-			if (formLogin.equals("admin")) {
-				return "redirect:admin";
-			}
-		}
-		return "redirect:home";
-	}
 	@Transactional
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	String register(@RequestParam("nombre") String formNombre, 
 			@RequestParam("apellidos") String formApellidos,
 			HttpSession session) {
 		
-		Usuario u = Usuario.crearUsuario(formNombre, formApellidos, "cliente");
+		User u = User.crearUsuario(formNombre, formApellidos, "cliente");
 		entityManager.persist(u);
 		return "redirect:home";
-	}
-
-	/**
-	 * Logout (also returns to home view).
-	 */
-	@GetMapping("/logout")
-	String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:index";
 	}
 
 	@GetMapping({ "/historial" })
