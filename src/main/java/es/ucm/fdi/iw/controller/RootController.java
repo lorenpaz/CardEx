@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import es.ucm.fdi.iw.model.Usuario;
 
 @Controller
 public class RootController {
-	@PersistenceContext
+	@Autowired
 	private EntityManager entityManager; 
 
 	// Incluimos ${prefix} en todas las páginas
@@ -32,13 +33,13 @@ public class RootController {
 	}
 
 	@GetMapping({ "/", "/index" })
-	String index(Model model) {
+	public String index(Model model) {
 		
 		return "index";
 	}
 
 	@GetMapping({ "/info" })
-	String info(Model model) {
+	public String info(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("infoStyle.css");
 		model.addAttribute("pageExtraCSS", listaCSS);
@@ -46,7 +47,7 @@ public class RootController {
 	}
 
 	@GetMapping({ "/home" })
-	String home(Model model, HttpSession session) {
+	public String home(Model model, HttpSession session) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("styleHome.css");
 		listaCSS.add("popup.css");
@@ -71,7 +72,7 @@ public class RootController {
 	}
 
 	@GetMapping({ "/gestion_cartas" })
-	String gestionCartas(Model model, HttpSession session) {
+	public String gestionCartas(Model model, HttpSession session) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("bootstrap.min.css");
 		listaCSS.add("jquery.dataTables.min.css");
@@ -94,7 +95,7 @@ public class RootController {
 	}
 
 	@GetMapping({ "/intercambio" })
-	String intercambio(Model model, HttpSession session) {
+	public String intercambio(Model model, HttpSession session) {
 
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("intercambioStyles.css");
@@ -117,7 +118,7 @@ public class RootController {
 	}
 
 	@PostMapping("/login")
-	String login(@RequestParam("login") String formLogin, HttpSession session) {
+	public String login(@RequestParam("login") String formLogin, HttpSession session) {
 		if (formLogin != null) {
 			session.setAttribute("user", formLogin);
 			if (formLogin.equals("admin")) {
@@ -126,9 +127,10 @@ public class RootController {
 		}
 		return "redirect:home";
 	}
-	@Transactional
+
 	@RequestMapping(value="/register", method = RequestMethod.POST)
-	String register(@RequestParam("nombre") String formNombre, 
+	@Transactional
+	public String register(@RequestParam("nombre") String formNombre, 
 			@RequestParam("apellidos") String formApellidos,
 			HttpSession session) {
 		
@@ -141,13 +143,13 @@ public class RootController {
 	 * Logout (also returns to home view).
 	 */
 	@GetMapping("/logout")
-	String logout(HttpSession session) {
+	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:index";
 	}
 
 	@GetMapping({ "/historial" })
-	String historial(Model model, HttpSession session) {
+	public String historial(Model model, HttpSession session) {
 
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("styleHistorial.css");
@@ -168,7 +170,7 @@ public class RootController {
 	}
 
 	@GetMapping({ "/admin" })
-	String admin(Model model, HttpSession session) {
+	public String admin(Model model, HttpSession session) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("adminStyles.css");
 
@@ -188,7 +190,7 @@ public class RootController {
 	}
 
 	@GetMapping({ "/perfil" })
-	String perfil(Model model, HttpSession session) {
+	public String perfil(Model model, HttpSession session) {
 
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("star-rating.min.css");
