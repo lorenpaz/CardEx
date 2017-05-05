@@ -50,11 +50,21 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>-->
+		
+		<!-- <dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency> -->
+		
+		 <dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>4.0.3.RELEASE</version>
-		</dependency>
+		</dependency> 
 		
 		<!-- from https://github.com/spring-projects/spring-boot/blob/master/spring-boot-samples/spring-boot-sample-web-jsp/pom.xml -->
 		<dependency>
