@@ -77,6 +77,7 @@
 						<option>Zaragoza</option>
 					</select>
 					<button type="submit" class="btn btn-default right">Registrar</button>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				</form>
 			</div>
 

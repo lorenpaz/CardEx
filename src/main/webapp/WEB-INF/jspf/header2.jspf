@@ -34,6 +34,7 @@
 			<label class="font-white" for="password">Contrase&ntilde;a</label>
 			<input type="password" id="password">
         </div>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>	
       </div>
     </nav>
