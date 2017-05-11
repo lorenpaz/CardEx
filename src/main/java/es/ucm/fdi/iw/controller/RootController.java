@@ -142,11 +142,10 @@ public class RootController {
 
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	@Transactional
-	public String register(@RequestParam("nombre") String formNombre, 
-			@RequestParam("apellidos") String formApellidos,
-			HttpSession session) {
-		
-		Usuario u = Usuario.crearUsuario(formNombre, formApellidos, "USER");
+	public String register(@RequestParam("usuario") String formUsuario, 
+			@RequestParam("contrasena") String formPassword,
+			HttpSession session) {		
+		Usuario u = Usuario.crearUsuario(formUsuario, formPassword, "USER");
 		entityManager.persist(u);
 		return "redirect:home";
 	}

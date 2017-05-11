@@ -1,5 +1,6 @@
 package es.ucm.fdi.iw.model;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,9 +18,8 @@ public class Usuario {
 	private String usuario;
 	private String contraseña;
 	private String provincia;
-	private String sal;
 	private String roles;
-	private String fechaAta;
+	private Date fechaAlta;
 	private boolean activo;
 
 	private List<Valoracion> valoracionesRecibidas;
@@ -114,14 +114,6 @@ public class Usuario {
 		this.provincia = provincia;
 	}
 
-	public String getSal() {
-		return sal;
-	}
-
-	public void setSal(String sal) {
-		this.sal = sal;
-	}
-
 	public String getRoles() {
 		return roles;
 	}
@@ -130,12 +122,12 @@ public class Usuario {
 		this.roles = roles;
 	}
 
-	public String getFechaAta() {
-		return fechaAta;
+	public Date getFechaAlta() {
+		return fechaAlta;
 	}
 
-	public void setFechaAta(String fechaAta) {
-		this.fechaAta = fechaAta;
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
 	}
 
 	public boolean isActivo() {
