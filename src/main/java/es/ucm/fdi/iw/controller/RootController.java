@@ -146,7 +146,7 @@ public class RootController {
 			@RequestParam("apellidos") String formApellidos,
 			HttpSession session) {
 		
-		Usuario u = Usuario.crearUsuario(formNombre, formApellidos, "cliente");
+		Usuario u = Usuario.crearUsuario(formNombre, formApellidos, "USER");
 		entityManager.persist(u);
 		return "redirect:home";
 	}

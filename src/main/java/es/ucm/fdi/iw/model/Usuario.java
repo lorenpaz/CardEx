@@ -18,7 +18,7 @@ public class Usuario {
 	private String contraseña;
 	private String provincia;
 	private String sal;
-	private String rol;
+	private String roles;
 	private String fechaAta;
 	private boolean activo;
 
@@ -30,11 +30,11 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public static Usuario crearUsuario(String usuario, String contraseña, String role) {
+	public static Usuario crearUsuario(String usuario, String contraseña, String roles) {
 		Usuario u = new Usuario();
 		u.usuario = usuario;
 		u.contraseña = generateHashedAndSalted(contraseña);
-		u.rol = role;
+		u.roles = roles;
 		return u;
 	}
 
@@ -122,12 +122,12 @@ public class Usuario {
 		this.sal = sal;
 	}
 
-	public String getRol() {
-		return rol;
+	public String getRoles() {
+		return roles;
 	}
 
-	public void setRol(String rol) {
-		this.rol = rol;
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 
 	public String getFechaAta() {

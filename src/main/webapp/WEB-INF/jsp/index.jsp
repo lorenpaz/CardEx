@@ -16,15 +16,15 @@
 					<label for="surnameform">Apellidos</label>
 					<input id="surnameform" class="form-control" name="apellidos">
 					<label for="mailform">E-Mail</label>
-					<input id="mailform" class="form-control">
+					<input id="mailform" class="form-control" name="email">
 					<label for="usernameform">Nombre de usuario</label>
-					<input id="usernameform" class="form-control">
+					<input id="usernameform" class="form-control" name="usuario">
 					<label for="passform">Contraseña</label>
-					<input id="passform" class="form-control">
+					<input id="passform" class="form-control" name="contrasena">
 					<label for="repassform">Confirmar contraseña</label>
-					<input id="repassform" class="form-control">
+					<input id="repassform" class="form-control" name="contrasenaR">
 					<label for="provform">Provincia</label>
-					<select id="provform" class="form-control">
+					<select id="provform" class="form-control" name="provincia">
 						<option>A Coruña</option>
 						<option>Álava</option>
 						<option>Albacete</option>

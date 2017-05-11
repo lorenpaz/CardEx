@@ -1,9 +1,6 @@
 package es.ucm.fdi.iw;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -34,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	.permitAll();
 }
 	
-	//Método con configuraciones globales (dado por el profesor)
+/*	//Método con configuraciones globales (dado por el profesor)
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth)
 	throws Exception {
@@ -43,18 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	.and()
 	.withUser("admin").password("password").roles("USER", "ADMIN");
 	}
-	
-	/*		ESTO DE ABAJO SI LO USAMOS, HABRÍA QUE QUITAR EL MÉTODO ANTERIOR
-	 * //You can define custom authentication with this method, por ejemplo con JPA
-	@Bean
-	public IwUserDetailsService springDataUserDetailsService() {
-	// debe implementar UserDetailsService:
-	// public UserDetails loadUserByUsername(String username)
-	return new IwUserDetailsService();
-	}
-	// interfaz UserDetails: principales métodos
-	// getUsername()
-	// getPassword()
-	// getAuthorities() -> lista de roles
 	*/
+
 }
