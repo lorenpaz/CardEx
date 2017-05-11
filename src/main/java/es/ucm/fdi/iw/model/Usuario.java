@@ -8,12 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
-
+@NamedQueries(
+	    @NamedQuery(name="userByUserField",
+        query="select u from Usuario u where u.usuario = :userParam")
+		)
 @Entity
 public class Usuario {
 	private static BCryptPasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
@@ -37,14 +42,20 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public static Usuario crearUsuario(String usuario, String contraseña, String roles) {
+	public static Usuario crearUsuario(String nombre, String apellidos, String email, String usuario, String contraseña, String provincia) {
 		Usuario u = new Usuario();
+		u.nombre = nombre;
+		u.apellidos = apellidos;
+		u.email = email;
 		u.usuario = usuario;
 		u.contraseña = bcryptEncoder.encode(contraseña);
-		u.roles = roles;
+		u.provincia = provincia;
+		u.roles = "USER";
 		u.fechaAlta = new Date(Calendar.getInstance().getTime().getTime());
+		u.activo = true;
+		u.valoracionMedia = 0;
 		return u;
-	}
+	} 
 
 	@OneToMany(targetEntity = Valoracion.class, mappedBy = "usuarioQueValora")
 	public List<Valoracion> getValoracionesRecibidas() {

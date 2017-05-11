@@ -20,12 +20,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		Ensures that any request to our application requires the user to be authenticated
 		Allows users to authenticate with form based login*/
 		
-	.antMatchers("/static/**", "/register").permitAll()		// user can access a request if the URL starts with "/static/"
+	.antMatchers("/static/**", "/register", "/login").permitAll()		// user can access a request if the URL starts with "/static/"
 	.antMatchers("/admin/**").hasRole("ADMIN") //Any URL that starts with "/admin/" will be restricted to users who have the role "ROLE_ADMIN"
+	.antMatchers("/home").hasRole("USER")
 	.anyRequest().authenticated() //Any URL that has not already been matched on only requires that the user be authenticated
 	.and()
 	.formLogin()
 	.loginPage("/index")	//Localización de la página del LogIn
+	.loginProcessingUrl("/login")
 	.permitAll() //The formLogin().permitAll() method allows granting access to all users for all URLs associated with form based log in.
 	.and()
 	.logout()

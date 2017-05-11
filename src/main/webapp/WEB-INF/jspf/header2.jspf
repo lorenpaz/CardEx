@@ -30,9 +30,9 @@
 			<button type="submit" class="btn btn-default btn-sm btn-login right">Login</button>	
         <div id="navbar" class="collapse navbar-collapse login-form right">
 			<label class="font-white" for="login">Usuario</label>
-			<input type="text" id="login" name="login">
+			<input type="text" id="login" name="username">
 			<label class="font-white" for="password">Contrase&ntilde;a</label>
-			<input type="password" id="password">
+			<input type="password" id="password" name="password">
         </div>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>	

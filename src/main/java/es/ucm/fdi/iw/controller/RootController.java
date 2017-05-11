@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -17,14 +18,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import es.ucm.fdi.iw.IwUserDetailsService;
 import es.ucm.fdi.iw.model.Usuario;
 
 @Controller
 public class RootController {
 	
-	//Se usará para registrar lo que hagamos
+	//Se usa para registrar lo que hagamos
 	private static Logger log = Logger.getLogger(RootController.class);
+	
+	private static BCryptPasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
 	
 	@Autowired
 	private EntityManager entityManager; 
@@ -74,12 +80,12 @@ public class RootController {
 		listaJS.add("home.js");
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-		if (session.getAttribute("user") == null) {
+	/*	if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
 		if (session.getAttribute("user").equals("admin")) {
 			return "redirect:admin";
-		}
+		}*/
 		return "home";
 	}
 
@@ -97,12 +103,12 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-		if (session.getAttribute("user") == null) {
+	/*	if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
 		if (session.getAttribute("user").equals("admin")) {
 			return "redirect:admin";
-		}
+		}*/
 		return "gestion_cartas";
 	}
 
@@ -119,33 +125,65 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-		if (session.getAttribute("user") == null) {
+		/*if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
 		if (session.getAttribute("user").equals("admin")) {
 			return "redirect:admin";
 		}
-
+*/
 		return "intercambio";
 	}
-
+/*
 	@PostMapping("/login")
-	public String login(@RequestParam("login") String formLogin, HttpSession session) {
-		if (formLogin != null) {
-			session.setAttribute("user", formLogin);
-			if (formLogin.equals("admin")) {
-				return "redirect:admin";
+	public String login(@RequestParam("login") String formLogin,
+			@RequestParam("password") String formPassword,
+			HttpSession session, Model model) {
+		
+		//Realizamos las pertinentes comprobaciones
+		if (formLogin != null && formPassword != null) {
+			
+			Usuario u = null;
+			
+			try {
+				//Obtenemos el usuario
+				u = (Usuario) entityManager.createNamedQuery("userByUserField")
+						.setParameter("userParam", formLogin).getSingleResult();
+				
+				//Comprobamos que es válida la contraseña
+				if (bcryptEncoder.matches(formPassword, u.getContraseña())) 
+				{
+					log.info("pass was valid");				
+					session.setAttribute("user", formLogin);
+					
+					IwUserDetailsService prueba = new IwUserDetailsService();
+					UserDetails pr = prueba.loadUserByUsername(u.getUsuario());
+					
+					//if (formLogin.equals("admin")) 
+					{
+						return "redirect:admin";
+					//}
+				} else {
+					log.info("pass was NOT valid");
+					model.addAttribute("loginError", "error en usuario o contraseña");
+				}	
+			} catch(NoResultException e) {
+				log.info("Error: usuario o contraseña incorrectos");
 			}
 		}
 		return "redirect:home";
 	}
-
+*/
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	@Transactional
-	public String register(@RequestParam("usuario") String formUsuario, 
+	public String register(@RequestParam("nombre") String formName, 
+			@RequestParam("apellidos") String formSurname,
+			@RequestParam("email") String formEmail,
+			@RequestParam("usuario") String formUser,
 			@RequestParam("contrasena") String formPassword,
+			@RequestParam("provincia") String formProvincia,
 			HttpSession session) {
-		Usuario u = Usuario.crearUsuario(formUsuario, formPassword, "USER");
+		Usuario u = Usuario.crearUsuario(formName,formSurname,formEmail,formUser, formPassword, formProvincia);
 		log.info("Creating user " + u);
 		entityManager.persist(u);
 		return "redirect:home";
@@ -172,12 +210,12 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-		if (session.getAttribute("user") == null) {
+		/*if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
 		if (session.getAttribute("user").equals("admin")) {
 			return "redirect:admin";
-		}
+		}*/
 		return "historial";
 	}
 
@@ -192,12 +230,12 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-		if (session.getAttribute("user") == null) {
+	/*	if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
 		if (!session.getAttribute("user").equals("admin")) {
 			return "redirect:home";
-		}
+		}*/
 		return "admin";
 	}
 
@@ -216,12 +254,12 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-		if (session.getAttribute("user") == null) {
+	/*	if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
 		if (session.getAttribute("user").equals("admin")) {
 			return "redirect:admin";
-		}
+		}*/
 		return "perfil";
 	}
 
