@@ -144,8 +144,9 @@ public class RootController {
 	@Transactional
 	public String register(@RequestParam("usuario") String formUsuario, 
 			@RequestParam("contrasena") String formPassword,
-			HttpSession session) {		
+			HttpSession session) {
 		Usuario u = Usuario.crearUsuario(formUsuario, formPassword, "USER");
+		log.info("Creating user " + u);
 		entityManager.persist(u);
 		return "redirect:home";
 	}

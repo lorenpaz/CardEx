@@ -1,12 +1,4 @@
-INSERT INTO Usuario VALUES (1, 'Administrador', 
-'administrador', 
-'admin@admin.es',
-'admin',
-'admin',
-'Madrid',
-'USER,ADMIN',
-myCal.getTime(),
-'true');
+/*INSERT INTO Usuario VALUES (1, 'Administrador','administrador','admin@admin.es','admin','admin','Madrid','USER,ADMIN',Calendar.getInstance(),'true');
 /*
 	private long id;
 	private String nombre;

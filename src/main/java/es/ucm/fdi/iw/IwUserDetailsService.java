@@ -26,8 +26,8 @@ public class IwUserDetailsService implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String username){
     	try {
-	        Usuario u = entityManager.createQuery("from Usuario where login = :login", Usuario.class)
-	                            .setParameter("login", username)
+	        Usuario u = entityManager.createQuery("from Usuario where usuario = :usuario", Usuario.class)
+	                            .setParameter("usuario", username)
 	                            .getSingleResult();
 	        // build UserDetails object
 	        ArrayList<SimpleGrantedAuthority> roles = new ArrayList<>();

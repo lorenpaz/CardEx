@@ -1,8 +1,15 @@
 package es.ucm.fdi.iw.model;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
@@ -33,8 +40,9 @@ public class Usuario {
 	public static Usuario crearUsuario(String usuario, String contraseña, String roles) {
 		Usuario u = new Usuario();
 		u.usuario = usuario;
-		u.contraseña = generateHashedAndSalted(contraseña);
+		u.contraseña = bcryptEncoder.encode(contraseña);
 		u.roles = roles;
+		u.fechaAlta = new Date(Calendar.getInstance().getTime().getTime());
 		return u;
 	}
 
@@ -138,14 +146,6 @@ public class Usuario {
 		this.activo = activo;
 	}
 
-	public static String generateHashedAndSalted(String pass) {
-		return bcryptEncoder.encode(pass);
-	}
-
-	public boolean isPassValid(String pass) {
-		return bcryptEncoder.matches(pass, contraseña);
-	}
-
 	public float getValoracionMedia() {
 		return valoracionMedia;
 	}
@@ -153,7 +153,13 @@ public class Usuario {
 	public void setValoracionMedia(float valoracionMedia) {
 		this.valoracionMedia = valoracionMedia;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email
+				+ ", usuario=" + usuario + ", contraseña=" + contraseña + ", provincia=" + provincia + ", roles="
+				+ roles + ", fechaAlta=" + fechaAlta + ", activo=" + activo + ", valoracionesRecibidas="
+				+ valoracionesRecibidas + ", valoracionesDadas=" + valoracionesDadas + ", valoracionMedia="
+				+ valoracionMedia + "]";
+	}
 }
