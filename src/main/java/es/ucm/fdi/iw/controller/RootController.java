@@ -4,24 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import es.ucm.fdi.iw.IwUserDetailsService;
 import es.ucm.fdi.iw.model.Usuario;
 
 @Controller
@@ -30,7 +26,8 @@ public class RootController {
 	//Se usa para registrar lo que hagamos
 	private static Logger log = Logger.getLogger(RootController.class);
 	
-	private static BCryptPasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private EntityManager entityManager; 
@@ -183,7 +180,8 @@ public class RootController {
 			@RequestParam("contrasena") String formPassword,
 			@RequestParam("provincia") String formProvincia,
 			HttpSession session) {
-		Usuario u = Usuario.crearUsuario(formName,formSurname,formEmail,formUser, formPassword, formProvincia);
+		Usuario u = Usuario.crearUsuario(formName,formSurname,formEmail,formUser, 
+				passwordEncoder.encode(formPassword), formProvincia);
 		log.info("Creating user " + u);
 		entityManager.persist(u);
 		return "redirect:home";

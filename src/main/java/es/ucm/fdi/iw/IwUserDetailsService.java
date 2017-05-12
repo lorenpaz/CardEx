@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import es.ucm.fdi.iw.model.Usuario;
 
@@ -41,7 +42,7 @@ public class IwUserDetailsService implements UserDetailsService {
 	        		u.getUsuario(), u.getContraseña(), roles); 
 	    } catch (Exception e) {
     		log.info("No such user: " + username);
-    		return null;
+    		throw new UsernameNotFoundException("No such user: " + username);
     	}
     }
 }

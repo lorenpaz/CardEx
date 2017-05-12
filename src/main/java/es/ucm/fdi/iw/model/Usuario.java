@@ -21,8 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 		)
 @Entity
 public class Usuario {
-	private static BCryptPasswordEncoder bcryptEncoder = new BCryptPasswordEncoder();
-
 	private long id;
 	private String nombre;
 	private String apellidos;
@@ -48,7 +46,7 @@ public class Usuario {
 		u.apellidos = apellidos;
 		u.email = email;
 		u.usuario = usuario;
-		u.contraseña = bcryptEncoder.encode(contraseña);
+		u.contraseña = contraseña;
 		u.provincia = provincia;
 		u.roles = "USER";
 		u.fechaAlta = new Date(Calendar.getInstance().getTime().getTime());
