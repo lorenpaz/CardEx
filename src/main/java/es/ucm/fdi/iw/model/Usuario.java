@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,11 +15,7 @@ import javax.persistence.OneToMany;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
-@NamedQueries(
-	    @NamedQuery(name="userByUserField",
-        query="select u from Usuario u where u.usuario = :userParam")
-		)
+@NamedQueries(@NamedQuery(name = "userByUserField", query = "select u from Usuario u where u.usuario = :userParam"))
 @Entity
 public class Usuario {
 	private long id;
@@ -34,13 +31,14 @@ public class Usuario {
 
 	private List<Valoracion> valoracionesRecibidas;
 	private List<Valoracion> valoracionesDadas;
-	
+
 	private float valoracionMedia;
 
 	public Usuario() {
 	}
 
-	public static Usuario crearUsuario(String nombre, String apellidos, String email, String usuario, String contraseña, String provincia) {
+	public static Usuario crearUsuario(String nombre, String apellidos, String email, String usuario, String contraseña,
+			String provincia) {
 		Usuario u = new Usuario();
 		u.nombre = nombre;
 		u.apellidos = apellidos;
@@ -53,9 +51,9 @@ public class Usuario {
 		u.activo = true;
 		u.valoracionMedia = 0;
 		return u;
-	} 
+	}
 
-	@OneToMany(targetEntity = Valoracion.class, mappedBy = "usuarioQueValora")
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = Valoracion.class, mappedBy = "usuarioQueValora")
 	public List<Valoracion> getValoracionesRecibidas() {
 		return valoracionesRecibidas;
 	}
@@ -64,7 +62,7 @@ public class Usuario {
 		this.valoracionesRecibidas = valoracionesRecibidas;
 	}
 
-	@OneToMany(targetEntity = Valoracion.class, mappedBy = "usuarioValorado")
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = Valoracion.class, mappedBy = "usuarioValorado")
 	public List<Valoracion> getValoracionesDadas() {
 		return valoracionesDadas;
 	}
