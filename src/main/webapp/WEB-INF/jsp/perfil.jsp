@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="card hovercard">
 		<div class="card-info">
-			<span class="card-title">${user}</span>
+			<span class="card-title">${user.usuario}</span>
 		</div>
 	</div>
 	<div class="btn-pref btn-group btn-group-justified btn-group-lg"
@@ -37,19 +37,19 @@
 				<table class="table table-sm">
 					<tr>
 						<th scope="row">Nombre</th>
-						<td>Mark</td>
+						<td>${user.nombre}</td>
 					</tr>
 					<tr>
 						<th scope="row">Apellidos</th>
-						<td>Jacob</td>
+						<td>${user.apellidos}</td>
 					</tr>
 					<tr>
 						<th scope="row">E-Mail</th>
-						<td>ejemplo@ucm.es</td>
+						<td>${user.email}</td>
 					</tr>
 					<tr>
 						<th scope="row">Provincia</th>
-						<td>Madrid</td>
+						<td>${user.provincia}</td>
 					</tr>
 				</table>
 			</div>

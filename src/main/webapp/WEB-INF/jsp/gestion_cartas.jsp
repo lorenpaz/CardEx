@@ -122,21 +122,10 @@
 		                  <th>Carta</th>
 						  <th></th>
 					  </tr>
-					  <tr>
-						<td>Counterspell</td>
-						<td><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></td>
-					  </tr>
-					  <tr>
-						<td>Mana leak</td>
-						<td><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></td>
-					  </tr>
-					  <tr>
-						<td>Stifle</td>
-						<td><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></td>
-					  </tr>
 					  <tr class="drop-cell drop info" id="trp1" ondrop="drop(event, 1)" ondragover="allowDrop(event)">
 						<td colspan="2" class="td-table-add"> Arrastra aquí </td>
 					  </tr>
+					  
 	                </table>
             </div>
             <div id="cambiar-column" class="offer-column">
@@ -149,54 +138,10 @@
 					  <th>Cantidad</th>
 					  <th></th>
 				  </tr>
-				  <tr>
-					<td>Mountain</td>
-					<td>Tempestad</td>
-					<td>
-						<select class="form-control input-sm">
-							<option>Nueva</option>
-							<option>Jugada</option>
-							<option>Deteriorada</option>
-						</select>
-					</td>
-					<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-						<input  type="text" name="quantity" class="cantidad-carta" value="0">
-						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td>
-					<td><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></td>
-				  </tr>
-				  <tr>
-					<td>Island</td>
-					<td>Fortaleza</td>
-					<td>
-						<select class="form-control input-sm">
-							<option>Nueva</option>
-							<option>Jugada</option>
-							<option>Deteriorada</option>
-						</select>
-					</td>
-					<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-						<input  type="text" name="quantity" class="cantidad-carta" value="0">
-						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td>
-					<td><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></td>
-				  </tr>
-				  <tr>
-					<td>Rancor</td>
-					<td>Saga de Urza</td>
-					<td>
-						<select class="form-control input-sm">
-							<option>Nueva</option>
-							<option>Jugada</option>
-							<option>Deteriorada</option>
-						</select>
-					</td>
-					<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-						<input  type="text" name="quantity" class="cantidad-carta" value="0">
-						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td>
-					<td><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></td>
-				  </tr>
 				  <tr class="drop-cell drop info" id="trp1" ondrop="drop(event, 2)" ondragover="allowDrop(event)">
 						<td colspan="5" class="td-table-add"> Arrastra aquí </td>
 			      </tr>
+				  
 				</table>
 			</div>
         </div>
