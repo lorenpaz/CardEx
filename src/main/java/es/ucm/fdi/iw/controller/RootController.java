@@ -1,5 +1,6 @@
 package es.ucm.fdi.iw.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.ucm.fdi.iw.model.Usuario;
+import net.minidev.json.JSONArray;
 
 @Controller
 public class RootController {
@@ -40,7 +44,6 @@ public class RootController {
 
 	@GetMapping({ "/", "/index" })
 	public String index(Model model) {
-		
 		List<String> listaJS = new ArrayList<String>();
 		listaJS.add("jquery-3.1.1.min.js");
 		listaJS.add("index.js");
@@ -61,8 +64,9 @@ public class RootController {
 		return "info";
 	}
 
+
 	@GetMapping({ "/home" })
-	public String home(Model model, HttpSession session) {
+	public String home(Model model, Principal principal, HttpSession session) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("styleHome.css");
 		listaCSS.add("popup.css");
@@ -77,6 +81,17 @@ public class RootController {
 		listaJS.add("home.js");
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
+		
+		if (principal != null && session.getAttribute("user") == null) {
+			try {
+		        session.setAttribute("user", entityManager.createNamedQuery("userByUserField")
+						.setParameter("userParam", principal.getName()).getSingleResult());
+		       
+		    } catch (Exception e) {
+	    		log.info("No such user: " + principal.getName());
+	    	}
+		}
+		
 	/*	if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
