@@ -7,6 +7,7 @@
 	<%-- Nuestro header --%>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 	<title>CardEx</title>
+	<link rel="shortcut icon" href="${prefix}img/logo.ico" />
 	
 	<!-- Bootstrap Core CSS -->
 	<link href="${prefix}css/bootstrap.min.css" rel="stylesheet">
