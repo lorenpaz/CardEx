@@ -7,7 +7,6 @@
 	<%-- Nuestro header --%>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 	<title>CardEx</title>
-	<link rel="shortcut icon" href="${prefix}img/logo.ico" />
 	
 	<!-- Bootstrap Core CSS -->
 	<link href="${prefix}css/bootstrap.min.css" rel="stylesheet">
@@ -29,16 +28,6 @@
         </div>
         <c:url value="/login" var="loginUrl"/>
 		<form action="${loginUrl}" method="post">
-		<c:if test="${param.error != null}">
-			<p>
-				Invalid username and password.
-			</p>
-		</c:if>
-		<c:if test="${param.logout != null}">
-			<p>
-				You have been logged out.
-			</p>
-		</c:if>
 			<button type="submit" class="btn btn-default btn-sm btn-login right">Login</button>	
         <div id="navbar" class="collapse navbar-collapse login-form right">
 			<label class="font-white" for="login">Usuario</label>
