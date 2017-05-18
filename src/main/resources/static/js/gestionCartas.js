@@ -13,11 +13,11 @@ function drop(ev, col) {
     var newElement = document.createElement("tr");
     var newTd = document.createElement("td");
     if(col === 1){
-    	newTd.innerHTML = "<button type='button' class='btn btn-link btn-xs'><span class='glyphicon glyphicon-remove'></span></button>";
+    	newTd.innerHTML = "<button type='button' class='btn btn-link btn-xs' onclick='removeCard(event)'>X</button>";
     	newElement.appendChild(org);
     	newElement.appendChild(newTd);
     	var parent = ev.target.parentNode;
-    	parent.parentNode.insertBefore(newElement, parent);
+    	parent.parentNode.insertBefore(newElement, parent.nextSibling);
     }
     if(col === 2){
     	newTd.innerHTML =   "Saga de Urza";
@@ -30,14 +30,14 @@ function drop(ev, col) {
     						" <button type='button' class='btn btn-xs' onclick='incrSpinner(event)'>"+
     						"<span class='glyphicon glyphicon-plus'></span></button>";
     	var newTd4 = document.createElement("td");
-    	newTd4.innerHTML =	"<button type='button' class='btn btn-link btn-xs'><span class='glyphicon glyphicon-remove'></span></button></td>";
+    	newTd4.innerHTML =	"<button type='button' class='btn btn-link btn-xs' onclick='removeCard(event)' >X</button></td>";
     	newElement.appendChild(org);
     	newElement.appendChild(newTd);
     	newElement.appendChild(newTd2);
     	newElement.appendChild(newTd3);
     	newElement.appendChild(newTd4);
     	var parent = ev.target.parentNode;
-    	parent.parentNode.insertBefore(newElement, parent);
+    	parent.parentNode.insertBefore(newElement, parent.nextSibling);
     }
 }
 
@@ -57,6 +57,12 @@ function incrSpinner(e){
 	num++;
 	element.value = num;
 	
+}
+
+function removeCard(e){
+	var element = e.srcElement.parentNode.parentNode;
+	var parent = element.parentNode;
+	parent.removeChild(element);
 }
 
 
