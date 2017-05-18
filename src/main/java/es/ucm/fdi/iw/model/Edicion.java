@@ -4,12 +4,18 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Edicion {
 
 	private long id;
 
-	private List<Carta> code;
+	private List<Carta> cartas;
+	private String code;
+
 	private String name;
 	private String type;
 	private Integer mkm_id;
@@ -17,6 +23,7 @@ public class Edicion {
 	private String releaseDate;
 	private String block;
 	private String magicCardsInfoCode;
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +34,15 @@ public class Edicion {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	public String getCode() {
+		return code;
+	}
 
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
 	public String getType() {
 		return type;
 	}
@@ -76,13 +91,13 @@ public class Edicion {
 		this.magicCardsInfoCode = magicCardsInfoCode;
 	}
 
-	@OneToMany(targetEntity = Carta.class, mappedBy = "set")
-	public List<Carta> getCode() {
-		return code;
+	@OneToMany(targetEntity = Carta.class, mappedBy = "edicion")
+	public List<Carta> getCartas() {
+		return cartas;
 	}
 
-	public void setCode(List<Carta> code) {
-		this.code = code;
+	public void setCartas(List<Carta> cartas) {
+		this.cartas = cartas;
 	}
 
 	public String getName() {

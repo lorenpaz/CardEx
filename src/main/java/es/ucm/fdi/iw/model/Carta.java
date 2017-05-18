@@ -4,9 +4,15 @@ import java.util.List;
 
 import javax.persistence.*;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Carta {
 
+	@JsonIgnore
 	private long id;
 	private String name;
 	private String manaCost;
@@ -19,7 +25,7 @@ public class Carta {
 	private String[] subtypes;
 	private String rarity;
 
-	private Edicion set;
+	private Edicion edicion;
 	private String setName;
 	private String text;
 	private String artist;
@@ -30,8 +36,8 @@ public class Carta {
 	private String layout;
 	private String multiverseid;
 	private String imageUrl;
-	private String[] rulings;
-	private String[] foreignNames;
+	//private String[] rulings;
+	//private String[] foreignNames;
 	private String[] printings;
 
 	private String estadoCarta;
@@ -129,12 +135,12 @@ public class Carta {
 	}
 
 	@ManyToOne(targetEntity = Edicion.class)
-	public Edicion getSet() {
-		return set;
+	public Edicion getEdicion() {
+		return edicion;
 	}
 
-	public void setSet(Edicion set) {
-		this.set = set;
+	public void setEdicion(Edicion edicion) {
+		this.edicion = edicion;
 	}
 
 	public String getText() {
@@ -201,15 +207,15 @@ public class Carta {
 		this.imageUrl = imageUrl;
 	}
 
-	public String[] getRulings() {
+	/*public String[] getRulings() {
 		return rulings;
 	}
 
 	public void setRulings(String[] rulings) {
 		this.rulings = rulings;
 	}
-
-	public String[] getForeignNames() {
+*/
+	/*public String[] getForeignNames() {
 		return foreignNames;
 	}
 
@@ -217,7 +223,7 @@ public class Carta {
 		this.foreignNames = foreignNames;
 	}
 
-	public String[] getPrintings() {
+*/	public String[] getPrintings() {
 		return printings;
 	}
 
