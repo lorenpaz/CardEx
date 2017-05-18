@@ -11,6 +11,7 @@
 	<!-- Bootstrap Core CSS -->
 	<link href="${prefix}css/bootstrap.min.css" rel="stylesheet">
 	<link href="${prefix}css/header.css" rel="stylesheet" type="text/css">
+	<link rel="shortcut icon" href="${prefix}img/logo.ico" />
 	
 	<%-- pageExtraCSS --%>
 	<c:forEach var="i" items="${pageExtraCSS}" >

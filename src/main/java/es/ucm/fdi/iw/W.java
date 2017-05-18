@@ -10,6 +10,10 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import es.ucm.fdi.iw.model.Carta;
 import es.ucm.fdi.iw.model.Edicion;
 import net.minidev.json.parser.JSONParser;
-import es.ucm.fdi.iw.json.*;
+//import es.ucm.fdi.iw.json.*; da error
 
 public class W {
 	public static final ObjectMapper JSON_MAPPER = new ObjectMapper();
@@ -43,7 +47,7 @@ public class W {
 		return null;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws JSONException {
 		// TODO Auto-generated method stub
 		//System.err.println(get("https://api.magicthegathering.io/v1/cards"));
 		
@@ -58,7 +62,7 @@ public class W {
 		}
 	}
 	
-	public static Collection<Carta> getCartasPorEdicion(String ed){
+	public static Collection<Carta> getCartasPorEdicion(String ed) throws JSONException{
 		Collection<Carta> cartas = new ArrayList<Carta>();
 		int cont = 1;
 		JSONParserCartas(get("https://api.magicthegathering.io/v1/cards?set="+ed),cartas);
@@ -69,7 +73,7 @@ public class W {
 		return cartas;
 	}
 
-	public static void JSONParserCartas(String json, Collection<Carta> cartas){
+	public static void JSONParserCartas(String json, Collection<Carta> cartas) throws JSONException{
 		JSONObject obj = new JSONObject(json);
 		
 		JSONArray arr = obj.getJSONArray("cards");
@@ -93,7 +97,7 @@ public class W {
 		}
 	}
 	
-	public static Collection<Edicion> JSONParserSets(String json){
+	public static Collection<Edicion> JSONParserSets(String json) throws JSONException{
 		JSONObject obj = new JSONObject(json);
 		Collection<Edicion> sets = new ArrayList<Edicion>();
 		
