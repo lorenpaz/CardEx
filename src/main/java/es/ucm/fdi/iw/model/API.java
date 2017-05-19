@@ -9,9 +9,14 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.EntityManager;
+
+import org.apache.log4j.Logger;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -20,9 +25,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class API {
-	public static final ObjectMapper JSON_MAPPER = new ObjectMapper();
+	public final ObjectMapper JSON_MAPPER = new ObjectMapper();
 	
-	private static String get(String u){
+	private String get(String u){
 		try {
 			URL url = new URL(u);
 			URLConnection hc = url.openConnection();
@@ -43,7 +48,7 @@ public class API {
 		return null;
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//System.err.println(get("https://api.magicthegathering.io/v1/cards"));
 		
@@ -57,9 +62,9 @@ public class API {
 				System.out.println(cont += cartas.size());
 			}
 		}
-	}
+	}*/
 	
-	public static Collection<Carta> getCartasPorEdicion(String ed){
+	public Collection<Carta> getCartasPorEdicion(String ed){
 		Collection<Carta> cartas = new ArrayList<Carta>();
 		//int cont = 1;
 		cartas = JSONParserCartas(get("https://api.magicthegathering.io/v1/cards?set="+ed));
@@ -70,11 +75,11 @@ public class API {
 		return cartas;
 	}
 	
-	public static Collection<Edicion> getEdiciones(){
+	public Collection<Edicion> getEdiciones(){
 		return JSONParserSets(get("https://api.magicthegathering.io/v1/sets"));
 	}
 
-	private static Collection<Carta> JSONParserCartas(String json){
+	private Collection<Carta> JSONParserCartas(String json){
 		Collection<Carta> cartas = new ArrayList<Carta>();
 		JSONObject obj;
 		try {
@@ -108,7 +113,7 @@ public class API {
 		return cartas;
 	}
 	
-	private static Collection<Edicion> JSONParserSets(String json){
+	private Collection<Edicion> JSONParserSets(String json){
 		JSONObject obj;
 
 		Collection<Edicion> sets = new ArrayList<Edicion>();

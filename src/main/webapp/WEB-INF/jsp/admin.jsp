@@ -25,7 +25,10 @@
 	<%-- pageExtraScripts --%>
 	<c:forEach var="i" items="${pageExtraScripts}" >
         <script src="static/js/${i}"></script>
-    </c:forEach>    
+    </c:forEach>   
+    
+    <%-- Carga de Ediciones en desplegable --%>
+    <%@page import="es.ucm.fdi.iw.model.*"%> 
 
 </head>
 
@@ -91,77 +94,27 @@
 	                    </tr>
 	                  </table>     
 	                </div>
+	                
 	                <div class="tab-pane fade in" id="tab2">
-	                  	<div>
-		                    <form class="form-inline form-search" method="post">
-		                        <select class="input-large form-control">
-		                          <option selected="selected">Elige una colección</option>
-		                          <option >Magic Orígenes</option>
-		                          <option >Básica Magic 2015</option>
-		                          <option >Theros</option>
-		                        </select>
-		                      <input type="search" class="form-control" placeholder="Carta"/>
-		                      <input type="submit" class="btn btn-primary" value="Buscar"/>
-		                    </form>
-		                    
-		                    <table class="table table-striped table-hover">
-			                    <caption>Todas las cartas</caption>
-			                    <tr>
-				                    <th>#</th>
-				                    <th>Carta</th>
-				                    <th>Colección</th>
-				                    <th>Borrar</th>
-			                    </tr>
-			                    <tr>
-			                      <td>1</td>
-			                      <td>Jack</td>
-			                      <td>Magic Orígenes</td>
-			                      <td><form method="post"><span class="glyphicon glyphicon-remove"></span></form></td>
-			                    </tr>
-			                    <tr>
-			                      <td>2</td>
-			                      <td>Daisy</td>
-			                      <td>Básica Magic 2015</td>
-			                      <td><form method="post"><span class="glyphicon glyphicon-remove"></span></form></td>
-			                    </tr>
-			                    <tr>
-			                      <td>3</td>
-			                      <td>Thor</td>
-			                      <td>Magic Orígenes</td>
-			                      <td><form method="post"><span class="glyphicon glyphicon-remove"></span></form></td>
-			                    </tr>
-		                  	</table>
-	                	</div>
 	                        <table class="table table-striped table-hover">
-		                         <caption>Todas las colecciones</caption>
+		                        <caption>Ediciones</caption>
 		                        <tr>
-		                        <th>#</th>
 		                        <th>Colección</th>
 		                        <th>Última actualización</th>
 		                        <th>Actualizar</th>
 		                        <th>Borrar</th>
 		                        </tr>
-		                        <tr>
-		                          <td>1</td>
-		                          <td>Magic Orígenes</td>
-		                          <td>02/02/17</td>
-		                          <td><form method="post"><span class="glyphicon glyphicon-refresh"></span></form></td>
-		                          <td><form method="post"><span class="glyphicon glyphicon-remove"></span></form></td>
-		                        </tr>
-		                        <tr>
-		                          <td>2</td>
-		                          <td>Básica Magic 2015</td>
-		                          <td>13/10/16</td>
-		                          <td><form method="post"><span class="glyphicon glyphicon-refresh"></span></form></td>
-		                          <td><form method="post"><span class="glyphicon glyphicon-remove"></span></form></td>
-		                        </tr>
-		                        <tr>
-		                          <td>3</td>
-		                          <td>Theros</td>
-		                          <td>Sin actualizar</td>
-		                          <td><form method="post"><span class="glyphicon glyphicon-refresh"></span></form></td>
-		                          <td></td>
-		                        </tr>
+		                        
+		                        <%
+		                          	API api = new API();
+		                  			java.util.Collection<Edicion> ediciones = api.getEdiciones();
+
+		                  			for(Edicion ed : ediciones){
+		                  				out.println("<tr><td>"+ ed.getName() +"</td><td>Sin Actualizar</td><td><form method='post'><span class='glyphicon glyphicon-refresh'></span></form></td><td><form method='post'><span class='glyphicon glyphicon-remove'></span></form></td></tr>");
+		                  			}
+								 
+								 %>
+		                        
 	                      	</table>
 	                    </div>
 	                </div>
