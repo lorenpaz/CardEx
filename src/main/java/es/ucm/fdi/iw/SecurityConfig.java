@@ -20,11 +20,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 			.antMatchers("/static/**", "/register", "/login", "/info").permitAll()
+			.antMatchers("/home").hasRole("USER")
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()
 			.loginPage("/index")
 			.loginProcessingUrl("/login")
+			.defaultSuccessUrl("/home")
 			.permitAll()
 			.and()
 		.logout()
