@@ -1,4 +1,4 @@
-package es.ucm.fdi.iw;
+package es.ucm.fdi.iw.model;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,14 +18,11 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.ucm.fdi.iw.model.Carta;
-import es.ucm.fdi.iw.model.Edicion;
 
-
-public class W {
+public class API {
 	public static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 	
-	public static String get(String u) {
+	private static String get(String u){
 		try {
 			URL url = new URL(u);
 			URLConnection hc = url.openConnection();
@@ -50,7 +47,8 @@ public class W {
 		// TODO Auto-generated method stub
 		//System.err.println(get("https://api.magicthegathering.io/v1/cards"));
 		
-		Collection<Edicion> sets = JSONParserSets(get("https://api.magicthegathering.io/v1/sets"));
+		Collection<Edicion> sets = getEdiciones();
+		
 		int cont = 0;
 		for(Edicion set : sets){
 			if(set != null){
@@ -71,8 +69,12 @@ public class W {
 		
 		return cartas;
 	}
+	
+	public static Collection<Edicion> getEdiciones(){
+		return JSONParserSets(get("https://api.magicthegathering.io/v1/sets"));
+	}
 
-	public static Collection<Carta> JSONParserCartas(String json){
+	private static Collection<Carta> JSONParserCartas(String json){
 		Collection<Carta> cartas = new ArrayList<Carta>();
 		JSONObject obj;
 		try {
@@ -106,7 +108,7 @@ public class W {
 		return cartas;
 	}
 	
-	public static Collection<Edicion> JSONParserSets(String json){
+	private static Collection<Edicion> JSONParserSets(String json){
 		JSONObject obj;
 
 		Collection<Edicion> sets = new ArrayList<Edicion>();
