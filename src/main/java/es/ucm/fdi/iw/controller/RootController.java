@@ -84,8 +84,13 @@ public class RootController {
 		
 		if (principal != null && session.getAttribute("user") == null) {
 			try {
+				
 		        session.setAttribute("user", entityManager.createNamedQuery("userByUserField")
 						.setParameter("userParam", principal.getName()).getSingleResult());
+		        Usuario u = (Usuario) session.getAttribute("user");
+		        if(u.getRoles().contains("ADMIN")){
+		        	return "redirect:admin";
+		        }
 		       
 		    } catch (Exception e) {
 	    		log.info("No such user: " + principal.getName());
@@ -243,10 +248,10 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-	/*	if (session.getAttribute("user") == null) {
+		if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
-		if (!session.getAttribute("user").equals("admin")) {
+		/*if (!session.getAttribute("user").equals("admin")) {
 			return "redirect:home";
 		}*/
 		return "admin";
