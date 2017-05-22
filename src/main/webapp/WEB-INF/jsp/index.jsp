@@ -12,19 +12,19 @@
 			<div class="form-group">
 				<form action="register" method="post">
 					<label for="nameform">Nombre</label>
-					<input id="nameform" class="form-control" name="nombre">
+					<input id="nameform" class="form-control" name="nombre" required>
 					<label for="surnameform">Apellidos</label>
-					<input id="surnameform" class="form-control" name="apellidos">
+					<input id="surnameform" class="form-control" name="apellidos" required>
 					<label for="mailform">E-Mail</label>
-					<input id="mailform" class="form-control" name="email">
+					<input id="mailform" class="form-control" name="email" required>
 					<label for="usernameform">Nombre de usuario</label>
-					<input id="usernameform" class="form-control" name="usuario">
+					<input id="usernameform" class="form-control" name="usuario" required>
 					<label for="passform">Contraseña</label>
-					<input id="passform" class="form-control" name="contrasena">
+					<input id="passform" class="form-control" type="password" name="contrasena" required>
 					<label for="repassform">Confirmar contraseña</label>
-					<input id="repassform" class="form-control" name="contrasenaR">
+					<input id="repassform" class="form-control" type="password" name="contrasenaR" required>
 					<label for="provform">Provincia</label>
-					<select id="provform" class="form-control" name="provincia">
+					<select id="provform" class="form-control" name="provincia" required>
 						<option>A Coruña</option>
 						<option>Álava</option>
 						<option>Albacete</option>
