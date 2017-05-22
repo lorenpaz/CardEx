@@ -1,1 +1,1 @@
-INSERT INTO Usuario(id,nombre,apellidos,email,usuario,contraseña,provincia,roles,activo) VALUES (1, 'Administrador','administrador','admin@admin.es','admin','admin','Madrid','USER,ADMIN','true');
+INSERT INTO Usuario(id,nombre,apellidos,email,usuario,contraseña,provincia,roles,activo,valoracion_media) VALUES (1,'Administrador','administrador','admin@admin.es','admin','admin','Madrid','USER,ADMIN','true',0.00);

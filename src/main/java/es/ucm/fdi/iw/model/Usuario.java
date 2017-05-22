@@ -13,7 +13,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @NamedQueries(@NamedQuery(name = "userByUserField", query = "select u from Usuario u where u.usuario = :userParam"))
 @Entity
@@ -28,11 +27,11 @@ public class Usuario {
 	private String roles;
 	private Date fechaAlta;
 	private boolean activo;
-
+	private float valoracionMedia;
+	
 	private List<Valoracion> valoracionesRecibidas;
 	private List<Valoracion> valoracionesDadas;
 
-	private float valoracionMedia;
 
 	public Usuario() {
 	}
