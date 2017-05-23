@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 
 @NamedQueries({
 		@NamedQuery(name = "userByUserField", query = "select u from Usuario u where u.usuario = :userParam"),
-	  //  @NamedQuery(name="modifyUser", query="UPDATE Usuario u SET u.nombre=:nombreParam  where u.usuario = :userParam"),
 	    @NamedQuery(name="delUser", query="delete from Usuario u where u.usuario= :userParam")
 })
 @Entity
