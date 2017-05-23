@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="${prefix}css/${i}" type="text/css">
     </c:forEach> 
     
-    
+    <%@page import="es.ucm.fdi.iw.model.*"%> 
 </head>
 
 <%-- nuestro body --%>

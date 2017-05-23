@@ -69,28 +69,16 @@
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 							</form>
 						</td>
-						<tr>
-							<th scope="row">Pepe</th>
-							<td>Me has intercambiado tu mejor cromo. ¡Gracias! <br>
-								<input id="input-21e" value="4" type="text" class="rating"
+						<c:forEach items="${usuario.valoracionesRecibidas}" var="valoracion">
+						    <tr>
+						    	<th scope="row">${valoracion.usuarioQueValora}</th>
+						        <td>${valoracion.comentario}<br>
+						        <input id="input-21e" value="<c:out value="${valoracion.valor}"/>" type="text" class="rating"
 								readonly data-min=0 data-max=5 data-step=0.5 data-size="xs"
-								title="">
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">Ignacio</th>
-							<td>No me ha gustado que hayas llegado tarde a la quedada <input
-								id="input-21e" value="1" type="text" class="rating" readonly
-								data-min=0 data-max=5 data-step=0.5 data-size="xs" title="">
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">Lorenzo</th>
-							<td>Muy buen coleccionista de cromos <input id="input-21e"
-								value="5" type="text" class="rating" readonly data-min=0
-								data-max=5 data-step=0.5 data-size="xs" title="">
-							</td>
-						</tr>
+								title="valoracion">
+						        </td>
+						    </tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
