@@ -56,3 +56,11 @@ body {
 	top: 1em;
 	color: white;
 }
+
+#cerrarSesion {
+
+    background: none;
+    border: none;
+    color: #9d9d9d;
+    padding-top: 14px;
+}
