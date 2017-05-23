@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="card hovercard">
 		<div class="card-info">
-			<span class="card-title">${user.usuario}</span>
+			<span class="card-title">${usuario.usuario}</span>
 		</div>
 	</div>
 	<div class="btn-pref btn-group btn-group-justified btn-group-lg"
@@ -37,19 +37,19 @@
 				<table class="table table-sm">
 					<tr>
 						<th scope="row">Nombre</th>
-						<td>${user.nombre}</td>
+						<td>${usuario.nombre}</td>
 					</tr>
 					<tr>
 						<th scope="row">Apellidos</th>
-						<td>${user.apellidos}</td>
+						<td>${usuario.apellidos}</td>
 					</tr>
 					<tr>
 						<th scope="row">E-Mail</th>
-						<td>${user.email}</td>
+						<td>${usuario.email}</td>
 					</tr>
 					<tr>
 						<th scope="row">Provincia</th>
-						<td>${user.provincia}</td>
+						<td>${usuario.provincia}</td>
 					</tr>
 				</table>
 			</div>
@@ -58,60 +58,107 @@
 					type="text" class="rating" readonly data-min=0 data-max=5
 					data-step=0.5 data-size="sm" title="">
 				<table class="table table-sm">
-					<td>
-						<form action="" method="POST">
-							Valora al usuario (este apartado no aparece a veces)
-							<textarea id="opinion" rows="4" cols="50" class="center"></textarea>
-							<input id="input-21e" value="3" type="text" class="rating"
+					<tbody>
+						<td>
+							<form action="perfil/valorarUsuario" method="POST">
+								Valora al usuario (este apartado no aparece a veces)
+								<textarea id="opinion" rows="4" cols="50" class="center"></textarea>
+								<input id="input-21e" value="3" type="text" class="rating"
+									data-min=0 data-max=5 data-step=0.5 data-size="xs">
+								<button type="submit" class="btn btn-sm btn-success right">Valorar</button>
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+							</form>
+						</td>
+						<tr>
+							<th scope="row">Pepe</th>
+							<td>Me has intercambiado tu mejor cromo. ¡Gracias! <br>
+								<input id="input-21e" value="4" type="text" class="rating"
+								readonly data-min=0 data-max=5 data-step=0.5 data-size="xs"
+								title="">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">Ignacio</th>
+							<td>No me ha gustado que hayas llegado tarde a la quedada <input
+								id="input-21e" value="1" type="text" class="rating" readonly
 								data-min=0 data-max=5 data-step=0.5 data-size="xs" title="">
-							<button type="submit" class="btn btn-sm btn-success right">Valorar</button>
-						</form>
-					</td>
-					<tr>
-						<th scope="row">Pepe</th>
-						<td>Me has intercambiado tu mejor cromo. ¡Gracias! <br>
-							<input id="input-21e" value="4" type="text" class="rating"
-							readonly data-min=0 data-max=5 data-step=0.5 data-size="xs"
-							title="">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">Ignacio</th>
-						<td>No me ha gustado que hayas llegado tarde a la quedada <input
-							id="input-21e" value="1" type="text" class="rating" readonly
-							data-min=0 data-max=5 data-step=0.5 data-size="xs" title="">
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">Lorenzo</th>
-						<td>Muy buen coleccionista de cromos <input id="input-21e"
-							value="5" type="text" class="rating" readonly data-min=0
-							data-max=5 data-step=0.5 data-size="xs" title="">
-						</td>
-					</tr>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">Lorenzo</th>
+							<td>Muy buen coleccionista de cromos <input id="input-21e"
+								value="5" type="text" class="rating" readonly data-min=0
+								data-max=5 data-step=0.5 data-size="xs" title="">
+							</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 			<div class="tab-pane fade in" id="tab3">
 				<div class="form-group margin-top30 fg-form">
 					<form action="perfil/cambiarAjustes" method="post">
 						<label for="usernameform">Cambiar nombre</label> 
-							<input id="usernameform" class="form-control" name="nombre"/>
+							<input id="usernameform" class="form-control" name="nombre" value="${usuario.nombre}"/>
 						<label for="surnameform">Cambiar apellidos</label> 
-							<input id="surnameform" class="form-control" name="apellidos"/> 							
+							<input id="surnameform" class="form-control" name="apellidos" value="${usuario.apellidos}"/> 							
 						<label for="passform">Cambiar contraseña</label>
 							<input id="passform" class="form-control" name="password"/>
 						<label for="repassform">Confirmar contraseña</label>
 							<input id="repassform" class="form-control" name="passwordConfirm" />
 						<label for="mailform">E-Mail</label>
-							<input id="mailform" class="form-control" name="email" />
+							<input id="mailform" class="form-control" name="email" ${usuario.email} />
 						<label for="provform">Provincia</label>
 						<select id="provform" class="form-control" name="provincia">
-							<option>Madrid</option>
-							<option>Murcia</option>
+							<option>A Coruña</option>
+							<option>Álava</option>
+							<option>Albacete</option>
+							<option>Alicante</option>
+							<option>Almería</option>
+							<option>Asturias</option>
+							<option>Ávila</option>
+							<option>Badajoz</option>
+							<option>Baleares</option>
 							<option>Barcelona</option>
+							<option>Burgos</option>
+							<option>Cáceres</option>
+							<option>Cádiz</option>
+							<option>Cantabria</option>
+							<option>Castellón</option>
+							<option>Ciudad Real</option>
+							<option>Córdoba</option>
 							<option>Cuenca</option>
+							<option>Girona</option>
+							<option>Granada</option>
 							<option>Guadalajara</option>
+							<option>Gipuzkoa</option>
+							<option>Huelva</option>
+							<option>Huesca</option>
+							<option>Jaén</option>
+							<option>La Rioja</option>
+							<option>Las Palmas</option>
+							<option>León</option>
+							<option>Lérida</option>
+							<option>Lugo</option>
+							<option>Madrid</option>
+							<option>Málaga</option>
+							<option>Murcia</option>
+							<option>Navarra</option>
+							<option>Orense</option>
+							<option>Palencia</option>
+							<option>Pontevedra</option>
+							<option>Salamanca</option>
+							<option>Segovia</option>
+							<option>Sevilla</option>
+							<option>Soria</option>
+							<option>Tarragona</option>
+							<option>Santa Cruz de Tenerife</option>
+							<option>Teruel</option>
 							<option>Toledo</option>
+							<option>Valencia</option>
+							<option>Valladolid</option>
+							<option>Vizcaya</option>
+							<option>Zamora</option>
+							<option>Zaragoza</option>
 						</select>
 						<button id="settingsButton" type="submit" class="btn btn-default">Guardar cambios</button>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

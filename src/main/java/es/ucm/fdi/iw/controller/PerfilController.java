@@ -42,7 +42,7 @@ public class PerfilController {
 	}
 
 	@GetMapping({"", "/"})
-	public String root(Model model) {
+	public String root(Model model,Principal principal) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("star-rating.min.css");
 		listaCSS.add("perfilEstilo.css");
@@ -55,7 +55,14 @@ public class PerfilController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-
+		
+		//Obtengo el usuario actual
+		Usuario u = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam", principal.getName()).getSingleResult();
+		
+		//Se lo paso al modelo
+		model.addAttribute("usuario",u);
+	
 		return "perfil";
 	}
 	
