@@ -204,6 +204,7 @@ public class RootController {
 				passwordEncoder.encode(formPassword), formProvincia);
 		log.info("Creating user " + u);
 		entityManager.persist(u);
+		entityManager.flush();
 		return "redirect:home";
 	}
 
@@ -255,30 +256,6 @@ public class RootController {
 			return "redirect:home";
 		}*/
 		return "admin";
-	}
-
-	@GetMapping({ "/perfil" })
-	public String perfil(Model model, HttpSession session) {
-
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("star-rating.min.css");
-		listaCSS.add("perfilEstilo.css");
-
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("bootstrap.min.js");
-		listaJS.add("star-rating.min.js");
-		listaJS.add("perfil.js");
-
-		model.addAttribute("pageExtraCSS", listaCSS);
-		model.addAttribute("pageExtraScripts", listaJS);
-	/*	if (session.getAttribute("user") == null) {
-			return "redirect:index";
-		}
-		if (session.getAttribute("user").equals("admin")) {
-			return "redirect:admin";
-		}*/
-		return "perfil";
 	}
 
 }

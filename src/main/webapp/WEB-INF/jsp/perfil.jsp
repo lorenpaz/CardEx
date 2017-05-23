@@ -93,15 +93,19 @@
 			</div>
 			<div class="tab-pane fade in" id="tab3">
 				<div class="form-group margin-top30 fg-form">
-					<form action="" method="post">
-						<label for="usernameform">Cambiar nombre de usuario</label> <input
-							id="usernameform" class="form-control"> <label
-							for="passform">Cambiar contraseña</label> <input id="passform"
-							class="form-control"> <label for="repassform">Confirmar
-							contraseña</label> <input id="repassform" class="form-control"> <label
-							for="mailform">E-Mail</label> <input id="mailform"
-							class="form-control"> <label for="provform">Provincia</label>
-						<select id="provform" class="form-control">
+					<form action="perfil/cambiarAjustes" method="post">
+						<label for="usernameform">Cambiar nombre</label> 
+							<input id="usernameform" class="form-control" name="nombre"/>
+						<label for="surnameform">Cambiar apellidos</label> 
+							<input id="surnameform" class="form-control" name="apellidos"/> 							
+						<label for="passform">Cambiar contraseña</label>
+							<input id="passform" class="form-control" name="password"/>
+						<label for="repassform">Confirmar contraseña</label>
+							<input id="repassform" class="form-control" name="passwordConfirm" />
+						<label for="mailform">E-Mail</label>
+							<input id="mailform" class="form-control" name="email" />
+						<label for="provform">Provincia</label>
+						<select id="provform" class="form-control" name="provincia">
 							<option>Madrid</option>
 							<option>Murcia</option>
 							<option>Barcelona</option>
@@ -109,8 +113,8 @@
 							<option>Guadalajara</option>
 							<option>Toledo</option>
 						</select>
-						<button id="settingsButton" type="submit" class="btn btn-default">Guardar
-							cambios</button>
+						<button id="settingsButton" type="submit" class="btn btn-default">Guardar cambios</button>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					</form>
 				</div>
 

@@ -1,1 +1,3 @@
-INSERT INTO Usuario(id,nombre,apellidos,email,usuario,contraseña,provincia,roles,activo,valoracion_media) VALUES (1,'Administrador','administrador','admin@admin.es','admin','admin','Madrid','USER,ADMIN','true',0.00);
+INSERT INTO Usuario(id,nombre,apellidos,email,usuario,contraseña,provincia,roles,activo,valoracion_media) VALUES (1,'Administrador','administrador','admin@admin.es','admin','$2a$04$M43.kgr5WWR0e7wXVigkT.t05zUosQLSnYzKawH3ZrerdWp8H38Kq','Madrid','USER,ADMIN','true',0.00);
+INSERT INTO Usuario(id,nombre,apellidos,email,usuario,contraseña,provincia,roles,activo,valoracion_media) VALUES (2,'lorenzo','de la paz','lorenpaz@ucm.es','lorenzo','$2a$04$YZu9QF2jtkO9UeyIFugGp.kncSgBn0YMb318394e0.ntUxUBkHYxK','Madrid','USER','true',0.00);
+// usuario: lorenzo, contraseña: lorenzo. || usuario: admin, contraseña: admin

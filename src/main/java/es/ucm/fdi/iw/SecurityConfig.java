@@ -16,12 +16,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	
-		
+
 		http
 		.authorizeRequests()
 			.antMatchers("/static/**", "/register", "/login", "/info").permitAll()
 			.antMatchers("/home").hasRole("USER")
-			.antMatchers("/admin").hasRole("USER") //Mientras para probar funciona
+			.antMatchers("/admin").hasRole("ADMIN")
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()
