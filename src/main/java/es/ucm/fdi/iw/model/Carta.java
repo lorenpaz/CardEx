@@ -43,6 +43,9 @@ public class Carta {
 	private String estadoCarta;
 	private List<Intercambio> intercambiosOfrecidos;
 	private List<Intercambio> intercambiosRecibidos;
+	
+	private List<Usuario> usuariosQueMeTienen;
+	private List<Usuario> UsuariosQueMeBuscan;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -264,5 +267,23 @@ public class Carta {
 	public void setIntercambiosRecibidos(List<Intercambio> intercambiosRecibidos) {
 		this.intercambiosRecibidos = intercambiosRecibidos;
 	}
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class)
+	public List<Usuario> getUsuariosQueMeTienen() {
+		return usuariosQueMeTienen;
+	}
+
+	public void setUsuariosQueMeTienen(List<Usuario> usuariosQueMeTienen) {
+		this.usuariosQueMeTienen = usuariosQueMeTienen;
+	}
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class)
+	public List<Usuario> getUsuariosQueMeBuscan() {
+		return UsuariosQueMeBuscan;
+	}
+
+	public void setUsuariosQueMeBuscan(List<Usuario> usuariosQueMeBuscan) {
+		UsuariosQueMeBuscan = usuariosQueMeBuscan;
+	}
+	
+	
 
 }

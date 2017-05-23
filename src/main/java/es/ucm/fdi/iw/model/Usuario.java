@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,6 +35,9 @@ public class Usuario {
 	
 	private List<Valoracion> valoracionesRecibidas;
 	private List<Valoracion> valoracionesDadas;
+	
+	private List<Carta> cartasPropias;
+	private List<Carta> cartasBuscadas;
 
 
 	public Usuario() {
@@ -161,6 +165,23 @@ public class Usuario {
 
 	public void setValoracionMedia(float valoracionMedia) {
 		this.valoracionMedia = valoracionMedia;
+	}
+	
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class, mappedBy = "usuariosQueMeTienen")
+	public List<Carta> getCartasPropias() {
+		return cartasPropias;
+	}
+
+	public void setCartasPropias(List<Carta> cartasPropias) {
+		this.cartasPropias = cartasPropias;
+	}
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class, mappedBy = "usuariosQueMeBuscan")
+	public List<Carta> getCartasBuscadas() {
+		return cartasBuscadas;
+	}
+
+	public void setCartasBuscadas(List<Carta> cartasBuscadas) {
+		this.cartasBuscadas = cartasBuscadas;
 	}
 
 	@Override
