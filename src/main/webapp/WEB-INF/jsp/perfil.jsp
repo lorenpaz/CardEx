@@ -54,7 +54,7 @@
 				</table>
 			</div>
 			<div class="tab-pane fade in" id="tab2">
-				Valoración media del usuario <input id="input-21e" value="3"
+				Valoración media del usuario <input id="input-21e" value="<c:out value="${usuario.valoracionMedia} }"/>"
 					type="text" class="rating" readonly data-min=0 data-max=5
 					data-step=0.5 data-size="sm" title="">
 				<table class="table table-sm">
