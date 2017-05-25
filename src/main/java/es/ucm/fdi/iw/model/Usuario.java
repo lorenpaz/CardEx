@@ -17,8 +17,7 @@ import javax.persistence.OneToMany;
 
 @NamedQueries({
 		@NamedQuery(name = "userByUserField", query = "select u from Usuario u where u.usuario = :userParam"),
-	    @NamedQuery(name="delUser", query="delete from Usuario u where u.usuario= :userParam"),
-	    @NamedQuery(name="getUsers", query="select * from Usuario")
+	    @NamedQuery(name="delUser", query="delete from Usuario u where u.usuario= :userParam")
 })
 @Entity
 public class Usuario {
@@ -60,7 +59,7 @@ public class Usuario {
 		return u;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, targetEntity = Valoracion.class, mappedBy = "usuarioQueValora")
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = Valoracion.class, mappedBy = "usuarioValorado")
 	public List<Valoracion> getValoracionesRecibidas() {
 		return valoracionesRecibidas;
 	}
@@ -69,7 +68,7 @@ public class Usuario {
 		this.valoracionesRecibidas = valoracionesRecibidas;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, targetEntity = Valoracion.class, mappedBy = "usuarioValorado")
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = Valoracion.class, mappedBy = "usuarioQueValora")
 	public List<Valoracion> getValoracionesDadas() {
 		return valoracionesDadas;
 	}
