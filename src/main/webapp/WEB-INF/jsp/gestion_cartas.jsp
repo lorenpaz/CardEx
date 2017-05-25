@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="es.ucm.fdi.iw.controller.GestionController"%>
 <%@ include file="../jspf/header.jspf" %>
 <div class="container">
 	
@@ -40,110 +42,83 @@
 					</label>
 		</div>	
 		<div id="intercambio">
-            <div id="cartas-column" class="offer-column">
-				<h3>Cartas</h3>
-				<!-- <div class="list-group">
-					<a href="#" class="list-group-item active">Force of will</a>
-					<a href="#" class="list-group-item">Masticore</a>
-					<a href="#" class="list-group-item">Wild mongrel</a>
-					<a href="#" class="list-group-item">River boa</a>
-				</div> -->
-				<table class="table table-striped" id="paginacionTabla">
-				  <thead>
-				  	<tr>
-				  		<th></th>
-				  		<th></th>
-				  		<th></th>
-				  		<th></th>
-				  	</tr>
-				  </thead>
-				  <tbody>
-					<tr>
-						<td id="card1" draggable="true" ondragstart="drag(event)">Force of will</td>
-						<td id="card2" draggable="true" ondragstart="drag(event)">Masticore</td>
-						<td id="card3" draggable="true" ondragstart="drag(event)">Wild mongrel</td>
-						<td id="card4" draggable="true" ondragstart="drag(event)">River boa</td>
-					</tr>
-					<tr>
-						<td id="card5" draggable="true" ondragstart="drag(event)">Zombie</td>
-						<td id="card6" draggable="true" ondragstart="drag(event)">Troll</td>
-						<td id="card7" draggable="true" ondragstart="drag(event)">Random Pig</td>
-						<td id="card8" draggable="true" ondragstart="drag(event)">God Snake</td>
-					</tr>
-					<tr>
-						<td id="card9" draggable="true" ondragstart="drag(event)">Green Elephant</td>
-						<td id="card10" draggable="true" ondragstart="drag(event)">Software Artifact</td>
-						<td id="card11" draggable="true" ondragstart="drag(event)">Air Lion</td>
-						<td id="card12" draggable="true" ondragstart="drag(event)">Earth Dolphin</td>
-					</tr>
-					
-					<tr>
-						<td id="card13" draggable="true" ondragstart="drag(event)">Pithing Needle</td>
-						<td id="card14" draggable="true" ondragstart="drag(event)">Arcbound Ravager</td>
-						<td id="card15" draggable="true" ondragstart="drag(event)">Blinkmoth Nexus</td>
-						<td id="card16" draggable="true" ondragstart="drag(event)">Brain Freeze</td>
-					</tr>
-					
-					<tr>
-						<td id="card17" draggable="true" ondragstart="drag(event)">Browbeat</td>
-						<td id="card18" draggable="true" ondragstart="drag(event)">Cabal Coffers</td>
-						<td id="card19" draggable="true" ondragstart="drag(event)">Chalice of the Void</td>
-						<td id="card20" draggable="true" ondragstart="drag(event)">Isochron Scepter</td>
-					</tr>
-					
-					<tr>
-						<td id="card21" draggable="true" ondragstart="drag(event)">Counterbalance</td>
-						<td id="card22" draggable="true" ondragstart="drag(event)">Cranial Plating</td>
-						<td id="card23" draggable="true" ondragstart="drag(event)">Crucible of Worlds</td>
-						<td id="card24" draggable="true" ondragstart="drag(event)">Dark Confidant</td>
-					</tr>
-					
-					<tr>
-						<td id="card25" draggable="true" ondragstart="drag(event)">Lorem ipsum Mega</td>
-						<td id="card26" draggable="true" ondragstart="drag(event)">Lorem ipsum 7</td>
-						<td id="card27" draggable="true" ondragstart="drag(event)">Lorem ipsum</td>
-						<td id="card28" draggable="true" ondragstart="drag(event)">Lorem ipsum3</td>
-					</tr>
-					
-					<tr>
-						<td id="card29" draggable="true" ondragstart="drag(event)">Lorem ipsum4</td>
-						<td id="card30" draggable="true" ondragstart="drag(event)">Lorem ipsum5</td>
-						<td id="card31" draggable="true" ondragstart="drag(event)">Lorem ipsum6</td>
-						<td id="card32" draggable="true" ondragstart="drag(event)">Lorem ipsum7</td>
-					</tr>
-				  </tbody>
-				</table>
-            </div>
-
-            <div id="buscadas-column" class="offer-column">
-				<h3>Buscadas</h3>
-	                <table class="table table-striped">
-	                  <tr>
-		                  <th>Carta</th>
-						  <th></th>
-					  </tr>
-					  <tr class="drop-cell drop info" id="trp1" ondrop="drop(event, 1)" ondragover="allowDrop(event)">
-						<td colspan="2" class="td-table-add"> Arrastra aquí </td>
-					  </tr>
-					  
-	                </table>
-            </div>
-            <div id="cambiar-column" class="offer-column">
- 				<h3>Para cambiar</h3>
-				<table class="table table-striped">  
-				  <tr>  
-					  <th>Carta</th>
-					  <th>Edición</th>
-					  <th>Estado</th>
-					  <th>Cantidad</th>
-					  <th></th>
-				  </tr>
-				  <tr class="drop-cell drop info" id="trp1" ondrop="drop(event, 2)" ondragover="allowDrop(event)">
-						<td colspan="5" class="td-table-add"> Arrastra aquí </td>
-			      </tr>
-				  
-				</table>
+			<div class="cont_gestion">
+				<img class="flecha" src="static/img/left_arrow.png" onclick="incrOwner()"/>
+				<!-- AQUÍ FLECHA A LA IZDA -->
+				<div id="table_cards">
+					<table id="tab1" class="table table-striped">
+					    <thead>
+						    <tr>
+						        <th>Nombre</th>
+						    </tr>
+					    </thead>
+					    <tbody>
+							<c:forEach items="${cartas}" var="carta">
+								<tr>
+						        	<td class="filterable-cell">${carta.name}</td>
+						    	</tr>
+							</c:forEach>
+					    </tbody>
+					</table>
+				</div>
+				<!-- AQUÍ FLECHA A LA DERECHA -->
+				<img class="flecha" src="static/img/right_arrow.png" onclick="incrSearch()"/>
 			</div>
-        </div>
+				
+			<div class="cont_gestion">
+				<div id="table_propias" class="tabla_gestion">
+					<table id="tab2" class="table table-striped ">
+					<caption>Propias</caption>
+					    <thead>
+						    <tr>  
+							  <th>Carta</th>
+							  <th>Edición</th>
+							  <th>Estado</th>
+							  <th>Cantidad</th>
+							  <th></th>
+					  		</tr>
+					    </thead>
+					    <tbody>
+						    <tr>
+						    	<td class="filterable-cell">Ford</td>
+						        <td class="filterable-cell">Edicion</td>
+						        <td class="filterable-cell"><select class='form-control input-sm'><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select></td>
+						        <td class="filterable-cell">
+						        	<button type='button' class='btn btn-xs spinner' onclick='decrSpinner(event)'>-</button> 
+		    						<input  type='text' name='quantity' class='cantidad-carta' value='0'>
+		    						<button type='button' class='btn btn-xs spinner' onclick='incrSpinner(event)'>+</button>
+		    					</td>
+						        <td class="filterable-cell text-right"><button type='button' class='btn btn-link btn-xs' onclick='removeCard(event)' >X</button></td>
+						    </tr>
+						    
+					    </tbody>
+					</table>
+				</div>
+				
+				
+				<div id="table_buscadas" class="tabla_gestion">
+					<table id = "tab3" class="table table-striped">
+					<caption>Buscadas</caption>
+					    <thead>
+						    <tr>
+						        <th>Nombre</th>
+						        <th></th>
+						    </tr>
+					    </thead>
+					    <tbody>
+						    <tr>
+						        <td class="filterable-cell">Ford</td>
+						        <td class="filterable-cell text-right"><button type='button' class='btn btn-link btn-xs' onclick='removeCard(event)'>X</button></td>
+						    </tr>
+						    
+					    </tbody>
+					</table>
+				</div>
+			</div>
+			<button id="btnGuardar" class="btn btn-primary btn-lg btn-block">Guardar</button>
+		</div>
+            
+
+            
 </div>	<!-- /.container -->
 <%@ include file="../jspf/footer.jspf" %>
