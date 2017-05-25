@@ -1,5 +1,5 @@
 <%@page import="java.util.List"%>
-<%@page import="es.ucm.fdi.iw.controller.GestionController"%>
+<%@page import="es.ucm.fdi.iw.controller.*"%>
 <%@ include file="../jspf/header.jspf" %>
 <div class="container">
 	

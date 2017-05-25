@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.ucm.fdi.iw.model.API;
 import es.ucm.fdi.iw.model.Usuario;
 import net.minidev.json.JSONArray;
 
@@ -43,11 +44,14 @@ public class RootController {
 	}
 
 	@GetMapping({ "/", "/index" })
+	@Transactional
 	public String index(Model model) {
 		List<String> listaJS = new ArrayList<String>();
 		listaJS.add("jquery-3.1.1.min.js");
 		listaJS.add("index.js");
 		model.addAttribute("pageExtraScripts", listaJS);
+		
+		API.cardsDataBaseMin(entityManager,2,100);
 		return "index";
 	}
 
@@ -87,22 +91,13 @@ public class RootController {
 				
 		        session.setAttribute("user", entityManager.createNamedQuery("userByUserField")
 						.setParameter("userParam", principal.getName()).getSingleResult());
-		        Usuario u = (Usuario) session.getAttribute("user");
-		        if(u.getRoles().contains("ADMIN")){
-		        	return "redirect:admin";
-		        }
 		       
 		    } catch (Exception e) {
 	    		log.info("No such user: " + principal.getName());
 	    	}
 		}
 		
-	/*	if (session.getAttribute("user") == null) {
-			return "redirect:index";
-		}
-		if (session.getAttribute("user").equals("admin")) {
-			return "redirect:admin";
-		}*/
+
 		return "home";
 	}
 
@@ -120,12 +115,7 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-	/*	if (session.getAttribute("user") == null) {
-			return "redirect:index";
-		}
-		if (session.getAttribute("user").equals("admin")) {
-			return "redirect:admin";
-		}*/
+
 		return "gestion_cartas";
 	}
 
@@ -142,55 +132,10 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-		/*if (session.getAttribute("user") == null) {
-			return "redirect:index";
-		}
-		if (session.getAttribute("user").equals("admin")) {
-			return "redirect:admin";
-		}
-*/
+
 		return "intercambio";
 	}
-/*
-	@PostMapping("/login")
-	public String login(@RequestParam("login") String formLogin,
-			@RequestParam("password") String formPassword,
-			HttpSession session, Model model) {
-		
-		//Realizamos las pertinentes comprobaciones
-		if (formLogin != null && formPassword != null) {
-			
-			Usuario u = null;
-			
-			try {
-				//Obtenemos el usuario
-				u = (Usuario) entityManager.createNamedQuery("userByUserField")
-						.setParameter("userParam", formLogin).getSingleResult();
-				
-				//Comprobamos que es válida la contraseña
-				if (bcryptEncoder.matches(formPassword, u.getContraseña())) 
-				{
-					log.info("pass was valid");				
-					session.setAttribute("user", formLogin);
-					
-					IwUserDetailsService prueba = new IwUserDetailsService();
-					UserDetails pr = prueba.loadUserByUsername(u.getUsuario());
-					
-					//if (formLogin.equals("admin")) 
-					{
-						return "redirect:admin";
-					//}
-				} else {
-					log.info("pass was NOT valid");
-					model.addAttribute("loginError", "error en usuario o contraseña");
-				}	
-			} catch(NoResultException e) {
-				log.info("Error: usuario o contraseña incorrectos");
-			}
-		}
-		return "redirect:home";
-	}
-*/
+
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	@Transactional
 	public String register(@RequestParam("nombre") String formName, 
@@ -229,12 +174,7 @@ public class RootController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
-		/*if (session.getAttribute("user") == null) {
-			return "redirect:index";
-		}
-		if (session.getAttribute("user").equals("admin")) {
-			return "redirect:admin";
-		}*/
+
 		return "historial";
 	}
 
@@ -252,9 +192,7 @@ public class RootController {
 		if (session.getAttribute("user") == null) {
 			return "redirect:index";
 		}
-		/*if (!session.getAttribute("user").equals("admin")) {
-			return "redirect:home";
-		}*/
+
 		return "admin";
 	}
 

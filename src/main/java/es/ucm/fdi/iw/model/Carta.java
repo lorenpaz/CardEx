@@ -1,5 +1,6 @@
 package es.ucm.fdi.iw.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.*;
@@ -284,6 +285,18 @@ public class Carta {
 		UsuariosQueMeBuscan = usuariosQueMeBuscan;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Carta [id=" + id + ", name=" + name + ", manaCost=" + manaCost + ", cmc=" + cmc + ", colors="
+				+ Arrays.toString(colors) + ", colorIdentity=" + Arrays.toString(colorIdentity) + ", type=" + type
+				+ ", supertypes=" + Arrays.toString(supertypes) + ", types=" + Arrays.toString(types) + ", subtypes="
+				+ Arrays.toString(subtypes) + ", rarity=" + rarity + ", edicion=" + edicion + ", setName=" + setName
+				+ ", text=" + text + ", artist=" + artist + ", number=" + number + ", power=" + power + ", toughness="
+				+ toughness + ", layout=" + layout + ", multiverseid=" + multiverseid + ", imageUrl=" + imageUrl
+				+ ", printings=" + Arrays.toString(printings) + ", estadoCarta=" + estadoCarta
+				+ ", intercambiosOfrecidos=" + intercambiosOfrecidos + ", intercambiosRecibidos="
+				+ intercambiosRecibidos + ", usuariosQueMeTienen=" + usuariosQueMeTienen + ", UsuariosQueMeBuscan="
+				+ UsuariosQueMeBuscan + "]";
+	}
 
 }

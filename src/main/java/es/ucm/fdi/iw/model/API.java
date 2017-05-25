@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,9 +23,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class API {
-	public final ObjectMapper JSON_MAPPER = new ObjectMapper();
+	public final static ObjectMapper JSON_MAPPER = new ObjectMapper();
 	
-	private String get(String u){
+	private static String get(String u){
 		try {
 			URL url = new URL(u);
 			URLConnection hc = url.openConnection();
@@ -43,24 +45,67 @@ public class API {
 		}
 		return null;
 	}
-
-	/*public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//System.err.println(get("https://api.magicthegathering.io/v1/cards"));
-		
+	
+	public static void cardsDataBase(EntityManager entityManager){
 		Collection<Edicion> sets = getEdiciones();
 		
-		int cont = 0;
 		for(Edicion set : sets){
-			if(set != null){
+			if(set != null) {
+				entityManager.persist(set);
+				entityManager.flush();
 				Collection<Carta> cartas = getCartasPorEdicion(set.getCode());
+				for(Carta card : cartas)
+				{
+					if(card != null){
+					card.setText("");
+					String[] aux = new String[10];
+					aux[0]="fg";
+					card.setPrintings(aux);
+					System.out.println("---------------"+"\n"+card.toString()+"\n");
+
+					entityManager.persist(card);
+					entityManager.flush();
+					}
+				}
 				//System.out.println(set.getName() + ": " + cartas.size());
-				System.out.println(cont += cartas.size());
+				System.out.println(cartas.size());
 			}
 		}
-	}*/
+	}
 	
-	public Collection<Carta> getCartasPorEdicion(String ed){
+	public static void cardsDataBaseMin(EntityManager entityManager,int limiteEdiciones,int limiteCartasPorEdicion){
+		Collection<Edicion> sets = getEdiciones();
+		int cont = 0;
+		for(Edicion set : sets){
+			if(set != null) {
+				entityManager.persist(set);
+				entityManager.flush();
+				Collection<Carta> cartas = getCartasPorEdicionMin(set.getCode(),limiteCartasPorEdicion);
+				for(Carta card : cartas)
+				{
+					if(card != null){
+					card.setText("");
+					String[] aux = new String[10];
+					aux[0]="fg";
+					card.setPrintings(aux);
+
+					entityManager.persist(card);
+					entityManager.flush();
+					}
+				}
+				//System.out.println(set.getName() + ": " + cartas.size());
+				System.out.println(cartas.size());
+				cont++;
+				if(cont == limiteEdiciones)
+				{
+					break;
+				}
+			}
+
+		}
+	}
+	
+	public static Collection<Carta> getCartasPorEdicion(String ed){
 		Collection<Carta> cartas = new ArrayList<Carta>();
 		//int cont = 1;
 		cartas = JSONParserCartas(get("https://api.magicthegathering.io/v1/cards?set="+ed));
@@ -71,11 +116,19 @@ public class API {
 		return cartas;
 	}
 	
-	public List<Edicion> getEdiciones(){
+	public static Collection<Carta> getCartasPorEdicionMin(String ed,int limiteCartasPorEdicion){
+		Collection<Carta> cartas = new ArrayList<Carta>();
+		//int cont = 1;
+		cartas = JSONParserCartasMin(get("https://api.magicthegathering.io/v1/cards?set="+ed),limiteCartasPorEdicion);
+			
+		return cartas;
+	}
+	
+	public static List<Edicion> getEdiciones(){
 		return JSONParserSets(get("https://api.magicthegathering.io/v1/sets"));
 	}
 
-	private Collection<Carta> JSONParserCartas(String json){
+	private static Collection<Carta> JSONParserCartas(String json){
 		Collection<Carta> cartas = new ArrayList<Carta>();
 		JSONObject obj;
 		try {
@@ -86,8 +139,7 @@ public class API {
 			for (int i = 0; i < arr.length(); i++)
 			{
 				try {
-					
-					System.out.println("cada carta:"+arr.getJSONObject(i).toString());
+				//	System.out.println("cada carta:"+arr.getJSONObject(i).toString());
 					Carta c = JSON_MAPPER.readValue(arr.getJSONObject(i).toString(),Carta.class);
 				    cartas.add(c);
 				} catch (JsonParseException e) {
@@ -99,7 +151,7 @@ public class API {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}				
+				}	
 			}
 			
 		} catch (JSONException e2) {
@@ -109,7 +161,45 @@ public class API {
 		return cartas;
 	}
 	
-	private List<Edicion> JSONParserSets(String json){
+	private static Collection<Carta> JSONParserCartasMin(String json,int limiteCartasPorEdicion){
+		Collection<Carta> cartas = new ArrayList<Carta>();
+		JSONObject obj;
+		try {
+			obj = new JSONObject(json);
+			int cont=0;
+			JSONArray arr;
+			arr = obj.getJSONArray("cards");
+			for (int i = 0; i < arr.length(); i++)
+			{
+				try {
+				//	System.out.println("cada carta:"+arr.getJSONObject(i).toString());
+					Carta c = JSON_MAPPER.readValue(arr.getJSONObject(i).toString(),Carta.class);
+				    cartas.add(c);
+				} catch (JsonParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+				cont++;
+				if(cont == limiteCartasPorEdicion)
+				{
+					break;
+				}
+			}
+			
+		} catch (JSONException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		return cartas;
+	}
+	
+	private static List<Edicion> JSONParserSets(String json){
 		JSONObject obj;
 
 		Collection<Edicion> sets = new ArrayList<Edicion>();
