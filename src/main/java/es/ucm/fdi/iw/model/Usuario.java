@@ -184,6 +184,17 @@ public class Usuario {
 		this.cartasBuscadas = cartasBuscadas;
 	}
 
+	public static float hacerMedia(List<Valoracion> valoraciones)
+	{
+		int suma = 0;
+		for(Valoracion valoracion : valoraciones)
+		{
+			suma += valoracion.getValor();
+		}
+		
+		return (float)suma/(float)valoraciones.size();
+	}
+	
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email

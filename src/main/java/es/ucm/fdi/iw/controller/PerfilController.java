@@ -129,7 +129,8 @@ public class PerfilController {
 		/* Actualizamos el usuario que ha sido valorado */
 		List<Valoracion> valoracionesRec = usuarioValorado.getValoracionesRecibidas();
 		valoracionesRec.add(v);	
-		usuarioValorado.setValoracionesRecibidas(valoracionesRec);
+		usuarioValorado.setValoracionesRecibidas(valoracionesRec);	
+		usuarioValorado.setValoracionMedia(Usuario.hacerMedia(valoracionesRec));
 		
 		/* Actualizamos el usuario que valora */
 		List<Valoracion> valoracionesDad = usuarioQueValora.getValoracionesDadas();	
@@ -149,7 +150,7 @@ public class PerfilController {
 	 * Mostrar detalles de un usuario
 	 */
 	@RequestMapping(value = "/{id}")
-	public String perfil(@PathVariable("id") long id, Model model) {		
+	public String perfil(@PathVariable("id") long id, Model model,HttpSession session) {		
 		try {
 			model.addAttribute("usuario", entityManager.find(Usuario.class, id));
 		} catch (NoResultException nre) {
@@ -157,8 +158,9 @@ public class PerfilController {
 		}
 
 		añadirCSSyJSAlModelo(model);
-		
-		model.addAttribute("visitante", "true");
+		Usuario actual = (Usuario) session.getAttribute("user");
+		if(id != actual.getId())
+			model.addAttribute("visitante", "true");
 		return "perfil";
 	}	
 	
