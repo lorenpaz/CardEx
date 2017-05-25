@@ -67,7 +67,7 @@
 								Valora al usuario (este apartado no aparece a veces)
 								<textarea id="opinion" rows="4" cols="50" class="center" form="valorarUsuario" name="descripcion"></textarea>
 								<input id="input-21e" value="3" type="text" class="rating"
-									data-min=0 data-max=5 data-step=0.5 data-size="xs" name="valor">
+									data-min=0 data-max=5 data-step=1 data-size="xs" name="valor">
 								<button type="submit" class="btn btn-sm btn-success right">Valorar</button>
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								<input type="hidden" name="usuarioValorado" value="${usuario.usuario}" />
@@ -76,7 +76,7 @@
 						</c:if>
 						<c:forEach items="${usuario.valoracionesRecibidas}" var="valoracion">
 						    <tr>
-						    	<th scope="row">${valoracion.usuarioQueValora}</th>
+						    	<th scope="row">${valoracion.usuarioQueValora.usuario}</th>
 						        <td>${valoracion.comentario}<br>
 						        <input id="input-21e" value="<c:out value="${valoracion.valor}"/>" type="text" class="rating"
 								readonly data-min=0 data-max=5 data-step=0.5 data-size="xs"
@@ -89,7 +89,7 @@
 			</div>
 			<div class="tab-pane fade in" id="tab3">
 				<div class="form-group margin-top30 fg-form">
-					<form action="perfil/cambiarAjustes" method="post">
+					<form action="${prefijo}perfil/cambiarAjustes" method="post">
 						<label for="usernameform">Cambiar nombre</label> 
 							<input id="usernameform" class="form-control" name="nombre" value="${usuario.nombre}"/>
 						<label for="surnameform">Cambiar apellidos</label> 
