@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,16 +41,16 @@ public class PerfilController {
 	@ModelAttribute
 	public void addAttributes(Model m) {
 		m.addAttribute("prefix", "../static/");
+		m.addAttribute("prefijo", "../");
 	}
 
 	@GetMapping({"", "/"})
-	public String root(Model model,Principal principal) {
+	public String root(Model model,Principal principal,HttpSession session) {
 		
 		añadirCSSyJSAlModelo(model);
 		
 		//Obtengo el usuario actual
-		Usuario u = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", principal.getName()).getSingleResult();
+		Usuario u = (Usuario) session.getAttribute("user");
 		
 		//Se lo paso al modelo
 		model.addAttribute("usuario",u);
@@ -65,46 +66,43 @@ public class PerfilController {
 			@RequestParam("provincia") String formProvincia,
 			@RequestParam("password") String formContraseña,
 			@RequestParam("passwordConfirm") String formContraseñaConfirm,
-			Principal principal)
+			Principal principal, HttpSession session)
 	{
-		Usuario u = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", principal.getName()).getSingleResult();
 		
-		String sql = "UPDATE Usuario u SET ", sqlFinal = " WHERE u.usuario =:usuario", aux;
+		//Obtengo el usuario actual
+		Usuario u = (Usuario) session.getAttribute("user");
 		
 		log.info("Modifying user " + u);
 		if(formNombre != "" && formNombre != u.getNombre())
 		{
-			aux = sql + "u.nombre=:nombre" + sqlFinal;
-			entityManager.createQuery(aux).setParameter("usuario", u.getUsuario()).setParameter("nombre", formNombre).executeUpdate();
+			u.setNombre(formNombre);
 		}
 		
 		if(formApellidos != "" && formApellidos != u.getApellidos())
 		{
-			aux = sql + "u.apellidos=:apellidos" + sqlFinal;
-			entityManager.createQuery(aux).setParameter("usuario", u.getUsuario()).setParameter("apellidos", formApellidos).executeUpdate();
+			u.setApellidos(formApellidos);
 		}
 		
 		if(formProvincia != "" && formProvincia != u.getProvincia())
 		{
-			aux = sql + "u.provincia=:provincia" + sqlFinal;
-			entityManager.createQuery(aux).setParameter("usuario", u.getUsuario()).setParameter("provincia", formProvincia).executeUpdate();
+			u.setProvincia(formProvincia);
 		}
 		
 		if(formEmail != "" && formEmail != u.getEmail())
 		{
-			aux = sql + "u.email=:email" + sqlFinal;
-			entityManager.createQuery(aux).setParameter("usuario", u.getUsuario()).setParameter("email", formEmail).executeUpdate();
+			u.setEmail(formEmail);
 		}
 
 		if(formContraseña == formContraseñaConfirm)
 		{
-			aux = sql + "u.contraseña=:contraseña" + sqlFinal;
-			entityManager.createQuery(aux).setParameter("usuario", u.getUsuario()).setParameter("contraseña", passwordEncoder.encode(formContraseña)).executeUpdate();
+			u.setContraseña(passwordEncoder.encode(formContraseña));
 		}
 		
+		//Actualizamos el usuario de la BBDD
+		entityManager.merge(u);
 		log.info("Cambios realizados");
 		
+		actualizaUsuarioSesion(session,u);
 		return "redirect:";
 	}
 	
@@ -113,10 +111,9 @@ public class PerfilController {
 	public String valorarUsuario (@RequestParam("usuarioValorado") String formUsuarioValorado,
 			@RequestParam("descripcion") String formDescripcion,
 			@RequestParam("valor") String formValor,
-			Principal principal)
+			Principal principal, HttpSession session)
 	{
-		Usuario usuarioQueValora = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", principal.getName()).getSingleResult();
+		Usuario usuarioQueValora = (Usuario) session.getAttribute("user");
 		
 		Usuario usuarioValorado = (Usuario) entityManager.createNamedQuery("userByUserField")
 				.setParameter("userParam", formUsuarioValorado).getSingleResult();
@@ -129,7 +126,23 @@ public class PerfilController {
 		entityManager.persist(v);
 		entityManager.flush();
 		
-		return "redirect:";
+		/* Actualizamos el usuario que ha sido valorado */
+		List<Valoracion> valoracionesRec = usuarioValorado.getValoracionesRecibidas();
+		valoracionesRec.add(v);	
+		usuarioValorado.setValoracionesRecibidas(valoracionesRec);
+		
+		/* Actualizamos el usuario que valora */
+		List<Valoracion> valoracionesDad = usuarioQueValora.getValoracionesDadas();	
+		valoracionesDad.add(v);	
+		usuarioQueValora.setValoracionesDadas(valoracionesDad);
+		
+		//Actualizamos los usuarios de la BBDD
+		entityManager.merge(usuarioQueValora);
+		entityManager.merge(usuarioValorado);
+		entityManager.flush();
+
+		actualizaUsuarioSesion(session,usuarioQueValora);
+		return "redirect:../perfil/"+usuarioValorado.getId();
 	}
 	
 	/**
@@ -142,8 +155,7 @@ public class PerfilController {
 		} catch (NoResultException nre) {
 			log.error("No se ha encontrado el usuario:" + id);
 		}
-		model.addAttribute("prefijo", "../");
-		
+
 		añadirCSSyJSAlModelo(model);
 		
 		model.addAttribute("visitante", "true");
@@ -163,5 +175,12 @@ public class PerfilController {
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
+	}
+	
+	private void actualizaUsuarioSesion(HttpSession session,Usuario u)
+	{
+		//Actualizo el usuario de la sesión
+		session.setAttribute("user", (Usuario) entityManager.createNamedQuery("userByUserField")
+		.setParameter("userParam", u.getUsuario()).getSingleResult());	
 	}
 }
