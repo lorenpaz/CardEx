@@ -7,15 +7,15 @@
 	<%-- Nuestro header --%>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 	<title>CardEx</title>
-	<link rel="shortcut icon" href="${prefix}img/logo.ico" />
+	<link rel="shortcut icon" href="${prefijo}${prefix}img/logo.ico" />
 	
 	<!-- Bootstrap Core CSS -->
-	<link href="${prefix}css/bootstrap.min.css" rel="stylesheet">
-	<link href="${prefix}css/header.css" rel="stylesheet" type="text/css">
+	<link href="${prefijo}${prefix}css/bootstrap.min.css" rel="stylesheet">
+	<link href="${prefijo}${prefix}css/header.css" rel="stylesheet" type="text/css">
 	
 	<%-- pageExtraCSS --%>
 	<c:forEach var="i" items="${pageExtraCSS}" >
-        <link rel="stylesheet" href="${prefix}css/${i}" type="text/css">
+        <link rel="stylesheet" href="${prefijo}${prefix}css/${i}" type="text/css">
     </c:forEach> 
 
 </head>
@@ -25,10 +25,10 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-			<a href="index"> <img src="${prefix}img/logo.png" alt="Logo" class="logo"> </a>
+			<a href="index"> <img src="${prefijo}${prefix}img/logo.png" alt="Logo" class="logo"> </a>
         </div>
         <c:url value="/login" var="loginUrl"/>
-		<form action="${loginUrl}" method="post">
+		<form action="${prefijo}${loginUrl}" method="post">
 			<button type="submit" class="btn btn-default btn-sm btn-login right">Login</button>	
         <div id="navbar" class="collapse navbar-collapse login-form right">
 			<label class="font-white" for="login">Usuario</label>

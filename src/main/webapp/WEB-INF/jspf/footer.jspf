@@ -16,7 +16,7 @@
 
 	<%-- pageExtraScripts --%>
 	<c:forEach var="i" items="${pageExtraScripts}" >
-        <script src="${prefix}js/${i}"></script>
+        <script src="${prefijo}${prefix}js/${i}"></script>
     </c:forEach>   
 </body>
 </html>

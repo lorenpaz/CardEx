@@ -8,15 +8,15 @@
 	<%-- Nuestro header --%>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 	<title>CardEx</title>
-	<link rel="shortcut icon" href="${prefix}img/logo.ico" />
+	<link rel="shortcut icon" href="${prefijo}${prefix}img/logo.ico" />
 	
 	<!-- Bootstrap Core CSS -->
-	<link href="${prefix}css/bootstrap.min.css" rel="stylesheet">
-	<link href="${prefix}css/header.css" rel="stylesheet" type="text/css">
+	<link href="${prefijo}${prefix}css/bootstrap.min.css" rel="stylesheet">
+	<link href="${prefijo}${prefix}css/header.css" rel="stylesheet" type="text/css">
 	
 	<%-- pageExtraCSS --%>
 	<c:forEach var="i" items="${pageExtraCSS}" >
-        <link rel="stylesheet" href="${prefix}css/${i}" type="text/css">
+        <link rel="stylesheet" href="${prefijo}${prefix}css/${i}" type="text/css">
     </c:forEach> 
     
     <%@page import="es.ucm.fdi.iw.model.*"%> 
@@ -27,17 +27,17 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-			<a href="home"> <img src="${prefix}img/logo.png" alt="Logo" class="logo"> </a>
+			<a href="${prefijo}home"> <img src="${prefijo}${prefix}img/logo.png" alt="Logo" class="logo"> </a>
         </div>
 		
 		<div id="navbar" class="collapse navbar-collapse right">
           <ul class="nav navbar-nav">
           	<li class="mensajeBienvenido">Bienvenido ${user.usuario}!</li>
-            <li class="enlace"><a href="home">Inicio</a></li>
-            <li class="enlace"><a href="perfil">Perfil</a></li>  <!-- clase 'active' -->
-			<li class="enlace"><a href="gestion_cartas">Gesti&oacute;n de cartas</a></li>
-            <li class="enlace"><a href="historial">Historial</a></li>
-            <li class="enlace"><form action="logout" id="sesionCerrar" method="post"><input type="submit" id="cerrarSesion" value="Cerrar Sesión" ></input><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /></form></li>
+            <li class="enlace"><a href="${prefijo}home">Inicio</a></li>
+            <li class="enlace"><a href="${prefijo}perfil">Perfil</a></li>  <!-- clase 'active' -->
+			<li class="enlace"><a href="${prefijo}gestion_cartas">Gesti&oacute;n de cartas</a></li>
+            <li class="enlace"><a href="${prefijo}historial">Historial</a></li>
+            <li class="enlace"><form action="${prefijo}logout" id="sesionCerrar" method="post"><input type="submit" id="cerrarSesion" value="Cerrar Sesión" ></input><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /></form></li>
 			<!-- <li class="enlace"><form action="logout" id="sesionCerrar" method="post"><a href="#" id="cerrarSesion">Cerrar sesi&oacute;n</a><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /></form></li>-->
           </ul>
         </div>
