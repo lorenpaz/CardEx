@@ -22,6 +22,7 @@
 				<div class="hidden-xs">Valoración</div>
 			</button>
 		</div>
+		<c:if test= "${empty visitante}">
 		<div class="btn-group" role="group">
 			<button type="button" id="following" class="btn btn-default"
 				href="#tab3" data-toggle="tab">
@@ -29,6 +30,7 @@
 				<div class="hidden-xs">Ajustes</div>
 			</button>
 		</div>
+		</c:if>
 	</div>
 
 	<div class="well margin-top30 fg-form margin">
@@ -59,16 +61,19 @@
 					data-step=0.5 data-size="sm" title="">
 				<table class="table table-sm">
 					<tbody>
+						<c:if test= "${visitante ne null}">
 						<td>
-							<form action="perfil/valorarUsuario" method="POST">
+							<form action="${prefijo}perfil/valorarUsuario" id="valorarUsuario" method="POST">
 								Valora al usuario (este apartado no aparece a veces)
-								<textarea id="opinion" rows="4" cols="50" class="center"></textarea>
+								<textarea id="opinion" rows="4" cols="50" class="center" form="valorarUsuario" name="descripcion"></textarea>
 								<input id="input-21e" value="3" type="text" class="rating"
-									data-min=0 data-max=5 data-step=0.5 data-size="xs">
+									data-min=0 data-max=5 data-step=0.5 data-size="xs" name="valor">
 								<button type="submit" class="btn btn-sm btn-success right">Valorar</button>
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+								<input type="hidden" name="usuarioValorado" value="${usuario.usuario}" />
 							</form>
 						</td>
+						</c:if>
 						<c:forEach items="${usuario.valoracionesRecibidas}" var="valoracion">
 						    <tr>
 						    	<th scope="row">${valoracion.usuarioQueValora}</th>

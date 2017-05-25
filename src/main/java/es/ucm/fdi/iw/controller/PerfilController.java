@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.ucm.fdi.iw.model.Usuario;
+import es.ucm.fdi.iw.model.Valoracion;
 
 @Controller	
 @RequestMapping("perfil")
@@ -43,18 +44,8 @@ public class PerfilController {
 
 	@GetMapping({"", "/"})
 	public String root(Model model,Principal principal) {
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("star-rating.min.css");
-		listaCSS.add("perfilEstilo.css");
-
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("bootstrap.min.js");
-		listaJS.add("star-rating.min.js");
-		listaJS.add("perfil.js");
-
-		model.addAttribute("pageExtraCSS", listaCSS);
-		model.addAttribute("pageExtraScripts", listaJS);
+		
+		añadirCSSyJSAlModelo(model);
 		
 		//Obtengo el usuario actual
 		Usuario u = (Usuario) entityManager.createNamedQuery("userByUserField")
@@ -117,6 +108,30 @@ public class PerfilController {
 		return "redirect:";
 	}
 	
+	@PostMapping("/valorarUsuario")
+	@Transactional
+	public String valorarUsuario (@RequestParam("usuarioValorado") String formUsuarioValorado,
+			@RequestParam("descripcion") String formDescripcion,
+			@RequestParam("valor") String formValor,
+			Principal principal)
+	{
+		Usuario usuarioQueValora = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam", principal.getName()).getSingleResult();
+		
+		Usuario usuarioValorado = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam", formUsuarioValorado).getSingleResult();
+		
+		Valoracion v = Valoracion.crearValoracion(usuarioQueValora, usuarioValorado,
+				formDescripcion, Integer.parseInt(formValor));
+		
+		log.info("Creating valoration " + v);
+		
+		entityManager.persist(v);
+		entityManager.flush();
+		
+		return "redirect:";
+	}
+	
 	/**
 	 * Mostrar detalles de un usuario
 	 */
@@ -128,7 +143,25 @@ public class PerfilController {
 			log.error("No se ha encontrado el usuario:" + id);
 		}
 		model.addAttribute("prefijo", "../");
+		
+		añadirCSSyJSAlModelo(model);
+		
+		model.addAttribute("visitante", "true");
 		return "perfil";
 	}	
 	
+	public static void añadirCSSyJSAlModelo(Model model) {
+		List<String> listaCSS = new ArrayList<String>();
+		listaCSS.add("star-rating.min.css");
+		listaCSS.add("perfilEstilo.css");
+
+		List<String> listaJS = new ArrayList<String>();
+		listaJS.add("jquery-3.1.1.min.js");
+		listaJS.add("bootstrap.min.js");
+		listaJS.add("star-rating.min.js");
+		listaJS.add("perfil.js");
+
+		model.addAttribute("pageExtraCSS", listaCSS);
+		model.addAttribute("pageExtraScripts", listaJS);
+	}
 }
