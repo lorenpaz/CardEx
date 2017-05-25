@@ -61,37 +61,30 @@
 	                  </form>
 	                  <table class="table table-striped table-hover">
 	                  	<tr>
-	                      <th>#</th>
 	                      <th>Usuario</th>
 	                      <th>Fecha de Alta</th>
 	                      <th>Estado</th>
 	                      <th>Activar</th>
 	                      <th>Desactivar</th>
 	                    </tr>
-	                    <tr>
-	                      <td>1</td>
-	                      <td>Jack</td>
-	                      <td>15/02/2014</td>
-	                      <td>Activo</td>
-	                      <td></td>
-	                      <td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></form></td>
-	                    </tr>
-	                    <tr>
-	                      <td>2</td>
-	                      <td>Paul</td>
-	                      <td>23/05/2015</td>
-	                      <td>Inactivo</td>
-	                      <td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-ok"></span></button></form></td>
-	                      <td></td>
-	                    </tr>
-	                    <tr>
-	                      <td>3</td>
-	                      <td>Abraham</td>
-	                      <td>31/03/16</td>
-	                      <td>Activo</td>
-	                      <td></td>
-	                      <td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></form></td>
-	                    </tr>
+	                    
+	                    <c:forEach items="${usuarios}" var="usuario">
+						    <tr>
+		                      <td>${usuario.nombre}</td>
+		                      <td>${usuario.fechaAlta}</td>
+		                      	<c:if test= "${usuario.activo ne true}">
+									<td>Activo</td>
+									<td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-ok"></span></button></form></td>
+									<td></td>
+								</c:if>
+								<c:if test= "${usuario.activo ne false}">
+									<td>Inactivo</td>
+									<td></td>
+									<td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></form></td>
+								</c:if>
+						    </tr>
+						</c:forEach>
+	                    
 	                  </table>     
 	                </div>
 	                

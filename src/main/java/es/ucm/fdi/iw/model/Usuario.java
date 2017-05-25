@@ -17,7 +17,8 @@ import javax.persistence.OneToMany;
 
 @NamedQueries({
 		@NamedQuery(name = "userByUserField", query = "select u from Usuario u where u.usuario = :userParam"),
-	    @NamedQuery(name="delUser", query="delete from Usuario u where u.usuario= :userParam")
+	    @NamedQuery(name="delUser", query="delete from Usuario u where u.usuario= :userParam"),
+	    @NamedQuery(name="getUsers", query="select * from Usuario")
 })
 @Entity
 public class Usuario {
