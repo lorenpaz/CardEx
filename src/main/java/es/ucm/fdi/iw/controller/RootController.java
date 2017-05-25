@@ -111,12 +111,12 @@ public class RootController {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("bootstrap.min.css");
 		listaCSS.add("jquery.dataTables.min.css");
-		listaCSS.add("gestionStyles.css");
+		listaCSS.add("gestion.css");
 
 		List<String> listaJS = new ArrayList<String>();
 		listaJS.add("jquery-3.1.1.min.js");
 		listaJS.add("jquery.dataTables.min.js");
-		listaJS.add("gestionCartas.js");
+		listaJS.add("gestion.js");
 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
