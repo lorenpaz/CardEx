@@ -9,9 +9,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -23,9 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import es.ucm.fdi.iw.model.API;
 import es.ucm.fdi.iw.model.Usuario;
-import net.minidev.json.JSONArray;
 
-@Controller
+@Controller 
 public class RootController {
 	
 	//Se usa para registrar lo que hagamos
@@ -51,7 +50,7 @@ public class RootController {
 		listaJS.add("index.js");
 		model.addAttribute("pageExtraScripts", listaJS);
 		
-		// API.cardsDataBaseMin(entityManager,2,100); mejor que sólo lo haga admin cuando él elija
+		API.cardsDataBaseMin(entityManager,2,100);
 		return "index";
 	}
 
@@ -68,24 +67,48 @@ public class RootController {
 		return "info";
 	}
 
+	private void setDefaultJS(Model m, String ... others) {
+		List<String> listaJS = new ArrayList<String>();
+		listaJS.add("jquery-3.1.1.min.js");
+		listaJS.add("jquery-ui-1.12.1/jquery-ui.min.js");
+		listaJS.add("bootstrap.min.js");
+		listaJS.add("star-rating.min.js");
+		for (String o : others) {
+			listaJS.add(o + ".js");
+		}
+		m.addAttribute("pageExtraScripts", listaJS);
+	}
+	
 
 	@GetMapping({ "/home" })
-	public String home(Model model, Principal principal, HttpSession session) {
-
+	public String home(Model model, Principal principal, HttpSession session, 
+			SecurityContextHolderAwareRequestWrapper request) {
 		
+		
+		List<String> listaCSS = new ArrayList<String>();
+		listaCSS.add("styleHome.css");
+		listaCSS.add("popup.css");
+		listaCSS.add("star-rating.min.css");
+		model.addAttribute("pageExtraCSS", listaCSS);
+
+		setDefaultJS(model, "popup", "home");
+		
+		String returnUrl = "home";
 		if (principal != null && session.getAttribute("user") == null) {
 			try {
 				
 		        session.setAttribute("user", entityManager.createNamedQuery("userByUserField")
 						.setParameter("userParam", principal.getName()).getSingleResult());
-		       
-		    } catch (Exception e) {
+		        if (request.isUserInRole("ROLE_ADMIN")) {
+		        	returnUrl = "redirect:admin";
+		        } 
+			} catch (Exception e) {
 	    		log.info("No such user: " + principal.getName());
 	    	}
 		}
 		
 
-		return "home";
+		return returnUrl;
 	}
 
 	@GetMapping({ "/gestion_cartas" })
@@ -163,24 +186,6 @@ public class RootController {
 		model.addAttribute("pageExtraScripts", listaJS);
 
 		return "historial";
-	}
-
-	@GetMapping({ "/admin" })
-	public String admin(Model model, HttpSession session) {
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("adminStyles.css");
-
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("bootstrap.min.js");
-
-		model.addAttribute("pageExtraCSS", listaCSS);
-		model.addAttribute("pageExtraScripts", listaJS);
-		if (session.getAttribute("user") == null) {
-			return "redirect:index";
-		}
-
-		return "admin";
 	}
 
 }
