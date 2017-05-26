@@ -49,7 +49,7 @@ function drop(ev, col) {
 function decrSpinner(e){
 	var element = e.srcElement.parentNode.parentNode.getElementsByTagName("input")[0];
 	var num = element.value;
-	if(num > 0){
+	if(num > 0){10
 		num--;
 		element.value = num;
 	}
@@ -64,24 +64,39 @@ function incrSpinner(e){
 	
 }
 
-function removeCard(e){
+function removeCard(e, table){
+	if(table == 1){
+		contTable1--;
+	}else{
+		contTable2--;
+	}
 	var element = e.srcElement.parentNode.parentNode;
 	var parent = element.parentNode;
 	parent.removeChild(element);
 }
 
 function incrSearch(){
-	var searched = $('#tab3 tbody').append('<tr><td class="filterable-cell">'+selected+'</td><td class="filterable-cell text-right"><button type="button" class="btn btn-link btn-xs" onclick="removeCard(event)">X</button></td></tr>');
+	//var searched = $('#tab3 tbody').append('<tr id="oRow'+ contTable2 +'"><td class="filterable-cell">'+selected.children().html()+'</td><td class="filterable-cell text-right"><button type="button" class="btn btn-link btn-xs" onclick="removeCard(event, 2)">X</button></td></tr>');
+	var anadido = $('#tab3 tbody').append('<input type="text" value="'+selected.children().html()+'" name="cardsO[]"></input>');
+	contTable2++;
 }
 
 function incrOwner(){
-	var searched = $('#tab2 tbody').append('<tr><td class="filterable-cell">Ford</td><td class="filterable-cell">Edicion</td><td class="filterable-cell"><select class="form-control input-sm"><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select></td><td class="filterable-cell"><button type="button" class="btn btn-xs spinner" onclick="decrSpinner(event)">-</button> <input  type="text" name="quantity" class="cantidad-carta" value="0"><button type="button" class="btn btn-xs spinner" onclick="incrSpinner(event)">+</button></td><td class="filterable-cell text-right"><button type="button" class="btn btn-link btn-xs" onclick="removeCard(event)" >X</button></td></tr>');
+	var childrens = selected.children();
+	//var searched = $('#tab2 tbody').append('<tr id="sRow'+ contTable2 +'"><td class="filterable-cell">'+childrens[0].innerHTML+'</td><td class="filterable-cell">'+childrens[1].innerHTML+'</td><td class="filterable-cell"><select class="form-control input-sm"><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select></td><td class="filterable-cell"><button type="button" class="btn btn-xs spinner" onclick="decrSpinner(event)">-</button> <input  type="text" name="quantity" class="cantidad-carta" value="0"><button type="button" class="btn btn-xs spinner" onclick="incrSpinner(event)">+</button></td><td class="filterable-cell text-right"><button type="button" class="btn btn-link btn-xs" onclick="removeCard(event, 1)" >X</button></td></tr><input type="text" value="'+childrens[0].innerHTML+'" name="cardsS['+contTable1+']"/>');
+	var anadido = $('#tab2 tbody').append('<input type="text" value="'+selected.children().html()+'" name="cardsS[]"></input>');
+	console.log(searched);
+	contTable1++;
 }
 
 var selected;
+var contTable1;
+var contTable2;
 
 
 $(document).ready(function() {
+	contTable1 = 0;
+	contTable2 = 0;
     $('#paginacionTabla').DataTable({
     	"lengthMenu": [5, 10, 25, 50, 75, 100 ],
     	"pageLength": 5,
@@ -89,7 +104,7 @@ $(document).ready(function() {
     });
     
     $("#tab1 tr").click(function(){
-    	selected = $(this).children().html();
+    	selected = $(this);
         $(this).addClass("info").siblings().removeClass("info");
     });
  } );
