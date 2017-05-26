@@ -6,7 +6,7 @@
 	<%-- Nuestro header --%>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 	<title>CardEx</title>
-	
+	  
 	<!-- Bootstrap Core CSS -->
 	<link href="static/css/bootstrap.min.css" rel="stylesheet">
 	<!-- MetisMenu CSS -->
@@ -72,12 +72,12 @@
 						    <tr>
 		                      <td>${usuario.nombre}</td>
 		                      <td>${usuario.fechaAlta}</td>
-		                      	<c:if test= "${usuario.activo ne true}">
+		                      	<c:if test= "${usuario.activo eq false}">
 									<td>Activo</td>
 									<td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-ok"></span></button></form></td>
 									<td></td>
 								</c:if>
-								<c:if test= "${usuario.activo ne false}">
+								<c:if test= "${usuario.activo eq true}">
 									<td>Inactivo</td>
 									<td></td>
 									<td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></form></td>
@@ -98,15 +98,24 @@
 		                        <th>Borrar</th>
 		                        </tr>
 		                        
-		                        <%
-		                          	API api = new API();
-		                  			java.util.Collection<Edicion> ediciones = api.getEdiciones();
-
-		                  			for(Edicion ed : ediciones){
-		                  				out.println("<tr><td>"+ ed.getName() +"</td><td>Sin Actualizar</td><td><form method='post'><span class='glyphicon glyphicon-refresh'></span></form></td><td><form method='post'><span class='glyphicon glyphicon-remove'></span></form></td></tr>");
-		                  			}
-								 
-								 %>
+		                        <c:forEach items="${ediciones}" var="edicion">
+								    <tr>
+				                      	<td>${edicion.name}</td>
+							    		<c:choose>
+										    <c:when test="${edicion.fechaUltimaActualizacion eq null}">
+										          <td>Sin Actualizar</td>
+					                  			  <td><form method='post'><span class='glyphicon glyphicon-refresh'></span></form></td>
+					                  			  <td></td>
+										    </c:when>    
+										    <c:otherwise>
+										          <td>${edicion.fechaUltimaActualizacion}</td>
+					                  			  <td><form method='post'><span class='glyphicon glyphicon-refresh'></span></form></td>
+					                  			  <td><form method='post'><span class='glyphicon glyphicon-remove'></span></form></td>
+										    </c:otherwise>
+										</c:choose>
+								    </tr>
+								</c:forEach>
+		                       
 		                        
 	                      	</table>
 	                    </div>
