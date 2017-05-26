@@ -49,44 +49,68 @@ function drop(ev, col) {
 function decrSpinner(e){
 	var element = e.srcElement.parentNode.parentNode.getElementsByTagName("input")[0];
 	var num = element.value;
-	if(num > 0){10
+	var id = element.id;
+	id = id.substring(1);
+	id = '#quantity'.concat(id);
+	var idQ = $(id).html();
+	if(num > 0){
 		num--;
 		element.value = num;
 	}
-	
+	$(id).val(num);
 }
 
 function incrSpinner(e){
 	var element = e.srcElement.parentNode.parentNode.getElementsByTagName("input")[0];
 	var num = element.value;
+	var id = element.id;
 	num++;
 	element.value = num;
-	
+	id = id.substring(1);
+	id = '#quantity'.concat(id);
+	var idQ = $(id).html();
+	$(id).val(num);
 }
 
-function removeCard(e, table){
-	if(table == 1){
-		contTable1--;
-	}else{
-		contTable2--;
-	}
+/*MÉTODO QUE PONE EN EL HIDDEN EL VALOR DEL QUANTITY CADA VEZ QUER CAMBIE EL TEXT INPUT -- IMPORTANTEEEEEEEEE- TODAVÍA NO HECHOO*/
+
+function removeCard(e){
 	var element = e.srcElement.parentNode.parentNode;
 	var parent = element.parentNode;
 	parent.removeChild(element);
 }
 
 function incrSearch(){
-	//var searched = $('#tab3 tbody').append('<tr id="oRow'+ contTable2 +'"><td class="filterable-cell">'+selected.children().html()+'</td><td class="filterable-cell text-right"><button type="button" class="btn btn-link btn-xs" onclick="removeCard(event, 2)">X</button></td></tr>');
-	var anadido = $('#tab3 tbody').append('<input type="text" value="'+selected.children().html()+'" name="cardsO[]"></input>');
+	var childrens = selected.children();
+	var searched = $('#tab3 tbody').append('<tr id="oRow'+ contTable2 +'"><td class="filterable-cell">'+childrens[0].innerHTML+'</td><td class="filterable-cell">'+childrens[1].innerHTML+'</td><td class="filterable-cell text-right"><button type="button" class="btn btn-link btn-xs" onclick="removeCard(event)">X</button></td></tr>');
+	var hidden1 = $('#tab3 tbody').append('<input type="hidden" value="'+childrens[0].innerHTML+'" name="cardsS[]"></input>');
+	var hidden2 = $('#tab3 tbody').append('<input type="hidden" value="'+childrens[1].innerHTML+'" name="cardsSE[]"></input>');
 	contTable2++;
 }
 
 function incrOwner(){
 	var childrens = selected.children();
-	//var searched = $('#tab2 tbody').append('<tr id="sRow'+ contTable2 +'"><td class="filterable-cell">'+childrens[0].innerHTML+'</td><td class="filterable-cell">'+childrens[1].innerHTML+'</td><td class="filterable-cell"><select class="form-control input-sm"><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select></td><td class="filterable-cell"><button type="button" class="btn btn-xs spinner" onclick="decrSpinner(event)">-</button> <input  type="text" name="quantity" class="cantidad-carta" value="0"><button type="button" class="btn btn-xs spinner" onclick="incrSpinner(event)">+</button></td><td class="filterable-cell text-right"><button type="button" class="btn btn-link btn-xs" onclick="removeCard(event, 1)" >X</button></td></tr><input type="text" value="'+childrens[0].innerHTML+'" name="cardsS['+contTable1+']"/>');
-	var anadido = $('#tab2 tbody').append('<input type="text" value="'+selected.children().html()+'" name="cardsS[]"></input>');
-	console.log(searched);
+	var owner = $('#tab2 tbody').append('<tr id="sRow'+ contTable1 +'"><td class="filterable-cell">'+childrens[0].innerHTML+'</td>'+
+			'<td class="filterable-cell">'+childrens[1].innerHTML+'</td><td class="filterable-cell"><select id="selORow'+ contTable1 +
+			'"class="form-control input-sm selectorEstado" onchange="updateState(event)"><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select>'+
+			'</td><td class="filterable-cell"><button type="button" class="btn btn-xs spinner" onclick="decrSpinner(event)">-</button> '+
+			'<input  id="qORow'+ contTable1 +'" type="text" name="quantity" class="cantidad-carta" value="0">'+
+			'<button type="button" class="btn btn-xs spinner" onclick="incrSpinner(event)">+</button></td><td class="filterable-cell text-right">'+
+			'<button type="button" class="btn btn-link btn-xs" onclick="removeCard(event)" >X</button></td></tr>');
+	var hidden1 = $('#tab2 tbody').append('<input type="hidden" value="'+childrens[0].innerHTML+'" name="cardsO[]"></input>');
+	var hidden2 = $('#tab2 tbody').append('<input type="hidden" value="'+childrens[1].innerHTML+'" name="cardsOE[]"></input>');
+	var hidden3 = $('#tab2 tbody').append('<input id="quantityORow'+contTable1+'" type="hidden" value="0" name="cardsOQ[]"></input>');
+	var hidden4 = $('#tab2 tbody').append('<input id="stateORow'+contTable1+'" type="hidden" value="Nueva" name="cardsOS[]"></input>');
 	contTable1++;
+}
+
+function updateState(e){
+	var selectorCambiado = e.srcElement;
+	var estadoCambiado = selectorCambiado.value;
+	var id = selectorCambiado.id;
+	id = id.substring(3);
+	id = '#state'.concat(id);
+	$(id).val(estadoCambiado);
 }
 
 var selected;
@@ -107,4 +131,9 @@ $(document).ready(function() {
     	selected = $(this);
         $(this).addClass("info").siblings().removeClass("info");
     });
+    
+    /*$("#btnGuardar").click(function(){
+    	$('propias') = $('#tab2 tbody').children();
+    	for(int i = 0; i< )
+    });*/
  } );

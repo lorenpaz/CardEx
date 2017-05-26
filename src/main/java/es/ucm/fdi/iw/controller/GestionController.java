@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.ucm.fdi.iw.model.Carta;
 import es.ucm.fdi.iw.model.Usuario;
 import es.ucm.fdi.iw.model.Valoracion;
 
@@ -69,9 +70,45 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 	
 	@PostMapping("/registrarCartasUsuario")
 	@Transactional
-	public String registrarCartasUsuario (@RequestParam("cardsS[]") String[] cartasBuscadas,
-			@RequestParam("cardsO[]") String[] cartasPropias,Principal principal, HttpSession session)
+	public String registrarCartasUsuario (
+			@RequestParam("cardsS[]") String[] cartasBuscadas, @RequestParam("cardsSE[]") String[] edicionCartasBuscadas,
+			@RequestParam("cardsO[]") String[] cartasPropias,
+			@RequestParam("cardsOS[]") String[] estadoCartasPropias, @RequestParam("cardsOQ[]") String[] cantidadCartasPropias,
+			@RequestParam("cardsOE[]") String[] edicionCartasPropias,Principal principal, HttpSession session)
 	{
+		List<Carta> objCartasBuscadas = new ArrayList<Carta>();
+		List<Carta> objCartasPropias = new ArrayList<Carta>();
+		
+		String query  = "select c from Carta c where c.name = :paramName and c.setName= :paramEdition";
+		
+		//CartasBuscadas
+		if(cartasBuscadas.length == edicionCartasBuscadas.length){
+			for(int i=0; i<cartasBuscadas.length; i++){
+				List<Carta> lista = (List<Carta>) entityManager.createQuery(query).setParameter("paramName", cartasBuscadas[i]).setParameter("paramEdition", edicionCartasBuscadas[i]).getResultList();
+				objCartasBuscadas.add(lista.get(0));
+			}
+		}
+		
+		
+		//CartasPropias
+		if((cartasPropias.length == cantidadCartasPropias.length) && (cartasPropias.length == estadoCartasPropias.length) && (cartasPropias.length == edicionCartasPropias.length)){
+			for(int j=0; j<cartasPropias.length; j++){
+				List<Carta> lista = (List<Carta>) entityManager.createQuery(query).setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j]).getResultList();
+				Carta c = lista.get(0);
+				c.setEstadoCarta(estadoCartasPropias[j]);
+				c.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
+				objCartasPropias.add(c);
+			}
+		}
+		
+		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam", principal.getName()).getSingleResult();
+		usuarioActual.setCartasBuscadas(objCartasBuscadas);
+		usuarioActual.setCartasPropias(objCartasPropias);
+		
+		entityManager.persist(usuarioActual);
+		entityManager.flush();
+		
 
 		return "gestion_cartas";
 	}

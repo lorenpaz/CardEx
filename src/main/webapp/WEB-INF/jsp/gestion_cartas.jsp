@@ -93,6 +93,7 @@
 						    <thead>
 							    <tr>
 							        <th>Nombre</th>
+							        <th>Edición</th>
 							        <th></th>
 							    </tr>
 						    </thead>

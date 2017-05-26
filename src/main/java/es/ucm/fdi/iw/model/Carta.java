@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @NamedQueries({
 	@NamedQuery(name = "allCards", query = "select c from Carta c"),
+	@NamedQuery(name = "findCardByNameAndEdition", query = "select c from Carta c where c.name = :paramName and c.setName= :paramEdition"),
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
@@ -37,11 +38,10 @@ public class Carta {
 	private String layout;
 	private String multiverseid;
 	private String imageUrl;
-	//private String[] rulings;
-	//private String[] foreignNames;
 	private String[] printings;
 
 	private String estadoCarta;
+	private int cantidad;
 	private List<Intercambio> intercambiosOfrecidos;
 	private List<Intercambio> intercambiosRecibidos;
 	
@@ -186,24 +186,8 @@ public class Carta {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-
-	/*public String[] getRulings() {
-		return rulings;
-	}
-
-	public void setRulings(String[] rulings) {
-		this.rulings = rulings;
-	}
-*/
-	/*public String[] getForeignNames() {
-		return foreignNames;
-	}
-
-	public void setForeignNames(String[] foreignNames) {
-		this.foreignNames = foreignNames;
-	}
-
-*/	public String[] getPrintings() {
+	
+	public String[] getPrintings() {
 		return printings;
 	}
 
@@ -225,6 +209,14 @@ public class Carta {
 
 	public void setEstadoCarta(String estadoCarta) {
 		this.estadoCarta = estadoCarta;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
 	@ManyToMany(targetEntity = Intercambio.class)
