@@ -50,12 +50,14 @@
 					    <thead>
 						    <tr>
 						        <th>Nombre</th>
+						        <th>Edicion</th>
 						    </tr>
 					    </thead>
 					    <tbody>
-							<c:forEach items="${cartas}" var="carta">
+							<c:forEach items="${cards}" var="carta">
 								<tr>
 						        	<td class="filterable-cell">${carta.name}</td>
+						        	<td class="filterable-cell">${carta.setName}</td>
 						    	</tr>
 							</c:forEach>
 					    </tbody>
@@ -64,58 +66,45 @@
 				<!-- AQUÍ FLECHA A LA DERECHA -->
 				<img class="flecha" src="static/img/right_arrow.png" onclick="incrSearch()"/>
 			</div>
-				
-			<div class="cont_gestion">
-				<div id="table_propias" class="tabla_gestion">
-					<table id="tab2" class="table table-striped ">
-					<caption>Propias</caption>
-					    <thead>
-						    <tr>  
-							  <th>Carta</th>
-							  <th>Edición</th>
-							  <th>Estado</th>
-							  <th>Cantidad</th>
-							  <th></th>
-					  		</tr>
-					    </thead>
-					    <tbody>
-						    <tr>
-						    	<td class="filterable-cell">Ford</td>
-						        <td class="filterable-cell">Edicion</td>
-						        <td class="filterable-cell"><select class='form-control input-sm'><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select></td>
-						        <td class="filterable-cell">
-						        	<button type='button' class='btn btn-xs spinner' onclick='decrSpinner(event)'>-</button> 
-		    						<input  type='text' name='quantity' class='cantidad-carta' value='0'>
-		    						<button type='button' class='btn btn-xs spinner' onclick='incrSpinner(event)'>+</button>
-		    					</td>
-						        <td class="filterable-cell text-right"><button type='button' class='btn btn-link btn-xs' onclick='removeCard(event)' >X</button></td>
-						    </tr>
-						    
-					    </tbody>
-					</table>
+			<form action='${prefijo}gestion_cartas/registrarCartasUsuario' method='post'>
+				<div class="cont_gestion">
+					<div id="table_propias" class="tabla_gestion">
+						<table id="tab2" class="table table-striped ">
+						<caption>Propias</caption>
+						    <thead>
+							    <tr>  
+								  <th>Carta</th>
+								  <th>Edición</th>
+								  <th>Estado</th>
+								  <th>Cantidad</th>
+								  <th></th>
+						  		</tr>
+						    </thead>
+						    <tbody>
+							   
+						    </tbody>
+						</table>
+					</div>
+					
+					
+					<div id="table_buscadas" class="tabla_gestion">
+						<table id = "tab3" class="table table-striped">
+						<caption>Buscadas</caption>
+						    <thead>
+							    <tr>
+							        <th>Nombre</th>
+							        <th></th>
+							    </tr>
+						    </thead>
+						    <tbody>
+							    
+						    </tbody>
+						</table>
+					</div>
 				</div>
-				
-				
-				<div id="table_buscadas" class="tabla_gestion">
-					<table id = "tab3" class="table table-striped">
-					<caption>Buscadas</caption>
-					    <thead>
-						    <tr>
-						        <th>Nombre</th>
-						        <th></th>
-						    </tr>
-					    </thead>
-					    <tbody>
-						    <tr>
-						        <td class="filterable-cell">Ford</td>
-						        <td class="filterable-cell text-right"><button type='button' class='btn btn-link btn-xs' onclick='removeCard(event)'>X</button></td>
-						    </tr>
-						    
-					    </tbody>
-					</table>
-				</div>
-			</div>
-			<button id="btnGuardar" class="btn btn-primary btn-lg btn-block">Guardar</button>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<button type="submit" id="btnGuardar" class="btn btn-primary btn-lg btn-block">Guardar</button>
+			</form>
 		</div>
             
 
