@@ -21,16 +21,13 @@ public class Carta {
 	private String[] colors;
 	private String[] colorIdentity;
 	private String type;
-	private String[] supertypes;
 	private String[] types;
-	private String[] subtypes;
 	private String rarity;
 
 	private Edicion edicion;
 	private String setName;
 	private String text;
 	private String artist;
-	private String number;
 	private String power;
 	private String toughness;
 
@@ -106,28 +103,12 @@ public class Carta {
 		this.type = type;
 	}
 
-	public String[] getSupertypes() {
-		return supertypes;
-	}
-
-	public void setSupertypes(String[] supertypes) {
-		this.supertypes = supertypes;
-	}
-
 	public String[] getTypes() {
 		return types;
 	}
 
 	public void setTypes(String[] types) {
 		this.types = types;
-	}
-
-	public String[] getSubtypes() {
-		return subtypes;
-	}
-
-	public void setSubtypes(String[] subtypes) {
-		this.subtypes = subtypes;
 	}
 
 	public String getRarity() {
@@ -161,14 +142,6 @@ public class Carta {
 
 	public void setArtist(String artist) {
 		this.artist = artist;
-	}
-
-	public String getNumber() {
-		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
 	}
 
 	public String getPower() {
@@ -285,18 +258,5 @@ public class Carta {
 		UsuariosQueMeBuscan = usuariosQueMeBuscan;
 	}
 	
-	@Override
-	public String toString() {
-		return "Carta [id=" + id + ", name=" + name + ", manaCost=" + manaCost + ", cmc=" + cmc + ", colors="
-				+ Arrays.toString(colors) + ", colorIdentity=" + Arrays.toString(colorIdentity) + ", type=" + type
-				+ ", supertypes=" + Arrays.toString(supertypes) + ", types=" + Arrays.toString(types) + ", subtypes="
-				+ Arrays.toString(subtypes) + ", rarity=" + rarity + ", edicion=" + edicion + ", setName=" + setName
-				+ ", text=" + text + ", artist=" + artist + ", number=" + number + ", power=" + power + ", toughness="
-				+ toughness + ", layout=" + layout + ", multiverseid=" + multiverseid + ", imageUrl=" + imageUrl
-				+ ", printings=" + Arrays.toString(printings) + ", estadoCarta=" + estadoCarta
-				+ ", intercambiosOfrecidos=" + intercambiosOfrecidos + ", intercambiosRecibidos="
-				+ intercambiosRecibidos + ", usuariosQueMeTienen=" + usuariosQueMeTienen + ", UsuariosQueMeBuscan="
-				+ UsuariosQueMeBuscan + "]";
-	}
 
 }

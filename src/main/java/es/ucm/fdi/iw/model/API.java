@@ -62,7 +62,7 @@ public class API {
 					aux[0]="fg";
 					card.setPrintings(aux);
 					System.out.println("---------------"+"\n"+card.toString()+"\n");
-
+					card.setEdicion(set);
 					entityManager.persist(card);
 					entityManager.flush();
 					}
@@ -88,7 +88,7 @@ public class API {
 					String[] aux = new String[10];
 					aux[0]="fg";
 					card.setPrintings(aux);
-
+					card.setEdicion(set);
 					entityManager.persist(card);
 					entityManager.flush();
 					}
