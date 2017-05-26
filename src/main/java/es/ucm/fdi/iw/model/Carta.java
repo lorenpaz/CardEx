@@ -9,6 +9,9 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@NamedQueries({
+	@NamedQuery(name = "allCards", query = "select c from Carta c"),
+})
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Carta {
