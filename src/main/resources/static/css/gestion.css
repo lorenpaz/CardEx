@@ -115,9 +115,21 @@ thead {
 	
 }
 
+#tab1:hover{
+	cursor: pointer;
+}
+
 #tab1 th, #tab1 td{
-	width: 100%;
+	width: 50%;
     float: left;
+}
+
+#tab2{
+	border: 2px solid lightblue;
+}
+
+#tab3{
+	border: 2px solid lightgreen;
 }
 
 #tab2 th, #tab2 td{
@@ -138,5 +150,6 @@ thead {
 
 #btnGuardar{
 	clear: both;
+	overflow: hidden;
 	display: table-footer-group;
 }
