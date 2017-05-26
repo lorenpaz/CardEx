@@ -78,38 +78,6 @@ public class RootController {
 		}
 		m.addAttribute("pageExtraScripts", listaJS);
 	}
-	
-
-	@GetMapping({ "/home" })
-	public String home(Model model, Principal principal, HttpSession session, 
-			SecurityContextHolderAwareRequestWrapper request) {
-		
-		
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("styleHome.css");
-		listaCSS.add("popup.css");
-		listaCSS.add("star-rating.min.css");
-		model.addAttribute("pageExtraCSS", listaCSS);
-
-		setDefaultJS(model, "popup", "home");
-		
-		String returnUrl = "home";
-		if (principal != null && session.getAttribute("user") == null) {
-			try {
-				
-		        session.setAttribute("user", entityManager.createNamedQuery("userByUserField")
-						.setParameter("userParam", principal.getName()).getSingleResult());
-		        if (request.isUserInRole("ROLE_ADMIN")) {
-		        	returnUrl = "redirect:admin";
-		        } 
-			} catch (Exception e) {
-	    		log.info("No such user: " + principal.getName());
-	    	}
-		}
-		
-
-		return returnUrl;
-	}
 
 	@GetMapping({ "/gestion_cartas" })
 	public String gestionCartas(Model model, HttpSession session) {
