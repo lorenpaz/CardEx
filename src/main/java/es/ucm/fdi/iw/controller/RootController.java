@@ -79,24 +79,6 @@ public class RootController {
 		m.addAttribute("pageExtraScripts", listaJS);
 	}
 
-	@GetMapping({ "/gestion_cartas" })
-	public String gestionCartas(Model model, HttpSession session) {
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("bootstrap.min.css");
-		listaCSS.add("jquery.dataTables.min.css");
-		listaCSS.add("gestion.css");
-
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("jquery.dataTables.min.js");
-		listaJS.add("gestion.js");
-
-		model.addAttribute("pageExtraCSS", listaCSS);
-		model.addAttribute("pageExtraScripts", listaJS);
-
-		return "gestion_cartas";
-	}
-
 	@GetMapping({ "/intercambio" })
 	public String intercambio(Model model, HttpSession session) {
 
