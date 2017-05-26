@@ -51,7 +51,7 @@ public class RootController {
 		listaJS.add("index.js");
 		model.addAttribute("pageExtraScripts", listaJS);
 		
-		API.cardsDataBaseMin(entityManager,2,100);
+		// API.cardsDataBaseMin(entityManager,2,100); mejor que sólo lo haga admin cuando él elija
 		return "index";
 	}
 
@@ -71,20 +71,7 @@ public class RootController {
 
 	@GetMapping({ "/home" })
 	public String home(Model model, Principal principal, HttpSession session) {
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("styleHome.css");
-		listaCSS.add("popup.css");
-		listaCSS.add("star-rating.min.css");
 
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("jquery-ui-1.12.1/jquery-ui.min.js");
-		listaJS.add("bootstrap.min.js");
-		listaJS.add("star-rating.min.js");
-		listaJS.add("popup.js");
-		listaJS.add("home.js");
-		model.addAttribute("pageExtraCSS", listaCSS);
-		model.addAttribute("pageExtraScripts", listaJS);
 		
 		if (principal != null && session.getAttribute("user") == null) {
 			try {

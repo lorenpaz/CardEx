@@ -182,7 +182,6 @@ public class PerfilController {
 	private void actualizaUsuarioSesion(HttpSession session,Usuario u)
 	{
 		//Actualizo el usuario de la sesión
-		session.setAttribute("user", (Usuario) entityManager.createNamedQuery("userByUserField")
-		.setParameter("userParam", u.getUsuario()).getSingleResult());	
+		session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));	
 	}
 }
