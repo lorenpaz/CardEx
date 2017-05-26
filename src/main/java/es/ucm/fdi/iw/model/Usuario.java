@@ -13,11 +13,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-
+ 
 
 @NamedQueries({
 		@NamedQuery(name = "userByUserField", query = "select u from Usuario u where u.usuario = :userParam"),
-	    @NamedQuery(name="delUser", query="delete from Usuario u where u.usuario= :userParam")
+	    @NamedQuery(name="delUser", query="delete from Usuario u where u.usuario= :userParam"),
+	    @NamedQuery(name="getUsers", query="select u from Usuario u")
 })
 @Entity
 public class Usuario {

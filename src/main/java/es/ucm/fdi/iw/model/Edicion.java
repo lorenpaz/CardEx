@@ -3,11 +3,13 @@ package es.ucm.fdi.iw.model;
 import java.util.List;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
+ 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@NamedQueries({
+    @NamedQuery(name="getEdiciones", query="select e from Edicion e")
+})
 @Entity
 public class Edicion {
 
@@ -23,6 +25,7 @@ public class Edicion {
 	private String releaseDate;
 	private String block;
 	private String magicCardsInfoCode;
+	private String fechaUltimaActualizacion;
 
 
 	@Id
@@ -106,6 +109,14 @@ public class Edicion {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getFechaUltimaActualizacion() {
+		return fechaUltimaActualizacion;
+	}
+
+	public void setFechaUltimaActualizacion(String fechaUltimaActualizacion) {
+		this.fechaUltimaActualizacion = fechaUltimaActualizacion;
 	}
 
 }
