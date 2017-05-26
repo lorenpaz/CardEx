@@ -89,6 +89,9 @@
 	                </div>
 	                
 	                <div class="tab-pane fade in" id="tab2">
+		                	<form class="form-inline form-search" method="post" action="/admin/updateSets">
+		                     <input type="submit" class="btn btn-primary" value="Actualizar Ediciones"/>
+		                  	</form>
 	                        <table class="table table-striped table-hover">
 		                        <caption>Ediciones</caption>
 		                        <tr>

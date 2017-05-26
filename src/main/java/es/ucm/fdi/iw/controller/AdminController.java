@@ -8,8 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.ucm.fdi.iw.model.Edicion;
@@ -39,11 +41,17 @@ public class AdminController {
 		}
 		
 		List<Usuario> usuarios = entityManager.createNamedQuery("getUsers").getResultList();
-		List<Edicion> ediciones = entityManager.createNamedQuery("getEdiciones").getResultList();
+		List<Edicion> ediciones = entityManager.createNamedQuery("getSets").getResultList();
 		
 		model.addAttribute("usuarios",usuarios);
 		model.addAttribute("ediciones",ediciones);
 	
 		return "admin";
+	}
+	
+	@PostMapping("/admin/updateSets")
+	@Transactional
+	public void actualizaEdiciones(){
+		
 	}
 }
