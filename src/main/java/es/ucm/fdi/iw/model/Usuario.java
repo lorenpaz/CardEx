@@ -47,8 +47,6 @@ public class Usuario {
 
 	public static Usuario crearUsuario(String nombre, String apellidos, String email, String usuario, String contraseña,
 			String provincia) {
-		Calendar c = Calendar.getInstance();
-		Date date = c.getTime();
 		Usuario u = new Usuario();
 		u.nombre = nombre;
 		u.apellidos = apellidos;
@@ -57,7 +55,7 @@ public class Usuario {
 		u.contraseña = contraseña;
 		u.provincia = provincia;
 		u.roles = "USER";
-		u.fechaAlta = date;
+		u.fechaAlta = Calendar.getInstance().getTime();
 		u.activo = true;
 		u.valoracionMedia = 0;
 		return u;
