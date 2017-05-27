@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -45,8 +46,7 @@ public class HomeController {
 	}
 
 	@GetMapping({"", "/"})
-	public String root(Model model,Principal principal,HttpSession session) {
-		
+	public String root(Model model,Principal principal,HttpSession session,SecurityContextHolderAwareRequestWrapper request) { 
 		añadirCSSyJSAlModelo(model);
 		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
 				.setParameter("userParam", principal.getName()).getSingleResult();
@@ -70,6 +70,9 @@ public class HomeController {
 		}*/
 		
 		model.addAttribute("usuarios",usuarios);
+		
+		if (request.isUserInRole("ROLE_ADMIN"))
+			 return "redirect:admin";
 		
 		return "home";
 	}

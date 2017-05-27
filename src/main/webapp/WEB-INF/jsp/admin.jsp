@@ -73,12 +73,12 @@
 		                      <td>${usuario.nombre}</td>
 		                      <td>${usuario.fechaAlta}</td>
 		                      	<c:if test= "${usuario.activo eq false}">
-									<td>Activo</td>
+									<td>Inactivo</td>
 									<td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-ok"></span></button></form></td>
 									<td></td>
 								</c:if>
 								<c:if test= "${usuario.activo eq true}">
-									<td>Inactivo</td>
+									<td>Activo</td>
 									<td></td>
 									<td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></form></td>
 								</c:if>
