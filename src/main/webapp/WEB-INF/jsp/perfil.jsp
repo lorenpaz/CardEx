@@ -22,14 +22,14 @@
 				<div class="hidden-xs">Valoración</div>
 			</button>
 		</div>
-		<c:if test= "${empty visitante}">
-		<div class="btn-group" role="group">
-			<button type="button" id="following" class="btn btn-default"
-				href="#tab3" data-toggle="tab">
-				<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-				<div class="hidden-xs">Ajustes</div>
-			</button>
-		</div>
+		<c:if test="${empty visitante}">
+			<div class="btn-group" role="group">
+				<button type="button" id="following" class="btn btn-default"
+					href="#tab3" data-toggle="tab">
+					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+					<div class="hidden-xs">Ajustes</div>
+				</button>
+			</div>
 		</c:if>
 	</div>
 
@@ -56,33 +56,38 @@
 				</table>
 			</div>
 			<div class="tab-pane fade in" id="tab2">
-				Valoración media del usuario <input id="input-21e" value="<c:out value="${usuario.valoracionMedia}"/>"
-					type="text" class="rating" readonly data-min=0 data-max=5
-					data-step=0.5 data-size="sm" title="">
+				Valoración media del usuario <input id="input-21e"
+					value="<c:out value="${usuario.valoracionMedia}"/>" type="text"
+					class="rating" readonly data-min=0 data-max=5 data-step=0.5
+					data-size="sm" title="">
 				<table class="table table-sm">
 					<tbody>
-						<c:if test= "${visitante ne null}">
-						<td>
-							<form action="${prefijo}perfil/valorarUsuario" id="valorarUsuario" method="POST">
-								Valora al usuario (este apartado no aparece a veces)
-								<textarea id="opinion" rows="4" cols="50" class="center" form="valorarUsuario" name="descripcion"></textarea>
-								<input id="input-21e" value="3" type="text" class="rating"
-									data-min=0 data-max=5 data-step=1 data-size="xs" name="valor">
-								<button type="submit" class="btn btn-sm btn-success right">Valorar</button>
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-								<input type="hidden" name="usuarioValorado" value="${usuario.usuario}" />
-							</form>
-						</td>
+						<c:if test="${visitante ne null}">
+							<td>
+								<form action="${prefijo}perfil/valorarUsuario"
+									id="valorarUsuario" method="POST">
+									Valora al usuario (este apartado no aparece a veces)
+									<textarea id="opinion" rows="4" cols="50" class="center"
+										form="valorarUsuario" name="descripcion"></textarea>
+									<input id="input-21e" value="3" type="text" class="rating"
+										data-min=0 data-max=5 data-step=1 data-size="xs" name="valor">
+									<button type="submit" class="btn btn-sm btn-success right">Valorar</button>
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" /> <input type="hidden"
+										name="usuarioValorado" value="${usuario.usuario}" />
+								</form>
+							</td>
 						</c:if>
-						<c:forEach items="${usuario.valoracionesRecibidas}" var="valoracion">
-						    <tr>
-						    	<th scope="row">${valoracion.usuarioQueValora.usuario}</th>
-						        <td>${valoracion.comentario}<br>
-						        <input id="input-21e" value="<c:out value="${valoracion.valor}"/>" type="text" class="rating"
-								readonly data-min=0 data-max=5 data-step=0.5 data-size="xs"
-								title="valoracion">
-						        </td>
-						    </tr>
+						<c:forEach items="${usuario.valoracionesRecibidas}"
+							var="valoracion">
+							<tr>
+								<th scope="row">${valoracion.usuarioQueValora.usuario}</th>
+								<td>${valoracion.comentario}<br> <input id="input-21e"
+									value="<c:out value="${valoracion.valor}"/>" type="text"
+									class="rating" readonly data-min=0 data-max=5 data-step=0.5
+									data-size="xs" title="valoracion">
+								</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
@@ -91,17 +96,18 @@
 				<div class="form-group margin-top30 fg-form">
 					<form action="${prefijo}perfil/cambiarAjustes" method="post">
 						<label for="usernameform">Cambiar nombre</label> 
-							<input id="usernameform" class="form-control" name="nombre" value="${usuario.nombre}"/>
+						<input id="usernameform" class="form-control" name="nombre" value="${usuario.nombre}" /> 
 						<label for="surnameform">Cambiar apellidos</label> 
-							<input id="surnameform" class="form-control" name="apellidos" value="${usuario.apellidos}"/> 							
-						<label for="passform">Cambiar contraseña</label>
-							<input id="passform" class="form-control" name="password"/>
-						<label for="repassform">Confirmar contraseña</label>
-							<input id="repassform" class="form-control" name="passwordConfirm" />
-						<label for="mailform">E-Mail</label>
-							<input id="mailform" class="form-control" name="email" ${usuario.email} />
-						<label for="provform">Provincia</label>
+						<input id="surnameform" class="form-control" name="apellidos" value="${usuario.apellidos}" />
+					 	<label for="passform">Cambiar contraseña</label> 
+					 	<input id="passform" class="form-control" name="password" /> 
+					 	<label for="repassform">Confirmar contraseña</label> 
+					 	<input id="repassform" class="form-control" name="passwordConfirm" /> 
+					 	<label for="mailform">E-Mail</label> 
+					 	<input id="mailform" class="form-control" name="email" value="${usuario.email}" />
+						<label for="provform">Provincia</label> 
 						<select id="provform" class="form-control" name="provincia">
+							<option selected>${usuario.provincia}</option>
 							<option>A Coruña</option>
 							<option>Álava</option>
 							<option>Albacete</option>
@@ -154,7 +160,8 @@
 							<option>Zaragoza</option>
 						</select>
 						<button id="settingsButton" type="submit" class="btn btn-default">Guardar cambios</button>
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" />
 					</form>
 				</div>
 
