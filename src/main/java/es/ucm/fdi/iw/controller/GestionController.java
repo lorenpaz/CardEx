@@ -76,41 +76,44 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 			@RequestParam("cardsOS[]") String[] estadoCartasPropias, @RequestParam("cardsOQ[]") String[] cantidadCartasPropias,
 			@RequestParam("cardsOE[]") String[] edicionCartasPropias,Principal principal, HttpSession session)
 	{
-		List<Carta> objCartasBuscadas = new ArrayList<Carta>();
-		List<Carta> objCartasPropias = new ArrayList<Carta>();
 		
-		String query  = "select c from Carta c where c.name = :paramName and c.setName= :paramEdition";
+		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam", principal.getName()).getSingleResult();
 		
 		//CartasBuscadas
 		if(cartasBuscadas.length == edicionCartasBuscadas.length){
+			usuarioActual.setCartasBuscadas(new ArrayList<Carta>());
 			for(int i=0; i<cartasBuscadas.length; i++){
-				List<Carta> lista = (List<Carta>) entityManager.createQuery(query).setParameter("paramName", cartasBuscadas[i]).setParameter("paramEdition", edicionCartasBuscadas[i]).getResultList();
-				objCartasBuscadas.add(lista.get(0));
+				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasBuscadas[i]).setParameter("paramEdition", edicionCartasBuscadas[i]).getResultList();
+				usuarioActual.getCartasBuscadas().add(lista.get(0));
 			}
 		}
 		
 		
 		//CartasPropias
 		if((cartasPropias.length == cantidadCartasPropias.length) && (cartasPropias.length == estadoCartasPropias.length) && (cartasPropias.length == edicionCartasPropias.length)){
+			usuarioActual.setCartasPropias(new ArrayList<Carta>());
 			for(int j=0; j<cartasPropias.length; j++){
-				List<Carta> lista = (List<Carta>) entityManager.createQuery(query).setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j]).getResultList();
+				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j]).getResultList();
 				Carta c = lista.get(0);
 				c.setEstadoCarta(estadoCartasPropias[j]);
 				c.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
-				objCartasPropias.add(c);
+				usuarioActual.getCartasPropias().add(c);
 			}
 		}
 		
-		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", principal.getName()).getSingleResult();
-		usuarioActual.setCartasBuscadas(objCartasBuscadas);
-		usuarioActual.setCartasPropias(objCartasPropias);
-		
-		entityManager.persist(usuarioActual);
+		entityManager.merge(usuarioActual);
 		entityManager.flush();
 		
+		actualizaUsuarioSesion(session,usuarioActual);		
 
 		return "gestion_cartas";
+	}
+	
+	private void actualizaUsuarioSesion(HttpSession session,Usuario u)
+	{
+		//Actualizo el usuario de la sesión
+		session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));	
 	}
 
 }

@@ -168,7 +168,7 @@ public class Usuario {
 		this.valoracionMedia = valoracionMedia;
 	}
 	
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class, mappedBy = "usuariosQueMeTienen")
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class)
 	public List<Carta> getCartasPropias() {
 		return cartasPropias;
 	}
@@ -176,7 +176,7 @@ public class Usuario {
 	public void setCartasPropias(List<Carta> cartasPropias) {
 		this.cartasPropias = cartasPropias;
 	}
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class, mappedBy = "usuariosQueMeBuscan")
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class)
 	public List<Carta> getCartasBuscadas() {
 		return cartasBuscadas;
 	}

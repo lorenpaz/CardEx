@@ -236,7 +236,7 @@ public class Carta {
 	public void setIntercambiosRecibidos(List<Intercambio> intercambiosRecibidos) {
 		this.intercambiosRecibidos = intercambiosRecibidos;
 	}
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class)
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class, mappedBy = "cartasPropias")
 	public List<Usuario> getUsuariosQueMeTienen() {
 		return usuariosQueMeTienen;
 	}
@@ -244,7 +244,7 @@ public class Carta {
 	public void setUsuariosQueMeTienen(List<Usuario> usuariosQueMeTienen) {
 		this.usuariosQueMeTienen = usuariosQueMeTienen;
 	}
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class)
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class, mappedBy = "cartasBuscadas")
 	public List<Usuario> getUsuariosQueMeBuscan() {
 		return UsuariosQueMeBuscan;
 	}
