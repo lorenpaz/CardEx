@@ -1,7 +1,8 @@
 package es.ucm.fdi.iw.model;
 
-import java.sql.Date;
+
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -46,6 +47,8 @@ public class Usuario {
 
 	public static Usuario crearUsuario(String nombre, String apellidos, String email, String usuario, String contraseña,
 			String provincia) {
+		Calendar c = Calendar.getInstance();
+		Date date = c.getTime();
 		Usuario u = new Usuario();
 		u.nombre = nombre;
 		u.apellidos = apellidos;
@@ -54,7 +57,7 @@ public class Usuario {
 		u.contraseña = contraseña;
 		u.provincia = provincia;
 		u.roles = "USER";
-		u.fechaAlta = new Date(Calendar.getInstance().getTime().getTime());
+		u.fechaAlta = date;
 		u.activo = true;
 		u.valoracionMedia = 0;
 		return u;
