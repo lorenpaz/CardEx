@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import es.ucm.fdi.iw.model.Carta;
+import es.ucm.fdi.iw.model.CartaPropia;
 import es.ucm.fdi.iw.model.Usuario;
 import es.ucm.fdi.iw.model.Valoracion;
 
@@ -92,17 +93,23 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 		
 		//CartasPropias
 		if((cartasPropias.length == cantidadCartasPropias.length) && (cartasPropias.length == estadoCartasPropias.length) && (cartasPropias.length == edicionCartasPropias.length)){
-			usuarioActual.setCartasPropias(new ArrayList<Carta>());
+			usuarioActual.setCartasPropias(new ArrayList<CartaPropia>());
 			for(int j=0; j<cartasPropias.length; j++){
 				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j]).getResultList();
 				Carta c = lista.get(0);
-				c.setEstadoCarta(estadoCartasPropias[j]);
-				c.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
-				usuarioActual.getCartasPropias().add(c);
+				CartaPropia cp = new CartaPropia(new Carta(), "", 0, new Usuario());
+				cp.setCarta(c);
+				cp.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
+				cp.setEstadoCarta(estadoCartasPropias[j]);
+				cp.setUsuarioPropietario(usuarioActual);
+				entityManager.persist(cp);
+				usuarioActual.getCartasPropias().add(cp);
+				int index = usuarioActual.getCartasPropias().indexOf(cp);
+				usuarioActual.getCartasPropias().get(index).setUsuarioPropietario(usuarioActual);
 			}
 		}
 		
-		entityManager.merge(usuarioActual);
+		entityManager.persist(usuarioActual);
 		entityManager.flush();
 		
 		actualizaUsuarioSesion(session,usuarioActual);		
