@@ -39,14 +39,13 @@ public class Carta {
 	private String multiverseid;
 	private String imageUrl;
 	private String[] printings;
-
-	private String estadoCarta;
-	private int cantidad;
 	private List<Intercambio> intercambiosOfrecidos;
 	private List<Intercambio> intercambiosRecibidos;
 	
-	private List<Usuario> usuariosQueMeTienen;
+	//private List<Usuario> usuariosQueMeTienen;
 	private List<Usuario> UsuariosQueMeBuscan;
+	
+	private List<CartaPropia> cartaPropia;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -203,21 +202,6 @@ public class Carta {
 		this.setName = setName;
 	}
 
-	public String getEstadoCarta() {
-		return estadoCarta;
-	}
-
-	public void setEstadoCarta(String estadoCarta) {
-		this.estadoCarta = estadoCarta;
-	}
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
 
 	@ManyToMany(targetEntity = Intercambio.class)
 	public List<Intercambio> getIntercambiosOfrecidos() {
@@ -236,14 +220,14 @@ public class Carta {
 	public void setIntercambiosRecibidos(List<Intercambio> intercambiosRecibidos) {
 		this.intercambiosRecibidos = intercambiosRecibidos;
 	}
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class, mappedBy = "cartasPropias")
+	/*@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class, mappedBy = "cartasPropias")
 	public List<Usuario> getUsuariosQueMeTienen() {
 		return usuariosQueMeTienen;
 	}
 
 	public void setUsuariosQueMeTienen(List<Usuario> usuariosQueMeTienen) {
 		this.usuariosQueMeTienen = usuariosQueMeTienen;
-	}
+	}*/
 	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class, mappedBy = "cartasBuscadas")
 	public List<Usuario> getUsuariosQueMeBuscan() {
 		return UsuariosQueMeBuscan;
@@ -252,6 +236,16 @@ public class Carta {
 	public void setUsuariosQueMeBuscan(List<Usuario> usuariosQueMeBuscan) {
 		UsuariosQueMeBuscan = usuariosQueMeBuscan;
 	}
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy="carta")
+	public List<CartaPropia> getCartasPropias() {
+		return cartaPropia;
+	}
+
+	public void setCartasPropias(List<CartaPropia> cartaPropia) {
+		this.cartaPropia = cartaPropia;
+	}
+	
+	
 	
 
 }
