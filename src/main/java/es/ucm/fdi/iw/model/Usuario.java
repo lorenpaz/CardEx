@@ -1,8 +1,7 @@
 package es.ucm.fdi.iw.model;
 
-
+import java.sql.Date;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -11,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -38,7 +38,7 @@ public class Usuario {
 	private List<Valoracion> valoracionesRecibidas;
 	private List<Valoracion> valoracionesDadas;
 	
-	private List<Carta> cartasPropias;
+	private List<CartaPropia> cartasPropias;
 	private List<Carta> cartasBuscadas;
 
 
@@ -55,7 +55,7 @@ public class Usuario {
 		u.contraseña = contraseña;
 		u.provincia = provincia;
 		u.roles = "USER";
-		u.fechaAlta = Calendar.getInstance().getTime();
+		u.fechaAlta = new Date(Calendar.getInstance().getTime().getTime());
 		u.activo = true;
 		u.valoracionMedia = 0;
 		return u;
@@ -169,12 +169,12 @@ public class Usuario {
 		this.valoracionMedia = valoracionMedia;
 	}
 	
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class)
-	public List<Carta> getCartasPropias() {
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy="usuarioPropietario")
+	public List<CartaPropia> getCartasPropias() {
 		return cartasPropias;
 	}
 
-	public void setCartasPropias(List<Carta> cartasPropias) {
+	public void setCartasPropias(List<CartaPropia> cartasPropias) {
 		this.cartasPropias = cartasPropias;
 	}
 	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class)
