@@ -10,17 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
- 
 
-@NamedQueries({
-		@NamedQuery(name = "userByUserField", query = "select u from Usuario u where u.usuario = :userParam"),
-	    @NamedQuery(name="delUser", query="delete from Usuario u where u.usuario= :userParam"),
-	    @NamedQuery(name="getUsers", query="select u from Usuario u")
-})
+@NamedQueries({ @NamedQuery(name = "userByUserField", query = "select u from Usuario u where u.usuario = :userParam"),
+		@NamedQuery(name = "delUser", query = "delete from Usuario u where u.usuario= :userParam"),
+		@NamedQuery(name = "getUsers", query = "select u from Usuario u"),
+		@NamedQuery(name = "getActiveUsers", query = "select u from Usuario u where u.roles = :roleParam and u.activo = :activeParam") })
 @Entity
 public class Usuario {
 	private long id;
@@ -34,13 +31,12 @@ public class Usuario {
 	private Date fechaAlta;
 	private boolean activo;
 	private float valoracionMedia;
-	
+
 	private List<Valoracion> valoracionesRecibidas;
 	private List<Valoracion> valoracionesDadas;
-	
+
 	private List<CartaPropia> cartasPropias;
 	private List<Carta> cartasBuscadas;
-
 
 	public Usuario() {
 	}
@@ -168,8 +164,8 @@ public class Usuario {
 	public void setValoracionMedia(float valoracionMedia) {
 		this.valoracionMedia = valoracionMedia;
 	}
-	
-	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy="usuarioPropietario")
+
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy = "usuarioPropietario")
 	public List<CartaPropia> getCartasPropias() {
 		return cartasPropias;
 	}
@@ -177,6 +173,7 @@ public class Usuario {
 	public void setCartasPropias(List<CartaPropia> cartasPropias) {
 		this.cartasPropias = cartasPropias;
 	}
+
 	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class)
 	public List<Carta> getCartasBuscadas() {
 		return cartasBuscadas;
@@ -186,17 +183,15 @@ public class Usuario {
 		this.cartasBuscadas = cartasBuscadas;
 	}
 
-	public static float hacerMedia(List<Valoracion> valoraciones)
-	{
+	public static float hacerMedia(List<Valoracion> valoraciones) {
 		int suma = 0;
-		for(Valoracion valoracion : valoraciones)
-		{
+		for (Valoracion valoracion : valoraciones) {
 			suma += valoracion.getValor();
 		}
-		
-		return (float)suma/(float)valoraciones.size();
+
+		return (float) suma / (float) valoraciones.size();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email
