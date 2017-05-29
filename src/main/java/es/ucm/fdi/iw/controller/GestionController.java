@@ -23,7 +23,7 @@ import es.ucm.fdi.iw.model.CartaPropia;
 import es.ucm.fdi.iw.model.Usuario;
 import es.ucm.fdi.iw.model.Valoracion;
 
-
+ 
 @Controller
 @RequestMapping("gestion_cartas")
 public class GestionController {
@@ -45,28 +45,9 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 		
 		añadirCSSyJSAlModelo(model);
 		
-		getAllCArds(model);
+		getAllCards(model);
 	
 		return "gestion_cartas";
-	}
-	
-	public static void añadirCSSyJSAlModelo(Model model) {
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("bootstrap.min.css");
-		listaCSS.add("jquery.dataTables.min.css");
-		listaCSS.add("gestion.css");
-
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("jquery.dataTables.min.js");
-		listaJS.add("gestion.js");
-
-		model.addAttribute("pageExtraCSS", listaCSS);
-		model.addAttribute("pageExtraScripts", listaJS);
-	}
-	
-	public void getAllCArds(Model m){	
-		m.addAttribute("cards", entityManager.createNamedQuery("allCards").getResultList());
 	}
 	
 	@PostMapping("/registrarCartasUsuario")
@@ -114,13 +95,32 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 		
 		actualizaUsuarioSesion(session,usuarioActual);		
 
-		return "gestion_cartas";
+		return "redirect:";
 	}
 	
 	private void actualizaUsuarioSesion(HttpSession session,Usuario u)
 	{
 		//Actualizo el usuario de la sesión
 		session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));	
+	}
+	
+	public static void añadirCSSyJSAlModelo(Model model) {
+		List<String> listaCSS = new ArrayList<String>();
+		listaCSS.add("bootstrap.min.css");
+		listaCSS.add("jquery.dataTables.min.css");
+		listaCSS.add("gestion.css");
+
+		List<String> listaJS = new ArrayList<String>();
+		listaJS.add("jquery-3.1.1.min.js");
+		listaJS.add("jquery.dataTables.min.js");
+		listaJS.add("gestion.js");
+
+		model.addAttribute("pageExtraCSS", listaCSS);
+		model.addAttribute("pageExtraScripts", listaJS);
+	}
+	
+	public void getAllCards(Model m){	
+		m.addAttribute("cards", (List<Carta>) entityManager.createNamedQuery("allCards").getResultList());
 	}
 
 }
