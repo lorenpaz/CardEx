@@ -36,10 +36,117 @@
 			<h3>Ofrece</h3>
 			<ul class="list-group">
 				<c:forEach items="${usuarios}" var="usuario" varStatus="status">
-				<c:forEach items="${usuario.cartasPropias}" var="carta">
-					<li class="list-group-item r"><a class="popup-trigger nostyle">${carta.name}</a></li>
+				<c:forEach items="${usuario.cartasPropias}" var="cartaPropia">
+					<li class="list-group-item r"><a class="popup-trigger nostyle">${cartaPropia.carta.name}</a></li>
+					<div class="popup">
+					<!--Cartas -->
+					<div id="carta1" title="Magic: The Gathering">
+						<table id="MainTable">
+							<td><img src="${cartaPropia.carta.imageUrl}" alt="${cartaPropia.carta.name}"
+								width="200" height="300" /></td>
+							<td>
+								<div id="firstparagraph">
+									<!--Detalles carta-->
+									<table id="details2">
+										<tr>
+											<td></td>
+										</tr>
+										<tr>
+											<td class="amarillo datacell"><strong>
+													<p>${cartaPropia.carta.name}</p>
+											</strong>
+											</td>
+										</tr>
+										<tr>
+											<td class="blanco datacell"><strong>
+													<p>Edición:
+											</strong>${cartaPropia.carta.edicion.name}
+												</p></td>
+										</tr>
+										<tr>
+											<td class="blanco datacell"><strong>
+													<p>Color: 
+											</strong>
+											<c:forEach items=" ${cartaPropia.carta.colors}" var="color" varStatus="status1">
+											<c:if test="${!status1.first}">
+											-
+											</c:if>
+											<c:out value="${color}" />
+											</c:forEach>
+											</td>
+										</tr>
+										<tr>
+											<td class="blanco datacell"><strong>
+													<p>Tipo:
+											</strong>${cartaPropia.carta.type}
+												</p></td>
+										</tr>
+										<tr>
+											<td class="blanco datacell"><strong>
+													<p>Tipo de criatura:
+											</strong>
+											<c:forEach items=" ${cartaPropia.carta.types}" var="criatura" varStatus="status2">
+											<c:if test="${!status2.first}">
+											-
+											</c:if>
+											<c:out value="${criatura}" />
+											</c:forEach>
+												</p></td>
+										</tr>
+										<tr>
+											<td class="blanco datacell"><strong>
+													<p>Artista:
+											</strong>${cartaPropia.carta.artist}
+												</p></td>
+										</tr>
+										<tr>
+											<td class="blanco datacell"><strong>
+													<p>Fuerza:
+											</strong>${cartaPropia.carta.power}
+												</p></td>
+										</tr>
+										<tr>
+											<td class="blanco datacell"><strong>
+													<p>Resistencia:
+											</strong>${cartaPropia.carta.toughness}
+												</p></td>
+										</tr>
+										<tr>
+											<td class="blanco datacell"><strong>
+													<p>Frecuencia:
+											</strong>${cartaPropia.carta.rarity}
+												</p></td>
+										</tr>
+									</table>
+								</div> <!--Detalles 2 Carta -->
+								<div id="secondparagraph">
+									<table id="details">
+										<tr>
+											<td class="blanco datacell"><strong>
+													<p>Informaci&oacute;n:
+											</strong>
+											</p></td>
+										</tr>
+										<tr>
+											<td class="blanco datacell"><p>${cartaPropia.carta.text}</p></td>
+										</tr>
+										<tr>
+											<td></td>
+										</tr>
+										<tr>
+											<td class="blanco datacell"><p>Precio: ${cartaPropia.carta.manaCost} $</p></td>
+										</tr>
+										<tr>
+											<td></td>
+										</tr>
+									</table>
+								</div>
+							<td>
+						</table>
+					</div>
+					<span class="popup-btn-close">close</span>
+				</div>
 				</c:forEach>
-				<li class="list-group-item r"><a class="popup-trigger nostyle">Carta1</a></li>
 				</c:forEach>
 			</ul>
 		</div>
@@ -47,8 +154,8 @@
 			<h3>Pide</h3>
 			<ul class="list-group">
 				<c:forEach items="${usuarios}" var="usuario" varStatus="status">
-				<c:forEach items="${usuario.cartasBuscadas}" var="carta">
-					<li class="list-group-item r"><a class="popup-trigger nostyle">${carta.name}</a></li>
+				<c:forEach items="${usuario.cartasBuscadas}" var="cartaBuscada">
+					<li class="list-group-item r"><a class="popup-trigger nostyle">${cartaBuscada.name}</a></li>
 				</c:forEach>
 				</c:forEach>
 			</ul>
@@ -60,99 +167,6 @@
 				<button class="btn-primary" type="submit">Hacer oferta</button>
 			</form>
 		</div>
-	</div>
-
-	<div class="popup">
-		<!--Cartas -->
-		<div id="carta1" title="Magic: The Gathering">
-			<table id="MainTable">
-				<td><img src="static/img/carta.png" alt="Fuerza de Voluntad"
-					width="200" height="300" /></td>
-				<td>
-					<div id="firstparagraph">
-						<!--Detalles carta-->
-						<table id="details2">
-							<tr>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="amarillo datacell"><strong>
-										<p>Fuerza de Voluntad / Force of Will
-								</strong>
-								</p></td>
-							</tr>
-							<tr>
-								<td class="blanco datacell"><strong>
-										<p>Color:
-								</strong>Azul
-									</p></td>
-							</tr>
-							<tr>
-								<td class="blanco datacell"><strong>
-										<p>Tipo:
-								</strong>Instant&aacute;neo
-									</p></td>
-							</tr>
-							<tr>
-								<td class="blanco datacell"><strong>
-										<p>Tipo de criatura:
-								</strong>N/A
-									</p></td>
-							</tr>
-							<tr>
-								<td class="blanco datacell"><strong>
-										<p>Coste:
-								</strong>
-									</p></td>
-							</tr>
-							<tr>
-								<td class="blanco datacell"><strong>
-										<p>Fuerza:
-								</strong>-
-									</p></td>
-							</tr>
-							<tr>
-								<td class="blanco datacell"><strong>
-										<p>Resistencia:
-								</strong>-
-									</p></td>
-							</tr>
-							<tr>
-								<td class="blanco datacell"><strong>
-										<p>Frecuencia:
-								</strong>Infrecuente
-									</p></td>
-							</tr>
-						</table>
-					</div> <!--Detalles 2 Carta -->
-					<div id="secondparagraph">
-						<table id="details">
-							<tr>
-								<td class="blanco datacell"><strong>
-										<p>Informaci&oacute;n:
-								</strong>
-								</p></td>
-							</tr>
-							<tr>
-								<td class="blanco datacell"><p>Puedes pagar 1 vida y
-										retirar del juego una carta azul de tu mano en vez de pagar el
-										coste de invocacion de la Fuerza de voluntad.</p></td>
-							</tr>
-							<tr>
-								<td></td>
-							</tr>
-							<tr>
-								<td class="blanco datacell"><p>Precio: 85 $</p></td>
-							</tr>
-							<tr>
-								<td></td>
-							</tr>
-						</table>
-					</div>
-				<td>
-			</table>
-		</div>
-		<span class="popup-btn-close">close</span>
 	</div>
 </div>
 
