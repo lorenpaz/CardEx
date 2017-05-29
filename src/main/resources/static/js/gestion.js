@@ -72,13 +72,45 @@ function incrSpinner(e){
 	$(id).val(num);
 }
 
-/*MÉTODO QUE PONE EN EL HIDDEN EL VALOR DEL QUANTITY CADA VEZ QUER CAMBIE EL TEXT INPUT -- IMPORTANTEEEEEEEEE- TODAVÍA NO HECHOO*/
+/*MÉTODO QUE PONE EN EL HIDDEN EL VALOR DEL QUANTITY CADA VEZ QUER CAMBIE EL TEXT INPUT -- IMPORTANTEEEEEEEEE-HECHOO*/
 
 function removeCard(e){
 	var element = e.srcElement.parentNode.parentNode;
 	var parent = element.parentNode;
+console.log(element);
+	var cont = 0;
+	if(parent.parentNode.parentNode.id == "table_propias")
+	{
+		while(cont<4)
+		{
+			parent.removeChild(element.nextSibling);
+			cont++;
+		}
+	}
+	else{
+		console.log(parent.nextSibling);
+		while(cont<2)
+		{
+			parent.removeChild(element.nextSibling);
+			cont++;
+		}
+	}
 	parent.removeChild(element);
+
 }
+
+/*$( function() {
+    $(".cantidad-carta").change( function(){
+        var value = $(this).val();
+        var valueAux = $(this).attr('id');
+        var id = valueAux.substring(1);
+        value += 1;
+        console.log(valueAux);
+        id = '#quantity'.concat(id);
+        $(id).val(value);
+    });
+}
+);*/
 
 function incrSearch(){
 	if(selected != undefined){
