@@ -47,7 +47,7 @@ public class RootController {
 		listaJS.add("index.js");
 		model.addAttribute("pageExtraScripts", listaJS);
 		
-		API.cardsDataBaseMin(entityManager,2,100);
+		//API.cardsDataBaseMin(entityManager,2,100);
 		return "index";
 	}
 
