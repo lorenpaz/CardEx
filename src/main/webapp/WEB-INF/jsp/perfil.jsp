@@ -72,9 +72,8 @@
 									<input id="input-21e" value="3" type="text" class="rating"
 										data-min=0 data-max=5 data-step=1 data-size="xs" name="valor">
 									<button type="submit" class="btn btn-sm btn-success right">Valorar</button>
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" /> <input type="hidden"
-										name="usuarioValorado" value="${usuario.usuario}" />
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+									<input type="hidden" name="usuarioValorado" value="${usuario.usuario}" />
 								</form>
 							</td>
 						</c:if>

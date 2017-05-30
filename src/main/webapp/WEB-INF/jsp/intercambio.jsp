@@ -37,7 +37,7 @@
 	            </div>
 				
 	            <div class="img-exchange">
-	            	<img src="static/img/exchange.png"/>
+	            	<img src="${prefijo}${prefix}img/exchange.png"/>
 	            </div>
 
 	            <div id="pide-column" class="offer-column col-intercambio">
@@ -72,7 +72,10 @@
 	                      </tr>
                     </table>
 	            </div>
-            	<button class="btn btn-primary">Ofrecer</button>
+	            <form action="${prefijo}intercambio/ofrecer">
+            	<button class="btn btn-primary" type="submit">Ofrecer</button>
+            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            	</form>
             </div>
         </div>
     </div>

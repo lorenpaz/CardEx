@@ -76,23 +76,6 @@ public class RootController {
 		m.addAttribute("pageExtraScripts", listaJS);
 	}
 
-	@GetMapping({ "/intercambio" })
-	public String intercambio(Model model, HttpSession session) {
-
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("intercambioStyles.css");
-
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("bootstrap.min.js");
-		listaJS.add("intercambio.js");
-
-		model.addAttribute("pageExtraCSS", listaCSS);
-		model.addAttribute("pageExtraScripts", listaJS);
-
-		return "intercambio";
-	}
-
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	@Transactional
 	public String register(@RequestParam("nombre") String formName, 
