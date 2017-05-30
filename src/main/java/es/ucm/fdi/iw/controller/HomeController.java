@@ -55,7 +55,7 @@ public class HomeController {
 		}
 		@SuppressWarnings("unchecked")
 		ArrayList<Usuario> usuarios = (ArrayList<Usuario>) entityManager.createNamedQuery("getActiveUsers")
-				.setParameter("roleParam", "USER").setParameter("activeParam", true).getResultList();
+				.setParameter("roleParam", "USER").setParameter("activeParam", true).setParameter("actual",principal.getName()).getResultList();
 
 		model.addAttribute("usuarios", usuarios);
 

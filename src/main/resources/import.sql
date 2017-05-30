@@ -1,7 +1,7 @@
 INSERT INTO USUARIO VALUES(1,TRUE,'administrador','$2a$04$M43.kgr5WWR0e7wXVigkT.t05zUosQLSnYzKawH3ZrerdWp8H38Kq','admin@admin.es','2017-06-10','Administrador','Madrid','USER,ADMIN','admin',0.00)
 INSERT INTO USUARIO VALUES(2,TRUE,'de la paz','$2a$04$YZu9QF2jtkO9UeyIFugGp.kncSgBn0YMb318394e0.ntUxUBkHYxK','lorenpaz@ucm.es','2017-06-10','lorenzo','Madrid','USER','lorenzo',0.00)
 INSERT INTO USUARIO VALUES(3,TRUE,'martinez','$2a$04$wzNKVfu5On022g07IPFhW.80swlVE/2kdwIPXM/NCge3rqonTgnqu','carlos@ucm.es','2017-06-10','carlos','Madrid','USER','carlos',0.00)
-INSERT INTO USUARIO VALUES(4,FALSE,'pietrzak','$2a$10$RhbBawV9a.SYEWItnCkXee/gqeHej4/7DRI4PFgXzrgL3EuzMiSpq','apietrza@ucm.es','2017-05-29','ania','Badajoz','USER','ania',0.0E0)
+INSERT INTO USUARIO VALUES(4,TRUE,'pietrzak','$2a$10$RhbBawV9a.SYEWItnCkXee/gqeHej4/7DRI4PFgXzrgL3EuzMiSpq','apietrza@ucm.es','2017-05-29','ania','Badajoz','USER','ania',0.0E0)
 
 INSERT INTO EDICION VALUES(1,NULL,'LEA',NULL,'al',1,'Alpha','Limited Edition Alpha','1993-08-05','core')
 INSERT INTO EDICION VALUES(2,NULL,'LEB',NULL,'be',2,'Beta','Limited Edition Beta','1993-10-01','core')

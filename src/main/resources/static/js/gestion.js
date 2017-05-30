@@ -132,12 +132,12 @@ function incrOwner(){
 				'<td class="filterable-cell">'+childrens[1].innerHTML+'</td><td class="filterable-cell"><select id="selORow'+ contTable1 +
 				'"class="form-control input-sm selectorEstado" onchange="updateState(event)"><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select>'+
 				'</td><td class="filterable-cell"><button type="button" class="btn btn-xs spinner" onclick="decrSpinner(event)">-</button> '+
-				'<input  id="qORow'+ contTable1 +'" type="text" name="quantity" class="cantidad-carta" value="0">'+
+				'<input  id="qORow'+ contTable1 +'" type="text" name="quantity" class="cantidad-carta" value="1">'+
 				'<button type="button" class="btn btn-xs spinner" onclick="incrSpinner(event)">+</button></td><td class="filterable-cell text-right">'+
 				'<button type="button" class="btn btn-link btn-xs" onclick="removeCard(event)" >X</button></td></tr>');
 		var hidden1 = $('#tab2 tbody').append('<input type="hidden" value="'+childrens[0].innerHTML+'" name="cardsO[]"></input>');
 		var hidden2 = $('#tab2 tbody').append('<input type="hidden" value="'+childrens[1].innerHTML+'" name="cardsOE[]"></input>');
-		var hidden3 = $('#tab2 tbody').append('<input id="quantityORow'+contTable1+'" type="hidden" value="0" name="cardsOQ[]"></input>');
+		var hidden3 = $('#tab2 tbody').append('<input id="quantityORow'+contTable1+'" type="hidden" value="1" name="cardsOQ[]"></input>');
 		var hidden4 = $('#tab2 tbody').append('<input id="stateORow'+contTable1+'" type="hidden" value="Nueva" name="cardsOS[]"></input>');
 		contTable1++;
 	}else{
