@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,6 +24,13 @@ public class AdminController {
 	@Autowired
 	private EntityManager entityManager; 
 	
+	// Incluimos ${prefix} en todas las páginas
+	@ModelAttribute
+	public void addAttributes(Model m) {
+		m.addAttribute("prefix", "../static/");
+		m.addAttribute("prefijo", "../");
+	}
+	
 	@SuppressWarnings("unchecked")
 	@GetMapping({"", "/"})
 	public String root(Model model,HttpSession session) {
@@ -32,7 +40,7 @@ public class AdminController {
 		List<String> listaJS = new ArrayList<String>();
 		listaJS.add("jquery-3.1.1.min.js");
 		listaJS.add("bootstrap.min.js");
-
+ 
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
 		
@@ -54,6 +62,6 @@ public class AdminController {
 	public String actualizaEdiciones(){
 		int a = 2;
 		a = a/2;
-		return "index";
+		return "redirect:";
 	}
 }
