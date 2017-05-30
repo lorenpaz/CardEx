@@ -49,9 +49,11 @@ public class AdminController {
 		return "admin";
 	}
 	
-	@PostMapping("/admin/updateSets")
+	@PostMapping("/updateSets")
 	@Transactional
-	public void actualizaEdiciones(){
-		
+	public String actualizaEdiciones(){
+		int a = 2;
+		a = a/2;
+		return "index";
 	}
 }
