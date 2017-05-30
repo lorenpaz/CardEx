@@ -34,7 +34,7 @@
 						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td>
                       </tr>
                     </table>
-	            </div>
+	            </div> 
 				
 	            <div class="img-exchange">
 	            	<img src="${prefijo}${prefix}img/exchange.png"/>
