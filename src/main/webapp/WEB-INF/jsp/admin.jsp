@@ -9,23 +9,23 @@
 	<link rel="shortcut icon" href="${prefijo}${prefix}img/logo.ico" />
 	  
 	<!-- Bootstrap Core CSS -->
-	<link href="static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="${prefijo}${prefix}css/bootstrap.min.css" rel="stylesheet">
 	<!-- MetisMenu CSS -->
-	<link href="static/css/metisMenu.min.css" rel="stylesheet">
+	<link href="${prefijo}${prefix}css/metisMenu.min.css" rel="stylesheet">
 	<!-- Custom CSS -->
-	<link href="static/css/sb-admin-2.min.css" rel="stylesheet">
+	<link href="${prefijo}${prefix}css/sb-admin-2.min.css" rel="stylesheet">
 	<!-- Custom Fonts -->
-	<link href="static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href="static/css/main.css" rel="stylesheet" type="text/css">
+	<link href="${prefijo}${prefix}css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="${prefijo}${prefix}css/main.css" rel="stylesheet" type="text/css">
 	
 	<%-- pageExtraCSS --%>
 	<c:forEach var="i" items="${pageExtraCSS}" >
-        <link rel="stylesheet" href="static/css/${i}">
+        <link rel="stylesheet" href="${prefijo}${prefix}css/${i}">
     </c:forEach>
 	
 	<%-- pageExtraScripts --%>
 	<c:forEach var="i" items="${pageExtraScripts}" >
-        <script src="static/js/${i}"></script>
+        <script src="${prefijo}${prefix}js/${i}"></script>
     </c:forEach>   
     
     <%-- Carga de Ediciones en desplegable --%>
@@ -92,8 +92,9 @@
 	                <div class="tab-pane fade in" id="tab2">
 	                
 	                
-		                	<form class="form-inline form-search" method="post" action="../admin/updateSets">
+		                	<form class="form-inline form-search" method="post" action="${prefijo}admin/updateSets">
 		                     <button type="submit" class="btn btn-default">Actualizar Ediciones</button>
+		                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		                  	</form>
 		                  	
 		                  	
