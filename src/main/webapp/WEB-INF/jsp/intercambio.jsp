@@ -12,27 +12,15 @@
 	                      <th>Estado</th>
 	                      <th>Cantidad</th>
                       </tr>
-                      <tr id="spinner0a">
-                      	<td>Carta 1</td>
-                      	<td><span class="estadoCarta label label-success">Nueva</span></td>
+                      <c:forEach items="${user.cartasPropias}" var="cartaPropia">
+                      <tr id="spinner${cartaPropia.id}a">
+                      	<td>${cartaPropia.carta.name}</td>
+                      	<td><span class="estadoCarta label label-success">${cartaPropia.estadoCarta}</span></td>
                       	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-						<input  type="text" name="quantity" class="cantidad-carta" value="0">
+						<input  type="text" name="quantity" class="cantidad-carta" value="1">
 						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td> 
-                      </tr>
-                      <tr id="spinner1a">
-                      	<td>Carta 1</td>
-                      	<td><span class="estadoCarta label label-warning">Jugada</span></td>
-                      	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-						<input  type="text" name="quantity" class="cantidad-carta" value="0">
-						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td>
-                      </tr>
-                      <tr id="spinner2a">
-                      	<td>Carta 2</td>
-                      	<td><span class="estadoCarta label label-danger">Deteriorada</span></td>
-                      	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-						<input  type="text" name="quantity" class="cantidad-carta" value="0">
-						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td>
-                      </tr>
+                      </tr>  
+                      </c:forEach>
                     </table>
 	            </div> 
 				
@@ -41,7 +29,7 @@
 	            </div>
 
 	            <div id="pide-column" class="offer-column col-intercambio">
-	                <h3>Pepe</h3>
+	                <h3>${usuarioIntercambio.usuario}</h3>
 	                <table class="table table-striped">
 		                <caption>Pides</caption>
 		                  <tr>
@@ -49,27 +37,15 @@
 		                      <th>Estado</th>
 		                      <th>Cantidad</th>
 	                      </tr>
-	                      <tr id="spinner0b">
-	                      	<td>Carta 5</td>
-	                      	<td><span class="estadoCarta label label-success">Nueva</span></td>
-	                      	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-							<input  type="text" name="quantity" class="cantidad-carta" value="0">
-							<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td>
-	                      </tr>
-	                      <tr id="spinner1b">
-	                      	<td>Carta 6</td>
-	                      	<td><span class="estadoCarta label label-success">Nueva</span></td>
-	                      	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-							<input type="text" name="quantity" class="cantidad-carta" value="0">
-							<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td>
-	                      </tr>
-	                      <tr id="spinner2b">
-	                      	<td>Carta 6</td>
-	                      	<td><span class="estadoCarta label label-danger">Deteriorada</span></td>
-	                      	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-							<input  type="text" name="quantity" class="cantidad-carta" value="0">
-							<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td>
-	                      </tr>
+                      <c:forEach items="${usuarioIntercambio.cartasPropias}" var="cartaPropia">
+                      <tr id="spinner${cartaPropia.id}b">
+                      	<td>${cartaPropia.carta.name}</td>
+                      	<td><span class="estadoCarta label label-success">${cartaPropia.estadoCarta}</span></td>
+                      	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
+						<input  type="text" name="quantity" class="cantidad-carta" value="1">
+						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td> 
+                      </tr>  
+                      </c:forEach>
                     </table>
 	            </div>
 	            <form action="${prefijo}intercambio/ofrecer">

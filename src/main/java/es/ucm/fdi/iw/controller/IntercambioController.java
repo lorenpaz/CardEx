@@ -12,10 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import es.ucm.fdi.iw.model.Usuario;
 
@@ -38,32 +42,27 @@ public class IntercambioController {
 		m.addAttribute("prefijo", "../");
 	}
 
-	@GetMapping({ "", "/" })
-	public String root(Model model, Principal principal, HttpSession session) {
-		
+	@RequestMapping(value = "/{usuarioIntercambio}")
+	public String root(@PathVariable("usuarioIntercambio") String usuarioExchange,Model model, Principal principal,
+		HttpSession session) {
+			
+		Usuario usuarioIntercambio = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam",usuarioExchange).getSingleResult();
+
 		añadirCSSyJSAlModelo(model);
-		
-		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", principal.getName()).getSingleResult();
-
-		if (principal != null && session.getAttribute("user") == null) {
-			try {
-				session.setAttribute("user", usuarioActual);
-
-			} catch (Exception e) {
-				log.info("No such user: " + principal.getName());
-			}
-		}
-
-		@SuppressWarnings("unchecked")
-		ArrayList<Usuario> usuarios = (ArrayList<Usuario>) entityManager.createNamedQuery("getActiveUsers")
-				.setParameter("roleParam", "USER").setParameter("activeParam", true).setParameter("actual",principal.getName()).getResultList();
-
-		model.addAttribute("usuarios", usuarios);
+		model.addAttribute("usuarioIntercambio", usuarioIntercambio);
 		
 		return "intercambio";
 	}
 
+	@PostMapping("/ofrecer")
+	@Transactional
+	public String ofrecerIntercambio (Principal principal, HttpSession session)
+	{
+	
+		
+		return "redirect:historial";
+	}
 	public static void añadirCSSyJSAlModelo(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("intercambioStyles.css");
@@ -76,9 +75,10 @@ public class IntercambioController {
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
 	}
-	/*
-	 * private void actualizaUsuarioSesion(HttpSession session, Usuario u) { //
-	 * Actualizo el usuario de la sesión session.setAttribute("user",
-	 * entityManager.find(Usuario.class, u.getId())); }
-	 */
+	
+	  private void actualizaUsuarioSesion(HttpSession session, Usuario u) { 
+	 // Actualizo el usuario de la sesión 
+		  session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));
+	}
+	 
 }

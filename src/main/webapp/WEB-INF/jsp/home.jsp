@@ -541,6 +541,7 @@
 					</div>
 					</li>
 				</div>
+				
 				</c:otherwise>
 				</c:choose>
 				</c:forEach>
@@ -548,8 +549,8 @@
 			</ul>
 		</div>
 		<div id="action" class="row">
-			<form id="intercambioEnviar" action="intercambio">
-				<button class="btn-primary" type="submit">Hacer oferta</button>
+			<form id="intercambioEnviar" action="${prefijo}intercambio">
+				<button class="btn-primary" onClick="enviarOferta(event)">Hacer oferta</button>
 			</form>
 		</div>
 </div>
