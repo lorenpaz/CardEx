@@ -43,7 +43,7 @@
 		</div>	
 		<div id="intercambio">
 			<div class="cont_gestion">
-				<img class="flecha" src="static/img/left_arrow.png" onclick="incrOwner()"/>
+				<img class="flecha" src="${prefijo}${prefix}img/left_arrow.png" onclick="incrOwner()"/>
 				<!-- AQUÍ FLECHA A LA IZDA -->
 				<div id="table_cards">
 					<table id="tab1" class="table table-striped">
@@ -64,7 +64,7 @@
 					</table>
 				</div>
 				<!-- AQUÍ FLECHA A LA DERECHA -->
-				<img class="flecha" src="static/img/right_arrow.png" onclick="incrSearch()"/>
+				<img class="flecha" src="${prefijo}${prefix}img/right_arrow.png" onclick="incrSearch()"/>
 			</div>
 			<form action='${prefijo}gestion_cartas/registrarCartasUsuario' method='post'>
 				<div class="cont_gestion">
