@@ -21,7 +21,7 @@
 					<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span>
 					</span>
 				</a>
-						<c:set var = "usuarioNow" value = "${usuario.id}"/>
+					 	<c:set var = "usuarioNow" value = "${usuario.id}"/>
 						</c:when>
 						<c:otherwise>
 				<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}" role="tab" data-toggle="tab" class="list-group-item usuarios">${usuario.usuario}</a>
