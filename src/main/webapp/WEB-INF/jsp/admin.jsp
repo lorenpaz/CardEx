@@ -98,7 +98,7 @@
 		                        <tr>
 		                        <th>Colección</th>
 		                        <th>Última actualización</th>
-		                        <th>Actualizar</th>
+		                        <th>Actualizar cartas</th>
 		                        <th>Borrar</th>
 		                        </tr>
 		                        
