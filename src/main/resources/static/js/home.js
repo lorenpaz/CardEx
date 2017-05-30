@@ -3,11 +3,17 @@ $( function(){
 	$("#intercambio-column .list-group-item").click(function(){
 	    if (!$(this).hasClass('active')){
 	  
-	    	$('.active').addClass('usuarios').removeClass('active');
+	    	var anterior = $('.active').addClass('usuarios').removeClass('active');
 	    	$('.badge').remove();
+	    	$('#usuarioQuieroIntercambio').remove();
+	    	
 	        $(this).addClass('active');
 	        $(this).removeClass('usuarios');
+	        
+	        var usuario = $(this).text().replace(/\s/g,'');
+			$('#intercambioEnviar').append('<input type="hidden" value="'+ usuario + '" name="usuarioQuieroIntercambio" id="usuarioQuieroIntercambio" />');
 	        $(this).append('<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span></span>');
 	    }
-	})
+	});
+	
 });
