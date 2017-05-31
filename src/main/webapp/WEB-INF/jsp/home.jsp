@@ -20,7 +20,8 @@
 				<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}" role="tab" data-toggle="tab" class="list-group-item active">${usuario.usuario}
 					<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span>
 					</span>
-				</a>
+				</a>	
+				<c:set var = "currentUser" value = "${usuario.usuario}"/>
 						</c:when>
 						<c:otherwise>
 				<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}" role="tab" data-toggle="tab" class="list-group-item usuarios">${usuario.usuario}</a>
@@ -549,7 +550,7 @@
 			</ul>
 		</div>
 		<div id="action" class="row">
-			<form id="intercambioEnviar" action="${prefijo}intercambio">
+			<form id="intercambioEnviar" action="${prefijo}intercambio/${currentUser}">
 				<button class="btn-primary" onClick="enviarOferta(event)">Hacer oferta</button>
 			</form>
 		</div>

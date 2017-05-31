@@ -11,7 +11,8 @@ $( function(){
 	        $(this).removeClass('usuarios');
 	        
 	        var usuario = $(this).text().replace(/\s/g,'');
-			$('#intercambioEnviar').append('<input type="hidden" value="'+ usuario + '" name="usuarioIntercambio" id="usuarioQuieroIntercambio" />');
+		//	$('#intercambioEnviar').append('<input type="hidden" value="'+ usuario + '" name="usuarioIntercambio" id="usuarioQuieroIntercambio" />');
+	        document.getElementById('intercambioEnviar').action = "../intercambio/"+usuario;
 	        $(this).append('<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span></span>');
 	    }
 	});

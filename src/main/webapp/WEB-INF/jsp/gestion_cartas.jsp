@@ -81,7 +81,33 @@
 						  		</tr>
 						    </thead>
 						    <tbody>
-							   
+						    <c:forEach items="${user.cartasPropias}" var="cartaPropia">
+							 <tr id="oRow${cartaPropia.id}">
+							 	<td class="filterable-cell">${cartaPropia.carta.name}
+							 	</td>
+								<td class="filterable-cell">${cartaPropia.carta.edicion}
+								</td>
+								<td class="filterable-cell">
+									<select id="selORow${cartaPropia.id}" class="form-control input-sm selectorEstado" onchange="updateState(event)">
+									<option>Nueva</option>
+									<option>Jugada</option>
+									<option>Deteriorada</option>
+									</select>
+								</td>
+								<td class="filterable-cell">
+									<button type="button" class="btn btn-xs spinner" onclick="decrSpinner(event)">-</button>
+									<input  id="qORow" type="text" name="quantity" class="cantidad-carta" value="${cartaPropia.cantidad}">
+									<button type="button" class="btn btn-xs spinner" onclick="incrSpinner(event)">+</button>
+								</td>
+								<td class="filterable-cell text-right">
+									<button type="button" class="btn btn-link btn-xs" onclick="removeCard(event, 1)" >X</button>
+								</td>
+							</tr>
+							<input id="nameORow${cartaPropia.id}" type="hidden" value="${cartaPropia.carta.name}" name="cardsO[]"></input>
+							<input id="edORow${cartaPropia.id}" type="hidden" value="${cartaPropia.carta.edicion}" name="cardsOE[]"></input>
+							<input id="quantityORow${cartaPropia.id}" type="hidden" value="${cartaPropia.cantidad}" name="cardsOQ[]"></input>
+							<input id="stateORow${cartaPropia.id}" type="hidden" value="${cartaPropia.estadoCarta}" name="cardsOS[]"></input> 
+						    </c:forEach>
 						    </tbody>
 						</table>
 					</div>
@@ -98,7 +124,19 @@
 							    </tr>
 						    </thead>
 						    <tbody>
-							    
+							   <c:forEach items="${user.cartasBuscadas}" var="cartaBuscada">
+							    <tr id="sRow${cartasBuscada.id}">
+								    <td class="filterable-cell">${cartasBuscada.name}
+								    </td>
+								    <td class="filterable-cell">${cartasBuscada.edicion}
+								    </td>
+								    <td class="filterable-cell text-right">
+								    	<button type="button" class="btn btn-link btn-xs" onclick="removeCard(event,2)">X</button>
+								    </td>
+							    </tr>
+								<input id="nameSRow"${cartasBuscada.id} type="hidden" value="1" name="cardsS[]"></input>
+								<input id="edSRow${cartasBuscada.id}" type="hidden" value="1" name="cardsSE[]"></input>
+								</c:forEach>
 						    </tbody>
 						</table>
 					</div>
