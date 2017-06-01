@@ -18,8 +18,8 @@
                       	<td>${cartaPropia.carta.name}</td>
                       	<td><span class="estadoCarta label label-success">${cartaPropia.estadoCarta}</span></td>
                       	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-						<input  type="hidden" name="cartasO[]" value="${user.id}${cartaPropia.id}">
-						<input  type="text" name="quantityO[]" class="cantidad-carta" id="${user.id}${cartaPropia.id}" value="1">
+						<input  type="hidden" name="cartasO[]" value="${cartaPropia.id}">
+						<input  type="text" name="quantityO[]" class="cantidad-carta" value="1">
 						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td> 
                       </tr>  
                       </c:forEach>
@@ -38,15 +38,16 @@
 		                      <th>Carta</th>
 		                      <th>Estado</th>
 		                      <th>Cantidad</th>
-	                      </tr>
+	                      </tr> 
                       <c:forEach items="${usuarioIntercambio.cartasPropias}" var="cartaPropia">
                       <tr id="spinner${cartaPropia.id}b">
                       	<td>${cartaPropia.carta.name}</td>
                       	<td><span class="estadoCarta label label-success">${cartaPropia.estadoCarta}</span></td>
                       	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
-						<input  type="hidden" name="cartasP[]" value="${usuarioIntercambio.id}${cartaPropia.id}">
-						<input  type="text" name="quantityP[]" class="cantidad-carta" id="${usuarioIntercambio.id}${cartaPropia.id}" value="1">
+						<input  type="hidden" name="cartasP[]" value="${cartaPropia.id}">
+						<input  type="text" name="quantityP[]" class="cantidad-carta" value="1">
 						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td> 
+                      	<input	type="hidden" name="usuarioQuePido" value="${usuarioIntercambio.id}">
                       </tr>  
                       </c:forEach>
                     </table>
