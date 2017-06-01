@@ -1,11 +1,14 @@
 package es.ucm.fdi.iw.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +76,15 @@ public class AdminController {
 				entityManager.persist(c);
 		}
 		
+		Date fecha = Calendar.getInstance().getTime();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String sFecha = dateFormat.format(fecha);
+		
+		Edicion e = (Edicion)entityManager.createNamedQuery("getSet").setParameter("codeParam",code).getSingleResult();
+		e.setFechaUltimaActualizacion(sFecha);
+		entityManager.persist(e);
+		
+		entityManager.flush();
 		return "redirect:";
 	}
 	
@@ -88,16 +100,17 @@ public class AdminController {
 				entityManager.persist(edicion);
 		}
 		
+		entityManager.flush();
 		return "redirect:";
 	}
 	
 	private boolean existeEnBD(String multiverseId){
-		Query c = entityManager.createNamedQuery("findCardByMultiverseID").setParameter("paramMultiverse", multiverseId);
-		
-		if(c.getFirstResult() == 0)
-			return false;
-		else
+		try{
+			Object c = entityManager.createNamedQuery("findCardByMultiverseID").setParameter("paramMultiverse", multiverseId).getSingleResult();
 			return true;
+		}catch(Exception e){
+			return false;
+		}
 	}
 	
 	private boolean existeEnBD(Collection<Edicion> edicionesBD, String code){
