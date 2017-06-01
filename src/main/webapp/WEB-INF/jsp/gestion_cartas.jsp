@@ -85,7 +85,7 @@
 							 <tr id="oRow${cartaPropia.id}">
 							 	<td class="filterable-cell">${cartaPropia.carta.name}
 							 	</td>
-								<td class="filterable-cell">${cartaPropia.carta.edicion}
+								<td class="filterable-cell">${cartaPropia.carta.edicion.name}
 								</td>
 								<td class="filterable-cell">
 									<select id="selORow${cartaPropia.id}" class="form-control input-sm selectorEstado" onchange="updateState(event)">
@@ -126,9 +126,9 @@
 						    <tbody>
 							   <c:forEach items="${user.cartasBuscadas}" var="cartaBuscada">
 							    <tr id="sRow${cartasBuscada.id}">
-								    <td class="filterable-cell">${cartasBuscada.name}
+								    <td class="filterable-cell">${cartaBuscada.name}
 								    </td>
-								    <td class="filterable-cell">${cartasBuscada.edicion}
+								    <td class="filterable-cell">${cartaBuscada.edicion}
 								    </td>
 								    <td class="filterable-cell text-right">
 								    	<button type="button" class="btn btn-link btn-xs" onclick="removeCard(event,2)">X</button>
