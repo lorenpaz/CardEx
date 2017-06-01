@@ -94,7 +94,7 @@
 	                
 		                	<form class="form-inline form-search" method="post" action="${prefijo}admin/updateSets">
 		                     <button type="submit" class="btn btn-default">Actualizar Ediciones</button>
-		                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		                  	</form>
 		                  	
 		                  	
@@ -112,14 +112,32 @@
 								    <tr>
 				                      	<td>${edicion.name}</td>
 							    		<c:choose>
+							    		
+							    		
 										    <c:when test="${edicion.fechaUltimaActualizacion eq null}">
 										          <td>Sin Actualizar</td>
-					                  			  <td><form method='post'><span class='glyphicon glyphicon-refresh'></span></form></td>
+					                  			  <td>
+						                  			  <form method='post' action="${prefijo}admin/updateCardSet">
+						                  			    <button type="submit" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-refresh"></span></button>
+						                  			    
+						                  			  	<input type="hidden" name="code" value="${edicion.code}"/> 
+		                    							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						                  			  </form>
+					                  			  </td>
 					                  			  <td></td>
 										    </c:when>    
+										    
+										    
 										    <c:otherwise>
 										          <td>${edicion.fechaUltimaActualizacion}</td>
-					                  			  <td><form method='post'><span class='glyphicon glyphicon-refresh'></span></form></td>
+					                  			  <td>
+						                  			  <form method='post' action="${prefijo}admin/updateCardSet">
+						                  			    <button type="submit" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-refresh"></span></button>
+						                  			    
+						                  			  	<input type="hidden" name="code" value="${edicion.code}"/> 
+		                    							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						                  			  </form>
+					                  			  </td>
 					                  			  <td><form method='post'><span class='glyphicon glyphicon-remove'></span></form></td>
 										    </c:otherwise>
 										</c:choose>
