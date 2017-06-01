@@ -1,7 +1,9 @@
 package es.ucm.fdi.iw.controller;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,6 +23,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import es.ucm.fdi.iw.model.Carta;
+import es.ucm.fdi.iw.model.CartaPropia;
+import es.ucm.fdi.iw.model.Intercambio;
 import es.ucm.fdi.iw.model.Usuario;
 
 @Controller
@@ -61,12 +66,40 @@ public class IntercambioController {
 	@RequestParam("cartas0[]") String[] cartasOfrecidas,
 	@RequestParam("quantityP[]") String[] cantidadCartasPido,
 	@RequestParam("cartasP[]") String[] cartasPido,
+	@RequestParam("usuarioQuePido") long idUsuarioQuePido,
 	Principal principal, HttpSession session)
 	{
-	//FALTA HACERLO
+
+		//Usuarios
+		Usuario usuarioActual = (Usuario) session.getAttribute("user");
+		Usuario usuarioQuePido = (Usuario) entityManager.find(Usuario.class, idUsuarioQuePido);
 		
-		return "redirect:historial";
+		//Listas
+		List<CartaPropia> listaCartasOfrecidas = new  ArrayList<CartaPropia>();
+		List<CartaPropia> listaCartasPedidas = new  ArrayList<CartaPropia>();
+		
+		//Rellenamos la lista de cartas Ofrecidas
+		for(int i=0; i < cartasOfrecidas.length; i++){
+			CartaPropia aux =  (CartaPropia) entityManager.find(CartaPropia.class, cartasOfrecidas[i]);
+			aux.setCantidad(Integer.parseInt(cantidadCartasOfrecidas[i]));
+				listaCartasOfrecidas.add(aux);
+			}		
+		
+		//Rellenamos la lista de cartas Pedidas
+		for(int j=0; j<cartasPido.length; j++){
+			CartaPropia aux =  (CartaPropia) entityManager.find(CartaPropia.class, cartasPido[j]);
+			aux.setCantidad(Integer.parseInt(cantidadCartasPido[j]));
+			listaCartasPedidas.add(aux);	
+		} 
+
+		Intercambio intercambio = new Intercambio(usuarioActual,usuarioQuePido,"Pendiente",listaCartasOfrecidas, listaCartasPedidas,new Date(Calendar.getInstance().getTime().getTime()));
+		
+		entityManager.persist(intercambio);
+		entityManager.flush();
+		
+		return "redirect:../historial";
 	}
+	
 	public static void añadirCSSyJSAlModelo(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("intercambioStyles.css");
