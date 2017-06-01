@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @NamedQueries({
 	@NamedQuery(name = "allCards", query = "select c from Carta c"),
 	@NamedQuery(name = "findCardByNameAndEdition", query = "select c from Carta c where c.name = :paramName and c.setName= :paramEdition"),
+	@NamedQuery(name = "findCardByMultiverseID", query = "select c from Carta c where c.multiverseid = :paramMultiverse")
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
