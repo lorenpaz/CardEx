@@ -178,8 +178,8 @@ var contTable2;
 
 
 $(document).ready(function() {
-	contTable1 = 0;
-	contTable2 = 0;
+	contTable1 = $('tab2').children().length+1;
+	contTable2 = $('tab3').children().length+1;
     $('#paginacionTabla').DataTable({
     	"lengthMenu": [5, 10, 25, 50, 75, 100 ],
     	"pageLength": 5,
@@ -189,6 +189,15 @@ $(document).ready(function() {
     $("#tab1 tr").click(function(){
     	selected = $(this);
         $(this).addClass("info").siblings().removeClass("info");
+    });
+    
+    $(".cantidad-carta").change(function(){
+    	var changed = $(this);
+    	var value = changed.val();
+    	id = changed.attr('id');
+    	id = id.substring(1);
+    	id = "#quantity"+ id;
+    	$(id).val(value);    	
     });
     
     /*$("#btnGuardar").click(function(){

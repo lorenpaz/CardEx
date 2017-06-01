@@ -81,6 +81,10 @@
 						  		</tr>
 						    </thead>
 						    <tbody>
+						    <input type="hidden" value="0" name="cardsO[]"></input>
+							<input type="hidden" value="0" name="cardsOE[]"></input>
+							<input type="hidden" value="0" name="cardsOQ[]"></input>
+							<input type="hidden" value="0" name="cardsOS[]"></input>
 						    <c:forEach items="${user.cartasPropias}" var="cartaPropia">
 							 <tr id="oRow${cartaPropia.id}">
 							 	<td class="filterable-cell">${cartaPropia.carta.name}
@@ -96,7 +100,7 @@
 								</td>
 								<td class="filterable-cell">
 									<button type="button" class="btn btn-xs spinner" onclick="decrSpinner(event)">-</button>
-									<input  id="qORow" type="text" name="quantity" class="cantidad-carta" value="${cartaPropia.cantidad}">
+									<input  id="qORow${cartaPropia.id}" type="text" name="quantity" class="cantidad-carta" value="${cartaPropia.cantidad}">
 									<button type="button" class="btn btn-xs spinner" onclick="incrSpinner(event)">+</button>
 								</td>
 								<td class="filterable-cell text-right">
@@ -124,11 +128,13 @@
 							    </tr>
 						    </thead>
 						    <tbody>
+						    	<input  type="hidden" value="0" name="cardsS[]"></input>
+								<input  type="hidden" value="0" name="cardsSE[]"></input>
 							   <c:forEach items="${user.cartasBuscadas}" var="cartaBuscada">
 							    <tr id="sRow${cartasBuscada.id}">
 								    <td class="filterable-cell">${cartaBuscada.name}
 								    </td>
-								    <td class="filterable-cell">${cartaBuscada.edicion}
+								    <td class="filterable-cell">${cartaBuscada.edicion.name}
 								    </td>
 								    <td class="filterable-cell text-right">
 								    	<button type="button" class="btn btn-link btn-xs" onclick="removeCard(event,2)">X</button>

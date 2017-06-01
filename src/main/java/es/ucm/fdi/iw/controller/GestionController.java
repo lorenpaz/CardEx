@@ -65,7 +65,7 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 		//CartasBuscadas
 		if(cartasBuscadas.length == edicionCartasBuscadas.length){
 			usuarioActual.setCartasBuscadas(new ArrayList<Carta>());
-			for(int i=0; i<cartasBuscadas.length; i++){
+			for(int i=1; i<cartasBuscadas.length; i++){
 				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasBuscadas[i]).setParameter("paramEdition", edicionCartasBuscadas[i]).getResultList();
 				usuarioActual.getCartasBuscadas().add(lista.get(0));
 			}
@@ -75,7 +75,7 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 		//CartasPropias
 		if((cartasPropias.length == cantidadCartasPropias.length) && (cartasPropias.length == estadoCartasPropias.length) && (cartasPropias.length == edicionCartasPropias.length)){
 			usuarioActual.setCartasPropias(new ArrayList<CartaPropia>());
-			for(int j=0; j<cartasPropias.length; j++){
+			for(int j=1; j<cartasPropias.length; j++){
 				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j]).getResultList();
 				Carta c = lista.get(0);
 				CartaPropia cp = new CartaPropia(new Carta(), "", 0, new Usuario());
@@ -83,14 +83,14 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 				cp.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
 				cp.setEstadoCarta(estadoCartasPropias[j]);
 				cp.setUsuarioPropietario(usuarioActual);
-				entityManager.persist(cp);
+				entityManager.merge(cp);
 				usuarioActual.getCartasPropias().add(cp);
 				int index = usuarioActual.getCartasPropias().indexOf(cp);
 				usuarioActual.getCartasPropias().get(index).setUsuarioPropietario(usuarioActual);
 			}
 		}
 		
-		entityManager.persist(usuarioActual);
+		entityManager.merge(usuarioActual);
 		entityManager.flush();
 		
 		actualizaUsuarioSesion(session,usuarioActual);		
