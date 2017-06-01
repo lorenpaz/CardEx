@@ -8,7 +8,7 @@
 		</div>
 
 		<div class="zona-registro col-sm-6">
-			<h3> ¬øA√∫n no tienes cuenta? Reg√≠strate.</h3>
+			<h3> A˙n no tienes cuenta? RegÌstrate ahora!</h3>
 			<div class="form-group">
 				<form action="register" method="post">
 					<label for="nameform">Nombre</label>
@@ -19,29 +19,29 @@
 					<input id="mailform" class="form-control" name="email" required>
 					<label for="usernameform">Nombre de usuario</label>
 					<input id="usernameform" class="form-control" name="usuario" required>
-					<label for="passform">Contrase√±a</label>
+					<label for="passform">ContraseÒa</label>
 					<input id="passform" class="form-control" type="password" name="contrasena" required>
-					<label for="repassform">Confirmar contrase√±a</label>
+					<label for="repassform">Confirmar contraseÒa</label>
 					<input id="repassform" class="form-control" type="password" name="contrasenaR" required>
 					<label for="provform">Provincia</label>
 					<select id="provform" class="form-control" name="provincia" required>
-						<option>A Coru√±a</option>
+						<option>A CoruÒa</option>
 						<option>√Ålava</option>
 						<option>Albacete</option>
 						<option>Alicante</option>
-						<option>Almer√≠a</option>
+						<option>Almeria</option>
 						<option>Asturias</option>
 						<option>√Åvila</option>
 						<option>Badajoz</option>
 						<option>Baleares</option>
 						<option>Barcelona</option>
 						<option>Burgos</option>
-						<option>C√°ceres</option>
-						<option>C√°diz</option>
+						<option>C·ceres</option>
+						<option>C·diz</option>
 						<option>Cantabria</option>
-						<option>Castell√≥n</option>
+						<option>CastellÛn</option>
 						<option>Ciudad Real</option>
-						<option>C√≥rdoba</option>
+						<option>CÛrdoba</option>
 						<option>Cuenca</option>
 						<option>Girona</option>
 						<option>Granada</option>
@@ -49,14 +49,14 @@
 						<option>Gipuzkoa</option>
 						<option>Huelva</option>
 						<option>Huesca</option>
-						<option>Ja√©n</option>
+						<option>JaÛn</option>
 						<option>La Rioja</option>
 						<option>Las Palmas</option>
-						<option>Le√≥n</option>
-						<option>L√©rida</option>
+						<option>LeÛn</option>
+						<option>LÈrida</option>
 						<option>Lugo</option>
 						<option>Madrid</option>
-						<option>M√°laga</option>
+						<option>M·laga</option>
 						<option>Murcia</option>
 						<option>Navarra</option>
 						<option>Orense</option>

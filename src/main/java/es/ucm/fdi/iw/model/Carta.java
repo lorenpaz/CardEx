@@ -39,7 +39,7 @@ public class Carta {
 	private String layout;
 	private String multiverseid;
 	private String imageUrl;
-	//private String[] printings;
+	private String[] printings;
 	
 	
 	//private List<Usuario> usuariosQueMeTienen;
@@ -186,13 +186,13 @@ public class Carta {
 		this.imageUrl = imageUrl;
 	}
 	
-	/*public String[] getPrintings() {
+	public String[] getPrintings() {
 		return printings;
 	}
 
 	public void setPrintings(String[] printings) {
 		this.printings = printings;
-	}*/
+	}
 
 	public String getSetName() {
 		return setName;
