@@ -57,9 +57,13 @@ public class IntercambioController {
 
 	@PostMapping("/ofrecer")
 	@Transactional
-	public String ofrecerIntercambio (Principal principal, HttpSession session)
+	public String ofrecerIntercambio (@RequestParam("quantityO[]") String[] cantidadCartasOfrecidas,
+	@RequestParam("cartas0[]") String[] cartasOfrecidas,
+	@RequestParam("quantityP[]") String[] cantidadCartasPido,
+	@RequestParam("cartasP[]") String[] cartasPido,
+	Principal principal, HttpSession session)
 	{
-	
+	//FALTA HACERLO
 		
 		return "redirect:historial";
 	}
