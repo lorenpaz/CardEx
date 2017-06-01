@@ -20,6 +20,9 @@ public class CartaPropia {
 	private Carta carta;
 	private int cantidad;
 	
+	private List<Intercambio> intercambiosOfrecidos;
+	private List<Intercambio> intercambiosRecibidos;
+	
 	public CartaPropia() {	}
 	
 	public CartaPropia(Carta c, String estadoCarta, int cantidad, Usuario u) {
@@ -64,6 +67,23 @@ public class CartaPropia {
 		this.cantidad = cantidad;
 	}
 	
+	@ManyToMany(targetEntity = Intercambio.class)
+	public List<Intercambio> getIntercambiosOfrecidos() {
+		return intercambiosOfrecidos;
+	}
+
+	public void setIntercambiosOfrecidos(List<Intercambio> intercambiosOfrecidos) {
+		this.intercambiosOfrecidos = intercambiosOfrecidos;
+	}
+
+	@ManyToMany(targetEntity = Intercambio.class)
+	public List<Intercambio> getIntercambiosRecibidos() {
+		return intercambiosRecibidos;
+	}
+
+	public void setIntercambiosRecibidos(List<Intercambio> intercambiosRecibidos) {
+		this.intercambiosRecibidos = intercambiosRecibidos;
+	}
 	
 
 }

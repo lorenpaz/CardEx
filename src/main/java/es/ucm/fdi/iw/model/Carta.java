@@ -39,8 +39,7 @@ public class Carta {
 	private String multiverseid;
 	private String imageUrl;
 	private String[] printings;
-	private List<Intercambio> intercambiosOfrecidos;
-	private List<Intercambio> intercambiosRecibidos;
+	
 	
 	//private List<Usuario> usuariosQueMeTienen;
 	private List<Usuario> UsuariosQueMeBuscan;
@@ -203,23 +202,7 @@ public class Carta {
 	}
 
 
-	@ManyToMany(targetEntity = Intercambio.class)
-	public List<Intercambio> getIntercambiosOfrecidos() {
-		return intercambiosOfrecidos;
-	}
-
-	public void setIntercambiosOfrecidos(List<Intercambio> intercambiosOfrecidos) {
-		this.intercambiosOfrecidos = intercambiosOfrecidos;
-	}
-
-	@ManyToMany(targetEntity = Intercambio.class)
-	public List<Intercambio> getIntercambiosRecibidos() {
-		return intercambiosRecibidos;
-	}
-
-	public void setIntercambiosRecibidos(List<Intercambio> intercambiosRecibidos) {
-		this.intercambiosRecibidos = intercambiosRecibidos;
-	}
+	
 	/*@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class, mappedBy = "cartasPropias")
 	public List<Usuario> getUsuariosQueMeTienen() {
 		return usuariosQueMeTienen;
