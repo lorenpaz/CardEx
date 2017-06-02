@@ -41,11 +41,18 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 	}
 	
 	@GetMapping({"", "/"})
-	public String gestionCartas(Model model,HttpSession session) {
+	public String gestionCartas(Model model,HttpSession session, Principal principal) {
+		
+		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam", principal.getName()).getSingleResult();
+		
 		
 		añadirCSSyJSAlModelo(model);
+		actualizaUsuarioSesion(session,usuarioActual);
 		
 		getAllCards(model);
+		
+		
 	
 		return "gestion_cartas";
 	}
@@ -93,7 +100,7 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 		entityManager.merge(usuarioActual);
 		entityManager.flush();
 		
-		actualizaUsuarioSesion(session,usuarioActual);		
+		actualizaUsuarioSesion(session,usuarioActual);
 
 		return "redirect:";
 	}
