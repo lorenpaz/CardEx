@@ -14,9 +14,18 @@
         <input type="submit" class="btn btn-primary" value="Buscar">
     </form>
 	<c:forEach items="${usuariosConjunto}" var="usuarios" varStatus="statusConjunto">
+	<c:choose>
+	<c:when test="${not empty usuarios}">
     <div id="intercambio">
 		<div id="intercambio-column" class="offer-column">
-			<h3>Usuarios</h3>
+		<c:choose>
+		<c:when test="${statusConjunto.first}">
+			<h3>Ofertas recibidas</h3>
+		</c:when>
+		<c:otherwise>
+			<h3>Ofertas enviadas</h3>
+		</c:otherwise>
+		</c:choose>
 			<div class="list-group">
 				<c:forEach items="${usuarios}" var="usuario" varStatus="status">
 					<c:choose>
@@ -104,6 +113,19 @@
         </div>
         </c:if>
     </div>
+    </c:when>
+    <c:otherwise>
+    No hay ofertas 
+	    <c:choose>
+	    <c:when test="${statusConjunto.first}">
+	    	recibidas
+	    </c:when>
+	    <c:otherwise>
+	    	enviadas
+	    </c:otherwise>
+	    </c:choose>
+    </c:otherwise>
+    </c:choose>
     </c:forEach>
 </div>
 

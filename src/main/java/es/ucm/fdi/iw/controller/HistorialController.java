@@ -60,20 +60,27 @@ public class HistorialController {
 		ArrayList<Usuario> usuariosReciboOferta = (ArrayList<Usuario>) entityManager.createNamedQuery("getUsersRecibe")
 				.setParameter("userRecibe", usuarioActual).getResultList();
 
-	//	model.addAttribute("usuariosReciboOferta",usuariosReciboOferta);
-
 		//Recojo los usuarios a los que he enviado una oferta
 		@SuppressWarnings("unchecked")
 		ArrayList<Usuario> usuariosEnvioOferta = (ArrayList<Usuario>) entityManager.createNamedQuery("getUsersOfrece")
 				.setParameter("userOfrece",usuarioActual).getResultList();
 
 		//Se lo paso al modelo
-	//	model.addAttribute("usuariosEnvioOferta",usuariosEnvioOferta);
 		List<Object> conjuntoDeUsuario = new ArrayList<Object>();
 		conjuntoDeUsuario.add(usuariosReciboOferta);
 		conjuntoDeUsuario.add(usuariosEnvioOferta);
 		
 		model.addAttribute("usuariosConjunto",conjuntoDeUsuario);
+		
+		if(usuariosReciboOferta.isEmpty())
+		{
+			model.addAttribute("noHayUsuariosReciboOferta",true);
+		}
+		
+		if(usuariosEnvioOferta.isEmpty())
+		{
+			model.addAttribute("noHayUsuariosEnvioOferta",true);
+		}
 		
 		if (request.isUserInRole("ROLE_ADMIN"))
 			return "redirect:admin";
