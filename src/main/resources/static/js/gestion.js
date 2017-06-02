@@ -1,77 +1,3 @@
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev, col) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    var org = document.getElementById(data);
-    var newElement = document.createElement("tr");
-    newElement.setAttribute("draggable","true");
-    newElement.setAttribute("ondragstart","drag(event)");
-    var newTd = document.createElement("td");
-    if(col === 1){
-    	newTd.innerHTML = "<button type='button' class='btn btn-link btn-xs' onclick='removeCard(event)'>X</button>";
-    	newElement.appendChild(org);
-    	newElement.appendChild(newTd);
-    	var parent = ev.target.parentNode;
-    	parent.parentNode.insertBefore(newElement, parent.nextSibling);
-    }
-    if(col === 2){
-    	newTd.innerHTML =   "Saga de Urza";
-    	var newTd2 = document.createElement("td");
-    	newTd2.innerHTML =  "<select class='form-control input-sm'><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select>"
-    	var newTd3 = document.createElement("td");
-    	newTd3.innerHTML =  "<button type='button' class='btn btn-xs' onclick='decrSpinner(event)'>"+
-    						"<span class='glyphicon glyphicon-minus'></span></button> "+
-    						"<input  type='text' name='quantity' class='cantidad-carta' value='0'>"+
-    						" <button type='button' class='btn btn-xs' onclick='incrSpinner(event)'>"+
-    						"<span class='glyphicon glyphicon-plus'></span></button>";
-    	var newTd4 = document.createElement("td");
-    	newTd4.innerHTML =	"<button type='button' class='btn btn-link btn-xs' onclick='removeCard(event)' >X</button></td>";
-    	newElement.appendChild(org);
-    	newElement.appendChild(newTd);
-    	newElement.appendChild(newTd2);
-    	newElement.appendChild(newTd3);
-    	newElement.appendChild(newTd4);
-    	var parent = ev.target.parentNode;
-    	parent.parentNode.insertBefore(newElement, parent.nextSibling);
-    }
-    if(col == 3){
-    	newTd.innerHTML=org.innerHTML;
-    }
-}
-
-function decrSpinner(e){
-	var element = e.srcElement.parentNode.parentNode.getElementsByTagName("input")[0];
-	var num = element.value;
-	var id = element.id;
-	id = id.substring(1);
-	id = '#quantity'.concat(id);
-	var idQ = $(id).html();
-	if(num > 0){
-		num--;
-		element.value = num;
-	}
-	$(id).val(num);
-}
-
-function incrSpinner(e){
-	var element = e.srcElement.parentNode.parentNode.getElementsByTagName("input")[0];
-	var num = element.value;
-	var id = element.id;
-	num++;
-	element.value = num;
-	id = id.substring(1);
-	id = '#quantity'.concat(id);
-	var idQ = $(id).html();
-	$(id).val(num);
-}
-
 /*MÉTODO QUE PONE EN EL HIDDEN EL VALOR DEL QUANTITY CADA VEZ QUER CAMBIE EL TEXT INPUT -- IMPORTANTEEEEEEEEE-HECHOO*/
 
 function removeCard(e, table){
@@ -117,19 +43,6 @@ function removeCard(e, table){
 
 }
 
-/*$( function() {
-    $(".cantidad-carta").change( function(){
-        var value = $(this).val();
-        var valueAux = $(this).attr('id');
-        var id = valueAux.substring(1);
-        value += 1;
-        console.log(valueAux);
-        id = '#quantity'.concat(id);
-        $(id).val(value);
-    });
-}
-);*/
-
 function incrSearch(){
 	if(selected != undefined){
 		var childrens = selected.children();
@@ -149,9 +62,9 @@ function incrOwner(){
 		var owner = $('#tab2 tbody').append('<tr id="oRow'+ contTable1 +'"><td class="filterable-cell">'+childrens[0].innerHTML+'</td>'+
 				'<td class="filterable-cell">'+childrens[1].innerHTML+'</td><td class="filterable-cell"><select id="selORow'+ contTable1 +
 				'"class="form-control input-sm selectorEstado" onchange="updateState(event)"><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select>'+
-				'</td><td class="filterable-cell"><button type="button" class="btn btn-xs spinner" onclick="decrSpinner(event)">-</button> '+
-				'<input  id="qORow'+ contTable1 +'" type="text" name="quantity" class="cantidad-carta" value="1">'+
-				'<button type="button" class="btn btn-xs spinner" onclick="incrSpinner(event)">+</button></td><td class="filterable-cell text-right">'+
+				'</td><td class="filterable-cell"> '+
+				'<input  id="qORow'+ contTable1 +'" type="number" name="quantity" class="cantidad-carta" value="1" min="1">'+
+				'</td><td class="filterable-cell text-right">'+
 				'<button type="button" class="btn btn-link btn-xs" onclick="removeCard(event, 1)" >X</button></td></tr>');
 		var hidden1 = $('#tab2 tbody').append('<input id="nameORow'+ contTable1 +'" type="hidden" value="'+childrens[0].innerHTML+'" name="cardsO[]"></input>');
 		var hidden2 = $('#tab2 tbody').append('<input id="edORow'+ contTable1 +'" type="hidden" value="'+childrens[1].innerHTML+'" name="cardsOE[]"></input>');
@@ -178,8 +91,8 @@ var contTable2;
 
 
 $(document).ready(function() {
-	contTable1 = $('tab2').children().length+1;
-	contTable2 = $('tab3').children().length+1;
+	contTable1 = $('#tab2').children('tbody').children('tr').length;
+	contTable2 = $('#tab3').children('tbody').children('tr').length;
     $('#paginacionTabla').DataTable({
     	"lengthMenu": [5, 10, 25, 50, 75, 100 ],
     	"pageLength": 5,
@@ -191,17 +104,14 @@ $(document).ready(function() {
         $(this).addClass("info").siblings().removeClass("info");
     });
     
-    $(".cantidad-carta").change(function(){
+    
+    $('.cantidad-carta').change(function(){
     	var changed = $(this);
     	var value = changed.val();
     	id = changed.attr('id');
     	id = id.substring(1);
     	id = "#quantity"+ id;
-    	$(id).val(value);    	
+    	$(id).val(value);       
     });
     
-    /*$("#btnGuardar").click(function(){
-    	$('propias') = $('#tab2 tbody').children();
-    	for(int i = 0; i< )
-    });*/
  } );
