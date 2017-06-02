@@ -13,9 +13,9 @@
         <input type="search" class="form-control" value="Nombre del usuario">
         <input type="submit" class="btn btn-primary" value="Buscar">
     </form>
-	<c:forEach items="${usuariosConjunto}" var="usuarios" varStatus="statusConjunto">
+	<c:forEach items="${intercambioConjunto}" var="intercambios" varStatus="statusConjunto">
 	<c:choose>
-	<c:when test="${not empty usuarios}">
+	<c:when test="${not empty intercambios}">
     <div id="intercambio">
 		<div id="intercambio-column" class="offer-column">
 		<c:choose>
@@ -27,20 +27,41 @@
 		</c:otherwise>
 		</c:choose>
 			<div class="list-group">
-				<c:forEach items="${usuarios}" var="usuario" varStatus="status">
+				<c:forEach items="${intercambios}" var="intercambio" varStatus="status">
 					<c:choose>
-						<c:when test="${status.first}">
-							<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}"
-								role="tab" data-toggle="tab" class="list-group-item active">${usuario.usuario}
-								<span class="badge"> <span
-									class="glyphicon glyphicon-chevron-right"></span>
-							</span>
-							</a>
-							<c:set var="currentUser" value="${usuario.usuario}" />
+						<c:when test="${statusConjunto.first}">
+						<c:choose>
+							<c:when test="${status.first}">
+								<a href="#tab-${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
+									role="tab" data-toggle="tab" class="list-group-item active">${intercambio.usuarioOfrece.usuario}
+									<span class="badge"> <span
+										class="glyphicon glyphicon-chevron-right"></span>
+								</span>
+								</a>
+								<c:set var="currentUser" value="${intercambio.usuarioOfrece.usuario}" />
+							</c:when>
+							<c:otherwise>
+								<a href="#tab-${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
+									role="tab" data-toggle="tab" class="list-group-item usuarios">${intercambio.usuarioOfrece.usuario}</a>
+							</c:otherwise>
+						</c:choose>
 						</c:when>
 						<c:otherwise>
-							<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}"
-								role="tab" data-toggle="tab" class="list-group-item usuarios">${usuario.usuario}</a>
+							<c:choose>
+							<c:when test="${status.first}">
+								<a href="#tab-${intercambio.usuarioRecibe.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
+									role="tab" data-toggle="tab" class="list-group-item active">${intercambio.usuarioRecibe.usuario}
+									<span class="badge"> <span
+										class="glyphicon glyphicon-chevron-right"></span>
+								</span>
+								</a>
+								<c:set var="currentUser" value="${intercambio.usuarioRecibe.usuario}" />
+							</c:when>
+							<c:otherwise>
+								<a href="#tab-${intercambio.usuarioRecibe.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
+									role="tab" data-toggle="tab" class="list-group-item usuarios">${intercambio.usuarioRecibe.usuario}</a>
+							</c:otherwise>
+						</c:choose>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
