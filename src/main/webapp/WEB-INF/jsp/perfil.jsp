@@ -159,8 +159,11 @@
 							<option>Zaragoza</option>
 						</select>
 						<button id="settingsButton" type="submit" class="btn btn-default">Guardar cambios</button>
-						<input type="hidden" name="${_csrf.parameterName}"
-							value="${_csrf.token}" />
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					</form>
+					<form action="${prefijo}perfil/eliminarCuenta" method="post">
+						<button id="eliminarButton" type="submit" class="btn-danger" title="Elimina tu cuenta sin posibilidad de volver a usarla">Eliminar cuenta</button>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					</form>
 				</div>
 

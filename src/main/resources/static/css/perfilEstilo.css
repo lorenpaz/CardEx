@@ -103,4 +103,11 @@ label{
 #settingsButton{
 	margin: 1% 41% 0 41%;
     width: 18%;
+    display: inline;
+}
+
+#eliminarButton{
+	margin: 1% 41% 0 41%;
+    width: 18%;
+    display: inline;
 }

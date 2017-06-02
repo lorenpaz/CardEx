@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import es.ucm.fdi.iw.model.Usuario;
 import es.ucm.fdi.iw.model.Valoracion;
@@ -163,6 +163,16 @@ public class PerfilController {
 			model.addAttribute("visitante", "true");
 		return "perfil";
 	}	
+	
+	@RequestMapping(value = "/eliminarCuenta")
+	@Transactional
+	public ModelAndView eliminaUsuario(Principal principal, HttpSession session){
+		Usuario u = (Usuario) session.getAttribute("user");
+		u.setActivo(false);
+		entityManager.merge(u);
+		entityManager.flush();
+		return new ModelAndView("redirect:/index?logout");
+	}
 	
 	public static void añadirCSSyJSAlModelo(Model model) {
 		List<String> listaCSS = new ArrayList<String>();

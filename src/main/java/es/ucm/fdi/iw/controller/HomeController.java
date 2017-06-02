@@ -47,10 +47,14 @@ public class HomeController {
 
 		if (principal != null && session.getAttribute("user") == null) {
 			try {
+				if (!usuarioActual.isActivo()){
+					throw new Exception();
+				}
 				session.setAttribute("user", usuarioActual);
 
 			} catch (Exception e) {
 				log.info("No such user: " + principal.getName());
+				return "redirect:index";
 			}
 		}
 		@SuppressWarnings("unchecked")
@@ -82,10 +86,4 @@ public class HomeController {
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
 	}
-
-	/*
-	 * private void actualizaUsuarioSesion(HttpSession session, Usuario u) { //
-	 * Actualizo el usuario de la sesión session.setAttribute("user",
-	 * entityManager.find(Usuario.class, u.getId())); }
-	 */
 }
