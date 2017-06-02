@@ -81,8 +81,8 @@
 									<select
 										id="selORow${countO}"
 										class="form-control input-sm selectorEstado"
-										onchange="updateState(event)
-										value="${cartaPropia.estadoCarta}>
+										onchange="updateState(event)"
+										value="${cartaPropia.estadoCarta}">
 											<option>Nueva</option>
 											<option>Jugada</option>
 											<option>Deteriorada</option>
@@ -90,7 +90,7 @@
 									<td class="filterable-cell">
 										<input
 										id="qORow${countO}" type="number" name="quantity"
-										class="cantidad-carta" max="${cartaPropia.cantidad}" min="1" value="${cartaPropia.cantidad}">		
+										class="cantidad-carta" max="${cartaPropia.cantidad}" min="1" value="${cartaPropia.cantidad}" onchange="updateQ(event)">		
 									</td>
 									<td class="filterable-cell text-right">
 										<button type="button" class="btn btn-link btn-xs"
@@ -102,7 +102,7 @@
 								<input id="edORow${countO}" type="hidden"
 									value="${cartaPropia.carta.edicion.name}" name="cardsOE[]"></input>
 								<input id="quantityORow${countO}" type="hidden"
-									value="${cartaPropia.cantidad}" name="cardsOQ[]"></input>
+									value="${cartaPropia.cantidad}" name="cardsOQ[]" ></input>
 								<input id="stateORow${countO}" type="hidden"
 									value="${cartaPropia.estadoCarta}" name="cardsOS[]"></input>
 								<c:set var="countO" value="${countO + 1}" scope="page"/>
