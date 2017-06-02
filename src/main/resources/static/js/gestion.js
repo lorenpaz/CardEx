@@ -63,7 +63,7 @@ function incrOwner(){
 				'<td class="filterable-cell">'+childrens[1].innerHTML+'</td><td class="filterable-cell"><select id="selORow'+ contTable1 +
 				'"class="form-control input-sm selectorEstado" onchange="updateState(event)"><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select>'+
 				'</td><td class="filterable-cell"> '+
-				'<input  id="qORow'+ contTable1 +'" type="number" name="quantity" class="cantidad-carta" value="1" min="1">'+
+				'<input  id="qORow'+ contTable1 +'" type="number" name="quantity" class="cantidad-carta" value="1" min="1" onchange="updateQ(event)">'+
 				'</td><td class="filterable-cell text-right">'+
 				'<button type="button" class="btn btn-link btn-xs" onclick="removeCard(event, 1)" >X</button></td></tr>');
 		var hidden1 = $('#tab2 tbody').append('<input id="nameORow'+ contTable1 +'" type="hidden" value="'+childrens[0].innerHTML+'" name="cardsO[]"></input>');
@@ -85,12 +85,21 @@ function updateState(e){
 	$(id).val(estadoCambiado);
 }
 
+function updateQ(e){
+	var changed = e.srcElement;
+	var value = changed.value;
+	id = changed.id;
+	id = id.substring(1);
+	id = "#quantity"+ id;
+	$(id).val(value);
+}
+
 var selected;
 var contTable1;
 var contTable2;
 
 
-$(document).ready(function() {
+window.onload = function() {
 	contTable1 = $('#tab2').children('tbody').children('tr').length;
 	contTable2 = $('#tab3').children('tbody').children('tr').length;
     $('#paginacionTabla').DataTable({
@@ -102,16 +111,8 @@ $(document).ready(function() {
     $("#tab1 tr").click(function(){
     	selected = $(this);
         $(this).addClass("info").siblings().removeClass("info");
-    });
+    });   
     
-    
-    $('.cantidad-carta').change(function(){
-    	var changed = $(this);
-    	var value = changed.val();
-    	id = changed.attr('id');
-    	id = id.substring(1);
-    	id = "#quantity"+ id;
-    	$(id).val(value);       
-    });
-    
- } );
+ }
+
+
