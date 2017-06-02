@@ -13,23 +13,39 @@
         <input type="search" class="form-control" value="Nombre del usuario">
         <input type="submit" class="btn btn-primary" value="Buscar">
     </form>
-
+	<c:forEach items="${usuariosConjunto}" var="usuarios" varStatus="statusConjunto">
+	<c:choose>
+	<c:when test="${not empty usuarios}">
     <div id="intercambio">
-        <div id="intercambio-column" class="offer-column">
-            <h3>Intercambios</h3>
-            <div class="list-group">
-                <a href="#" class="list-group-item active">Pepe
-                    <span class="badge">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </span>
-                </a>
-	
-                <a href="#" class="list-group-item">Rafael</a>
-                <a href="#" class="list-group-item">Jorge</a>
-                <a href="#" class="list-group-item">Rodrigo</a>
-            </div>
-        </div>
-
+		<div id="intercambio-column" class="offer-column">
+		<c:choose>
+		<c:when test="${statusConjunto.first}">
+			<h3>Ofertas recibidas</h3>
+		</c:when>
+		<c:otherwise>
+			<h3>Ofertas enviadas</h3>
+		</c:otherwise>
+		</c:choose>
+			<div class="list-group">
+				<c:forEach items="${usuarios}" var="usuario" varStatus="status">
+					<c:choose>
+						<c:when test="${status.first}">
+							<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}"
+								role="tab" data-toggle="tab" class="list-group-item active">${usuario.usuario}
+								<span class="badge"> <span
+									class="glyphicon glyphicon-chevron-right"></span>
+							</span>
+							</a>
+							<c:set var="currentUser" value="${usuario.usuario}" />
+						</c:when>
+						<c:otherwise>
+							<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}"
+								role="tab" data-toggle="tab" class="list-group-item usuarios">${usuario.usuario}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</div>
+		</div>
         <div id="ofrece-column" class="offer-column">
             <h3>Ofrece</h3>
             
@@ -87,7 +103,7 @@
                 </tr>
             </table>
         </div>
-
+		<c:if test="${statusConjunto.first}">
         <div id="action" class="offer-column">
             <div class="list-group">
                 <button class="list-group-item btn btn-primary">Aceptar</button>
@@ -95,7 +111,22 @@
                 <button class="list-group-item">Hacer controferta</button>
             </div>
         </div>
+        </c:if>
     </div>
+    </c:when>
+    <c:otherwise>
+    No hay ofertas 
+	    <c:choose>
+	    <c:when test="${statusConjunto.first}">
+	    	recibidas
+	    </c:when>
+	    <c:otherwise>
+	    	enviadas
+	    </c:otherwise>
+	    </c:choose>
+    </c:otherwise>
+    </c:choose>
+    </c:forEach>
 </div>
 
 <%@ include file="../jspf/footer.jspf" %>

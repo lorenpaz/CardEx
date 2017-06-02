@@ -5,6 +5,10 @@ import java.util.List;
 
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(name = "getUsersRecibe", query = "select i.usuarioOfrece from Intercambio i where i.usuarioRecibe = :userRecibe"),
+	@NamedQuery(name = "getUsersOfrece", query = "select i.usuarioRecibe from Intercambio i where i.usuarioOfrece = :userOfrece")
+})
 @Entity
 public class Intercambio {
 
@@ -21,6 +25,8 @@ public class Intercambio {
 	public long getId() {
 		return id;
 	}
+	
+	public Intercambio() {}
 
 	public Intercambio(Usuario usuarioOfrece, Usuario usuarioRecibe, String estadoIntercambio,
 			List<CartaPropia> cartasOfrecidas, List<CartaPropia> cartasRecibidas, Date fecha) {
@@ -63,7 +69,7 @@ public class Intercambio {
 		this.estadoIntercambio = estadoIntercambio;
 	}
 
-	@ManyToMany(targetEntity = CartaPropia.class, mappedBy = "intercambiosOfrecidos")
+	@ManyToMany(targetEntity = CartaPropia.class,fetch = FetchType.EAGER, mappedBy = "intercambiosOfrecidos")
 	public List<CartaPropia> getCartasOfrecidas() {
 		return cartasOfrecidas;
 	}
@@ -72,7 +78,7 @@ public class Intercambio {
 		this.cartasOfrecidas = cartasOfrecidas;
 	}
 
-	@ManyToMany(targetEntity = CartaPropia.class, mappedBy = "intercambiosRecibidos")
+	@ManyToMany(targetEntity = CartaPropia.class,fetch = FetchType.EAGER, mappedBy = "intercambiosRecibidos")
 	public List<CartaPropia> getCartasRecibidas() {
 		return cartasRecibidas;
 	}

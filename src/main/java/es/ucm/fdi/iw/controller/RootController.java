@@ -101,20 +101,4 @@ public class RootController {
 		return "redirect:index";
 	}
 
-	@GetMapping({ "/historial" })
-	public String historial(Model model, HttpSession session) {
-
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("styleHistorial.css");
-
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("bootstrap.min.js");
-
-		model.addAttribute("pageExtraCSS", listaCSS);
-		model.addAttribute("pageExtraScripts", listaJS);
-
-		return "historial";
-	}
-
 }

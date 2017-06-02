@@ -3,7 +3,7 @@
 	<div class="container">
         <div class="extended" id="intercambio">
         	<div class="centered text-center">
-        		<form action="${prefijo}intercambio/ofrecer" action="post">
+        		<form action="${prefijo}intercambio/ofrecer" method="POST">
 	            <div id="ofrece-column" class="offer-column col-intercambio">
 	                <h3>Tú</h3>
 	                <table class="table table-striped">
@@ -47,12 +47,12 @@
 						<input  type="hidden" name="cartasP[]" value="${cartaPropia.id}">
 						<input  type="text" name="quantityP[]" class="cantidad-carta" value="1">
 						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td> 
-                      	<input	type="hidden" name="usuarioQuePido" value="${usuarioIntercambio.id}">
                       </tr>  
                       </c:forEach>
                     </table>
 	            </div>
             	<button class="btn btn-primary" type="submit">Ofrecer</button>
+            	<input	type="hidden" name="usuarioQuePido" value="${usuarioIntercambio.usuario}">
             	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             	</form>
             </div>

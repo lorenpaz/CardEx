@@ -62,17 +62,18 @@ public class IntercambioController {
 
 	@PostMapping("/ofrecer")
 	@Transactional
-	public String ofrecerIntercambio (@RequestParam("quantityO[]") String[] cantidadCartasOfrecidas,
-	@RequestParam("cartas0[]") String[] cartasOfrecidas,
-	@RequestParam("quantityP[]") String[] cantidadCartasPido,
-	@RequestParam("cartasP[]") String[] cartasPido,
-	@RequestParam("usuarioQuePido") long idUsuarioQuePido,
+	public String ofrecerIntercambio (@RequestParam("quantityO[]") Integer[] cantidadCartasOfrecidas,
+	@RequestParam("cartasO[]") long[] cartasOfrecidas,
+	@RequestParam("quantityP[]") Integer[] cantidadCartasPido,
+	@RequestParam("cartasP[]") long[] cartasPido,
+	@RequestParam("usuarioQuePido") String usuarioQuieroIntercambio,
 	Principal principal, HttpSession session)
 	{
 
 		//Usuarios
 		Usuario usuarioActual = (Usuario) session.getAttribute("user");
-		Usuario usuarioQuePido = (Usuario) entityManager.find(Usuario.class, idUsuarioQuePido);
+		Usuario usuarioIntercambio = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam",usuarioQuieroIntercambio).getSingleResult();
 		
 		//Listas
 		List<CartaPropia> listaCartasOfrecidas = new  ArrayList<CartaPropia>();
@@ -81,18 +82,18 @@ public class IntercambioController {
 		//Rellenamos la lista de cartas Ofrecidas
 		for(int i=0; i < cartasOfrecidas.length; i++){
 			CartaPropia aux =  (CartaPropia) entityManager.find(CartaPropia.class, cartasOfrecidas[i]);
-			aux.setCantidad(Integer.parseInt(cantidadCartasOfrecidas[i]));
+			aux.setCantidad(cantidadCartasOfrecidas[i]);
 				listaCartasOfrecidas.add(aux);
 			}		
 		
 		//Rellenamos la lista de cartas Pedidas
 		for(int j=0; j<cartasPido.length; j++){
 			CartaPropia aux =  (CartaPropia) entityManager.find(CartaPropia.class, cartasPido[j]);
-			aux.setCantidad(Integer.parseInt(cantidadCartasPido[j]));
+			aux.setCantidad(cantidadCartasPido[j]);
 			listaCartasPedidas.add(aux);	
 		} 
 
-		Intercambio intercambio = new Intercambio(usuarioActual,usuarioQuePido,"Pendiente",listaCartasOfrecidas, listaCartasPedidas,new Date(Calendar.getInstance().getTime().getTime()));
+		Intercambio intercambio = new Intercambio(usuarioActual,usuarioIntercambio,"Pendiente",listaCartasOfrecidas, listaCartasPedidas,new Date(Calendar.getInstance().getTime().getTime()));
 		
 		entityManager.persist(intercambio);
 		entityManager.flush();
