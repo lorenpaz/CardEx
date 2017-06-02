@@ -1,15 +1,15 @@
-<%@ attribute name="cartaPropia" required="true" type="java.lang.Object" %>
+<%@ attribute name="cartaBuscada" required="true" type="java.lang.Object" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="modal-content">
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal">Cerrar</button>
-	<h4 class="modal-title">${cartaPropia.carta.name}</h4>
+	<h4 class="modal-title">${cartaBuscada.name}</h4>
 </div>
 <div class="modal-body">
 	<table id="MainTable">
-		<td><img src="${cartaPropia.carta.imageUrl}"
-			alt="${cartaPropia.carta.name}" width="200" height="300" /></td>
+		<td><img src="${cartaBuscada.imageUrl}"
+			alt="${cartaBuscada.name}" width="200" height="300" /></td>
 		<td>
 			<div id="firstparagraph">
 				<!--Detalles carta-->
@@ -19,19 +19,19 @@
 					</tr>
 					<tr>
 						<td class="amarillo datacell"><strong>
-								<p>${cartaPropia.carta.name}</p>
+								<p>${cartaBuscada.name}</p>
 						</strong></td>
 					</tr>
 					<tr>
 						<td class="blanco datacell"><strong>
 								<p>Edición:
-						</strong>${cartaPropia.carta.edicion.name}
+						</strong>${cartaBuscada.edicion.name}
 							</p></td>
 					</tr>
 					<tr>
 						<td class="blanco datacell"><strong>
 								<p>Color:
-						</strong> <c:forEach items=" ${cartaPropia.carta.colors}"
+						</strong> <c:forEach items=" ${cartaBuscada.colors}"
 								var="color" varStatus="status1">
 								<c:if test="${!status1.first}">
 	-
@@ -42,13 +42,13 @@
 					<tr>
 						<td class="blanco datacell"><strong>
 								<p>Tipo:
-						</strong>${cartaPropia.carta.type}
+						</strong>${cartaBuscada.type}
 							</p></td>
 					</tr>
 					<tr>
 						<td class="blanco datacell"><strong>
 								<p>Tipo de criatura:
-						</strong> <c:forEach items=" ${cartaPropia.carta.types}"
+						</strong> <c:forEach items=" ${cartaBuscada.types}"
 								var="criatura" varStatus="status2">
 								<c:if test="${!status2.first}">
 	-
@@ -60,25 +60,25 @@
 					<tr>
 						<td class="blanco datacell"><strong>
 								<p>Artista:
-						</strong>${cartaPropia.carta.artist}
+						</strong>${cartaBuscada.artist}
 							</p></td>
 					</tr>
 					<tr>
 						<td class="blanco datacell"><strong>
 								<p>Fuerza:
-						</strong>${cartaPropia.carta.power}
+						</strong>${cartaBuscada.power}
 							</p></td>
 					</tr>
 					<tr>
 						<td class="blanco datacell"><strong>
 								<p>Resistencia:
-						</strong>${cartaPropia.carta.toughness}
+						</strong>${cartaBuscada.toughness}
 							</p></td>
 					</tr>
 					<tr>
 						<td class="blanco datacell"><strong>
 								<p>Frecuencia:
-						</strong>${cartaPropia.carta.rarity}
+						</strong>${cartaBuscada.rarity}
 							</p></td>
 					</tr>
 				</table>
@@ -92,14 +92,14 @@
 							</p></td>
 					</tr>
 					<tr>
-						<td class="blanco datacell"><p>${cartaPropia.carta.text}</p></td>
+						<td class="blanco datacell"><p>${cartaBuscada.text}</p></td>
 					</tr>
 					<tr>
 						<td></td>
 					</tr>
 					<tr>
 						<td class="blanco datacell"><p>Precio:
-								${cartaPropia.carta.manaCost} $</p></td>
+								${cartaBuscada.manaCost} $</p></td>
 					</tr>
 					<tr>
 						<td></td>

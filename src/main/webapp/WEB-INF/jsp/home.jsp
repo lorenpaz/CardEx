@@ -87,7 +87,7 @@
 										<div class="modal fade" id="${cartaBuscada.id}" role="dialog">
 											<div class="modal-dialog">
 												<!-- Modal content-->
-												<h:modalCarta cartaPropia="${cartaPropia}" />
+												<h:modalCartaBuscada cartaBuscada="${cartaBuscada}" />
 											</div>
 										</div></li>
 								</div>
@@ -100,7 +100,7 @@
 										<div class="modal fade" id="${cartaBuscada.id}" role="dialog">
 											<div class="modal-dialog">
 												<!-- Modal content-->
-												<h:modalCarta cartaPropia="${cartaPropia}" />
+												<h:modalCartaBuscada cartaBuscada="${cartaBuscada}" />
 											</div>
 										</div></li>
 								</div>
