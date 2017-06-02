@@ -18,7 +18,7 @@
 					<c:choose>
 						<c:when test="${status.first}">
 							<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}"
-								role="tab" data-toggle="tab" class="list-group-item active">${usuario.usuario}
+								role="tab" data-toggle="tab" class="list-group-item active"><c:out value="${usuario.usuario}"/>
 								<span class="badge"> <span
 									class="glyphicon glyphicon-chevron-right"></span>
 							</span>
@@ -27,7 +27,7 @@
 						</c:when>
 						<c:otherwise>
 							<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}"
-								role="tab" data-toggle="tab" class="list-group-item usuarios">${usuario.usuario}</a>
+								role="tab" data-toggle="tab" class="list-group-item usuarios"><c:out value="${usuario.usuario}"/></a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -43,7 +43,7 @@
 								<div class="tab-pane fade active in"
 									id="#${cartaPropia.carta.id}">
 									<li class="list-group-item r"><a class="nostyle" href="#"
-										data-toggle="modal" data-target="#${cartaPropia.carta.id}">${cartaPropia.carta.name}</a>
+										data-toggle="modal" data-target="#${cartaPropia.carta.id}"><c:out value="${cartaPropia.carta.name}"/></a>
 										<!--Cartas -->
 										<div class="modal fade" id="${cartaPropia.carta.id}"
 											role="dialog">
@@ -57,7 +57,7 @@
 							<c:otherwise>
 								<div class="tab-pane fade in" id="#${cartaPropia.carta.id}">
 									<li class="list-group-item r"><a class="nostyle" href="#"
-										data-toggle="modal" data-target="#${cartaPropia.carta.id}">${cartaPropia.carta.name}</a>
+										data-toggle="modal" data-target="#${cartaPropia.carta.id}"><c:out value="${cartaPropia.carta.name}"/></a>
 										<!--Cartas -->
 										<div class="modal fade" id="${cartaPropia.carta.id}"
 											role="dialog">
@@ -82,7 +82,7 @@
 							<c:when test="${!status.first}">
 								<div class="tab-pane fade active in" id="#${cartaBuscada.id}">
 									<li class="list-group-item r"><a class="nostyle" href="#"
-										data-toggle="modal" data-target="#${cartaBuscada.id}">${cartaBuscada.name}</a>
+										data-toggle="modal" data-target="#${cartaBuscada.id}"><c:out value="${cartaBuscada.name}"/></a>
 										<!--Cartas -->
 										<div class="modal fade" id="${cartaBuscada.id}" role="dialog">
 											<div class="modal-dialog">
@@ -95,7 +95,7 @@
 							<c:otherwise>
 								<div class="tab-pane fade in" id="#${cartaBuscada.id}">
 									<li class="list-group-item r"><a class="nostyle" href="#"
-										data-toggle="modal" data-target="#${cartaBuscada.id}">${cartaBuscada.name}</a>
+										data-toggle="modal" data-target="#${cartaBuscada.id}"><c:out value="${cartaBuscada.name}"/></a>
 										<!--Cartas -->
 										<div class="modal fade" id="${cartaBuscada.id}" role="dialog">
 											<div class="modal-dialog">

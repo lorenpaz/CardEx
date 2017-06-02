@@ -32,7 +32,7 @@
 		
 		<div id="navbar" class="collapse navbar-collapse right">
           <ul class="nav navbar-nav">
-          	<li class="mensajeBienvenido">Bienvenido ${user.usuario}!</li>
+          	<li class="mensajeBienvenido">Bienvenido <c:out value="${user.usuario}"/>!</li>
             <li class="enlace"><a href="${prefijo}home">Inicio</a></li>
             <li class="enlace"><a href="${prefijo}perfil">Perfil</a></li>  <!-- clase 'active' -->
 			<li class="enlace"><a href="${prefijo}gestion_cartas">Gesti&oacute;n de cartas</a></li>

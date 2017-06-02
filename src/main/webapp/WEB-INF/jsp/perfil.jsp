@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="card hovercard">
 		<div class="card-info">
-			<span class="card-title">${usuario.usuario}</span>
+			<span class="card-title"><c:out value="${usuario.usuario}"/></span>
 		</div>
 	</div>
 	<div class="btn-pref btn-group btn-group-justified btn-group-lg"
@@ -39,19 +39,19 @@
 				<table class="table table-sm">
 					<tr>
 						<th scope="row">Nombre</th>
-						<td>${usuario.nombre}</td>
+						<td><c:out value="${usuario.nombre}"/></td>
 					</tr>
 					<tr>
 						<th scope="row">Apellidos</th>
-						<td>${usuario.apellidos}</td>
+						<td><c:out value="${usuario.apellidos}"/></td>
 					</tr>
 					<tr>
 						<th scope="row">E-Mail</th>
-						<td>${usuario.email}</td>
+						<td><c:out value="${usuario.email}"/></td>
 					</tr>
 					<tr>
 						<th scope="row">Provincia</th>
-						<td>${usuario.provincia}</td>
+						<td><c:out value="${usuario.provincia}"/></td>
 					</tr>
 				</table>
 			</div>
@@ -80,9 +80,9 @@
 						<c:forEach items="${usuario.valoracionesRecibidas}"
 							var="valoracion">
 							<tr>
-								<th scope="row">${valoracion.usuarioQueValora.usuario}</th>
-								<td>${valoracion.comentario}<br> <input id="input-21e"
-									value="<c:out value="${valoracion.valor}"/>" type="text"
+								<th scope="row"><c:out value="${valoracion.usuarioQueValora.usuario}"/></th>
+								<td><c:out value="${valoracion.comentario}"/><br> <input id="input-21e"
+									value="${valoracion.valor}" type="text"
 									class="rating" readonly data-min=0 data-max=5 data-step=0.5
 									data-size="xs" title="valoracion">
 								</td>

@@ -33,7 +33,7 @@
 						<c:choose>
 							<c:when test="${status.first}">
 								<a href="#tab-${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
-									role="tab" data-toggle="tab" class="list-group-item active">${intercambio.usuarioOfrece.usuario}
+									role="tab" data-toggle="tab" class="list-group-item active"><c:out value="${intercambio.usuarioOfrece.usuario}"/>
 									<span class="badge"> <span
 										class="glyphicon glyphicon-chevron-right"></span>
 								</span>
@@ -42,7 +42,7 @@
 							</c:when>
 							<c:otherwise>
 								<a href="#tab-${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
-									role="tab" data-toggle="tab" class="list-group-item usuarios">${intercambio.usuarioOfrece.usuario}</a>
+									role="tab" data-toggle="tab" class="list-group-item usuarios"><c:out value="${intercambio.usuarioOfrece.usuario}"/></a>
 							</c:otherwise>
 						</c:choose>
 						</c:when>
@@ -50,7 +50,7 @@
 							<c:choose>
 							<c:when test="${status.first}">
 								<a href="#tab-${intercambio.usuarioRecibe.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
-									role="tab" data-toggle="tab" class="list-group-item active">${intercambio.usuarioRecibe.usuario}
+									role="tab" data-toggle="tab" class="list-group-item active"><c:out value="${intercambio.usuarioRecibe.usuario}"/>
 									<span class="badge"> <span
 										class="glyphicon glyphicon-chevron-right"></span>
 								</span>
@@ -59,7 +59,7 @@
 							</c:when>
 							<c:otherwise>
 								<a href="#tab-${intercambio.usuarioRecibe.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
-									role="tab" data-toggle="tab" class="list-group-item usuarios">${intercambio.usuarioRecibe.usuario}</a>
+									role="tab" data-toggle="tab" class="list-group-item usuarios"><c:out value="${intercambio.usuarioRecibe.usuario}"/></a>
 							</c:otherwise>
 						</c:choose>
 						</c:otherwise>

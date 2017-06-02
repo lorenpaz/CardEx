@@ -15,8 +15,8 @@
                       </tr>
                       <c:forEach items="${user.cartasPropias}" var="cartaPropia">
                       <tr id="spinner${cartaPropia.id}a">
-                      	<td>${cartaPropia.carta.name}</td>
-                      	<td><span class="estadoCarta label label-success">${cartaPropia.estadoCarta}</span></td>
+                      	<td><c:out value="${cartaPropia.carta.name}"/></td>
+                      	<td><span class="estadoCarta label label-success"><c:out value="${cartaPropia.estadoCarta}"/></span></td>
                       	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
 						<input  type="hidden" name="cartasO[]" value="${cartaPropia.id}">
 						<input  type="text" name="quantityO[]" class="cantidad-carta" value="1">
@@ -31,7 +31,7 @@
 	            </div>
 
 	            <div id="pide-column" class="offer-column col-intercambio">
-	                <h3>${usuarioIntercambio.usuario}</h3>
+	                <h3><c:out value="${usuarioIntercambio.usuario}"/></h3>
 	                <table class="table table-striped">
 		                <caption>Pides</caption>
 		                  <tr>
@@ -41,8 +41,8 @@
 	                      </tr> 
                       <c:forEach items="${usuarioIntercambio.cartasPropias}" var="cartaPropia">
                       <tr id="spinner${cartaPropia.id}b">
-                      	<td>${cartaPropia.carta.name}</td>
-                      	<td><span class="estadoCarta label label-success">${cartaPropia.estadoCarta}</span></td>
+                      	<td><c:out value="${cartaPropia.carta.name}"/></td>
+                      	<td><span class="estadoCarta label label-success"><c:out value="${cartaPropia.estadoCarta}"/></span></td>
                       	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
 						<input  type="hidden" name="cartasP[]" value="${cartaPropia.id}">
 						<input  type="text" name="quantityP[]" class="cantidad-carta" value="1">

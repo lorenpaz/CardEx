@@ -41,8 +41,8 @@
 					<tbody>
 						<c:forEach items="${cards}" var="carta">
 							<tr>
-								<td class="filterable-cell">${carta.name}</td>
-								<td class="filterable-cell">${carta.setName}</td>
+								<td class="filterable-cell"><c:out value="${carta.name}"/></td>
+								<td class="filterable-cell"><c:out value="${carta.setName}"/></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -75,8 +75,8 @@
 							<c:set var="countO" value="0" scope="page" />
 							<c:forEach items="${user.cartasPropias}" var="cartaPropia">
 								<tr id="oRow${countO}">
-									<td class="filterable-cell">${cartaPropia.carta.name}</td>
-									<td class="filterable-cell">${cartaPropia.carta.edicion.name}</td>
+									<td class="filterable-cell"><c:out value="${cartaPropia.carta.name}"/></td>
+									<td class="filterable-cell"><c:out value="${cartaPropia.carta.edicion.name}"/></td>
 									<td class="filterable-cell">
 									<select
 										id="selORow${countO}"

@@ -71,8 +71,8 @@
 	                    
 	                    <c:forEach items="${usuarios}" var="usuario">
 						    <tr>
-		                      <td>${usuario.nombre}</td>
-		                      <td>${usuario.fechaAlta}</td>
+		                      <td><c:out value="${usuario.nombre}"/></td>
+		                      <td><c:out value="${usuario.fechaAlta}"/></td>
 		                      	<c:if test= "${usuario.activo eq false}">
 									<td>Inactivo</td>
 									<td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-ok"></span></button></form></td>
