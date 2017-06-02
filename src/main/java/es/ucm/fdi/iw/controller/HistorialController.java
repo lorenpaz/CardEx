@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import es.ucm.fdi.iw.model.Intercambio;
 import es.ucm.fdi.iw.model.Usuario;
 
 @Controller
@@ -57,30 +58,20 @@ public class HistorialController {
 	
 		//Recojo los usuarios que me han enviado una oferta
 		@SuppressWarnings("unchecked")
-		ArrayList<Usuario> usuariosReciboOferta = (ArrayList<Usuario>) entityManager.createNamedQuery("getUsersRecibe")
+		ArrayList<Intercambio> intercambiosReciboOferta = (ArrayList<Intercambio>) entityManager.createNamedQuery("getUsersRecibe")
 				.setParameter("userRecibe", usuarioActual).getResultList();
-
+		
 		//Recojo los usuarios a los que he enviado una oferta
 		@SuppressWarnings("unchecked")
-		ArrayList<Usuario> usuariosEnvioOferta = (ArrayList<Usuario>) entityManager.createNamedQuery("getUsersOfrece")
+		ArrayList<Intercambio> intercambioEnvioOferta = (ArrayList<Intercambio>) entityManager.createNamedQuery("getUsersOfrece")
 				.setParameter("userOfrece",usuarioActual).getResultList();
 
 		//Se lo paso al modelo
-		List<Object> conjuntoDeUsuario = new ArrayList<Object>();
-		conjuntoDeUsuario.add(usuariosReciboOferta);
-		conjuntoDeUsuario.add(usuariosEnvioOferta);
+		List<Object> conjuntoDeIntercambios = new ArrayList<Object>();
+		conjuntoDeIntercambios.add(intercambiosReciboOferta);
+		conjuntoDeIntercambios.add(intercambioEnvioOferta);
 		
-		model.addAttribute("usuariosConjunto",conjuntoDeUsuario);
-		
-		if(usuariosReciboOferta.isEmpty())
-		{
-			model.addAttribute("noHayUsuariosReciboOferta",true);
-		}
-		
-		if(usuariosEnvioOferta.isEmpty())
-		{
-			model.addAttribute("noHayUsuariosEnvioOferta",true);
-		}
+		model.addAttribute("intercambioConjunto",conjuntoDeIntercambios);
 		
 		if (request.isUserInRole("ROLE_ADMIN"))
 			return "redirect:admin";
