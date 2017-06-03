@@ -1,13 +1,14 @@
 package es.ucm.fdi.iw.model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.*;
 
 @NamedQueries({
-	@NamedQuery(name = "getUsersRecibe", query = "select i.usuarioOfrece from Intercambio i where i.usuarioRecibe = :userRecibe"),
-	@NamedQuery(name = "getUsersOfrece", query = "select i.usuarioRecibe from Intercambio i where i.usuarioOfrece = :userOfrece")
+	@NamedQuery(name = "getUsersRecibe", query = "select i from Intercambio i where i.usuarioRecibe = :userRecibe"),
+	@NamedQuery(name = "getUsersOfrece", query = "select i from Intercambio i where i.usuarioOfrece = :userOfrece")
 })
 @Entity
 public class Intercambio {
@@ -18,6 +19,7 @@ public class Intercambio {
 	private String estadoIntercambio;//Aceptadas, Rechazadas, Finalizadas, Pendientes
 	private List<CartaPropia> cartasOfrecidas;
 	private List<CartaPropia> cartasRecibidas;
+	
 	private Date fecha;
 
 	@Id
@@ -69,7 +71,7 @@ public class Intercambio {
 		this.estadoIntercambio = estadoIntercambio;
 	}
 
-	@ManyToMany(targetEntity = CartaPropia.class,fetch = FetchType.EAGER, mappedBy = "intercambiosOfrecidos")
+	@ManyToMany(targetEntity = CartaPropia.class,fetch = FetchType.EAGER)
 	public List<CartaPropia> getCartasOfrecidas() {
 		return cartasOfrecidas;
 	}
@@ -78,7 +80,7 @@ public class Intercambio {
 		this.cartasOfrecidas = cartasOfrecidas;
 	}
 
-	@ManyToMany(targetEntity = CartaPropia.class,fetch = FetchType.EAGER, mappedBy = "intercambiosRecibidos")
+	@ManyToMany(targetEntity = CartaPropia.class,fetch = FetchType.EAGER)
 	public List<CartaPropia> getCartasRecibidas() {
 		return cartasRecibidas;
 	}

@@ -67,7 +67,7 @@ public class CartaPropia {
 		this.cantidad = cantidad;
 	}
 	
-	@ManyToMany(targetEntity = Intercambio.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = Intercambio.class, fetch = FetchType.EAGER, mappedBy = "cartasOfrecidas")
 	public List<Intercambio> getIntercambiosOfrecidos() {
 		return intercambiosOfrecidos;
 	}
@@ -76,7 +76,7 @@ public class CartaPropia {
 		this.intercambiosOfrecidos = intercambiosOfrecidos;
 	}
 
-	@ManyToMany(targetEntity = Intercambio.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = Intercambio.class, fetch = FetchType.EAGER, mappedBy = "cartasRecibidas")
 	public List<Intercambio> getIntercambiosRecibidos() {
 		return intercambiosRecibidos;
 	}

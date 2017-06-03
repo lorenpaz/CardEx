@@ -82,22 +82,22 @@ public class IntercambioController {
 		//Rellenamos la lista de cartas Ofrecidas
 		for(int i=0; i < cartasOfrecidas.length; i++){
 			CartaPropia aux =  (CartaPropia) entityManager.find(CartaPropia.class, cartasOfrecidas[i]);
-			aux.setCantidad(cantidadCartasOfrecidas[i]);
+			//aux.setCantidad(cantidadCartasOfrecidas[i]);
 				listaCartasOfrecidas.add(aux);
 			}		
 		
 		//Rellenamos la lista de cartas Pedidas
 		for(int j=0; j<cartasPido.length; j++){
 			CartaPropia aux =  (CartaPropia) entityManager.find(CartaPropia.class, cartasPido[j]);
-			aux.setCantidad(cantidadCartasPido[j]);
+			//aux.setCantidad(cantidadCartasPido[j]);
 			listaCartasPedidas.add(aux);	
 		} 
 
 		Intercambio intercambio = new Intercambio(usuarioActual,usuarioIntercambio,"Pendiente",listaCartasOfrecidas, listaCartasPedidas,new Date(Calendar.getInstance().getTime().getTime()));
-		
 		entityManager.persist(intercambio);
 		entityManager.flush();
 		
+		Intercambio inter = (Intercambio) entityManager.find(Intercambio.class, intercambio.getId());
 		return "redirect:../historial";
 	}
 	
