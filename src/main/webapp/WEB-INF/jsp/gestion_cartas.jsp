@@ -82,15 +82,30 @@
 										id="selORow${countO}"
 										class="form-control input-sm selectorEstado"
 										onchange="updateState(event)"
-										value="${cartaPropia.estadoCarta}">
-											<option>Nueva</option>
-											<option>Jugada</option>
-											<option>Deteriorada</option>
+									>
+										<c:choose>
+											<c:when test="${cartaPropia.estadoCarta == 'Nueva'}">
+												<option selected>Nueva</option>
+												<option>Jugada</option>
+												<option>Deteriorada</option>
+											</c:when>
+											<c:when test="${cartaPropia.estadoCarta == 'Jugada'}">
+												<option>Nueva</option>
+												<option selected>Jugada</option>
+												<option>Deteriorada</option>
+											</c:when>
+											<c:otherwise>
+												<option>Nueva</option>
+												<option>Jugada</option>
+												<option selected>Deteriorada</option>
+											</c:otherwise>
+										</c:choose>
+											
 									</select></td>
 									<td class="filterable-cell">
 										<input
 										id="qORow${countO}" type="number" name="quantity"
-										class="cantidad-carta" max="${cartaPropia.cantidad}" min="1" value="${cartaPropia.cantidad}" onchange="updateQ(event)">		
+										class="cantidad-carta" min="1" value="${cartaPropia.cantidad}" onchange="updateQ(event)">		
 									</td>
 									<td class="filterable-cell text-right">
 										<button type="button" class="btn btn-link btn-xs"
