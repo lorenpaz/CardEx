@@ -30,14 +30,13 @@ public class Intercambio {
 	
 	public Intercambio() {}
 
-	public Intercambio(Usuario usuarioOfrece, Usuario usuarioRecibe, String estadoIntercambio,
-			List<CartaPropia> cartasOfrecidas, List<CartaPropia> cartasRecibidas, Date fecha) {
+	public Intercambio(Usuario usuarioOfrece, Usuario usuarioRecibe, String estadoIntercambio, Date fecha) {
 		super();
 		this.usuarioOfrece = usuarioOfrece;
 		this.usuarioRecibe = usuarioRecibe;
 		this.estadoIntercambio = estadoIntercambio;
-		this.cartasOfrecidas = cartasOfrecidas;
-		this.cartasRecibidas = cartasRecibidas;
+		//this.cartasOfrecidas = cartasOfrecidas;
+		//this.cartasRecibidas = cartasRecibidas;
 		this.fecha = fecha;
 	}
 

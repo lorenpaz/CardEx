@@ -78,13 +78,13 @@
                 <tr>
                 <td>${cartaOfrecida.carta.name}</td>
                 <c:choose>
-                <c:when test="${cartaOfrecida.estadoCarta} == 'Nueva' ">
+                <c:when test="${cartaOfrecida.estadoCarta == 'Nueva' }">
                 <td><span class="estadoCarta label label-success">Nueva</span></td>
                 </c:when>
-                <c:when test="${cartaOfrecida.estadoCarta} == 'Jugada' ">
+                <c:when test="${cartaOfrecida.estadoCarta == 'Jugada' }">
                 <td><span class="estadoCarta label label-warning">Jugada</span></td>
                 </c:when>
-                <c:when test="${cartaOfrecida.estadoCarta} == 'Deteriorada' ">
+                <c:when test="${cartaOfrecida.estadoCarta == 'Deteriorada' }">
                 <td><span class="estadoCarta label label-danger">Deteriorada</span></td>
                 </c:when>                
                 </c:choose>

@@ -93,7 +93,13 @@ public class IntercambioController {
 			listaCartasPedidas.add(aux);	
 		} 
 
-		Intercambio intercambio = new Intercambio(usuarioActual,usuarioIntercambio,"Pendiente",listaCartasOfrecidas, listaCartasPedidas,new Date(Calendar.getInstance().getTime().getTime()));
+		Intercambio intercambio = new Intercambio(usuarioActual,usuarioIntercambio,"Pendiente",new Date(Calendar.getInstance().getTime().getTime()));
+		entityManager.persist(intercambio);
+		entityManager.flush();
+		
+		intercambio.setCartasOfrecidas(listaCartasOfrecidas);
+		intercambio.setCartasRecibidas(listaCartasPedidas);
+		
 		entityManager.persist(intercambio);
 		entityManager.flush();
 		
