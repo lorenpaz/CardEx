@@ -7,38 +7,21 @@ function removeCard(e, table){
 	var idR = removed.substring(4);
 	
 	if(table == 2){
-		var nameSRow = "nameSRow"+idR;
-		var edSRow = "edSRow"+idR;
+		var nameSRow = "#nameSRow"+idR;
+		var edSRow = "#edSRow"+idR;
 		$(nameSRow).remove();
 		$(edSRow).remove();
 	}else{
-		var nameORow = "nameORow"+idR;
-		var edORow = "edORow"+idR;
-		var quantityORow = "quantityORow"+idR;
-		var stateORow = "stateORow"+idR;
+		var nameORow = "#nameORow"+idR;
+		var edORow = "#edORow"+idR;
+		var quantityORow = "#quantityORow"+idR;
+		var stateORow = "#stateORow"+idR;
 		$(nameORow).remove();
 		$(edORow).remove();
 		$(quantityORow).remove();
 		$(stateORow).remove();
 	}
 	
-	var cont = 0;
-	if(parent.parentNode.parentNode.id == "table_propias")
-	{
-		while(cont<4)
-		{
-			parent.removeChild(element.nextSibling);
-			cont++;
-		}
-	}
-	else{
-		console.log(parent.nextSibling);
-		while(cont<2)
-		{
-			parent.removeChild(element.nextSibling);
-			cont++;
-		}
-	}
 	parent.removeChild(element);
 
 }
