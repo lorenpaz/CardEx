@@ -75,13 +75,30 @@
 		                      <td><c:out value="${usuario.fechaAlta}"/></td>
 		                      	<c:if test= "${usuario.activo eq false}">
 									<td>Inactivo</td>
-									<td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-ok"></span></button></form></td>
+									<td>
+									
+									 <form method='post' action="${prefijo}admin/habilitaUser">
+		                  			    <button type="submit" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-ok"></span></button>
+		                  			    
+		                  			  	<input type="hidden" name="id" value="${usuario.id}"/> 
+	                 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		                  			  </form>
+									
+									
+									</td>
 									<td></td>
 								</c:if>
 								<c:if test= "${usuario.activo eq true}">
 									<td>Activo</td>
 									<td></td>
-									<td><form method="post"><button type="button" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button></form></td>
+									<td>
+									<form method='post' action="${prefijo}admin/deshabilitaUser">
+		                  			    <button type="submit" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button>
+		                  			    
+		                  			  	<input type="hidden" name="id" value="${usuario.id}"/> 
+	                 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		                  			  </form>
+									</td>
 								</c:if>
 						    </tr>
 						</c:forEach>
@@ -138,7 +155,13 @@
 		                    							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						                  			  </form>
 					                  			  </td>
-					                  			  <td><form method='post'><span class='glyphicon glyphicon-remove'></span></form></td>
+					                  			  <td><form method='post' action="${prefijo}admin/removeCardSets">
+						                  			    <button type="submit" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button>
+						                  			    
+						                  			  	<input type="hidden" name="code" value="${edicion.name}"/> 
+		                    							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						                  			  </form>
+						                  		</td>
 										    </c:otherwise>
 										</c:choose>
 								    </tr>

@@ -88,6 +88,42 @@ public class AdminController {
 		return "redirect:";
 	}
 	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/removeCardSets")
+	@Transactional
+	public String borraCartasEdicion(@RequestParam("code") String name){
+		int a = 2;
+		List<Carta> cartas = entityManager.createQuery(
+			    "SELECT c FROM Carta c WHERE c.setName LIKE :name")
+			    .setParameter("name", name)
+			    .getResultList();
+		
+		for(Carta c : cartas){
+			entityManager.remove(c);
+		}
+		
+		entityManager.flush();
+		return "redirect:";
+	}
+	
+	@PostMapping("/habilitaUser")
+	@Transactional
+	public String habilitaUser(@RequestParam("id") Long id){
+		Usuario u = entityManager.find(Usuario.class, id);
+		u.setActivo(true);
+		entityManager.persist(u);
+		return "redirect:";
+	}
+	
+	@PostMapping("/deshabilitaUser")
+	@Transactional
+	public String deshabilitaUser(@RequestParam("id") Long id){
+		Usuario u = entityManager.find(Usuario.class, id);
+		u.setActivo(false);
+		entityManager.persist(u);
+		return "redirect:";
+	}
+	
 	@PostMapping("/updateSets")
 	@Transactional
 	public String actualizaEdiciones(){
