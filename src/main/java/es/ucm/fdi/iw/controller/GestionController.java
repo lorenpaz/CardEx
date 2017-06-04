@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.gson.Gson;
+
+import es.ucm.fdi.iw.crawler.MagicTgIoAPI;
 import es.ucm.fdi.iw.model.Carta;
 import es.ucm.fdi.iw.model.CartaPropia;
 import es.ucm.fdi.iw.model.Usuario;
@@ -45,6 +48,7 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 		
 		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
 				.setParameter("userParam", principal.getName()).getSingleResult();
+		
 		
 		
 		añadirCSSyJSAlModelo(model);
@@ -126,7 +130,16 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 	}
 	
 	public void getAllCards(Model m){	
-		m.addAttribute("cards", (List<Carta>) entityManager.createNamedQuery("allCards").getResultList());
+		Gson gson = new Gson();
+		List<Carta> cartas = (List<Carta>) entityManager.createNamedQuery("allCards").getResultList();
+		for(Carta c : cartas){
+			c.setCartasPropias(null);
+			c.setUsuariosQueMeBuscan(null);
+			c.setEdicion(null);
+		}
+		String json = gson.toJson(cartas);
+		m.addAttribute("cards", cartas);
+		m.addAttribute("jsonCards", json);
 	}
 
 }
