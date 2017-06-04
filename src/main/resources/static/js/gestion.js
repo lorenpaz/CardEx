@@ -28,7 +28,7 @@ function removeCard(e, table){
 
 function incrSearch(){
 	if(selected != undefined){
-		var childrens = selected.children();
+		var childrens = $(selected).children();
 		var searched = $('#tab3 tbody').append('<tr id="sRow'+ contTable2 +'"><td class="filterable-cell">'+childrens[0].innerHTML+'</td><td class="filterable-cell">'+childrens[1].innerHTML+'</td><td class="filterable-cell text-right"><button type="button" class="btn btn-link btn-xs" onclick="removeCard(event,2)">X</button></td></tr>');
 		var hidden1 = $('#tab3 tbody').append('<input id="nameSRow'+ contTable2 +'" type="hidden" value="'+childrens[0].innerHTML+'" name="cardsS[]"></input>');
 		var hidden2 = $('#tab3 tbody').append('<input id="edSRow'+ contTable2 +'" type="hidden" value="'+childrens[1].innerHTML+'" name="cardsSE[]"></input>');
@@ -41,7 +41,7 @@ function incrSearch(){
 
 function incrOwner(){
 	if(selected != undefined){
-		var childrens = selected.children();
+		var childrens = $(selected).children();
 		var owner = $('#tab2 tbody').append('<tr id="oRow'+ contTable1 +'"><td class="filterable-cell">'+childrens[0].innerHTML+'</td>'+
 				'<td class="filterable-cell">'+childrens[1].innerHTML+'</td><td class="filterable-cell"><select id="selORow'+ contTable1 +
 				'"class="form-control input-sm selectorEstado" onchange="updateState(event)"><option>Nueva</option><option>Jugada</option><option>Deteriorada</option></select>'+
@@ -77,24 +77,155 @@ function updateQ(e){
 	$(id).val(value);
 }
 
+function createRow(name , edition){
+	$('#table_cards tbody').append(`<tr onclick="selectRow(event)">
+			<td class="filterable-cell">`+ name +`</td>
+			<td class="filterable-cell">`+ edition +`</td>
+			</tr>`);
+}
+
+function poblarTabla(rows){
+	var j;
+	for(j=0; j<rows.length; j++){
+		createRow(rows[j].name, rows[j].setName);
+	}
+}
+
+function filterByEdition(edition){
+	filterCards = $(filterCards).filter(function(){
+		var n = this.setName;
+		return (n == edition);
+	});
+}
+
+function filterByType(type){
+	filterCards = $(filterCards).filter(function(){
+		var n = this.type;
+		return (n.includes(type));
+	});
+}
+
+function filterByColor(color){
+	filterCards = $(filterCards).filter(function(){
+		var colors = this.colorIdentity;
+		var filterBoolean = true;
+		var z;
+		for(z=0; z<color.length; z++){
+			console.log('colors:'+ colors);
+			console.log('colorF:'+ color[z]);
+			if(colors != undefined){
+				filterBoolean = filterBoolean && (colors.includes(color[z]));
+			}else{
+				filterBoolean = false;
+			}
+		}
+		return filterBoolean;
+	});
+}
+
+function filterTable(edition, type, color){
+	if(edition != 'Todas'){
+		filterByEdition(edition);
+	}
+	
+	if(type != 'Todos'){
+		var t;
+		if(type=='Tierra'){
+			t='Land';
+		}else{
+			if(type=='Criatura'){
+				t='Creature';
+			}else{
+				if(type=='Encantamiento'){
+					t='Enchantment';
+				}else{
+					if(type=='Instantáneo'){
+						t='Instant';
+					}else{
+						if(type=='Artefacto'){
+							t='Artifact';
+						}else{
+							if(type=='Hechizo'){
+								t='Sorcery';
+							}
+						}
+					}
+				}
+			}
+		}
+		filterByType(t);
+	}
+	
+	var transColor = [];
+	if(color.length>0){
+		let j;
+		for(j=0; j<color.length; j++){
+			if(color[j] == 'azul'){
+				transColor.push('U');
+			}
+			if(color[j] == 'verde'){
+				transColor.push('G');
+			}
+			if(color[j] == 'negro'){
+				transColor.push('B');
+			}
+			if(color[j] == 'blanco'){
+				transColor.push('W');
+			}
+			if(color[j] == 'rojo'){
+				transColor.push('R');
+			}
+			if(color[j] == 'incoloro'){
+				
+			}
+		}
+		filterByColor(transColor);
+	}
+	$('#table_cards tbody>tr').remove();
+	let w;
+	for(w=0; w<filterCards.length; w++){
+		console.log('filterCard '+ w +' Colors:'+ filterCards[w].colors);
+	}
+	
+	poblarTabla(filterCards);
+	checks = [];
+	filterCards = $(cards);
+}
+
+function selectRow(ev){
+	selected = ev.srcElement.parentNode;
+	$(selected).addClass("info").siblings().removeClass("info");
+}
+
 var selected;
 var contTable1;
 var contTable2;
+var checks = [];
+var filterCards;
 
 
 window.onload = function() {
 	contTable1 = $('#tab2').children('tbody').children('tr').length;
 	contTable2 = $('#tab3').children('tbody').children('tr').length;
+	filterCards = $(cards);
     $('#paginacionTabla').DataTable({
     	"lengthMenu": [5, 10, 25, 50, 75, 100 ],
     	"pageLength": 5,
     	"lengthChange": false
-    });
-    
-    $("#tab1 tr").click(function(){
-    	selected = $(this);
-        $(this).addClass("info").siblings().removeClass("info");
     });   
+    
+    $(".filter").change(function(){
+    	let edition = $('#filterEdition').val();
+    	let type = $('#filterType').val();
+    	var i;
+    	for(i=0; i<6; i++){
+    		if($('.chk_filter')[i].checked){
+    			let checkbox = $('.chk_filter')[i];
+    			checks.push(checkbox.value);
+    		}
+    	}
+    	filterTable(edition, type, checks);
+    });
     
  }
 
