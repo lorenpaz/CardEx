@@ -17,10 +17,10 @@
                       <tr id="spinner${cartaPropia.id}a">
                       	<td><c:out value="${cartaPropia.carta.name}"/></td>
                       	<td><span class="estadoCarta label label-success"><c:out value="${cartaPropia.estadoCarta}"/></span></td>
-                      	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
+                      	<td>
 						<input  type="hidden" name="cartasO[]" value="${cartaPropia.id}">
-						<input  type="text" name="quantityO[]" class="cantidad-carta" value="1">
-						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td> 
+						<input  type="number" name="quantityO[]" class="cantidad-carta" value="1" min="1" max="${cartaPropia.cantidad}" >
+						</td> 
                       </tr>  
                       </c:forEach>
                     </table>
@@ -43,10 +43,10 @@
                       <tr id="spinner${cartaPropia.id}b">
                       	<td><c:out value="${cartaPropia.carta.name}"/></td>
                       	<td><span class="estadoCarta label label-success"><c:out value="${cartaPropia.estadoCarta}"/></span></td>
-                      	<td><button type="button" class="btn btn-xs" onclick="decrSpinner(event)"><span class="glyphicon glyphicon-minus"></span></button>
+                      	<td>
 						<input  type="hidden" name="cartasP[]" value="${cartaPropia.id}">
-						<input  type="text" name="quantityP[]" class="cantidad-carta" value="1">
-						<button type="button" class="btn btn-xs" onclick="incrSpinner(event)"><span class="glyphicon glyphicon-plus"></span></button></td> 
+						<input  type="number" name="quantityP[]" class="cantidad-carta" value="1" min="1" max="${cartaPropia.cantidad}">
+						</td> 
                       </tr>  
                       </c:forEach>
                     </table>

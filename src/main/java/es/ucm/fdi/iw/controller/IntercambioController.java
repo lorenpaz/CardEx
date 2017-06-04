@@ -82,14 +82,14 @@ public class IntercambioController {
 		//Rellenamos la lista de cartas Ofrecidas
 		for(int i=0; i < cartasOfrecidas.length; i++){
 			CartaPropia aux =  (CartaPropia) entityManager.find(CartaPropia.class, cartasOfrecidas[i]);
-			//aux.setCantidad(cantidadCartasOfrecidas[i]);
+			aux.setCantidad(cantidadCartasOfrecidas[i]);
 				listaCartasOfrecidas.add(aux);
 			}		
 		
 		//Rellenamos la lista de cartas Pedidas
 		for(int j=0; j<cartasPido.length; j++){
 			CartaPropia aux =  (CartaPropia) entityManager.find(CartaPropia.class, cartasPido[j]);
-			//aux.setCantidad(cantidadCartasPido[j]);
+			aux.setCantidad(cantidadCartasPido[j]);
 			listaCartasPedidas.add(aux);	
 		} 
 
@@ -114,8 +114,8 @@ public class IntercambioController {
 		List<String> listaJS = new ArrayList<String>();
 		listaJS.add("jquery-3.1.1.min.js");
 		listaJS.add("bootstrap.min.js");
-		listaJS.add("intercambio.js");
-
+		listaJS.add("historial.js");
+		
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
 	}

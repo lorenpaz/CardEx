@@ -17,7 +17,6 @@
 	<c:choose>
 	<c:when test="${not empty intercambios}">
     <div id="intercambio">
-    	<c:forEach items="${intercambios}" var="intercambio" varStatus="status">
 		<div id="intercambio-column" class="offer-column">
 		<c:choose>
 		<c:when test="${statusConjunto.first}">
@@ -28,11 +27,12 @@
 		</c:otherwise>
 		</c:choose>
 			<div class="list-group">
+			 <c:forEach items="${intercambios}" var="intercambio" varStatus="status">
 					<c:choose>
 						<c:when test="${statusConjunto.first}">
 							<c:choose>
 								<c:when test="${status.first}">
-									<a href="#tab-${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
+									<a href="${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
 										role="tab" data-toggle="tab" class="list-group-item active"><c:out value="${intercambio.usuarioOfrece.usuario}"/>
 										<span class="badge"> <span
 											class="glyphicon glyphicon-chevron-right"></span>
@@ -41,7 +41,7 @@
 									<c:set var="currentUser" value="${intercambio.usuarioOfrece.usuario}" />
 								</c:when>
 								<c:otherwise>
-									<a href="#tab-${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
+									<a href="${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
 										role="tab" data-toggle="tab" class="list-group-item usuarios"><c:out value="${intercambio.usuarioOfrece.usuario}"/></a>
 								</c:otherwise>
 							</c:choose>
@@ -49,7 +49,7 @@
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${status.first}">
-									<a href="#tab-${intercambio.usuarioRecibe.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
+									<a href="${intercambio.usuarioRecibe.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
 										role="tab" data-toggle="tab" class="list-group-item active"><c:out value="${intercambio.usuarioRecibe.usuario}"/>
 										<span class="badge"> <span
 											class="glyphicon glyphicon-chevron-right"></span>
@@ -58,12 +58,13 @@
 									<c:set var="currentUser" value="${intercambio.usuarioRecibe.usuario}" />
 								</c:when>
 								<c:otherwise>
-									<a href="#tab-${intercambio.usuarioRecibe.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
+									<a href="${intercambio.usuarioRecibe.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
 										role="tab" data-toggle="tab" class="list-group-item usuarios"><c:out value="${intercambio.usuarioRecibe.usuario}"/></a>
 								</c:otherwise>
 							</c:choose>
 						</c:otherwise>
 					</c:choose>
+			</c:forEach>
 			</div>
 		</div>
         <div id="ofrece-column" class="offer-column">
@@ -74,8 +75,9 @@
                     <th>Estado</th>
                     <th>Cantidad</th>
                	</tr>
+            <c:forEach items="${intercambios}" var="intercambio" varStatus="status">
             <c:forEach items="${intercambio.cartasOfrecidas}" var="cartaOfrecida">
-                <tr>
+                <tr class="cartas ${intercambio.usuarioRecibe.id}">
                 <td>${cartaOfrecida.carta.name}</td>
                 <c:choose>
                 <c:when test="${cartaOfrecida.estadoCarta == 'Nueva' }">
@@ -91,6 +93,7 @@
                 <td>${cartaOfrecida.cantidad}</td>
                 </tr>
              </c:forEach>
+             </c:forEach>
             </table>
         </div>
 
@@ -102,23 +105,25 @@
                     <th>Estado</th>
                     <th>Cantidad</th>
                 </tr>
+            <c:forEach items="${intercambios}" var="intercambio" varStatus="status">
             <c:forEach items="${intercambio.cartasRecibidas}" var="cartaRecibida">
-                <tr>
+                <tr class="cartas ${intercambio.usuarioRecibe.id}">
                 <td>${cartaRecibida.carta.name}</td>
                 <c:choose>
-	                <c:when test="${cartaOfrecida.estadoCarta == 'Nueva' }">
+	                <c:when test="${cartaRecibida.estadoCarta == 'Nueva' }">
 	                <td><span class="estadoCarta label label-success">Nueva</span></td>
 	                </c:when>
-	                <c:when test="${cartaOfrecida.estadoCarta == 'Jugada' }">
+	                <c:when test="${cartaRecibida.estadoCarta == 'Jugada' }">
 	                <td><span class="estadoCarta label label-warning">Jugada</span></td>
 	                </c:when>
-	                <c:when test="${cartaOfrecida.estadoCarta == 'Deteriorada' }">
+	                <c:when test="${cartaRecibida.estadoCarta == 'Deteriorada' }">
 	                <td><span class="estadoCarta label label-danger">Deteriorada</span></td>
 	                </c:when>                
                 </c:choose>
                 <td>${cartaRecibida.cantidad}</td>
                 </tr>
-             </c:forEach>               
+             </c:forEach>   
+             </c:forEach>            
             </table>
         </div>
 		<c:if test="${statusConjunto.first}">
@@ -139,7 +144,6 @@
             </div>
         </div>
         </c:if>
-        </c:forEach>
     </div>
     </c:when>
 	    <c:otherwise>
