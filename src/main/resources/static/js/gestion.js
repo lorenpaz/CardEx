@@ -111,8 +111,6 @@ function filterByColor(color){
 		var filterBoolean = true;
 		var z;
 		for(z=0; z<color.length; z++){
-			console.log('colors:'+ colors);
-			console.log('colorF:'+ color[z]);
 			if(colors != undefined){
 				filterBoolean = filterBoolean && (colors.includes(color[z]));
 			}else{
@@ -182,11 +180,6 @@ function filterTable(edition, type, color){
 		filterByColor(transColor);
 	}
 	$('#table_cards tbody>tr').remove();
-	let w;
-	for(w=0; w<filterCards.length; w++){
-		console.log('filterCard '+ w +' Colors:'+ filterCards[w].colors);
-	}
-	
 	poblarTabla(filterCards);
 	checks = [];
 	filterCards = $(cards);
