@@ -17,7 +17,7 @@
 				<c:forEach items="${usuarios}" var="usuario" varStatus="status">
 					<c:choose>
 						<c:when test="${status.first}">
-							<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}"
+							<a href="${usuario.id}" aria-controls="tab-${usuario.id}"
 								role="tab" data-toggle="tab" class="list-group-item active"><c:out value="${usuario.usuario}"/>
 								<span class="badge"> <span
 									class="glyphicon glyphicon-chevron-right"></span>
@@ -26,7 +26,7 @@
 							<c:set var="currentUser" value="${usuario.usuario}" />
 						</c:when>
 						<c:otherwise>
-							<a href="#tab-${usuario.id}" aria-controls="tab-${usuario.id}"
+							<a href="${usuario.id}" aria-controls="tab-${usuario.id}"
 								role="tab" data-toggle="tab" class="list-group-item usuarios"><c:out value="${usuario.usuario}"/></a>
 						</c:otherwise>
 					</c:choose>
@@ -40,7 +40,7 @@
 					<c:forEach items="${usuario.cartasPropias}" var="cartaPropia">
 						<c:choose>
 							<c:when test="${!status.first}">
-								<div class="tab-pane fade active in"
+								<div class="tab-pane fade ${usuario.id}"
 									id="#${cartaPropia.carta.id}">
 									<li class="list-group-item r"><a class="nostyle" href="#"
 										data-toggle="modal" data-target="#${cartaPropia.carta.id}"><c:out value="${cartaPropia.carta.name}"/></a>
@@ -55,7 +55,7 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div class="tab-pane fade in" id="#${cartaPropia.carta.id}">
+								<div class="tab-pane fade ${usuario.id} in" id="#${cartaPropia.carta.id}">
 									<li class="list-group-item r"><a class="nostyle" href="#"
 										data-toggle="modal" data-target="#${cartaPropia.carta.id}"><c:out value="${cartaPropia.carta.name}"/></a>
 										<!--Cartas -->
@@ -80,7 +80,7 @@
 					<c:forEach items="${usuario.cartasBuscadas}" var="cartaBuscada">
 						<c:choose>
 							<c:when test="${!status.first}">
-								<div class="tab-pane fade active in" id="#${cartaBuscada.id}">
+								<div class="tab-pane fade ${usuario.id}" id="#${cartaBuscada.id}">
 									<li class="list-group-item r"><a class="nostyle" href="#"
 										data-toggle="modal" data-target="#${cartaBuscada.id}"><c:out value="${cartaBuscada.name}"/></a>
 										<!--Cartas -->
@@ -93,7 +93,7 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<div class="tab-pane fade in" id="#${cartaBuscada.id}">
+								<div class="tab-pane fade ${usuario.id} in" id="#${cartaBuscada.id}">
 									<li class="list-group-item r"><a class="nostyle" href="#"
 										data-toggle="modal" data-target="#${cartaBuscada.id}"><c:out value="${cartaBuscada.name}"/></a>
 										<!--Cartas -->

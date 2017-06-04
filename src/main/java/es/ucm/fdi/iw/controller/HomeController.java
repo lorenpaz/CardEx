@@ -81,7 +81,6 @@ public class HomeController {
 		listaJS.add("jquery-ui-1.12.1/jquery-ui.min.js");
 		listaJS.add("bootstrap.min.js");
 		listaJS.add("star-rating.min.js");
-		listaJS.add("popup.js");
 		listaJS.add("home.js");
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
