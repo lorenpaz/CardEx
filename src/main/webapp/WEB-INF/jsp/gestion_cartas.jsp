@@ -1,28 +1,41 @@
 <%@ include file="../jspf/header.jspf"%>
 <div class="container">
 	<div class="zona-info form-inline form-search">
-		<label>Edici&oacute;n</label> <select class="form-control">
-			<option>Todas</option>
-			<option>Saga de Urza</option>
-			<option>Tempestad</option>
-			<option>Fortaleza</option>
-		</select> <label>Tipo de carta</label> <select class="form-control">
-			<option>Todos</option>
-			<option>Tierra</option>
-			<option>Criatura</option>
-			<option>Encantamiento</option>
-		</select> <label>Color</label> <label class="checkbox-inline"> <input
-			type="checkbox" id="checkboxEnLinea1" value="opcion_1"> Rojo
-		</label> <label class="checkbox-inline"> <input type="checkbox"
-			id="checkboxEnLinea2" value="opcion_2"> Negro
-		</label> <label class="checkbox-inline"> <input type="checkbox"
-			id="checkboxEnLinea3" value="opcion_3"> Azul
-		</label> <label class="checkbox-inline"> <input type="checkbox"
-			id="checkboxEnLinea1" value="opcion_1"> Verde
-		</label> <label class="checkbox-inline"> <input type="checkbox"
-			id="checkboxEnLinea2" value="opcion_2"> Blanco
-		</label> <label class="checkbox-inline"> <input type="checkbox"
-			id="checkboxEnLinea3" value="opcion_3"> Incoloro
+		<label>Edici&oacute;n
+			<select id="filterEdition" class="form-control filter">
+				<option>Todas</option>
+				<option>Limited Edition Alpha</option>
+				<option>Limited Edition Beta</option>
+			</select> 
+		</label> 
+		<label>Tipo de carta 
+			<select id="filterType" class="form-control filter">
+				<option>Todos</option>
+				<option>Tierra</option>
+				<option>Criatura</option>
+				<option>Encantamiento</option>
+				<option>Instant&aacute;neo</option>
+			</select> 
+		</label>
+		<label>Color 
+			<label class="checkbox-inline"> Rojo
+				<input type="checkbox" class="filter chk_filter" name="chk_group" id="checkboxEnLinea1" value="rojo"> 
+			</label> 
+			<label class="checkbox-inline"> Negro
+				<input type="checkbox" class="filter chk_filter" name="chk_group" id="checkboxEnLinea2" value="negro"> 
+			</label> 
+			<label class="checkbox-inline"> Azul
+				<input type="checkbox" class="filter chk_filter" name="chk_group" id="checkboxEnLinea3" value="azul"> 
+			</label> 
+			<label class="checkbox-inline"> Verde
+				<input type="checkbox" class="filter chk_filter" name="chk_group" id="checkboxEnLinea4" value="verde"> 
+			</label> 
+			<label class="checkbox-inline"> Blanco
+				<input type="checkbox" class="filter chk_filter" name="chk_group" id="checkboxEnLinea5" value="blanco"> 
+			</label> 
+			<label class="checkbox-inline"> Incoloro
+				<input type="checkbox" class="filter chk_filter" name="chk_group" id="checkboxEnLinea6" value="incoloro"> 
+			</label>
 		</label>
 	</div>
 	<div id="intercambio">
@@ -40,7 +53,7 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${cards}" var="carta">
-							<tr>
+							<tr onclick="selectRow(event)">
 								<td class="filterable-cell"><c:out value="${carta.name}"/></td>
 								<td class="filterable-cell"><c:out value="${carta.setName}"/></td>
 							</tr>
@@ -76,7 +89,7 @@
 							<c:forEach items="${user.cartasPropias}" var="cartaPropia">
 								<tr id="oRow${countO}">
 									<td class="filterable-cell"><c:out value="${cartaPropia.carta.name}"/></td>
-									<td class="filterable-cell"><c:out value="${cartaPropia.carta.edicion.name}"/></td>
+									<td class="filterable-cell"><c:out value="${cartaPropia.carta.setName}"/></td>
 									<td class="filterable-cell">
 									<select
 										id="selORow${countO}"
@@ -168,5 +181,8 @@
 	</div>
 
 </div>
+<script>
+	var cards = eval(${jsonCards})
+</script>
 <!-- /.container -->
 <%@ include file="../jspf/footer.jspf"%>
