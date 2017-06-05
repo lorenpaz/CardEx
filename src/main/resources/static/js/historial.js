@@ -138,7 +138,7 @@ $( function(){
 	        
 	    /*    //Cambiar visibilidad
 	        $(cartasDelUsuario).css("display","inline");
-	        
+	         
 */
 	        $(this).append('<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span></span>');
 	        
