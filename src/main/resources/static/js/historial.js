@@ -6,110 +6,45 @@ function createRow(name , edition){
 			</tr>`);
 }
 
-function poblarTabla(rows){
+function poblarTablas(rows){
 	var j;
 	for(j=0; j<rows.length; j++){
 		createRow(rows[j].name, rows[j].setName);
 	}
 }
 
-function filterByEdition(edition){
-	filterCards = $(filterCards).filter(function(){
+function filterByState(state){
+	filterInter = $(filterInter).filter(function(){
 		var n = this.setName;
 		return (n == edition);
 	});
 }
 
-function filterByType(type){
-	filterCards = $(filterCards).filter(function(){
+function filterByName(userRec){
+	filterInter = $(filterInter).filter(function(){
 		var n = this.type;
 		return (n.includes(type));
 	});
 }
 
-function filterByColor(color){
-	filterCards = $(filterCards).filter(function(){
-		var colors = this.colorIdentity;
-		var filterBoolean = true;
-		var z;
-		for(z=0; z<color.length; z++){
-			if(colors != undefined){
-				filterBoolean = filterBoolean && (colors.includes(color[z]));
-			}else{
-				filterBoolean = false;
-			}
-		}
-		return filterBoolean;
-	});
-}
 
-function filterTable(edition, type, color){
-	if(edition != 'Todas'){
-		filterByEdition(edition);
-	}
+function filterTable(state, userRec){
+	filterByState(state);
 	
-	if(type != 'Todos'){
-		var t;
-		if(type=='Tierra'){
-			t='Land';
-		}else{
-			if(type=='Criatura'){
-				t='Creature';
-			}else{
-				if(type=='Encantamiento'){
-					t='Enchantment';
-				}else{
-					if(type=='Instantáneo'){
-						t='Instant';
-					}else{
-						if(type=='Artefacto'){
-							t='Artifact';
-						}else{
-							if(type=='Hechizo'){
-								t='Sorcery';
-							}
-						}
-					}
-				}
-			}
-		}
-		filterByType(t);
-	}
-	
-	var transColor = [];
-	if(color.length>0){
-		let j;
-		for(j=0; j<color.length; j++){
-			if(color[j] == 'azul'){
-				transColor.push('U');
-			}
-			if(color[j] == 'verde'){
-				transColor.push('G');
-			}
-			if(color[j] == 'negro'){
-				transColor.push('B');
-			}
-			if(color[j] == 'blanco'){
-				transColor.push('W');
-			}
-			if(color[j] == 'rojo'){
-				transColor.push('R');
-			}
-			if(color[j] == 'incoloro'){
-				
-			}
-		}
-		filterByColor(transColor);
+	if(userRec != ''){
+		filterByName(userRec);
 	}
 	$('#table_cards tbody>tr').remove();
-	poblarTabla(filterCards);
+	poblarTablas(filterInter);
 	checks = [];
-	filterCards = $(cards);
+	filterInter = $(interJson);
 }
 
-
+var filterInter;
 
 $( function(){
+	
+	filterInter = $(interJson);
 	
 	//Cambiar visibilidad de forma predeterminada al primer usuario
 	var idUsuario = $(".list-group-item.active").attr('href');
@@ -147,6 +82,12 @@ $( function(){
 	    	$("#aceptar").attr('value', primerIntercambio);
 	    	$("#rechazar").attr('value', primerIntercambio);
 	    	$("#contraoferta").attr('value', primerIntercambio);
+	    	
+	    	$(".filter").change(function(){
+	        	let name = $('#filterState').val();
+	        	let state = $('#filterName').val();
+	        	filterTable(state, name);
+	        });
 	    }
 	});
 	
