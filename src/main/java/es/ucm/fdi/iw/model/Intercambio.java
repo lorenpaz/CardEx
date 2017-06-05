@@ -97,5 +97,42 @@ public class Intercambio {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
+	
+	public String toJSON(){
+		String json = "";
+		json+= "{";
+		json+= "\"id\": \""+ this.id+"\" ,";
+		json+= "\"usuarioOfrece\": { \"id\": \""+ this.usuarioOfrece.getId() + "\", \"user\": \""+usuarioOfrece.getUsuario() + "\" },";
+		json+= "\"usuarioRecibe\": { \"id\": \""+ this.usuarioRecibe.getId() + "\", \"user\": \""+usuarioRecibe.getUsuario() + "\" },";
+		json+= "\"estado\": \""+ this.estadoIntercambio + "\" ,";
+		json+="\"cartasOfrecidas\": [";
+		for(int i=0; i< this.cartasOfrecidas.size(); i++){
+			CartaPropia c = this.cartasOfrecidas.get(i);
+			json +="{";
+			json +="\"nombre\": \""+c.getCarta().getName()+"\",";
+			json +="\"estado\": \""+c.getEstadoCarta()+"\",";
+			json +="\"cantidad\": \""+c.getCantidad()+"\"";
+			json +="}";
+			if(i<this.cartasOfrecidas.size()-1){
+				json +=",";
+			}
+		}
+		json+="],";
+		json+="\"cartasRecibidas\": [";
+		for(int i=0; i< this.cartasRecibidas.size(); i++){
+			CartaPropia c = this.cartasRecibidas.get(i);
+			json +="{";
+			json +="\"nombre\": \""+c.getCarta().getName()+"\",";
+			json +="\"estado\": \""+c.getEstadoCarta()+"\",";
+			json +="\"cantidad\": \""+c.getCantidad()+"\"";
+			json +="}";
+			if(i<this.cartasRecibidas.size()-1){
+				json +=",";
+			}
+		}
+		json+="]";
+		json+= "}";
+		return json;
+	}
 
 }
