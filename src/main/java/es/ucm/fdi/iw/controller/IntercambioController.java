@@ -12,18 +12,15 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import es.ucm.fdi.iw.model.Carta;
 import es.ucm.fdi.iw.model.CartaPropia;
 import es.ucm.fdi.iw.model.Intercambio;
 import es.ucm.fdi.iw.model.Usuario;
@@ -33,9 +30,6 @@ import es.ucm.fdi.iw.model.Usuario;
 public class IntercambioController {
 
 	private static Logger log = Logger.getLogger(IntercambioController.class);
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private EntityManager entityManager;
@@ -103,7 +97,6 @@ public class IntercambioController {
 		entityManager.persist(intercambio);
 		entityManager.flush();
 		
-		Intercambio inter = (Intercambio) entityManager.find(Intercambio.class, intercambio.getId());
 		return "redirect:../historial";
 	}
 	
@@ -120,9 +113,9 @@ public class IntercambioController {
 		model.addAttribute("pageExtraScripts", listaJS);
 	}
 	
-	  private void actualizaUsuarioSesion(HttpSession session, Usuario u) { 
+	/*  private void actualizaUsuarioSesion(HttpSession session, Usuario u) { 
 	 // Actualizo el usuario de la sesión 
 		  session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));
-	}
+	}*/
 	 
 }

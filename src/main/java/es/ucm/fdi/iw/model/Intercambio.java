@@ -8,7 +8,9 @@ import javax.persistence.*;
 
 @NamedQueries({
 	@NamedQuery(name = "getUsersRecibe", query = "select i from Intercambio i where i.usuarioRecibe = :userRecibe"),
-	@NamedQuery(name = "getUsersOfrece", query = "select i from Intercambio i where i.usuarioOfrece = :userOfrece")
+	@NamedQuery(name = "getUsersOfrece", query = "select i from Intercambio i where i.usuarioOfrece = :userOfrece"),
+	@NamedQuery(name = "estado", query = "select i from Intercambio i where i.estadoIntercambio = :estado"),
+	@NamedQuery(name = "allIntercambios", query = "select i from Intercambio i")
 })
 @Entity
 public class Intercambio {
