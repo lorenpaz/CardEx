@@ -47,14 +47,15 @@ public class PerfilController {
 
 	@GetMapping({ "", "/" })
 	public String root(Model model, Principal principal, HttpSession session) {
-
+		
 		añadirCSSyJSAlModelo(model);
-
-		// Obtengo el usuario actual
 		Usuario u = (Usuario) session.getAttribute("user");
-
-		// Se lo paso al modelo
 		model.addAttribute("usuario", u);
+		
+		long count = ((long) entityManager.createQuery("select count(v) from Valoracion v where v.usuarioValorado = :usuario").
+				setParameter("usuario", u).getSingleResult());
+		
+		model.addAttribute("cuantosUsuariosValoraron", count);
 
 		return "perfil";
 	}
