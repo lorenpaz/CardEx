@@ -1,8 +1,5 @@
 package es.ucm.fdi.iw.model;
 
-import java.sql.Date;
-import java.util.Calendar;
-
 import javax.persistence.*;
 
 

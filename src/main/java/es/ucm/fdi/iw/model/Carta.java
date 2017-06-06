@@ -1,19 +1,13 @@
 package es.ucm.fdi.iw.model;
 
-import java.util.Arrays;
 import java.util.List;
-
 import javax.persistence.*;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@NamedQueries({
-	@NamedQuery(name = "allCards", query = "select c from Carta c"),
-	@NamedQuery(name = "findCardByNameAndEdition", query = "select c from Carta c where c.name = :paramName and c.setName= :paramEdition"),
-	@NamedQuery(name = "findCardByMultiverseID", query = "select c from Carta c where c.multiverseid = :paramMultiverse")
-})
+@NamedQueries({ @NamedQuery(name = "allCards", query = "select c from Carta c"),
+		@NamedQuery(name = "findCardByNameAndEdition", query = "select c from Carta c where c.name = :paramName and c.setName= :paramEdition"),
+		@NamedQuery(name = "findCardByMultiverseID", query = "select c from Carta c where c.multiverseid = :paramMultiverse") })
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Carta {
@@ -40,11 +34,10 @@ public class Carta {
 	private String multiverseid;
 	private String imageUrl;
 	private String[] printings;
-	
-	
-	//private List<Usuario> usuariosQueMeTienen;
+
+	// private List<Usuario> usuariosQueMeTienen;
 	private List<Usuario> UsuariosQueMeBuscan;
-	
+
 	private List<CartaPropia> cartaPropia;
 
 	@Id
@@ -185,7 +178,7 @@ public class Carta {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	
+
 	public String[] getPrintings() {
 		return printings;
 	}
@@ -202,16 +195,6 @@ public class Carta {
 		this.setName = setName;
 	}
 
-
-	
-	/*@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class, mappedBy = "cartasPropias")
-	public List<Usuario> getUsuariosQueMeTienen() {
-		return usuariosQueMeTienen;
-	}
-
-	public void setUsuariosQueMeTienen(List<Usuario> usuariosQueMeTienen) {
-		this.usuariosQueMeTienen = usuariosQueMeTienen;
-	}*/
 	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Usuario.class, mappedBy = "cartasBuscadas")
 	public List<Usuario> getUsuariosQueMeBuscan() {
 		return UsuariosQueMeBuscan;
@@ -220,7 +203,8 @@ public class Carta {
 	public void setUsuariosQueMeBuscan(List<Usuario> usuariosQueMeBuscan) {
 		UsuariosQueMeBuscan = usuariosQueMeBuscan;
 	}
-	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy="carta")
+
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy = "carta")
 	public List<CartaPropia> getCartasPropias() {
 		return cartaPropia;
 	}
@@ -228,8 +212,5 @@ public class Carta {
 	public void setCartasPropias(List<CartaPropia> cartaPropia) {
 		this.cartaPropia = cartaPropia;
 	}
-	
-	
-	
 
 }

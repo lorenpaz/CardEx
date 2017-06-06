@@ -2,27 +2,26 @@ package es.ucm.fdi.iw.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.*;
 
 @NamedQueries({
-	@NamedQuery(name = "getUsersRecibe", query = "select i from Intercambio i where i.usuarioRecibe = :userRecibe"),
-	@NamedQuery(name = "getUsersOfrece", query = "select i from Intercambio i where i.usuarioOfrece = :userOfrece"),
-	@NamedQuery(name = "estado", query = "select i from Intercambio i where i.estadoIntercambio = :estado"),
-	@NamedQuery(name = "allIntercambios", query = "select i from Intercambio i")
-})
+		@NamedQuery(name = "getUsersRecibe", query = "select i from Intercambio i where i.usuarioRecibe = :userRecibe"),
+		@NamedQuery(name = "getUsersOfrece", query = "select i from Intercambio i where i.usuarioOfrece = :userOfrece"),
+		@NamedQuery(name = "estado", query = "select i from Intercambio i where i.estadoIntercambio = :estado"),
+		@NamedQuery(name = "allIntercambios", query = "select i from Intercambio i") })
 @Entity
 public class Intercambio {
 
 	private long id;
 	private Usuario usuarioOfrece;
 	private Usuario usuarioRecibe;
-	private String estadoIntercambio;//Aceptadas, Rechazadas, Finalizadas, Pendientes
+	private String estadoIntercambio;// Aceptadas, Rechazadas, Finalizadas,
+										// Pendientes
 	private List<CartaPropia> cartasOfrecidas;
 	private List<CartaPropia> cartasRecibidas;
-	
+
 	private Date fecha;
 
 	@Id
@@ -30,11 +29,11 @@ public class Intercambio {
 	public long getId() {
 		return id;
 	}
-	
-	public Intercambio() {}
+
+	public Intercambio() {
+	}
 
 	public Intercambio(Usuario usuarioOfrece, Usuario usuarioRecibe, String estadoIntercambio, Date fecha) {
-		super();
 		this.usuarioOfrece = usuarioOfrece;
 		this.usuarioRecibe = usuarioRecibe;
 		this.estadoIntercambio = estadoIntercambio;
@@ -45,7 +44,7 @@ public class Intercambio {
 
 	public void setId(long idIntercambio) {
 		this.id = idIntercambio;
-	} 
+	}
 
 	@ManyToOne(targetEntity = Usuario.class)
 	public Usuario getUsuarioOfrece() {
@@ -73,7 +72,7 @@ public class Intercambio {
 		this.estadoIntercambio = estadoIntercambio;
 	}
 
-	@ManyToMany(targetEntity = CartaPropia.class,fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = CartaPropia.class, fetch = FetchType.EAGER)
 	public List<CartaPropia> getCartasOfrecidas() {
 		return cartasOfrecidas;
 	}
@@ -82,7 +81,7 @@ public class Intercambio {
 		this.cartasOfrecidas = cartasOfrecidas;
 	}
 
-	@ManyToMany(targetEntity = CartaPropia.class,fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = CartaPropia.class, fetch = FetchType.EAGER)
 	public List<CartaPropia> getCartasRecibidas() {
 		return cartasRecibidas;
 	}
@@ -98,41 +97,43 @@ public class Intercambio {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
-	public String toJSON(){
+
+	public String toJSON() {
 		String json = "";
-		json+= "{";
-		json+= "\"id\": \""+ this.id+"\" ,";
-		json+= "\"usuarioOfrece\": { \"id\": \""+ this.usuarioOfrece.getId() + "\", \"user\": \""+usuarioOfrece.getUsuario() + "\" },";
-		json+= "\"usuarioRecibe\": { \"id\": \""+ this.usuarioRecibe.getId() + "\", \"user\": \""+usuarioRecibe.getUsuario() + "\" },";
-		json+= "\"estado\": \""+ this.estadoIntercambio + "\" ,";
-		json+="\"cartasOfrecidas\": [";
-		for(int i=0; i< this.cartasOfrecidas.size(); i++){
+		json += "{";
+		json += "\"id\": \"" + this.id + "\" ,";
+		json += "\"usuarioOfrece\": { \"id\": \"" + this.usuarioOfrece.getId() + "\", \"user\": \""
+				+ usuarioOfrece.getUsuario() + "\" },";
+		json += "\"usuarioRecibe\": { \"id\": \"" + this.usuarioRecibe.getId() + "\", \"user\": \""
+				+ usuarioRecibe.getUsuario() + "\" },";
+		json += "\"estado\": \"" + this.estadoIntercambio + "\" ,";
+		json += "\"cartasOfrecidas\": [";
+		for (int i = 0; i < this.cartasOfrecidas.size(); i++) {
 			CartaPropia c = this.cartasOfrecidas.get(i);
-			json +="{";
-			json +="\"nombre\": \""+c.getCarta().getName()+"\",";
-			json +="\"estado\": \""+c.getEstadoCarta()+"\",";
-			json +="\"cantidad\": \""+c.getCantidad()+"\"";
-			json +="}";
-			if(i<this.cartasOfrecidas.size()-1){
-				json +=",";
+			json += "{";
+			json += "\"nombre\": \"" + c.getCarta().getName() + "\",";
+			json += "\"estado\": \"" + c.getEstadoCarta() + "\",";
+			json += "\"cantidad\": \"" + c.getCantidad() + "\"";
+			json += "}";
+			if (i < this.cartasOfrecidas.size() - 1) {
+				json += ",";
 			}
 		}
-		json+="],";
-		json+="\"cartasRecibidas\": [";
-		for(int i=0; i< this.cartasRecibidas.size(); i++){
+		json += "],";
+		json += "\"cartasRecibidas\": [";
+		for (int i = 0; i < this.cartasRecibidas.size(); i++) {
 			CartaPropia c = this.cartasRecibidas.get(i);
-			json +="{";
-			json +="\"nombre\": \""+c.getCarta().getName()+"\",";
-			json +="\"estado\": \""+c.getEstadoCarta()+"\",";
-			json +="\"cantidad\": \""+c.getCantidad()+"\"";
-			json +="}";
-			if(i<this.cartasRecibidas.size()-1){
-				json +=",";
+			json += "{";
+			json += "\"nombre\": \"" + c.getCarta().getName() + "\",";
+			json += "\"estado\": \"" + c.getEstadoCarta() + "\",";
+			json += "\"cantidad\": \"" + c.getCantidad() + "\"";
+			json += "}";
+			if (i < this.cartasRecibidas.size() - 1) {
+				json += ",";
 			}
 		}
-		json+="]";
-		json+= "}";
+		json += "]";
+		json += "}";
 		return json;
 	}
 

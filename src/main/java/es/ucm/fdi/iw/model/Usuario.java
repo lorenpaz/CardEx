@@ -56,7 +56,6 @@ public class Usuario {
 		u.activo = true;
 		u.valoracionMedia = 0;
 		u.cartasPropias = new ArrayList<CartaPropia>();
-		
 		u.cartasBuscadas = new ArrayList<Carta>();
 		return u;
 	}

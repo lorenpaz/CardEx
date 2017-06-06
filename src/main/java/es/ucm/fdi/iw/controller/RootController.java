@@ -46,7 +46,6 @@ public class RootController {
 		listaJS.add("index.js");
 		model.addAttribute("pageExtraScripts", listaJS);
 		
-		//API.cardsDataBaseMin(entityManager,2,100);
 		return "index";
 	}
 	
@@ -69,18 +68,6 @@ public class RootController {
 		return "info";
 	}
 
-	private void setDefaultJS(Model m, String ... others) {
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("jquery-ui-1.12.1/jquery-ui.min.js");
-		listaJS.add("bootstrap.min.js");
-		listaJS.add("star-rating.min.js");
-		for (String o : others) {
-			listaJS.add(o + ".js");
-		}
-		m.addAttribute("pageExtraScripts", listaJS);
-	}
-
 	@RequestMapping(value="/register", method = RequestMethod.POST)
 	@Transactional
 	public String register(@RequestParam("nombre") String formName, 
@@ -99,7 +86,7 @@ public class RootController {
 	}
 
 	/**
-	 * Logout (also returns to home view).
+	 * Logout (also returns to index view).
 	 */
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
