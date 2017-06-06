@@ -101,7 +101,6 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 			}
 		
 		entityManager.persist(usuarioActual);
-		entityManager.flush();
 		
 		actualizaUsuarioSesion(session,usuarioActual);
 
