@@ -99,9 +99,9 @@
 						<label for="surnameform">Cambiar apellidos</label> 
 						<input id="surnameform" class="form-control" name="apellidos" value="${usuario.apellidos}" />
 					 	<label for="passform">Cambiar contraseña</label> 
-					 	<input id="passform" class="form-control" name="password" /> 
+					 	<input id="passform" class="form-control" name="password" type="password" /> 
 					 	<label for="repassform">Confirmar contraseña</label> 
-					 	<input id="repassform" class="form-control" name="passwordConfirm" /> 
+					 	<input id="repassform" class="form-control" name="passwordConfirm" type="password" /> 
 					 	<label for="mailform">E-Mail</label> 
 					 	<input id="mailform" class="form-control" name="email" value="${usuario.email}" />
 						<label for="provform">Provincia</label> 
