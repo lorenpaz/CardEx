@@ -38,7 +38,6 @@
 			<li class="enlace"><a href="${prefijo}gestion_cartas">Gesti&oacute;n de cartas</a></li>
             <li class="enlace"><a href="${prefijo}historial">Historial</a></li>
             <li class="enlace"><form action="${prefijo}logout" id="sesionCerrar" method="post"><input type="submit" id="cerrarSesion" value="Cerrar Sesión" ></input><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /></form></li>
-			<!-- <li class="enlace"><form action="logout" id="sesionCerrar" method="post"><a href="#" id="cerrarSesion">Cerrar sesi&oacute;n</a><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /></form></li>-->
           </ul>
         </div>
       </div>

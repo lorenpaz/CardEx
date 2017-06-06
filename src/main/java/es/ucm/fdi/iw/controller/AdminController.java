@@ -85,7 +85,7 @@ public class AdminController {
 		entityManager.persist(e);
 		
 		entityManager.flush();
-		return "redirect:";
+		return "redirect:";	
 	}
 	
 	@SuppressWarnings("unchecked")

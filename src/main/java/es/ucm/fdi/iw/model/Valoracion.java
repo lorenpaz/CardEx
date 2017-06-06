@@ -2,7 +2,6 @@ package es.ucm.fdi.iw.model;
 
 import javax.persistence.*;
 
-
 @Entity
 public class Valoracion {
 
@@ -12,10 +11,9 @@ public class Valoracion {
 	private String comentario;
 	private Integer valor;
 
-	
-	public static Valoracion crearValoracion(Usuario usuarioQueValora, Usuario usuarioValorado,
-			String comentario, Integer valor) {
-		
+	public static Valoracion crearValoracion(Usuario usuarioQueValora, Usuario usuarioValorado, String comentario,
+			Integer valor) {
+
 		Valoracion v = new Valoracion();
 		v.usuarioQueValora = usuarioQueValora;
 		v.usuarioValorado = usuarioValorado;
@@ -23,7 +21,7 @@ public class Valoracion {
 		v.valor = valor;
 		return v;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {

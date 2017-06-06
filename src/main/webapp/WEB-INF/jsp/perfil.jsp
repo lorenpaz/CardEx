@@ -66,7 +66,7 @@
 							<td>
 								<form action="${prefijo}perfil/valorarUsuario"
 									id="valorarUsuario" method="POST">
-									Valora al usuario (este apartado no aparece a veces)
+									Valora al usuario
 									<textarea id="opinion" rows="4" cols="50" class="center"
 										form="valorarUsuario" name="descripcion"></textarea>
 									<input id="input-21e" value="3" type="text" class="rating"
