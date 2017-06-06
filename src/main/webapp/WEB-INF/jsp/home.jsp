@@ -6,8 +6,8 @@
 	<form id="filter" class="form-inline form-search" method="get"
 		action="${prefijo}home">
 		<label>Carta <input type="search" class="form-control" id="cartaFilter"
-			value=""></label> <label>Usuario <input type="search" id="usuarioFilter"
-			class="form-control" value=""></label> <label><input
+			value="" placeholder="Busca una carta"></label> <label>Usuario <input type="search" id="usuarioFilter"
+			class="form-control" value="" placeholder="Busca un usuario"></label> <label><input
 			type="submit" class="btn btn-primary" value="Buscar"></label>
 	</form>
 	<div id="intercambio">
@@ -18,7 +18,8 @@
 					<c:choose>
 						<c:when test="${status.first}">
 							<a href="${usuario.id}" aria-controls="tab-${usuario.id}"
-								role="tab" data-toggle="tab" class="list-group-item active"><c:out value="${usuario.usuario}"/>
+								role="tab" data-toggle="tab" class="list-group-item active">
+								<c:out value="${usuario.usuario}"/>
 								<span class="badge"> <span
 									class="glyphicon glyphicon-chevron-right"></span>
 							</span>
@@ -27,7 +28,9 @@
 						</c:when>
 						<c:otherwise>
 							<a href="${usuario.id}" aria-controls="tab-${usuario.id}"
-								role="tab" data-toggle="tab" class="list-group-item usuarios"><c:out value="${usuario.usuario}"/></a>
+								role="tab" data-toggle="tab" class="list-group-item usuarios">
+								<c:out value="${usuario.usuario}"/>
+								</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -46,7 +49,7 @@
 						<div class="modal fade" id="${cartaPropia.carta.id}" role="dialog">
 							<div class="modal-dialog">
 								<!-- Modal content-->
-								<h:modalCarta carta="${cartaPropia.carta}" />
+								<h:modalCarta cartaPropia="${cartaPropia}" />
 							</div>
 						</div>
 					</li>
@@ -69,7 +72,7 @@
 						<div class="modal fade" id="${cartaBuscada.id}" role="dialog">
 							<div class="modal-dialog">
 								<!-- Modal content-->
-								<h:modalCarta carta="${cartaBuscada}" />
+								<h:modalCartaBuscada cartaBuscada="${cartaBuscada}" />
 							</div>
 						</div>
 					</li>
