@@ -18,11 +18,14 @@ public class UsuarioJSON {
 	public UsuarioJSON() {}
 
 	public UsuarioJSON(Usuario u) {
+		this.id = u.getId();
 		this.activo = u.isActivo();
 		this.usuario = u.getUsuario();
 		this.cartasPropias = parserList(u.getCartasPropias());
 		this.cartasBuscadas = parserListTwo(u.getCartasBuscadas());
 	}
+	
+	
 
 	private List<CartaPropiaJSON> parserList(List<CartaPropia> cartas) {
 		List<CartaPropiaJSON> list = new ArrayList<CartaPropiaJSON>();
