@@ -17,7 +17,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.google.gson.Gson;
+
 import es.ucm.fdi.iw.model.Usuario;
+import es.ucm.fdi.iw.model.UsuarioJSON;
 
 @Controller
 @RequestMapping("home")
@@ -62,6 +67,21 @@ public class HomeController {
 				.setParameter("roleParam", "USER").setParameter("activeParam", true)
 				.setParameter("actual", principal.getName()).getResultList();
 
+		Gson gson = new Gson();
+		
+		String json = "{";
+		json +="\"usuarios\":[";
+		for(Usuario u : usuarios)
+		{
+			UsuarioJSON usuarioJSON = new UsuarioJSON(u);
+			json += gson.toJson(usuarioJSON);
+			if(usuarios.indexOf(u) != usuarios.size()- 1)
+			{
+				json+= ',';
+			} 
+		}
+		json += "]}";
+		model.addAttribute("usuariosJSON",json);
 		model.addAttribute("usuarios", usuarios);
 
 		if (request.isUserInRole("ROLE_ADMIN"))
