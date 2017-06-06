@@ -1,6 +1,7 @@
 package es.ucm.fdi.iw.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -54,6 +55,9 @@ public class Usuario {
 		u.fechaAlta = new Date(Calendar.getInstance().getTime().getTime());
 		u.activo = true;
 		u.valoracionMedia = 0;
+		u.cartasPropias = new ArrayList<CartaPropia>();
+		
+		u.cartasBuscadas = new ArrayList<Carta>();
 		return u;
 	}
 

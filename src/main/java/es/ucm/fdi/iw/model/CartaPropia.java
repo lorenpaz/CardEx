@@ -1,5 +1,6 @@
 package es.ucm.fdi.iw.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -30,6 +31,8 @@ public class CartaPropia {
 		this.estadoCarta = estadoCarta;
 		this.cantidad = cantidad;
 		this.usuarioPropietario = u;
+		this.intercambiosOfrecidos = new ArrayList<Intercambio>();
+		this.intercambiosRecibidos = new ArrayList<Intercambio>();
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

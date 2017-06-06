@@ -1,5 +1,6 @@
 package es.ucm.fdi.iw.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -37,8 +38,8 @@ public class Intercambio {
 		this.usuarioOfrece = usuarioOfrece;
 		this.usuarioRecibe = usuarioRecibe;
 		this.estadoIntercambio = estadoIntercambio;
-		//this.cartasOfrecidas = cartasOfrecidas;
-		//this.cartasRecibidas = cartasRecibidas;
+		this.cartasOfrecidas = new ArrayList<CartaPropia>();
+		this.cartasRecibidas = new ArrayList<CartaPropia>();
 		this.fecha = fecha;
 	}
 

@@ -1,5 +1,7 @@
 package es.ucm.fdi.iw.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,28 +78,33 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 		//CartasBuscadas
 			usuarioActual.setCartasBuscadas(new ArrayList<Carta>());
 			for(int i=1; i<cartasBuscadas.length; i++){
+				@SuppressWarnings("unchecked")
 				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasBuscadas[i]).setParameter("paramEdition", edicionCartasBuscadas[i]).getResultList();
 				usuarioActual.getCartasBuscadas().add(lista.get(0));
 			}
 		
 		//CartasPropias
-		for (CartaPropia c: usuarioActual.getCartasPropias()){
+/*		for (CartaPropia c: usuarioActual.getCartasPropias()){
 			entityManager.remove(c);
-		}
+			entityManager.flush();
+		}*/
 		
 			usuarioActual.setCartasPropias(new ArrayList<CartaPropia>());
 			for(int j=1; j<cartasPropias.length; j++){
+				@SuppressWarnings("unchecked")
 				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j]).getResultList();
 				Carta c = lista.get(0);
-				CartaPropia cp = new CartaPropia(new Carta(), "", 0, new Usuario());
-				cp.setCarta(c);
-				cp.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
-				cp.setEstadoCarta(estadoCartasPropias[j]);
+				CartaPropia cp = new CartaPropia(c, estadoCartasPropias[j],Integer.parseInt(cantidadCartasPropias[j]), usuarioActual);
+				//cp.setCarta(c);
+				//cp.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
+				//cp.setEstadoCarta(estadoCartasPropias[j]);
 				cp.setUsuarioPropietario(usuarioActual);
 				entityManager.persist(cp);
+				entityManager.flush();
+				
 				usuarioActual.getCartasPropias().add(cp);
-				int index = usuarioActual.getCartasPropias().indexOf(cp);
-				usuarioActual.getCartasPropias().get(index).setUsuarioPropietario(usuarioActual);
+				//int index = usuarioActual.getCartasPropias().indexOf(cp);
+				//usuarioActual.getCartasPropias().get(index).setUsuarioPropietario(usuarioActual);
 			}
 		
 		entityManager.persist(usuarioActual);
