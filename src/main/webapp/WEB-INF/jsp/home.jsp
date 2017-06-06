@@ -5,8 +5,8 @@
 
 	<form id="filter" class="form-inline form-search" method="get"
 		action="${prefijo}home">
-		<label>Carta <input type="search" class="form-control"
-			value=""></label> <label>Usuario <input type="search"
+		<label>Carta <input type="search" class="form-control" id="cartaFilter"
+			value=""></label> <label>Usuario <input type="search" id="usuarioFilter"
 			class="form-control" value=""></label> <label><input
 			type="submit" class="btn btn-primary" value="Buscar"></label>
 	</form>
@@ -38,74 +38,43 @@
 			<ul class="list-group">
 				<c:forEach items="${usuarios}" var="usuario" varStatus="status">
 					<c:forEach items="${usuario.cartasPropias}" var="cartaPropia">
-						<c:choose>
-							<c:when test="${!status.first}">
-								<div class="tab-pane fade ${usuario.id}"
-									id="#${cartaPropia.carta.id}">
-									<li class="list-group-item r"><a class="nostyle" href="#"
-										data-toggle="modal" data-target="#${cartaPropia.carta.id}"><c:out value="${cartaPropia.carta.name}"/></a>
-										<!--Cartas -->
-										<div class="modal fade" id="${cartaPropia.carta.id}"
-											role="dialog">
-											<div class="modal-dialog">
-												<!-- Modal content-->
-												<h:modalCarta cartaPropia="${cartaPropia}" />
-											</div>
-										</div></li>
-								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="tab-pane fade ${usuario.id} in" id="#${cartaPropia.carta.id}">
-									<li class="list-group-item r"><a class="nostyle" href="#"
-										data-toggle="modal" data-target="#${cartaPropia.carta.id}"><c:out value="${cartaPropia.carta.name}"/></a>
-										<!--Cartas -->
-										<div class="modal fade" id="${cartaPropia.carta.id}"
-											role="dialog">
-											<div class="modal-dialog">
-												<!-- Modal content-->
-												<h:modalCarta cartaPropia="${cartaPropia}" />
-											</div>
-										</div></li>
-								</div>
-							</c:otherwise>
-						</c:choose>
+					<c:if test="${status.first}">
+				<div class="tab-pane fade in">
+					<li class="list-group-item r">
+						<a class="nostyle" href="#" data-toggle="modal" data-target="#${cartaPropia.carta.id}"><c:out value="${cartaPropia.carta.name}"/></a>
+						<!--Cartas -->
+						<div class="modal fade" id="${cartaPropia.carta.id}" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<h:modalCarta cartaPropia="${cartaPropia}" />
+							</div>
+						</div>
+					</li>
+				</div>
+				</c:if>
 					</c:forEach>
 				</c:forEach>
 			</ul>
-		</div>
+		</div> 
 		<div id="pide-column" class="offer-column">
 			<h3>Pide</h3>
 			<ul class="list-group">
 				<c:forEach items="${usuarios}" var="usuario" varStatus="status">
 					<c:forEach items="${usuario.cartasBuscadas}" var="cartaBuscada">
-						<c:choose>
-							<c:when test="${!status.first}">
-								<div class="tab-pane fade ${usuario.id}" id="#${cartaBuscada.id}">
-									<li class="list-group-item r"><a class="nostyle" href="#"
-										data-toggle="modal" data-target="#${cartaBuscada.id}"><c:out value="${cartaBuscada.name}"/></a>
-										<!--Cartas -->
-										<div class="modal fade" id="${cartaBuscada.id}" role="dialog">
-											<div class="modal-dialog">
-												<!-- Modal content-->
-												<h:modalCartaBuscada cartaBuscada="${cartaBuscada}" />
-											</div>
-										</div></li>
-								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="tab-pane fade ${usuario.id} in" id="#${cartaBuscada.id}">
-									<li class="list-group-item r"><a class="nostyle" href="#"
-										data-toggle="modal" data-target="#${cartaBuscada.id}"><c:out value="${cartaBuscada.name}"/></a>
-										<!--Cartas -->
-										<div class="modal fade" id="${cartaBuscada.id}" role="dialog">
-											<div class="modal-dialog">
-												<!-- Modal content-->
-												<h:modalCartaBuscada cartaBuscada="${cartaBuscada}" />
-											</div>
-										</div></li>
-								</div>
-							</c:otherwise>
-						</c:choose>
+					<c:if test="${status.first}">
+				<div class="tab-pane fade in">
+					<li class="list-group-item r"><a class="nostyle" href="#"
+						data-toggle="modal" data-target="#${cartaBuscada.id}"><c:out value="${cartaBuscada.name}"/></a>
+						<!--Cartas -->
+						<div class="modal fade" id="${cartaBuscada.id}" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<h:modalCartaBuscada cartaBuscada="${cartaBuscada}" />
+							</div>
+						</div>
+					</li>
+				</div>
+				</c:if>
 					</c:forEach>
 				</c:forEach>
 			</ul>
@@ -119,5 +88,6 @@
 		</div>
 	</div>
 </div>
-
+<script>var usuariosJSON = ${usuariosJSON}
+</script>
 <%@ include file="../jspf/footer.jspf"%>
