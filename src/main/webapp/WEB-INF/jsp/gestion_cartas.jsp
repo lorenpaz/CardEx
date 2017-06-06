@@ -128,7 +128,7 @@
 								<input id="nameORow${countO}" type="hidden"
 									value="${cartaPropia.carta.name}" name="cardsO[]"></input>
 								<input id="edORow${countO}" type="hidden"
-									value="${cartaPropia.carta.edicion.name}" name="cardsOE[]"></input>
+									value="${cartaPropia.carta.setName}" name="cardsOE[]"></input>
 								<input id="quantityORow${countO}" type="hidden"
 									value="${cartaPropia.cantidad}" name="cardsOQ[]" ></input>
 								<input id="stateORow${countO}" type="hidden"
@@ -157,7 +157,7 @@
 							<c:forEach items="${user.cartasBuscadas}" var="cartaBuscada">
 								<tr id="sRow${countS}">
 									<td class="filterable-cell">${cartaBuscada.name}</td>
-									<td class="filterable-cell">${cartaBuscada.edicion.name}</td>
+									<td class="filterable-cell">${cartaBuscada.setName}</td>
 									<td class="filterable-cell text-right">
 										<button type="button" class="btn btn-link btn-xs"
 											onclick="removeCard(event,2)">X</button>
@@ -165,7 +165,7 @@
 								</tr>
 								<input id="nameSRow${countS}" type="hidden" value="${cartaBuscada.name}"
 									name="cardsS[]"></input>
-								<input id="edSRow${countS}" type="hidden" value="${cartaBuscada.edicion.name}"
+								<input id="edSRow${countS}" type="hidden" value="${cartaBuscada.setName}"
 									name="cardsSE[]"></input>
 								<c:set var="countS" value="${countS + 1}" scope="page"/>
 							</c:forEach>
