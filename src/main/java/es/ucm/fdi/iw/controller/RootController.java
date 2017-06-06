@@ -38,7 +38,7 @@ public class RootController {
 		m.addAttribute("prefix", "static/");
 	}
 
-	@GetMapping({ "/", "/index" })
+	@GetMapping({"/index"})
 	@Transactional
 	public String index(Model model) {
 		List<String> listaJS = new ArrayList<String>();
@@ -48,6 +48,12 @@ public class RootController {
 		
 		//API.cardsDataBaseMin(entityManager,2,100);
 		return "index";
+	}
+	
+	@GetMapping({"/"})
+	public String root() {
+		
+	return "redirect:home";	
 	}
 
 	@GetMapping({ "/info" })
