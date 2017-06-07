@@ -3,13 +3,10 @@
 
 <div class="container">
 
-	<form id="filter" class="form-inline form-search" method="get"
-		action="${prefijo}home">
-		<label>Carta <input type="search" class="form-control" id="cartaFilter"
-			value="" placeholder="Busca una carta"></label> <label>Usuario <input type="search" id="usuarioFilter"
-			class="form-control" value="" placeholder="Busca un usuario"></label> <label><input
-			type="submit" class="btn btn-primary" value="Buscar"></label>
-	</form>
+	
+	<label>Carta <input type="search" class="form-control" id="cartaFilter"
+		value="" placeholder="Busca una carta"></label> <label>Usuario <input type="search" id="usuarioFilter"
+		class="form-control" value="" placeholder="Busca un usuario"></label>
 	<div id="intercambio">
 		<div id="intercambio-column" class="offer-column">
 			<h3>Usuarios</h3>
