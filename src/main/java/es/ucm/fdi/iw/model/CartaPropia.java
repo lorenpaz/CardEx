@@ -22,6 +22,7 @@ public class CartaPropia {
 	private String estadoCarta;// DETERIORADA, JUGADA, NUEVA
 	private Carta carta;
 	private int cantidad;
+	private boolean inExchange;
 
 	private List<Intercambio> intercambiosOfrecidos;
 	private List<Intercambio> intercambiosRecibidos;
@@ -29,11 +30,12 @@ public class CartaPropia {
 	public CartaPropia() {
 	}
 
-	public CartaPropia(Carta c, String estadoCarta, int cantidad, Usuario u) {
+	public CartaPropia(Carta c, String estadoCarta, int cantidad, Usuario u, boolean inEx) {
 		this.carta = c;
 		this.estadoCarta = estadoCarta;
 		this.cantidad = cantidad;
 		this.usuarioPropietario = u;
+		this.inExchange = inEx;
 		this.intercambiosOfrecidos = new ArrayList<Intercambio>();
 		this.intercambiosRecibidos = new ArrayList<Intercambio>();
 	}
@@ -99,5 +101,15 @@ public class CartaPropia {
 	public void setIntercambiosRecibidos(List<Intercambio> intercambiosRecibidos) {
 		this.intercambiosRecibidos = intercambiosRecibidos;
 	}
+
+	public boolean isInExchange() {
+		return inExchange;
+	}
+
+	public void setInExchange(boolean inExchange) {
+		this.inExchange = inExchange;
+	}
+	
+	
 
 }
