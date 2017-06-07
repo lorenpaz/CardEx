@@ -59,7 +59,7 @@ function poblarListasCartas(){
 	}
 }
 
-function poblarListaUsuarios(){
+function poblarListaUsuarios(card){
 	$('#intercambio-column .list-group').empty();
 	var j;
 	for(j=0; j<filterUsers.length; j++){
@@ -71,6 +71,7 @@ function poblarListaUsuarios(){
 	}
 }
 
+
 function filterByUser(user){
 	filterUsers = $(usuariosJSON.usuarios).filter(function(){
 		var n = this.usuario;
@@ -79,27 +80,12 @@ function filterByUser(user){
 	return filterUsers[0];
 }
 
-function loadFilterUsersListInOwnCards(list){
-	for(i = 0; i < list.length; i++) {
-		var usu = filterByUser(list[i].usuarioPropietario);
-		if(filterUsersList.length>0){
-			if(isNotInside(usu)){
-				filterUsersList.push(usu);
-			}	
-		}else{
-			filterUsersList.push(usu);
-		}
-	}
-}
-
-function loadFilterUsersListInSearchCards(usu){
-	if(filterUsersList.length>0){
-		if(isNotInside(usu)){
-			filterUsersList.push(usu);
-		}	
-	}else{
-		filterUsersList.push(usu);
-	}
+function getUser(user){
+	var users = $(usuariosJSON.usuarios).filter(function(){
+		var n = this.usuario;
+		return (n.includes(user));
+	});
+	return users[0];
 }
 
 function filterCardsByUser(user){
@@ -115,34 +101,50 @@ function filterCardsByUser(user){
 }
 
 function filterCardsByName(card){
-	var filterAux = filterUsers;
+	var filterAux = [];
+	var filterOwnCardsAux = [];
+	var filterSearchCardsAux = [];
 	var i;
+	var usuarioAux = null;
+	var usuarioTmp;
 	for(i=0; i<filterUsers.length; i++){
-		filterOwnCards = filterUsers[i].cartasPropias.filter(function(c){
+		var ownCardsAux = filterUsers[i].cartasPropias.filter(function(c){
+			usuarioTmp = c.usuarioPropietario;
 			return c.carta.name.includes(card);
 		});
-		if(filterOwnCards>0){
-			loadFilterUsersListInOwnCards(filterOwnCards);
-			filterAux[i].cartasPropias = filterUsers[i].cartasPropias;
+		if(ownCardsAux.length > 0){
+			filterOwnCardsAux.push(ownCardsAux);
+			if(usuarioTmp != usuarioAux){
+				filterAux.push(getUser(usuarioTmp));
+				usuarioAux = usuarioTmp;
+			}
 		}
-		filterSearchCards = filterUsers[i].cartasBuscadas.filter(function(c){
+		usuarioTmp = filterUsers[i].usuario;
+		var searchCardsAux = filterUsers[i].cartasBuscadas.filter(function(c){
 			return c.name.includes(card);
 		});
-		if(filterSearchCards>0){
-			loadFilterUsersListInSearchCards(filterUser);
-			filterAux[i].cartasBuscadas = filterUsers[i].cartasBuscadas;
+		
+		if(searchCardsAux.length > 0){
+			filterSearchCardsAux.push(searchCardsAux);
+			if(usuarioTmp != usuarioAux){
+				filterAux.push(getUser(usuarioTmp));
+				usuarioAux = usuarioTmp;
+			}
 		}
 	}
 	filterUsers = filterAux;
+	filterUsersList = filterUsers;
 	currentUser = filterUsersList[0];
-}
-
-function isNotInside(user){
-	var res = $(filterUsersList).filter(function(){
-		var n = this.usuario;
-		return (n.includes(user.usuario));
-	});
-	return res.length == 0;
+	if(filterOwnCardsAux[0] == undefined){
+		filterOwnCards=[];
+	}else{
+		filterOwnCards=filterOwnCardsAux[0];
+	}
+	if(filterSearchCardsAux[0] == undefined){
+		filterSearchCards=[];
+	}else{
+		filterSearchCards=filterSearchCardsAux[0];
+	}
 }
 
 
@@ -214,51 +216,24 @@ $( function(){
 	}
 
     $("#cartaFilter").on('keyup', function(){	
+    	filterUsers = usuariosJSON.usuarios;
 	    var card = $(this).val();
         var user = $('#usuarioFilter').val();
         filterCardsByCardAndUser(user, card);
         poblarListasCartas();
-        poblarListaUsuarios();
+        poblarListaUsuarios(card);
     });
     
     $("#usuarioFilter").on('keyup', function(){
-    	
+    	filterUsers = usuariosJSON.usuarios;
     	var user = $(this).val();
         var card = $('#cartaFilter').val();
         filterCardsByCardAndUser(user, card);
         poblarListasCartas();
-        poblarListaUsuarios();
+        poblarListaUsuarios(card);
      });
     
-    addBehaviour();/*
-	// Cambiar botón al pulsar en el usuario
-	$("#intercambio-column a").click(function(){
-	    if (!$(this).hasClass('active')){
-	    		
-	    	var user = $(this).text().replace(/\s/g,'');
-	    	var card = $('#cartaFilter').val();
-	        filterUsu = filterByUser(user);
-	        currentUser = filterUsu;
-	        filterCardsByCardAndUser(user, card);
-	        poblarListasCartas();
-	    	var anterior = $('.active').addClass('usuarios').removeClass('active');
-	    	$('.badge').remove();
-	    	$('#usuarioQuieroIntercambio').remove();
-	    	
-	        $(this).addClass('active');
-	        $(this).removeClass('usuarios');
-	        
-	        var cartasDelUsuario = $(this).attr('href');
-	        cartasDelUsuario = "."+cartasDelUsuario;
-	        
-	        
-	        document.getElementById('intercambioEnviar').action = "../intercambio/"+user;
-	        $(this).append('<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span></span>');
-	        filterUsers = usuariosJSON.usuarios;
-	        filterUsersList = filterUsers;
-	    }
-	});*/
-	
+    addBehaviour();
 });
 
 
