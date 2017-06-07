@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -168,7 +169,7 @@ public class Usuario {
 		this.valoracionMedia = valoracionMedia;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy = "usuarioPropietario")
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy = "usuarioPropietario", cascade = CascadeType.ALL)
 	public List<CartaPropia> getCartasPropias() {
 		return cartasPropias;
 	}
@@ -177,7 +178,7 @@ public class Usuario {
 		this.cartasPropias = cartasPropias;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class)
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Carta.class, cascade = CascadeType.ALL)
 	public List<Carta> getCartasBuscadas() {
 		return cartasBuscadas;
 	}

@@ -30,7 +30,7 @@ public class CartaJSON {
 		this.colorIdentity = c.getColorIdentity() == null ? null : c.getColorIdentity()[0];
 		this.type = c.getType();
 		this.setName = c.getSetName();
-		this.text = c.getText();
+		this.text = "";//c.getText();
 		this.artist = c.getArtist();
 		this.power = c.getPower();
 		this.imageUrl = c.getImageUrl();

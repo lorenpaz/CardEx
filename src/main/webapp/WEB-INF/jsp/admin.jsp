@@ -158,7 +158,8 @@
 					                  			  <td><form method='post' action="${prefijo}admin/removeCardSets">
 						                  			    <button type="submit" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-remove"></span></button>
 						                  			    
-						                  			  	<input type="hidden" name="code" value="${edicion.name}"/> 
+						                  			    <input type="hidden" name="code" value="${edicion.code}"/> 
+						                  			  	<input type="hidden" name="name" value="${edicion.name}"/> 
 		                    							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						                  			  </form>
 						                  		</td>

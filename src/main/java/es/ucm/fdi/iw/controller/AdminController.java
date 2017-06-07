@@ -91,8 +91,9 @@ public class AdminController {
 	@SuppressWarnings("unchecked")
 	@PostMapping("/removeCardSets")
 	@Transactional
-	public String borraCartasEdicion(@RequestParam("code") String name){
-		int a = 2;
+	public String borraCartasEdicion(@RequestParam("name") String name,
+									 @RequestParam("code") String code){
+
 		List<Carta> cartas = entityManager.createQuery(
 			    "SELECT c FROM Carta c WHERE c.setName LIKE :name")
 			    .setParameter("name", name)
@@ -101,6 +102,10 @@ public class AdminController {
 		for(Carta c : cartas){
 			entityManager.remove(c);
 		}
+		
+		Edicion e = (Edicion)entityManager.createNamedQuery("getSet").setParameter("codeParam",code).getSingleResult();
+		e.setFechaUltimaActualizacion("Sin Actualizar");
+		entityManager.persist(e);
 		
 		entityManager.flush();
 		return "redirect:";

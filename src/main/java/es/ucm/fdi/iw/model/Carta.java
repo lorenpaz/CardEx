@@ -25,7 +25,7 @@ public class Carta {
 
 	private Edicion edicion;
 	private String setName;
-	private String text;
+	//private String text;
 	private String artist;
 	private String power;
 	private String toughness;
@@ -33,7 +33,7 @@ public class Carta {
 	private String layout;
 	private String multiverseid;
 	private String imageUrl;
-	private String[] printings;
+	//private String[] printings;
 
 	// private List<Usuario> usuariosQueMeTienen;
 	private List<Usuario> UsuariosQueMeBuscan;
@@ -123,13 +123,13 @@ public class Carta {
 		this.edicion = edicion;
 	}
 
-	public String getText() {
+	/*public String getText() {
 		return text;
 	}
 
 	public void setText(String text) {
 		this.text = text;
-	}
+	}*/
 
 	public String getArtist() {
 		return artist;
@@ -179,13 +179,13 @@ public class Carta {
 		this.imageUrl = imageUrl;
 	}
 
-	public String[] getPrintings() {
+	/*public String[] getPrintings() {
 		return printings;
 	}
 
 	public void setPrintings(String[] printings) {
 		this.printings = printings;
-	}
+	}*/
 
 	public String getSetName() {
 		return setName;
@@ -204,7 +204,7 @@ public class Carta {
 		UsuariosQueMeBuscan = usuariosQueMeBuscan;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy = "carta")
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy = "carta", cascade = CascadeType.ALL)
 	public List<CartaPropia> getCartasPropias() {
 		return cartaPropia;
 	}

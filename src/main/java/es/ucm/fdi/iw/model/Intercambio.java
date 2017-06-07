@@ -72,7 +72,7 @@ public class Intercambio {
 		this.estadoIntercambio = estadoIntercambio;
 	}
 
-	@ManyToMany(targetEntity = CartaPropia.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = CartaPropia.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public List<CartaPropia> getCartasOfrecidas() {
 		return cartasOfrecidas;
 	}
@@ -81,7 +81,7 @@ public class Intercambio {
 		this.cartasOfrecidas = cartasOfrecidas;
 	}
 
-	@ManyToMany(targetEntity = CartaPropia.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = CartaPropia.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public List<CartaPropia> getCartasRecibidas() {
 		return cartasRecibidas;
 	}

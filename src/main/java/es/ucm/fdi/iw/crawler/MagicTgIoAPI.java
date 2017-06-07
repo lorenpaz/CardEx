@@ -60,10 +60,10 @@ public class MagicTgIoAPI {
 				for(Carta card : cartas)
 				{
 					if(card != null){
-					card.setText("");
+					//card.setText("");
 					String[] aux = new String[10];
 					aux[0]="fg";
-					card.setPrintings(aux);
+					//card.setPrintings(aux);
 					System.out.println("---------------"+"\n"+card.toString()+"\n");
 					card.setEdicion(set);
 					entityManager.persist(card);
@@ -87,10 +87,10 @@ public class MagicTgIoAPI {
 				for(Carta card : cartas)
 				{
 					if(card != null){
-					card.setText("");
+					//card.setText("");
 					String[] aux = new String[10];
 					aux[0]="fg";
-					card.setPrintings(aux);
+					//card.setPrintings(aux);
 					card.setEdicion(set);
 					entityManager.persist(card);
 					entityManager.flush();
