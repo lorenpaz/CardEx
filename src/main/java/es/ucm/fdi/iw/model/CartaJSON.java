@@ -26,7 +26,8 @@ public class CartaJSON {
 	public CartaJSON(Carta c) {
 		this.id = c.getId();
 		this.name = c.getName();
-		this.colorIdentity = c.getColorIdentity()[0];
+		//daba error cuando colorIdentity[] era null
+		this.colorIdentity = c.getColorIdentity() == null ? null : c.getColorIdentity()[0];
 		this.type = c.getType();
 		this.setName = c.getSetName();
 		this.text = c.getText();
