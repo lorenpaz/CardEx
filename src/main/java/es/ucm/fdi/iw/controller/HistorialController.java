@@ -24,7 +24,9 @@ import com.google.gson.Gson;
 
 import es.ucm.fdi.iw.model.CartaPropia;
 import es.ucm.fdi.iw.model.Intercambio;
+import es.ucm.fdi.iw.model.IntercambioJSON;
 import es.ucm.fdi.iw.model.Usuario;
+import es.ucm.fdi.iw.model.UsuarioJSON;
 
 @Controller
 @RequestMapping("historial")
@@ -61,50 +63,19 @@ public class HistorialController {
 				log.info("No such user: " + principal.getName());
 			}
 		}
-	
-	/*	//Recojo los intercambios que me han enviado una oferta
-		@SuppressWarnings("unchecked")
-		ArrayList<Intercambio> intercambiosReciboOferta = (ArrayList<Intercambio>) entityManager.createNamedQuery("getUsersRecibe")
-				.setParameter("userRecibe", usuarioActual).getResultList();
-		
-		//Recojo los intercambios a los que he enviado una oferta
-		@SuppressWarnings("unchecked")
-		ArrayList<Intercambio> intercambioEnvioOferta = (ArrayList<Intercambio>) entityManager.createNamedQuery("getUsersOfrece")
-				.setParameter("userOfrece",usuarioActual).getResultList();
 
-		
-		//Recojo los intercambios rechazados
-		@SuppressWarnings("unchecked")
-		ArrayList<Intercambio> intercambiosRechazados = (ArrayList<Intercambio>) entityManager.createNamedQuery("estado")
-				.setParameter("estado","Rechazado").getResultList();
-		
-		//Recojo los intercambios finalizados
-		@SuppressWarnings("unchecked")
-		ArrayList<Intercambio> intercambiosFinalizados = (ArrayList<Intercambio>) entityManager.createNamedQuery("estado")
-				.setParameter("estado","Finalizado").getResultList();
-		
-		
-		//Se lo paso al modelo
-		List<Object> conjuntoDeIntercambios = new ArrayList<Object>();
-		conjuntoDeIntercambios.add(intercambiosReciboOferta);
-		conjuntoDeIntercambios.add(intercambioEnvioOferta);
-		conjuntoDeIntercambios.add(intercambiosRechazados);
-		conjuntoDeIntercambios.add(intercambiosFinalizados);
-		
-		model.addAttribute("intercambioConjunto",conjuntoDeIntercambios);
-		*/
 		if (request.isUserInRole("ROLE_ADMIN"))
 			return "redirect:admin";
 
-		getAllExchanges(model);
-		
+		getAllExchanges(model,usuarioActual);
+
 		return "historial";
 	}
 
 	
-	@PostMapping("/aceptar")
+	@PostMapping("/finalizar")
 	@Transactional
-	public String aceptar (@RequestParam("intercambio") long formIntercambio,
+	public String finalizar (@RequestParam("intercambio") long formIntercambio,
 	HttpSession session)
 	{
 		//Consigo el intercambio y le cambio el estado
@@ -179,7 +150,23 @@ public class HistorialController {
 	{
 		//Consigo el intercambio y lo modifico
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
-		inter.setEstadoIntercambio("rechazado");
+		inter.setEstadoIntercambio("Rechazado");
+		
+		//Actualizo la BBDD
+		entityManager.merge(inter);
+		entityManager.flush();
+		
+		return "redirect:";
+	}
+	
+	@PostMapping("/aceptar")
+	@Transactional
+	public String aceptar (@RequestParam("intercambio") long formIntercambio,
+	HttpSession session)
+	{
+		//Consigo el intercambio y lo modifico
+		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
+		inter.setEstadoIntercambio("Aceptado");
 		
 		//Actualizo la BBDD
 		entityManager.merge(inter);
@@ -211,18 +198,32 @@ public class HistorialController {
 	}
 
 	
-	/*  private void actualizaUsuarioSesion(HttpSession session, Usuario u) { 
+	  private void actualizaUsuarioSesion(HttpSession session, Usuario u) { 
 	 // Actualizo el usuario de la sesión 
 		  session.setAttribute("user", entityManager.find(Usuario.class, u.getId())); 
-	  }*/
-	public void getAllExchanges(Model m){	
+	  }
+	  
+	public void getAllExchanges(Model m,Usuario usuarioActual){	
 		Gson gson = new Gson();
 		
 		@SuppressWarnings("unchecked")
 		List<Intercambio> intercambios = (List<Intercambio>) entityManager.createNamedQuery("allIntercambios").getResultList();
+		
+		String json = "{";
+		json +="\"intercambios\":[";
+		for(Intercambio i : intercambios)
+		{
+			IntercambioJSON intercambioJSON = new IntercambioJSON(i);
+			json += gson.toJson(intercambioJSON);
+			if(intercambios.indexOf(i) != intercambios.size()- 1)
+			{
+				json+= ',';
+			} 
+		}
+		json += "]}";
 
-		String json = gson.toJson(intercambios);
 		m.addAttribute("intercambios", intercambios);
-		m.addAttribute("jsonIntercambios", json);
+		m.addAttribute("intercambiosJSON", json);
+		m.addAttribute("usuarioSesionJSON",gson.toJson(new UsuarioJSON(usuarioActual)));
 	}
 }
