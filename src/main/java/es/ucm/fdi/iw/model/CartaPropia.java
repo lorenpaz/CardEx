@@ -10,7 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+@NamedQueries({
+	@NamedQuery(name = "allOwnCardsByUserEditionName", query = "select c from CartaPropia c where c.usuarioPropietario = :userParam  and c.carta.setName = :EdParam and c.carta.name = :NParam")
+	})
 @Entity
 public class CartaPropia {
 	private long id;

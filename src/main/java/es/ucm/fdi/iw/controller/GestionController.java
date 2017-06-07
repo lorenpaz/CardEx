@@ -84,7 +84,7 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 			}
 		
 		//CartasPropias
-/*		for (CartaPropia c: usuarioActual.getCartasPropias()){
+		/*for (CartaPropia c: usuarioActual.getCartasPropias()){
 			entityManager.remove(c);
 			entityManager.flush();
 		}*/
@@ -94,12 +94,22 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 				@SuppressWarnings("unchecked")
 				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j]).getResultList();
 				Carta c = lista.get(0);
-				CartaPropia cp = new CartaPropia(c, estadoCartasPropias[j],Integer.parseInt(cantidadCartasPropias[j]), usuarioActual);
-				//cp.setCarta(c);
-				//cp.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
-				//cp.setEstadoCarta(estadoCartasPropias[j]);
-				cp.setUsuarioPropietario(usuarioActual);
-				entityManager.persist(cp);
+				CartaPropia cp = null;
+				try{
+				 cp = (CartaPropia) entityManager.createNamedQuery("allOwnCardsByUserEditionName")
+						.setParameter("userParam", usuarioActual)
+						.setParameter("EdParam", c.getSetName())
+						.setParameter("NParam", c.getName()).getSingleResult();
+				}catch(Exception e){
+					cp = new CartaPropia(c, estadoCartasPropias[j],Integer.parseInt(cantidadCartasPropias[j]), usuarioActual);
+					cp.setCarta(c);
+					cp.setUsuarioPropietario(usuarioActual);
+				}
+				
+				cp.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
+				cp.setEstadoCarta(estadoCartasPropias[j]);
+				
+				entityManager.merge(cp);
 				entityManager.flush();
 				
 				usuarioActual.getCartasPropias().add(cp);
