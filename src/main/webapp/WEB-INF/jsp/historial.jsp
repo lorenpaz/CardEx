@@ -1,94 +1,67 @@
 <%@ include file="../jspf/header.jspf" %>
 <div class="container">
 	
-    <form id="filter" class="form-inline form-search" method="post">
         <label>Tipo de oferta:</label>
-        <select class="input-large form-control">
-            <option selected="">Pendientes</option>
-            <option>Aceptadas</option>
-            <option>Rechazadas</option>
-            <option>Finalizadas</option>
+        <select class="input-large form-control filter" id="offerFilter">
+            <option selected="" value="Pendiente">Pendientes</option>
+            <option value="Aceptado">Aceptadas</option>
+            <option value="Rechazado">Rechazadas</option>
+            <option value="Finalizado">Finalizadas</option>
         </select>&nbsp;&nbsp;
         <label>Usuario:</label>
-        <input type="search" class="form-control" value="Nombre del usuario">
+        <input type="search" class="form-control filter" id="userFilter" placeholder="Busca un usuario">
         <input type="submit" class="btn btn-primary" value="Buscar">
-    </form>
-	<c:forEach items="${intercambioConjunto}" var="intercambios" varStatus="statusConjunto">
-	<c:choose>
-	<c:when test="${not empty intercambios}">
+	<c:forEach items="${intercambios}" var="intercambio" varStatus="status">
     <div id="intercambio">
 		<div id="intercambio-column" class="offer-column">
-		<c:choose>
-		<c:when test="${statusConjunto.first}">
-			<h3>Ofertas recibidas</h3>
-		</c:when>			
-		<c:otherwise>
-			<h3>Ofertas finalizadas</h3>
-		</c:otherwise>
-		</c:choose>
 			<div class="list-group">
-			 <c:forEach items="${intercambios}" var="intercambio" varStatus="status">
-					<c:choose>
-						<c:when test="${statusConjunto.first}">
-							<c:choose>
-								<c:when test="${status.first}">
-									<a href="${intercambio.id}" aria-controls="tab-${intercambio.id}"
-										role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item active"><c:out value="${intercambio.usuarioOfrece.usuario}"/>
-										<span class="badge"> <span
-											class="glyphicon glyphicon-chevron-right"></span>
-									</span>
-									</a>
-									<c:set var="currentUser" value="${intercambio.usuarioOfrece.usuario}" />
-								</c:when>
-								<c:otherwise>
-									<a href="${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
-										role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item usuarios"><c:out value="${intercambio.usuarioOfrece.usuario}"/></a>
-								</c:otherwise>
-							</c:choose>
-						</c:when>
-						<c:otherwise>
-							<c:choose>
-								<c:when test="${status.first}">
-									<a href="${intercambio.id}" aria-controls="tab-${intercambio.id}"
-										role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item active"><c:out value="${intercambio.usuarioRecibe.usuario}"/>
-										<span class="badge"> <span
-											class="glyphicon glyphicon-chevron-right"></span>
-									</span>
-									</a>
-									<c:set var="currentUser" value="${intercambio.usuarioRecibe.usuario}" />
-								</c:when>
-								<c:otherwise>
-									<a href="${intercambio.usuarioRecibe.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
-										role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item usuarios"><c:out value="${intercambio.usuarioRecibe.usuario}"/></a>
-								</c:otherwise>
-							</c:choose>
-						</c:otherwise>
-					</c:choose>
-			</c:forEach>
+			<c:choose>
+			<c:when test="${status.first}">
+				<c:choose>
+				<c:when test="${user.id == intercambio.usuarioOfrece.id}">
+				<a href="${intercambio.id}" aria-controls="tab-${intercambio.id}"
+				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item active"><c:out value="${intercambio.usuarioRecibe.usuario}"/>
+				<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span>
+				</span>
+				</a>
+				<c:set var="currentUser" value="${intercambio.usuarioRecibe.usuario}" />
+				</c:when>
+				<c:otherwise>
+				<a href="${intercambio.id}" aria-controls="tab-${intercambio.id}"
+				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item active"><c:out value="${intercambio.usuarioOfrece.usuario}"/>
+				<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span>
+				</span>
+				</a>
+				<c:set var="currentUser" value="${intercambio.usuarioOfrece.usuario}" />
+				</c:otherwise>
+				</c:choose>
+			</c:when>
+			<c:otherwise>
+				<c:choose>
+				<c:when test="${user.id == intercambio.usuarioOfrece.id}">
+				<a href="${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
+				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item usuarios"><c:out value="${intercambio.usuarioRecibe.usuario}"/></a>
+				</c:when>
+				<c:otherwise>
+				<a href="${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
+				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item usuarios"><c:out value="${intercambio.usuarioOfrece.usuario}"/></a>
+				</c:otherwise>
+				</c:choose>
+			</c:otherwise>
+			</c:choose>
 			</div>
 		</div>
         <div id="ofrece-column" class="offer-column">
-        <c:choose>
-        <c:when test="${!statusConjunto.first}">
-            <h3>Ofrezco</h3>
-        </c:when>
-        <c:when test="${!statusConjunto.index == 2}">
-            <h3>Ofrece</h3>
-        </c:when>
-        <c:when test="${!statusConjunto.index == 3}">
-            <h3>Se ofreció</h3>
-        </c:when>                
-        <c:otherwise>
-        	<h3>Se ofreció</h3>
-        </c:otherwise>
-        </c:choose>
-            <table class="table table-striped">
+        	<h3>Ofrece</h3>
+            <table class="table table-striped" id="offerTable">
+            <thead>
                 <tr>
                     <th>Carta</th>
                     <th>Estado</th>
                     <th>Cantidad</th>
                	</tr>
-            <c:forEach items="${intercambios}" var="intercambio" varStatus="status">
+            </thead>
+            <tbody>
             <c:forEach items="${intercambio.cartasOfrecidas}" var="cartaOfrecida">
                 <tr class="cartas ${intercambio.id}">
                 <td>${cartaOfrecida.carta.name}</td>
@@ -106,32 +79,21 @@
                 <td>${cartaOfrecida.cantidad}</td>
                 </tr>
              </c:forEach>
-             </c:forEach>
+             </tbody>
             </table>
         </div>
 
         <div id="pide-column" class="offer-column">
-        <c:choose>
-        <c:when test="${!statusConjunto.first}">
-            <h3>Pido</h3>
-        </c:when>
-        <c:when test="${!statusConjunto.first}">
-            <h3>Pide</h3>
-        </c:when>
-        <c:when test="${!statusConjunto.first}">
-            <h3>Se pidió</h3>
-        </c:when>                
-        <c:otherwise>
-        	<h3>Se pidió</h3>
-        </c:otherwise>
-        </c:choose>
-            <table class="table table-striped">
+        	<h3>Pide</h3>
+            <table class="table table-striped" id="orderTable">
+            <thead>
                 <tr>
                     <th>Carta</th>
                     <th>Estado</th>
                     <th>Cantidad</th>
                 </tr>
-            <c:forEach items="${intercambios}" var="intercambio" varStatus="status">
+             </thead>
+             <tbody>
             <c:forEach items="${intercambio.cartasRecibidas}" var="cartaRecibida">
                 <tr class="cartas ${intercambio.id}">
                 <td>${cartaRecibida.carta.name}</td>
@@ -148,11 +110,11 @@
                 </c:choose>
                 <td>${cartaRecibida.cantidad}</td>
                 </tr>
-             </c:forEach>   
-             </c:forEach>            
+             </c:forEach>
+             </tbody>            
             </table>
         </div>
-		<c:if test="${statusConjunto.first}">
+		<c:if test="${status.first}">
         <div id="action" class="offer-column">
             <div class="list-group">
             	<form method="post" action="${prefijo}historial/aceptar" id="enviarPOST">
@@ -174,20 +136,13 @@
         </div>
         </c:if>
     </div>
-    </c:when>
-	    <c:otherwise>
-	    No hay ofertas 
-		    <c:choose>
-		    <c:when test="${statusConjunto.first}">
-		    	recibidas
-		    </c:when>	    		    
-		    <c:otherwise>
-		    	finalizadas
-		    </c:otherwise>
-		    </c:choose>
-	    </c:otherwise>
-    </c:choose>
     </c:forEach>
 </div>
+<script>
+var usuarioActual = '<c:out value = "${currentUser}"/>';
+var usuarioSesionJSON = ${usuarioSesionJSON};
 
+var csrf = '<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />';
+var intercambiosJSON = ${intercambiosJSON};
+</script>
 <%@ include file="../jspf/footer.jspf" %>
