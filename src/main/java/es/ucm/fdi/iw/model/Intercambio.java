@@ -10,6 +10,8 @@ import javax.persistence.*;
 		@NamedQuery(name = "getUsersRecibe", query = "select i from Intercambio i where i.usuarioRecibe = :userRecibe"),
 		@NamedQuery(name = "getUsersOfrece", query = "select i from Intercambio i where i.usuarioOfrece = :userOfrece"),
 		@NamedQuery(name = "estado", query = "select i from Intercambio i where i.estadoIntercambio = :estado"),
+		@NamedQuery(name = "exchangeOfrecidas", query = "select i.cartasOfrecidas from Intercambio i"),
+		@NamedQuery(name = "exchangeRecibidas", query = "select i.cartasRecibidas from Intercambio i"),
 		@NamedQuery(name = "allIntercambios", query = "select i from Intercambio i") })
 @Entity
 public class Intercambio {

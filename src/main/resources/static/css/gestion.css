@@ -153,3 +153,11 @@ thead {
 	overflow: hidden;
 	display: table-footer-group;
 }
+
+.exchange{
+	background-color: lightcoral;
+}
+
+.notExchange{
+	background-color: ivory;
+}

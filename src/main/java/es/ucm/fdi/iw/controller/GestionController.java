@@ -28,41 +28,36 @@ import es.ucm.fdi.iw.model.CartaPropia;
 import es.ucm.fdi.iw.model.Usuario;
 import es.ucm.fdi.iw.model.Valoracion;
 
- 
 @Controller
 @RequestMapping("gestion_cartas")
 public class GestionController {
-	
-private static Logger log = Logger.getLogger(PerfilController.class);
-	
+
+	private static Logger log = Logger.getLogger(PerfilController.class);
+
 	@Autowired
-	private EntityManager entityManager; 
-	
+	private EntityManager entityManager;
+
 	// Incluimos ${prefix} en todas las páginas
 	@ModelAttribute
 	public void addAttributes(Model m) {
 		m.addAttribute("prefix", "../static/");
 		m.addAttribute("prefijo", "../");
 	}
-	
-	@GetMapping({"", "/"})
-	public String gestionCartas(Model model,HttpSession session, Principal principal) {
-		
+
+	@GetMapping({ "", "/" })
+	public String gestionCartas(Model model, HttpSession session, Principal principal) {
+
 		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
 				.setParameter("userParam", principal.getName()).getSingleResult();
-		
-		
-		
+
 		añadirCSSyJSAlModelo(model);
-		actualizaUsuarioSesion(session,usuarioActual);
-		
+		actualizaUsuarioSesion(session, usuarioActual);
+
 		getAllCards(model);
-		
-		
-	
+
 		return "gestion_cartas";
 	}
-	
+
 	@PostMapping("/registrarCartasUsuario")
 	@Transactional
 	public String registrarCartasUsuario (
@@ -76,18 +71,22 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 				.setParameter("userParam", principal.getName()).getSingleResult();
 		
 		//CartasBuscadas
-			usuarioActual.setCartasBuscadas(new ArrayList<Carta>());
-			for(int i=1; i<cartasBuscadas.length; i++){
-				@SuppressWarnings("unchecked")
-				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasBuscadas[i]).setParameter("paramEdition", edicionCartasBuscadas[i]).getResultList();
-				usuarioActual.getCartasBuscadas().add(lista.get(0));
-			}
-		
+		usuarioActual.setCartasBuscadas(new ArrayList<Carta>());
+		for(int i=1; i<cartasBuscadas.length; i++){
+			@SuppressWarnings("unchecked")
+			List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasBuscadas[i]).setParameter("paramEdition", edicionCartasBuscadas[i]).getResultList();
+			usuarioActual.getCartasBuscadas().add(lista.get(0));
+		}
+	
+		List<CartaPropia> cartasOfrecidas = entityManager.createNamedQuery("exchangeOfrecidas").getResultList();
+		List<CartaPropia> cartasRecibidas = entityManager.createNamedQuery("exchangeRecibidas").getResultList();
 		//CartasPropias
-		/*for (CartaPropia c: usuarioActual.getCartasPropias()){
-			entityManager.remove(c);
-			entityManager.flush();
-		}*/
+		for (CartaPropia c: usuarioActual.getCartasPropias()){
+			if(!isInExchange(c, cartasOfrecidas, cartasRecibidas)){
+				entityManager.remove(c);
+				entityManager.flush();
+			}
+		}
 		
 			usuarioActual.setCartasPropias(new ArrayList<CartaPropia>());
 			for(int j=1; j<cartasPropias.length; j++){
@@ -101,7 +100,7 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 						.setParameter("EdParam", c.getSetName())
 						.setParameter("NParam", c.getName()).getSingleResult();
 				}catch(Exception e){
-					cp = new CartaPropia(c, estadoCartasPropias[j],Integer.parseInt(cantidadCartasPropias[j]), usuarioActual);
+					cp = new CartaPropia(c, estadoCartasPropias[j],Integer.parseInt(cantidadCartasPropias[j]), usuarioActual, false);
 					cp.setCarta(c);
 					cp.setUsuarioPropietario(usuarioActual);
 				}
@@ -123,13 +122,20 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 
 		return "redirect:";
 	}
-	
-	private void actualizaUsuarioSesion(HttpSession session,Usuario u)
-	{
-		//Actualizo el usuario de la sesión
-		session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));	
+
+	private boolean isInExchange(CartaPropia c, List<CartaPropia> cartasOfrecidas, List<CartaPropia> cartasRecibidas) {
+		if(cartasOfrecidas.contains(c) || cartasRecibidas.contains(c)){
+			return true;
+		}else{
+			return false;
+		}
 	}
-	
+
+	private void actualizaUsuarioSesion(HttpSession session, Usuario u) {
+		// Actualizo el usuario de la sesión
+		session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));
+	}
+
 	public static void añadirCSSyJSAlModelo(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("bootstrap.min.css");
@@ -144,11 +150,11 @@ private static Logger log = Logger.getLogger(PerfilController.class);
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
 	}
-	
-	public void getAllCards(Model m){	
+
+	public void getAllCards(Model m) {
 		Gson gson = new Gson();
 		List<Carta> cartas = (List<Carta>) entityManager.createNamedQuery("allCards").getResultList();
-		for(Carta c : cartas){
+		for (Carta c : cartas) {
 			c.setCartasPropias(null);
 			c.setUsuariosQueMeBuscan(null);
 			c.setEdicion(null);
