@@ -136,6 +136,21 @@ public class PerfilController {
 		actualizaUsuarioSesion(session, usuarioQueValora);
 		return "redirect:../perfil/" + usuarioValorado.getId();
 	}
+	
+	@PostMapping(value = "/eliminarValoracion")
+	@Transactional
+	public String eliminaValoracion(@RequestParam("otroUsuario") String otroUsuarioForm,
+			@RequestParam("valoracionId") long idV, Principal principal, HttpSession session){
+		
+		Usuario otroUsuario = (Usuario) entityManager.createNamedQuery("userByUserField").
+				setParameter("userParam", otroUsuarioForm).getSingleResult();
+				
+		Valoracion valoracion = (Valoracion) entityManager.find(Valoracion.class, idV);
+		entityManager.remove(valoracion);
+		entityManager.flush();
+		
+		return "redirect:../perfil/" + otroUsuario.getId();
+	}
 
 	/**
 	 * Mostrar detalles de un usuario
@@ -150,10 +165,32 @@ public class PerfilController {
 
 		añadirCSSyJSAlModelo(model);
 		Usuario actual = (Usuario) session.getAttribute("user");
+		model.addAttribute("usuarioLogeado", actual);
 		if (id != actual.getId())
 			model.addAttribute("visitante", "true");
+		
+		//anadir cuantas valoraciones tiene usuario
+		long count = ((long) entityManager.createQuery("select count(v) from Valoracion v where v.usuarioValorado = :usuario").
+				setParameter("usuario", entityManager.find(Usuario.class, id)).getSingleResult());
+		
+		model.addAttribute("cuantosUsuariosValoraron", count);
+		
+		//cuantos intercambios habia entre los dos usuarios
+		long cuantosIntercambios = ((long) entityManager.createQuery("select count(i) from Intercambio i where "
+				+ "(i.usuarioOfrece = :actual and i.usuarioRecibe = :usuario) or "
+				+ "(i.usuarioOfrece = :usuario and i.usuarioRecibe = :actual)").
+				setParameter("usuario", entityManager.find(Usuario.class, id)).
+				setParameter("actual", actual).getSingleResult());
+		long cuantasValoraciones = ((long) entityManager.createQuery("select count(v) from Valoracion v where "
+				+ "v.usuarioValorado = :usuario and v.usuarioQueValora = :actual").
+				setParameter("usuario", entityManager.find(Usuario.class, id)).
+				setParameter("actual", actual).getSingleResult());
+		
+		model.addAttribute("cuantosIntercambios", cuantosIntercambios);
+		model.addAttribute("cuantasValoraciones", cuantasValoraciones);
 		return "perfil";
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/eliminarCuenta")
