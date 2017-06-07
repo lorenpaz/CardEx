@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 @NamedQueries({ @NamedQuery(name = "userByUserField", query = "select u from Usuario u where u.usuario = :userParam"),
 		@NamedQuery(name = "delUser", query = "delete from Usuario u where u.usuario= :userParam"),
 		@NamedQuery(name = "getUsers", query = "select u from Usuario u"),
-		@NamedQuery(name = "getActiveUsers", query = "select u from Usuario u where u.roles = :roleParam and u.activo = :activeParam and u.usuario != :actual") })
+		@NamedQuery(name = "getActiveUsers", query = "select u from Usuario u where u.roles = :roleParam and u.activo = :activeParam and u.usuario != :actual order by u.usuario asc") })
 @Entity
 public class Usuario {
 	private long id;
