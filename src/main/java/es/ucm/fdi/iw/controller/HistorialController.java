@@ -78,59 +78,67 @@ public class HistorialController {
 	public String finalizar (@RequestParam("intercambio") long formIntercambio,
 	HttpSession session)
 	{
+		
+		Usuario usuarioActual = (Usuario) session.getAttribute("user");
+		
 		//Consigo el intercambio y le cambio el estado
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Finalizado");
-		
-		//Obtego todo lo que necesito
-		List<CartaPropia> ofrecidas = inter.getCartasOfrecidas();
-		List<CartaPropia> recibidas = inter.getCartasRecibidas();
-		Usuario ofrece = inter.getUsuarioOfrece();
-		Usuario recibe = inter.getUsuarioRecibe();
-		
-		
-		for(CartaPropia carta : ofrecidas)
+		if(!inter.getUsuarioRealizaUltimaAccion().equals(usuarioActual))
 		{
-			/*for(CartaPropia cartaP : ofrece.getCartasPropias())
+			inter.setUsuarioRealizaUltimaAccion(usuarioActual);
+			
+			//Obtego todo lo que necesito
+			List<CartaPropia> ofrecidas = inter.getCartasOfrecidas();
+			List<CartaPropia> recibidas = inter.getCartasRecibidas();
+			Usuario ofrece = inter.getUsuarioOfrece();
+			Usuario recibe = inter.getUsuarioRecibe();
+			
+			
+			for(CartaPropia carta : ofrecidas)
 			{
-				if(cartaP.isInExchange() && carta.getCarta().equals(cartaP.getCarta()))
+				/*for(CartaPropia cartaP : ofrece.getCartasPropias())
 				{
+					if(cartaP.isInExchange() && carta.getCarta().equals(cartaP.getCarta()))
+					{
+							//se borra
+							ofrece.getCartasPropias().remove(cartaP);
+					}
+				}*/
+				ofrece.getCartasPropias().remove(carta);
+				carta.setInExchange(false);
+				carta.setUsuarioPropietario(recibe);
+				entityManager.persist(carta);
+				entityManager.flush();
+				recibe.getCartasPropias().add(carta);
+			}
+			
+			for(CartaPropia carta : recibidas)
+			{
+				/*for(CartaPropia cartaP :  recibe.getCartasPropias())
+				{
+					if(carta.getCarta().equals(cartaP.getCarta()))
+					{
 						//se borra
-						ofrece.getCartasPropias().remove(cartaP);
-				}
-			}*/
-			ofrece.getCartasPropias().remove(carta);
-			carta.setInExchange(false);
-			carta.setUsuarioPropietario(recibe);
-			entityManager.persist(carta);
-			entityManager.flush();
-			recibe.getCartasPropias().add(carta);
+						recibe.getCartasPropias().remove(cartaP);
+					}
+				}*/
+				recibe.getCartasPropias().remove(carta);
+				carta.setInExchange(false);
+				carta.setUsuarioPropietario(ofrece);
+				entityManager.merge(carta);
+				entityManager.flush();
+				ofrece.getCartasPropias().add(carta);
+			}	
+			
+			entityManager.merge(recibe);
+			entityManager.merge(ofrece);
+		}else{
+			inter.setUsuarioRealizaUltimaAccion(usuarioActual);
 		}
-		
-		for(CartaPropia carta : recibidas)
-		{
-			/*for(CartaPropia cartaP :  recibe.getCartasPropias())
-			{
-				if(carta.getCarta().equals(cartaP.getCarta()))
-				{
-					//se borra
-					recibe.getCartasPropias().remove(cartaP);
-				}
-			}*/
-			recibe.getCartasPropias().remove(carta);
-			carta.setInExchange(false);
-			carta.setUsuarioPropietario(ofrece);
-			entityManager.persist(carta);
-			entityManager.flush();
-			ofrece.getCartasPropias().add(carta);
-		}	
-		
-		entityManager.persist(recibe);
-		entityManager.persist(ofrece);
-		entityManager.persist(inter);
+		entityManager.merge(inter);
 		entityManager.flush();
 		
-		Usuario usuarioActual = (Usuario) session.getAttribute("user");
 		actualizaUsuarioSesion(session, usuarioActual);
 		return "redirect:";
 	}
@@ -143,7 +151,7 @@ public class HistorialController {
 		//Consigo el intercambio y lo modifico
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Rechazado");
-		
+		inter.setUsuarioRealizaUltimaAccion( (Usuario) session.getAttribute("user"));
 		//Actualizo la BBDD
 		entityManager.merge(inter);
 		entityManager.flush();
@@ -159,6 +167,7 @@ public class HistorialController {
 		//Consigo el intercambio y lo modifico
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Aceptado");
+		inter.setUsuarioRealizaUltimaAccion( (Usuario) session.getAttribute("user"));
 		
 		//Actualizo la BBDD
 		entityManager.merge(inter);

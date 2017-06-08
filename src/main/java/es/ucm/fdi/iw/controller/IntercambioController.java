@@ -68,7 +68,6 @@ public class IntercambioController {
 		Usuario usuarioActual = (Usuario) session.getAttribute("user");
 		Usuario usuarioIntercambio = (Usuario) entityManager.createNamedQuery("userByUserField")
 				.setParameter("userParam",usuarioQuieroIntercambio).getSingleResult();
-		
 				
 		//Listas
 		List<CartaPropia> listaCartasOfrecidas = new  ArrayList<CartaPropia>();
