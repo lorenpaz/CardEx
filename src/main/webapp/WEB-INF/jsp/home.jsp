@@ -21,7 +21,7 @@
 									class="glyphicon glyphicon-chevron-right"></span>
 							</span>
 							</a>
-							<c:set var="currentUser" value="${usuario.usuario}" />
+							<c:set var="currentUser" value="${usuario.id}" />
 						</c:when>
 						<c:otherwise>
 							<a href="${usuario.id}" aria-controls="tab-${usuario.id}"

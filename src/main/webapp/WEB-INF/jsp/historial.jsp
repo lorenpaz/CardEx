@@ -141,7 +141,7 @@
         </div>
         </c:if>
         <c:if test="${status.first && intercambio.estadoIntercambio == 'Pendiente' && intercambio.usuarioRealizaUltimaAccion.id == user.id}">
-        	<div class="list-group"> Esperando respuesta del otro usuario </div>
+        	<div class="list-group waiting"> Esperando respuesta del otro usuario </div>
         </c:if>
     </div>
     </c:forEach>

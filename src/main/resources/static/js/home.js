@@ -186,7 +186,7 @@ function addBehaviour(){
 	        var cartasDelUsuario = $(this).attr('href');
 	        cartasDelUsuario = "."+cartasDelUsuario;
 	        
-	        
+	        var id = filterByUser(user).id;
 	        document.getElementById('intercambioEnviar').action = "../intercambio/"+user;
 	        $(this).append('<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span></span>');
 	        filterUsers = usuariosJSON.usuarios;

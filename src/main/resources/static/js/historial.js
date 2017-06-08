@@ -150,7 +150,7 @@ function poblarListasCartas(){
 			{
 			$('#action').append(`<div class="list-group"> Esperando respuesta del otro usuario </div>`);
 			}else{
-				var info = `<div id="action" class="offer-column"><div class="list-group"> Esperando respuesta del otro usuario </div>`;
+				var info = `<div id="action" class="offer-column"><div class="list-group waiting"> Esperando respuesta del otro usuario </div>`;
 				$(botonFinalizar).insertAfter('#pide-column');
 			}
 		}
@@ -312,6 +312,7 @@ $( function(){
         poblarListaUsuarios();
     	if(filterExchanges.length == 0)
     	{
+    		$('.waiting').remove();
     		if(!$('#noHay').length)
     		{
     			$('#intercambio').append('<h2 id="noHay">No se han encontrado resultados para la busqueda realizada</h2>');
@@ -334,6 +335,7 @@ $( function(){
         poblarListaUsuarios(); 
     	if(filterExchanges.length == 0)
     	{
+    		$('.waiting').remove();
     		if(!$('#noHay').length)
     		{
     			$('#intercambio').append('<h2 id="noHay">No se han encontrado resultados para la busqueda realizada</h2>');

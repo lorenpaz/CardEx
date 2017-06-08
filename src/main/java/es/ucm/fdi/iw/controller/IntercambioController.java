@@ -41,12 +41,11 @@ public class IntercambioController {
 		m.addAttribute("prefijo", "../");
 	}
 
-	@RequestMapping(value = "/{usuarioIntercambio}")
-	public String root(@PathVariable("usuarioIntercambio") String usuarioExchange,Model model, Principal principal,
+	@RequestMapping(value = "/{id}")
+	public String root(@PathVariable("id") long usuarioExchange,Model model, Principal principal,
 		HttpSession session) {
 			
-		Usuario usuarioIntercambio = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam",usuarioExchange).getSingleResult();
+		Usuario usuarioIntercambio = entityManager.find(Usuario.class, usuarioExchange);
 
 		añadirCSSyJSAlModelo(model);
 		model.addAttribute("usuarioIntercambio", usuarioIntercambio);
@@ -170,7 +169,6 @@ public class IntercambioController {
 		List<String> listaJS = new ArrayList<String>();
 		listaJS.add("jquery-3.1.1.min.js");
 		listaJS.add("bootstrap.min.js");
-		listaJS.add("historial.js");
 		
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
