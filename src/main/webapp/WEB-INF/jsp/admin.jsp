@@ -36,8 +36,12 @@
 <body>
 	<div class="container">
 		<div class="extended text-right">
-		<p><h5>Bienvenido, <span class="text-primary">Administrador</span></h5> <a href="logout"> <span class="badge"> Cerrar sesión</span></a></p>
-		</div>
+		<p><h5>Bienvenido, <span class="text-primary">Administrador</span></h5>
+		<form action="${prefijo}logout" id="sesionCerrar" method="post">
+			<span class="badge"></span><input type="submit" id="cerrarSesion" value="Cerrar Sesión">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		</form>
+		</div> 
 	    <div class="principal">
 	        <div class="col-lg-6 col-sm-6 extended">
 	            <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
