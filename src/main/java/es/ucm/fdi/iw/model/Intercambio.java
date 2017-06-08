@@ -24,7 +24,7 @@ public class Intercambio {
 										// Pendiente
 	private List<CartaPropia> cartasOfrecidas;
 	private List<CartaPropia> cartasRecibidas;
-	
+
 	private Date fecha;
 
 	@Id
