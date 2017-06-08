@@ -41,11 +41,9 @@ public class RootController {
 	@GetMapping({"/index"})
 	@Transactional
 	public String index(Model model) {
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("index.js");
-		model.addAttribute("pageExtraScripts", listaJS);
-		
+		List<String> listaCSS = new ArrayList<String>();
+		listaCSS.add("indexStyle.css");
+		model.addAttribute("pageExtraCSS", listaCSS);
 		return "index";
 	}
 	
@@ -60,11 +58,6 @@ public class RootController {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("infoStyle.css");
 		model.addAttribute("pageExtraCSS", listaCSS);
-		
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("index.js");
-		model.addAttribute("pageExtraScripts", listaJS);
 		return "info";
 	}
 

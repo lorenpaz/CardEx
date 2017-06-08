@@ -99,9 +99,6 @@
 	</div>
 </div>
 <script>
-	var usuariosJSON = $
-	{
-		usuariosJSON
-	}
+	var usuariosJSON = ${usuariosJSON}
 </script>
 <%@ include file="../jspf/footer.jspf"%>
