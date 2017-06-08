@@ -154,8 +154,36 @@ function poblarListasCartas(){
 				$(botonFinalizar).insertAfter('#pide-column');
 			}
 		}
+		else if(filterExchanges[0].estadoIntercambio == 'Finalizado' && filterExchanges[0].usuarioRealizaUltimaAccion.id == usuarioSesionJSON.id) {
+			if($("#action").length)
+			{
+			$('#action').append(`<div class="list-group"> Esperando que finalice el intercambio el otro usuario </div>`);
+			}else{
+				$('#action').append(`<div id="action" class="offer-column"><div class="list-group"> Esperando que finalice el intercambio el otro usuario </div></div>`);
+			}
+		}
 		else if(filterExchanges[0].estadoIntercambio == 'Aceptado')
 		{
+			if($("#action").length)
+			{
+			$('#action').append(
+					`<div class="list-group">`+
+	                `<form method="post" action="../historial/finalizar" id="finalizarPOST">
+	                <button type="submit" class="list-group-item">Finalizar</button>
+	                <input type="hidden" name="intercambio" id="finalizar" value="`+ filterExchanges[0].id +`/>
+	               ` +csrf  +`
+	                </form>`+
+			`</div>`);
+			}else{
+				var botonFinalizar =`<div id="action" class="offer-column"><div class="list-group">`+
+            	`<form method="post" action="../historial/finalizar" id="finalizarPOST">
+            	<button type="submit" class="list-group-item btn btn-primary">Finalizar</button>
+            	<input type="hidden" name="intercambio" id="finalizar" value="`+ filterExchanges[0].id+`" />
+          `+ csrf +  `
+            </form></div>`;
+				$(botonFinalizar).insertAfter('#pide-column');
+			}
+		}else if(filterExchanges[0].estadoIntercambio == 'Finalizado' && filterExchanges[0].usuarioRealizaUltimaAccion.id != usuarioSesionJSON.id){
 			if($("#action").length)
 			{
 			$('#action').append(
@@ -233,30 +261,6 @@ function filterUserByName(userRec){
 		filterOrderCards=[];		
 	}
 }
-/*
-function loadFilterUsersListInOwnCards(list){
-	for(i = 0; i < list.length; i++) {
-		var usu = filterByUser(list[i].usuarioPropietario);
-		if(filterUsersList.length>0){
-			if(isNotInside(usu)){
-				filterUsersList.push(usu);
-			}	
-		}else{
-			filterUsersList.push(usu);
-		}
-	}
-}
-
-function loadFilterUsersListInSearchCards(usu){
-	if(filterUsersList.length>0){
-		if(isNotInside(usu)){
-			filterUsersList.push(usu);
-		}	
-	}else{
-		filterUsersList.push(usu);
-	}
-}*/
-
 
 function addBehaviour(){
 	// Cambiar botón al pulsar en el usuario
@@ -297,12 +301,6 @@ $( function(){
 		filterOrderCards = filterExchanges[0].cartasRecibidas;
 		currentUser = usuarioActual;
 	}
-	
-	/*//Input de forma predeterminada
-	var primerIntercambio = $(".active").attr('id');
-	$("#aceptar").attr('value', primerIntercambio);
-	$("#rechazar").attr('value', primerIntercambio);
-	$("#contraoferta").attr('value', primerIntercambio);*/
 	
 	$("#offerFilter").change(function(){
     	let user = $('#userFilter').val();
