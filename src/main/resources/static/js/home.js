@@ -97,6 +97,8 @@ function filterCardsByUser(user){
 		currentUser = filterUsersList[0];
 	}else{
 		filterUsersList = [];
+		filterSearchCards = [];
+		filterOwnCards = [];
 	}
 }
 
