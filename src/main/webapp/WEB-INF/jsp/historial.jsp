@@ -14,6 +14,7 @@
     <div id="intercambio">
 		<div id="intercambio-column" class="offer-column">
 			<div class="list-group">
+			<c:if test="${intercambio.estadoIntercambio == 'Pendiente'}">
 			<c:choose>
 			<c:when test="${status.first}">
 				<c:choose>
@@ -48,9 +49,11 @@
 				</c:choose>
 			</c:otherwise>
 			</c:choose>
+			</c:if>
 			</div>
 		</div>
         <div id="ofrece-column" class="offer-column">
+        <c:if test="${intercambio.estadoIntercambio == 'Pendiente'}">
         	<h3>Ofrece</h3>
             <table class="table table-striped" id="offerTable">
             <thead>
@@ -80,9 +83,11 @@
              </c:forEach>
              </tbody>
             </table>
+        </c:if>
         </div>
 
         <div id="pide-column" class="offer-column">
+        <c:if test="${intercambio.estadoIntercambio == 'Pendiente'}">
         	<h3>Pide</h3>
             <table class="table table-striped" id="orderTable">
             <thead>
@@ -112,23 +117,24 @@
              </c:forEach>
              </tbody>            
             </table>
+        </c:if>
         </div>
-		<c:if test="${status.first}">
+		<c:if test="${status.first && intercambio.estadoIntercambio == 'Pendiente'}">
         <div id="action" class="offer-column">
             <div class="list-group">
             	<form method="post" action="${prefijo}historial/aceptar" id="enviarPOST">
                 	<button type="submit" class="list-group-item btn btn-primary">Aceptar</button>
-                	<input type="hidden" name="intercambio" id="aceptar" />
+                	<input type="hidden" name="intercambio" id="aceptar" value="${intercambio.id}" />
                 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
                 <form method="post" action="${prefijo}historial/rechazar" id="rechazarPOST">
                 <button type="submit" class="list-group-item">Rechazar</button>
-                <input type="hidden" name="intercambio"  id="rechazar" />
+                <input type="hidden" name="intercambio"  id="rechazar" value="${intercambio.id}" />
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
                 <form method="post" action="${prefijo}historial/contraoferta" id="contraofertaPOST">
                 <button type="submit" class="list-group-item">Hacer contraoferta</button>
-                <input type="hidden" name="intercambio" id="contraoferta" />
+                <input type="hidden" name="intercambio" id="contraoferta" value="${intercambio.id}" />
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
             </div>

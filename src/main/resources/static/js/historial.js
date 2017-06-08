@@ -34,15 +34,33 @@ function createRowUser(exchange){
 }
 
 function createRowCardPide(card){
-	$('#orderTable tbody').append(`<tr><td>`+card.carta.name+`</td>
-			<td><span class="estadoCarta label label-success">`+card.estadoCarta+`</span></td>
-			<td>`+card.cantidad+`</td></tr>`);
+	
+	var estado;
+	if(card.estadoCarta == 'Nueva')
+	{
+		estado = `<td><span class="estadoCarta label label-success">`+card.estadoCarta+`</span></td>`;
+	}else if(card.estadoCarta == 'Jugada')
+	{
+		estado = `<td><span class="estadoCarta label label-warning">`+card.estadoCarta+`</span></td>`;
+	}else{
+		estado = `<td><span class="estadoCarta label label-danger">`+card.estadoCarta+`</span></td>`;
+	}
+	$('#orderTable tbody').append(`<tr><td>`+card.carta.name+`</td>`+ estado + `<td>`+card.cantidad+`</td></tr>`);
 }
 
 function createRowCardOfrece(card){
-	$('#offerTable tbody').append(`<tr><td>`+card.carta.name+`</td>
-			<td><span class="estadoCarta label label-success">`+card.estadoCarta+`</span></td>
-			<td>`+card.cantidad+`</td></tr>`);
+	var estado;
+	if(card.estadoCarta == 'Nueva')
+	{
+		estado = `<td><span class="estadoCarta label label-success">`+card.estadoCarta+`</span></td>`;
+	}else if(card.estadoCarta == 'Jugada')
+	{
+		estado = `<td><span class="estadoCarta label label-warning">`+card.estadoCarta+`</span></td>`;
+	}else{
+		estado = `<td><span class="estadoCarta label label-danger">`+card.estadoCarta+`</span></td>`;
+	}
+	
+	$('#offerTable tbody').append(`<tr><td>`+card.carta.name+`</td>`+ estado + `<td>`+card.cantidad+`</td></tr>`);
 }
 
 function poblarListaUsuarios(){
@@ -65,7 +83,7 @@ function poblarListasCartas(){
 		{
 			$('#ofrece-column').append(`<h3>Ofrece</h3>
             <table class="table table-striped" id="offerTable">
-            <thead>
+            <thead> 
                 <tr>
                     <th>Carta</th>
                     <th>Estado</th>
@@ -112,17 +130,17 @@ function poblarListasCartas(){
 				`<div class="list-group">`+
             	`<form method="post" action="../historial/aceptar" id="enviarPOST">
             	<button type="submit" class="list-group-item btn btn-primary">Aceptar</button>
-            	<input type="hidden" name="intercambio" id="aceptar" />
+            	<input type="hidden" name="intercambio" id="aceptar" value="`+ filterExchanges[0].id+`" />
           `+ csrf +  `
             </form>`+
            `<form method="post" action="../historial/rechazar" id="rechazarPOST">
                 <button type="submit" class="list-group-item">Rechazar</button>
-                <input type="hidden" name="intercambio"  id="rechazar" />
+                <input type="hidden" name="intercambio"  id="rechazar" value="`+ filterExchanges[0].id +`" />
             	`+ csrf + `
                 </form>`+
                 `<form method="post" action="../historial/contraoferta" id="contraofertaPOST">
                 <button type="submit" class="list-group-item">Hacer contraoferta</button>
-                <input type="hidden" name="intercambio" id="contraoferta" />
+                <input type="hidden" name="intercambio" id="contraoferta" value="`+ filterExchanges[0].id +`" />
                ` +csrf  +`
                 </form>`+
 		`</div>`);
@@ -132,7 +150,7 @@ function poblarListasCartas(){
 					`<div class="list-group">`+
 	                `<form method="post" action="../historial/finalizar" id="finalizarPOST">
 	                <button type="submit" class="list-group-item">Finalizar</button>
-	                <input type="hidden" name="intercambio" id="finalizar" />
+	                <input type="hidden" name="intercambio" id="finalizar" value="`+ filterExchanges[0].id +`/>
 	               ` +csrf  +`
 	                </form>`+
 			`</div>`);

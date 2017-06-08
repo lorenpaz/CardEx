@@ -20,6 +20,7 @@ public class IntercambioJSON {
 	public IntercambioJSON() {}
 
 	public IntercambioJSON(Intercambio i) {
+		this.id = i.getId();
 		this.usuarioOfrece = new UsuarioJSON(i.getUsuarioOfrece());
 		this.usuarioRecibe = new UsuarioJSON(i.getUsuarioRecibe());
 		this.estadoIntercambio = i.getEstadoIntercambio();
