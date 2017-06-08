@@ -80,66 +80,58 @@ public class HistorialController {
 	{
 		//Consigo el intercambio y le cambio el estado
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
-		inter.setEstadoIntercambio("aceptada");
+		inter.setEstadoIntercambio("Finalizado");
 		
 		//Obtego todo lo que necesito
 		List<CartaPropia> ofrecidas = inter.getCartasOfrecidas();
 		List<CartaPropia> recibidas = inter.getCartasRecibidas();
 		Usuario ofrece = inter.getUsuarioOfrece();
 		Usuario recibe = inter.getUsuarioRecibe();
-		List<CartaPropia> cartasPropiasOfrece = ofrece.getCartasPropias();
-		List<CartaPropia> cartasPropiasRecibe = recibe.getCartasPropias();
+		
 		
 		for(CartaPropia carta : ofrecidas)
 		{
-			for(CartaPropia cartaP : cartasPropiasOfrece)
+			/*for(CartaPropia cartaP : ofrece.getCartasPropias())
 			{
-				if(carta.getCarta().equals(cartaP.getCarta()))
+				if(cartaP.isInExchange() && carta.getCarta().equals(cartaP.getCarta()))
 				{
-					//Si se ha ofrecido la cantidad justa de esa carta
-					if(carta.getCantidad() == cartaP.getCantidad())
-					{
-						cartasPropiasOfrece.remove(cartaP);
-					}else{
-						cartasPropiasOfrece.remove(cartaP);
-						cartaP.setCantidad(cartaP.getCantidad() - carta.getCantidad());
-						cartasPropiasOfrece.add(cartaP);
-					}
+						//se borra
+						ofrece.getCartasPropias().remove(cartaP);
 				}
-			}
+			}*/
+			ofrece.getCartasPropias().remove(carta);
+			carta.setInExchange(false);
+			carta.setUsuarioPropietario(recibe);
+			entityManager.persist(carta);
+			entityManager.flush();
+			recibe.getCartasPropias().add(carta);
 		}
 		
 		for(CartaPropia carta : recibidas)
 		{
-			for(CartaPropia cartaP : cartasPropiasRecibe)
+			/*for(CartaPropia cartaP :  recibe.getCartasPropias())
 			{
 				if(carta.getCarta().equals(cartaP.getCarta()))
 				{
-					//Si se ha ofrecido la cantidad justa de esa carta
-					if(carta.getCantidad() == cartaP.getCantidad())
-					{
-						cartasPropiasRecibe.remove(cartaP);
-					}else{
-						cartasPropiasRecibe.remove(cartaP);
-						cartaP.setCantidad(cartaP.getCantidad() - carta.getCantidad());
-						cartasPropiasRecibe.add(cartaP);
-					}
+					//se borra
+					recibe.getCartasPropias().remove(cartaP);
 				}
-			}
-		}
-		
-		cartasPropiasRecibe.addAll(ofrecidas);
-		cartasPropiasOfrece.addAll(recibidas);
-		
-		recibe.setCartasPropias(cartasPropiasRecibe);
-		ofrece.setCartasPropias(cartasPropiasOfrece);
-		
+			}*/
+			recibe.getCartasPropias().remove(carta);
+			carta.setInExchange(false);
+			carta.setUsuarioPropietario(ofrece);
+			entityManager.persist(carta);
+			entityManager.flush();
+			ofrece.getCartasPropias().add(carta);
+		}	
 		
 		entityManager.persist(recibe);
 		entityManager.persist(ofrece);
 		entityManager.persist(inter);
 		entityManager.flush();
 		
+		Usuario usuarioActual = (Usuario) session.getAttribute("user");
+		actualizaUsuarioSesion(session, usuarioActual);
 		return "redirect:";
 	}
 	

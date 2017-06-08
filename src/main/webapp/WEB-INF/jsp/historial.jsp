@@ -119,7 +119,7 @@
             </table>
         </c:if>
         </div>
-		<c:if test="${status.first && intercambio.estadoIntercambio == 'Pendiente'}">
+		<c:if test="${status.first && intercambio.estadoIntercambio == 'Pendiente' && intercambio.usuarioRealizaUltimaAccion.id != user.id}">
         <div id="action" class="offer-column">
             <div class="list-group">
             	<form method="post" action="${prefijo}historial/aceptar" id="enviarPOST">
@@ -139,6 +139,9 @@
                 </form>
             </div>
         </div>
+        </c:if>
+        <c:if test="${status.first && intercambio.estadoIntercambio == 'Pendiente' && intercambio.usuarioRealizaUltimaAccion.id == user.id}">
+        	<div class="list-group"> Esperando respuesta del otro usuario </div>
         </c:if>
     </div>
     </c:forEach>

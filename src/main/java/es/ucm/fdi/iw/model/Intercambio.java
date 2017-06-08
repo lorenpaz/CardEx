@@ -19,11 +19,12 @@ public class Intercambio {
 	private long id;
 	private Usuario usuarioOfrece;
 	private Usuario usuarioRecibe;
-	private String estadoIntercambio;// Aceptadas, Rechazadas, Finalizadas,
-										// Pendientes
+	private Usuario usuarioRealizaUltimaAccion;
+	private String estadoIntercambio;// Aceptado, Rechazado, Finalizado,
+										// Pendiente
 	private List<CartaPropia> cartasOfrecidas;
 	private List<CartaPropia> cartasRecibidas;
-
+	
 	private Date fecha;
 
 	@Id
@@ -35,13 +36,14 @@ public class Intercambio {
 	public Intercambio() {
 	}
 
-	public Intercambio(Usuario usuarioOfrece, Usuario usuarioRecibe, String estadoIntercambio, Date fecha) {
+	public Intercambio(Usuario usuarioOfrece, Usuario usuarioRecibe, String estadoIntercambio, Date fecha, Usuario usuarioRealizaUltimaAccion) {
 		this.usuarioOfrece = usuarioOfrece;
 		this.usuarioRecibe = usuarioRecibe;
 		this.estadoIntercambio = estadoIntercambio;
 		this.cartasOfrecidas = new ArrayList<CartaPropia>();
 		this.cartasRecibidas = new ArrayList<CartaPropia>();
 		this.fecha = fecha;
+		this.usuarioRealizaUltimaAccion = usuarioRealizaUltimaAccion;
 	}
 
 	public void setId(long idIntercambio) {
@@ -100,7 +102,17 @@ public class Intercambio {
 		this.fecha = fecha;
 	}
 
-	public String toJSON() {
+	@OneToOne(targetEntity = Usuario.class)
+	public Usuario getUsuarioRealizaUltimaAccion() {
+		return usuarioRealizaUltimaAccion;
+	}
+
+	public void setUsuarioRealizaUltimaAccion(Usuario usuarioRealizaUltimaAccion) {
+		this.usuarioRealizaUltimaAccion = usuarioRealizaUltimaAccion;
+	}
+
+	
+	/*public String toJSON() {
 		String json = "";
 		json += "{";
 		json += "\"id\": \"" + this.id + "\" ,";
@@ -137,6 +149,6 @@ public class Intercambio {
 		json += "]";
 		json += "}";
 		return json;
-	}
+	}*/
 
 }

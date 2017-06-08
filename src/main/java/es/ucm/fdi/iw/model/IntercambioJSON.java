@@ -1,11 +1,8 @@
 package es.ucm.fdi.iw.model;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
-import javax.persistence.*;
 
 public class IntercambioJSON {
 
@@ -16,6 +13,7 @@ public class IntercambioJSON {
 	private List<CartaPropiaJSON> cartasOfrecidas;
 	private List<CartaPropiaJSON> cartasRecibidas;
 	private String fecha;
+	private UsuarioJSON usuarioRealizaUltimaAccion;
 	
 	public IntercambioJSON() {}
 
@@ -23,6 +21,7 @@ public class IntercambioJSON {
 		this.id = i.getId();
 		this.usuarioOfrece = new UsuarioJSON(i.getUsuarioOfrece());
 		this.usuarioRecibe = new UsuarioJSON(i.getUsuarioRecibe());
+		this.usuarioRealizaUltimaAccion = new UsuarioJSON(i.getUsuarioRealizaUltimaAccion());
 		this.estadoIntercambio = i.getEstadoIntercambio();
 		this.cartasOfrecidas = parserList(i.getCartasOfrecidas());
 		this.cartasRecibidas = parserList(i.getCartasRecibidas());
@@ -94,7 +93,14 @@ public class IntercambioJSON {
 		this.fecha = fecha;
 	}
 	
-	
+	public UsuarioJSON getUsuarioRealizaUltimaAccion() {
+		return usuarioRealizaUltimaAccion;
+	}
+
+	public void setUsuarioRealizaUltimaAccion(UsuarioJSON usuarioRealizaUltimaAccion) {
+		this.usuarioRealizaUltimaAccion = usuarioRealizaUltimaAccion;
+	}
+
 
 	
 

@@ -124,7 +124,7 @@ function poblarListasCartas(){
 	$("#action").empty();
 	if(filterExchanges.length > 0)
 	{
-		if(filterExchanges[0].estadoIntercambio == 'Pendiente')
+		if(filterExchanges[0].estadoIntercambio == 'Pendiente' && filterExchanges[0].usuarioRealizaUltimaAccion.id != usuarioSesionJSON.id)
 		{
 		$('#action').append(
 				`<div class="list-group">`+
@@ -144,8 +144,20 @@ function poblarListasCartas(){
                ` +csrf  +`
                 </form>`+
 		`</div>`);
-		}else if(filterExchanges[0].estadoIntercambio == 'Aceptado')
+		}else if(filterExchanges[0].estadoIntercambio == 'Pendiente' && filterExchanges[0].usuarioRealizaUltimaAccion.id == usuarioSesionJSON.id)
 		{
+			if($("#action").length)
+			{
+			$('#action').append(`<div class="list-group"> Esperando respuesta del otro usuario </div>`);
+			}else{
+				var info = `<div id="action" class="offer-column"><div class="list-group"> Esperando respuesta del otro usuario </div>`;
+				$(botonFinalizar).insertAfter('#pide-column');
+			}
+		}
+		else if(filterExchanges[0].estadoIntercambio == 'Aceptado')
+		{
+			if($("#action").length)
+			{
 			$('#action').append(
 					`<div class="list-group">`+
 	                `<form method="post" action="../historial/finalizar" id="finalizarPOST">
@@ -154,6 +166,15 @@ function poblarListasCartas(){
 	               ` +csrf  +`
 	                </form>`+
 			`</div>`);
+			}else{
+				var botonFinalizar =`<div id="action" class="offer-column"><div class="list-group">`+
+            	`<form method="post" action="../historial/finalizar" id="finalizarPOST">
+            	<button type="submit" class="list-group-item btn btn-primary">Finalizar</button>
+            	<input type="hidden" name="intercambio" id="finalizar" value="`+ filterExchanges[0].id+`" />
+          `+ csrf +  `
+            </form></div>`;
+				$(botonFinalizar).insertAfter('#pide-column');
+			}
 		}
 	}
 	

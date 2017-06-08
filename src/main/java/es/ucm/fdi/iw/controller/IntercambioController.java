@@ -149,7 +149,7 @@ public class IntercambioController {
 		entityManager.flush();
 		
 		//Creo el intercambio
-		Intercambio intercambio = new Intercambio(usuarioActual,usuarioIntercambio,"Pendiente",new Date(Calendar.getInstance().getTime().getTime()));
+		Intercambio intercambio = new Intercambio(usuarioActual,usuarioIntercambio,"Pendiente",new Date(Calendar.getInstance().getTime().getTime()),usuarioActual);
 		entityManager.persist(intercambio);
 		entityManager.flush();	
 		intercambio.setCartasOfrecidas(listaCartasOfrecidas);

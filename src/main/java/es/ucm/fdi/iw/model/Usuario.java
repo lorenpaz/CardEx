@@ -43,6 +43,12 @@ public class Usuario {
 	public Usuario() {
 	}
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public long getId() {
+		return id;
+	}
+	
 	public static Usuario crearUsuario(String nombre, String apellidos, String email, String usuario, String contraseña,
 			String provincia) {
 		Usuario u = new Usuario();
@@ -77,12 +83,6 @@ public class Usuario {
 
 	public void setValoracionesDadas(List<Valoracion> valoracionesDadas) {
 		this.valoracionesDadas = valoracionesDadas;
-	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public long getId() {
-		return id;
 	}
 
 	public void setId(long idUsuario) {
