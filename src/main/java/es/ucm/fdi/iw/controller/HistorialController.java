@@ -174,7 +174,7 @@ public class HistorialController {
 	{
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 	
-		return "redirect:";
+		return "redirect:../intercambio/contraOferta/"+inter.getId();
 	}	
 	public static void añadirCSSyJSAlModelo(Model model) {
 		List<String> listaCSS = new ArrayList<String>();

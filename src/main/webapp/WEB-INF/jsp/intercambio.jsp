@@ -54,6 +54,14 @@
             	<button class="btn btn-primary" type="submit">Ofrecer</button>
             	<input	type="hidden" name="usuarioQuePido" value="${usuarioIntercambio.usuario}">
             	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            	<c:choose>
+            	<c:when test="${contraOferta}">
+            	<input type="hidden" name="intercambioID" value="${intercambio.id}" />
+            	</c:when>
+            	<c:otherwise>
+            	<input type="hidden" name="intercambioID" value="0" />
+            	</c:otherwise>
+            	</c:choose>
             	</form>
             </div>
         </div>
