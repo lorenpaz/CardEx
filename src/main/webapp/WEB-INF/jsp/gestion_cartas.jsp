@@ -3,9 +3,10 @@
 	<div class="zona-info form-inline form-search">
 		<label>Edici&oacute;n <select id="filterEdition"
 			class="form-control filter">
-				<option>Todas</option>
-				<option>Limited Edition Alpha</option>
-				<option>Limited Edition Beta</option>
+					<option>Todas</option>
+				<c:forEach items="${sets}" var="set">
+					<option>${set.name}</option>
+				</c:forEach>
 		</select>
 		</label> <label>Tipo de carta <select id="filterType"
 			class="form-control filter">
