@@ -92,9 +92,6 @@
 								</p></td>
 						</tr>
 						<tr>
-							<td class="blanco datacell"><p>${carta.text}</p></td>
-						</tr>
-						<tr>
 							<td></td>
 						</tr>
 						<tr>

@@ -10,7 +10,6 @@
         </select>&nbsp;&nbsp;
         <label>Usuario:</label>
         <input type="search" class="form-control filter" id="userFilter" placeholder="Busca un usuario">
-        <input type="submit" class="btn btn-primary" value="Buscar">
 	<c:forEach items="${intercambios}" var="intercambio" varStatus="status">
     <div id="intercambio">
 		<div id="intercambio-column" class="offer-column">

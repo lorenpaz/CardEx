@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.google.gson.Gson;
 
+import es.ucm.fdi.iw.crawler.MagicTgIoAPI;
 import es.ucm.fdi.iw.model.Usuario;
 import es.ucm.fdi.iw.model.UsuarioJSON;
 

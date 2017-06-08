@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -49,6 +50,7 @@ public class MagicTgIoAPI {
 		return null;
 	}
 	
+	@Transactional
 	public void cardsDataBase(EntityManager entityManager){
 		Collection<Edicion> sets = getEdiciones();
 		
@@ -76,6 +78,7 @@ public class MagicTgIoAPI {
 		}
 	}
 	
+	@Transactional
 	public void cardsDataBaseMin(EntityManager entityManager,int limiteEdiciones,int limiteCartasPorEdicion){
 		Collection<Edicion> sets = getEdiciones();
 		int cont = 0;

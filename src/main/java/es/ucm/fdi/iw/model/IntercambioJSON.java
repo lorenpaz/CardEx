@@ -10,8 +10,8 @@ import javax.persistence.*;
 public class IntercambioJSON {
 
 	private long id;
-	private long usuarioOfrece;
-	private long usuarioRecibe;
+	private UsuarioJSON usuarioOfrece;
+	private UsuarioJSON usuarioRecibe;
 	private String estadoIntercambio;//Aceptadas, Rechazadas, Finalizadas, Pendientes
 	private List<CartaPropiaJSON> cartasOfrecidas;
 	private List<CartaPropiaJSON> cartasRecibidas;
@@ -20,8 +20,8 @@ public class IntercambioJSON {
 	public IntercambioJSON() {}
 
 	public IntercambioJSON(Intercambio i) {
-		this.usuarioOfrece = i.getUsuarioOfrece().getId();
-		this.usuarioRecibe = i.getUsuarioRecibe().getId();
+		this.usuarioOfrece = new UsuarioJSON(i.getUsuarioOfrece());
+		this.usuarioRecibe = new UsuarioJSON(i.getUsuarioRecibe());
 		this.estadoIntercambio = i.getEstadoIntercambio();
 		this.cartasOfrecidas = parserList(i.getCartasOfrecidas());
 		this.cartasRecibidas = parserList(i.getCartasRecibidas());
@@ -45,19 +45,19 @@ public class IntercambioJSON {
 		this.id = id;
 	}
 
-	public long getUsuarioOfrece() {
+	public UsuarioJSON getUsuarioOfrece() {
 		return usuarioOfrece;
 	}
 
-	public void setUsuarioOfrece(long usuarioOfrece) {
+	public void setUsuarioOfrece(UsuarioJSON usuarioOfrece) {
 		this.usuarioOfrece = usuarioOfrece;
 	}
 
-	public long getUsuarioRecibe() {
+	public UsuarioJSON getUsuarioRecibe() {
 		return usuarioRecibe;
 	}
 
-	public void setUsuarioRecibe(long usuarioRecibe) {
+	public void setUsuarioRecibe(UsuarioJSON usuarioRecibe) {
 		this.usuarioRecibe = usuarioRecibe;
 	}
 

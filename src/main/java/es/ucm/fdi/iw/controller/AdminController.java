@@ -70,10 +70,13 @@ public class AdminController {
 	public String actualizaCartasEdicion(@RequestParam("code") String code){
 		MagicTgIoAPI api = new MagicTgIoAPI();
 		Collection<Carta> cartasAPI = api.getCartasPorEdicion(code);
-		
+		Edicion edition = (Edicion) entityManager.createNamedQuery("getSet").setParameter("codeParam", code).getSingleResult();
 		for(Carta c : cartasAPI){
 			if(!existeEnBD(c.getMultiverseid()))
+			{
+				c.setEdicion(edition);
 				entityManager.persist(c);
+			}
 		}
 		
 		Date fecha = Calendar.getInstance().getTime();

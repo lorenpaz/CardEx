@@ -14,7 +14,7 @@
 }*/
 
 function createRowUserFirst(exchange){
-	user = exchange.usuarioRecibe == usuarioSesionJSON.id ? exchange.usuarioOfrece : exchange.usuarioRecibe;
+	user = exchange.usuarioRecibe.id == usuarioSesionJSON.id ? exchange.usuarioOfrece : exchange.usuarioRecibe;
 
 	$('#intercambio-column .list-group').append(`<a href="`+user.id+`" aria-controls="tab-`+user.id+`"
 			role="tab" data-toggle="tab" class="list-group-item active">
@@ -26,23 +26,23 @@ function createRowUserFirst(exchange){
 }
 
 function createRowUser(exchange){
-	user = exchange.usuarioRecibe == usuarioSesionJSON.id ? exchange.usuarioOfrece : exchange.usuarioRecibe;
+	user = exchange.usuarioRecibe.id == usuarioSesionJSON.id ? exchange.usuarioOfrece : exchange.usuarioRecibe;
 	$('#intercambio-column .list-group').append(`<a href="`+user.id+`" aria-controls="tab-`+user.id+`"
-			role="tab" data-toggle="tab" class="list-group-item usuarios">
-			`+`</a>`);
+			role="tab" data-toggle="tab" class="list-group-item usuarios">`+ user.usuario
+			+`</a>`);
 	addBehaviour();
 }
 
 function createRowCardPide(card){
-	$('#orderTable tbody').append(`<td>`+card.carta.name+`</td>
+	$('#orderTable tbody').append(`<tr><td>`+card.carta.name+`</td>
 			<td><span class="estadoCarta label label-success">`+card.estadoCarta+`</span></td>
-			<td>`+card.cantidad+`</td>`);
+			<td>`+card.cantidad+`</td></tr>`);
 }
 
 function createRowCardOfrece(card){
-	$('#offerTable tbody').append(`<td>`+card.carta.name+`</td>
+	$('#offerTable tbody').append(`<tr><td>`+card.carta.name+`</td>
 			<td><span class="estadoCarta label label-success">`+card.estadoCarta+`</span></td>
-			<td>`+card.cantidad+`</td>`);
+			<td>`+card.cantidad+`</td></tr>`);
 }
 
 function poblarListaUsuarios(){
@@ -72,17 +72,12 @@ function poblarListasCartas(){
                     <th>Cantidad</th>
                	</tr>
             </thead>
-            <tbody>
-            </tr><tr>`);
-		}else{
-			$('#offerTable tbody').append(`<tr>`);
+            <tbody>`);
 		}
 		createRowCardOfrece(filterOfferCards[i]);
 		if(i == filterOfferCards.length - 1)
 		{
-			$('#offerTable tbody').append(`</tr></tbody></table>`);
-		}else{
-			$('#offerTable tbody').append(`</tr>`);
+			$('#offerTable tbody').append(`</tbody></table>`);
 		}
 	}
 	$('#pide-column').empty();
@@ -98,25 +93,21 @@ function poblarListasCartas(){
                     <th>Cantidad</th>
                 </tr>
              </thead>
-             <tbody>
-             </tr>`);
-		}else{
-			$('#orderTable tbody').append(`<tr>`);
+             <tbody>`);
 		}
 		createRowCardPide(filterOrderCards[i]);
 		if(i== filterOfferCards.length - 1)
 		{
 			$('#orderTable tbody').append(`
-			</tr>
 			</tbody>
 			</table>`);
-		}else{
-			$('#orderTable tbody').append(`</tr>`);
 		}
 	}
 	$("#action").empty();
-	if( filterExchanges.length > 0 && filterExchanges[0].estadoIntercambio == 'Pendiente')
+	if(filterExchanges.length > 0)
 	{
+		if(filterExchanges[0].estadoIntercambio == 'Pendiente')
+		{
 		$('#action').append(
 				`<div class="list-group">`+
             	`<form method="post" action="../historial/aceptar" id="enviarPOST">
@@ -135,6 +126,17 @@ function poblarListasCartas(){
                ` +csrf  +`
                 </form>`+
 		`</div>`);
+		}else if(filterExchanges[0].estadoIntercambio == 'Aceptado')
+		{
+			$('#action').append(
+					`<div class="list-group">`+
+	                `<form method="post" action="../historial/finalizar" id="finalizarPOST">
+	                <button type="submit" class="list-group-item">Finalizar</button>
+	                <input type="hidden" name="intercambio" id="finalizar" />
+	               ` +csrf  +`
+	                </form>`+
+			`</div>`);
+		}
 	}
 	
 }
@@ -147,9 +149,12 @@ function filterByState(state){
 }
 
 function filterByName(userRec){
+	
+	
 	filterExchanges = $(intercambiosJSON.intercambios).filter(function(){
-		var n = this.usuarioOfrece;
-		return (n == userRec || this.usuarioRecibe == userRec);
+
+		var n = this.usuarioRecibe.id == usuarioSesionJSON.id ? this.usuarioOfrece.usuario : this.usuarioRecibe.usuario;
+		return n.startsWith(userRec);
 	});
 }
 
@@ -281,7 +286,7 @@ $( function(){
     	filterExchanges = intercambiosJSON.intercambios;
     });
 	
-    $("#usuarioFilter").on('keyup', function(){
+    $("#userFilter").on('keyup', function(){
     	
     	let user = $(this).val();
     	let state = $('#offerFilter').val();
@@ -297,7 +302,12 @@ $( function(){
         		if($('#noHay').length)
         		{
         			$('#noHay').remove();
-        		}
+        		} 
+    		}
+    	}else{
+    		if($('#noHay').length)
+    		{
+    			$('#noHay').remove();
     		}
     	}
     	filterExchanges = intercambiosJSON.intercambios;
