@@ -10,7 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @NamedQueries({
     @NamedQuery(name="getSets", query="select e from Edicion e"),
     @NamedQuery(name="getSet", query="select e from Edicion e where e.code = :codeParam"),
-    @NamedQuery(name = "updateDate", query = "update Edicion set fechaUltimaActualizacion = :fechaParam where code = :codeParam")
+    @NamedQuery(name = "updateDate", query = "update Edicion set fechaUltimaActualizacion = :fechaParam where code = :codeParam"),
+    @NamedQuery(name="getActiveSets", query="select e from Edicion e where e.fechaUltimaActualizacion != null")
 })
 
 @Entity
