@@ -19,7 +19,7 @@
                       	<td><span class="estadoCarta label label-success"><c:out value="${cartaPropia.estadoCarta}"/></span></td>
                       	<td>
 						<input  type="hidden" name="cartasO[]" value="${cartaPropia.id}">
-						<input  type="number" name="quantityO[]" class="cantidad-carta" value="1" min="1" max="${cartaPropia.cantidad}" >
+						<input  type="number" name="quantityO[]" class="cantidad-carta" value="0" min="0" max="${cartaPropia.cantidad}" >
 						</td> 
                       </tr>  
                       </c:forEach>
@@ -45,7 +45,7 @@
                       	<td><span class="estadoCarta label label-success"><c:out value="${cartaPropia.estadoCarta}"/></span></td>
                       	<td>
 						<input  type="hidden" name="cartasP[]" value="${cartaPropia.id}">
-						<input  type="number" name="quantityP[]" class="cantidad-carta" value="1" min="1" max="${cartaPropia.cantidad}">
+						<input  type="number" name="quantityP[]" class="cantidad-carta" value="0" min="0" max="${cartaPropia.cantidad}">
 						</td> 
                       </tr>  
                       </c:forEach>
