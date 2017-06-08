@@ -97,6 +97,8 @@ function filterCardsByUser(user){
 		currentUser = filterUsersList[0];
 	}else{
 		filterUsersList = [];
+		filterSearchCards = [];
+		filterOwnCards = [];
 	}
 }
 
@@ -187,7 +189,7 @@ function addBehaviour(){
 	        cartasDelUsuario = "."+cartasDelUsuario;
 	        
 	        var id = filterByUser(user).id;
-	        document.getElementById('intercambioEnviar').action = "../intercambio/"+user;
+	        document.getElementById('intercambioEnviar').action = "../intercambio/"+id;
 	        $(this).append('<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span></span>');
 	        filterUsers = usuariosJSON.usuarios;
 	        filterUsersList = filterUsers;
