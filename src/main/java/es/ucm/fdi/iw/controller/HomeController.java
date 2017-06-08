@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.google.gson.Gson;
 
-import es.ucm.fdi.iw.crawler.MagicTgIoAPI;
 import es.ucm.fdi.iw.model.Usuario;
 import es.ucm.fdi.iw.model.UsuarioJSON;
 
@@ -30,9 +26,6 @@ import es.ucm.fdi.iw.model.UsuarioJSON;
 public class HomeController {
 
 	private static Logger log = Logger.getLogger(HomeController.class);
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private EntityManager entityManager;

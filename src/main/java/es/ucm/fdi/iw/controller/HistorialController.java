@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,9 +32,6 @@ import es.ucm.fdi.iw.model.UsuarioJSON;
 public class HistorialController {
 
 	private static Logger log = Logger.getLogger(HistorialController.class);
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private EntityManager entityManager;

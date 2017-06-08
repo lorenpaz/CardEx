@@ -116,14 +116,14 @@ public class PerfilController {
 
 		entityManager.persist(v);
 		entityManager.flush();
-
-		/* Actualizamos el usuario que ha sido valorado */
+		
+		/* Actualizamos el usuario que ha sido valorado 
 		List<Valoracion> valoracionesRec = usuarioValorado.getValoracionesRecibidas();
 		valoracionesRec.add(v);
 		usuarioValorado.setValoracionesRecibidas(valoracionesRec);
 		usuarioValorado.setValoracionMedia(Usuario.hacerMedia(valoracionesRec));
 
-		/* Actualizamos el usuario que valora */
+		 Actualizamos el usuario que valora 
 		List<Valoracion> valoracionesDad = usuarioQueValora.getValoracionesDadas();
 		valoracionesDad.add(v);
 		usuarioQueValora.setValoracionesDadas(valoracionesDad);
@@ -131,7 +131,7 @@ public class PerfilController {
 		// Actualizamos los usuarios de la BBDD
 		entityManager.merge(usuarioQueValora);
 		entityManager.merge(usuarioValorado);
-		entityManager.flush();
+		entityManager.flush();*/
 
 		actualizaUsuarioSesion(session, usuarioQueValora);
 		return "redirect:../perfil/" + usuarioValorado.getId();
