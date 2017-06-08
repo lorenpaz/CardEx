@@ -107,6 +107,7 @@ public class Intercambio {
 		return usuarioRealizaUltimaAccion;
 	}
 
+
 	public void setUsuarioRealizaUltimaAccion(Usuario usuarioRealizaUltimaAccion) {
 		this.usuarioRealizaUltimaAccion = usuarioRealizaUltimaAccion;
 	}
