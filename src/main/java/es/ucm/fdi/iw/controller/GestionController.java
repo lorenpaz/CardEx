@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 import es.ucm.fdi.iw.crawler.MagicTgIoAPI;
 import es.ucm.fdi.iw.model.Carta;
 import es.ucm.fdi.iw.model.CartaPropia;
+import es.ucm.fdi.iw.model.Edicion;
 import es.ucm.fdi.iw.model.Usuario;
 import es.ucm.fdi.iw.model.Valoracion;
 
@@ -52,11 +53,14 @@ public class GestionController {
 
 		añadirCSSyJSAlModelo(model);
 		actualizaUsuarioSesion(session, usuarioActual);
-
+		
+		getAllSets(model);
 		getAllCards(model);
 
 		return "gestion_cartas";
 	}
+
+	
 
 	@PostMapping("/registrarCartasUsuario")
 	@Transactional
@@ -88,7 +92,7 @@ public class GestionController {
 			}
 		}
 		
-			usuarioActual.setCartasPropias(new ArrayList<CartaPropia>());
+			//usuarioActual.setCartasPropias(new ArrayList<CartaPropia>());
 			for(int j=1; j<cartasPropias.length; j++){
 				@SuppressWarnings("unchecked")
 				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j]).getResultList();
@@ -162,6 +166,12 @@ public class GestionController {
 		String json = gson.toJson(cartas);
 		m.addAttribute("cards", cartas);
 		m.addAttribute("jsonCards", json);
+	}
+	
+	private void getAllSets(Model m) {
+		// TODO Auto-generated method stub
+		List<Edicion> ediciones = (List<Edicion>) entityManager.createNamedQuery("getActiveSets").getResultList();
+		m.addAttribute("sets", ediciones);
 	}
 
 }
