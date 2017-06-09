@@ -68,7 +68,7 @@ public class CartaPropia {
 		this.estadoCarta = estadoCarta;
 	}
 
-	@ManyToOne(targetEntity = Carta.class, cascade = CascadeType.ALL)
+	@ManyToOne(targetEntity = Carta.class)
 	public Carta getCarta() {
 		return carta;
 	}

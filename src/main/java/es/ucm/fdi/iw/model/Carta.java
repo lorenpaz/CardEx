@@ -204,7 +204,7 @@ public class Carta {
 		UsuariosQueMeBuscan = usuariosQueMeBuscan;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy = "carta", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = CartaPropia.class, mappedBy = "carta")
 	public List<CartaPropia> getCartasPropias() {
 		return cartaPropia;
 	}

@@ -2,6 +2,7 @@ package es.ucm.fdi.iw.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -73,14 +74,20 @@ public class GestionController {
 					.getResultList();
 			usuarioActual.getCartasBuscadas().add(lista.get(0));
 		}
+		
+		List<CartaPropia> removeCards = new ArrayList<CartaPropia>();
 
 		List<CartaPropia> cartasOfrecidas = entityManager.createNamedQuery("exchangeOfrecidas").getResultList();
 		List<CartaPropia> cartasRecibidas = entityManager.createNamedQuery("exchangeRecibidas").getResultList();
 		// CartasPropias
 		for (CartaPropia c : usuarioActual.getCartasPropias()) {
 			if (!isInExchange(c, cartasOfrecidas, cartasRecibidas)) {
-				entityManager.remove(c);
+				removeCards.add(c);
 			}
+		}
+		for(CartaPropia cp: removeCards){
+			usuarioActual.getCartasPropias().remove(cp);
+			entityManager.remove(cp);
 		}
 
 		for (int j = 1; j < cartasPropias.length; j++) {
