@@ -1,5 +1,6 @@
 package es.ucm.fdi.iw.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,19 @@ public class RootController {
 		listaCSS.add("infoStyle.css");
 		model.addAttribute("pageExtraCSS", listaCSS);
 		return "info";
+	}
+	
+	@GetMapping({ "/terminosServicio" })
+	public String terminosServicio(Model model, Principal principal) {
+		List<String> listaCSS = new ArrayList<String>();
+		listaCSS.add("infoStyle.css");
+		model.addAttribute("pageExtraCSS", listaCSS);
+		if(principal != null){
+			model.addAttribute("userLogin", true);
+		}else{
+			model.addAttribute("userLogin", false);
+		}
+		return "terminosServicio";
 	}
 
 	@RequestMapping(value="/register", method = RequestMethod.POST)
