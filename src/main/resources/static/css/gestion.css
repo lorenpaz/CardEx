@@ -17,7 +17,7 @@
 }
 
 #intercambio{
-	height: 600px;
+	height: 650px;
 	width: 100%;
 	padding: 10px;
 }
@@ -122,6 +122,10 @@ thead {
 #tab1 th, #tab1 td{
 	width: 50%;
     float: left;
+}
+
+#tab1{
+	border: solid 1px lightgrey;
 }
 
 #tab2{

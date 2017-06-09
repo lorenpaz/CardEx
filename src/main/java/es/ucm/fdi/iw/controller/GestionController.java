@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +27,6 @@ import es.ucm.fdi.iw.model.Usuario;
 @Controller
 @RequestMapping("gestion_cartas")
 public class GestionController {
-
-	private static Logger log = Logger.getLogger(PerfilController.class);
 
 	@Autowired
 	private EntityManager entityManager;
@@ -56,6 +53,7 @@ public class GestionController {
 		return "gestion_cartas";
 	}
 
+	@SuppressWarnings("unchecked")
 	@PostMapping("/registrarCartasUsuario")
 	@Transactional
 	public String registrarCartasUsuario(@RequestParam("cardsS[]") String[] cartasBuscadas,
@@ -70,7 +68,6 @@ public class GestionController {
 		// CartasBuscadas
 		usuarioActual.setCartasBuscadas(new ArrayList<Carta>());
 		for (int i = 1; i < cartasBuscadas.length; i++) {
-			@SuppressWarnings("unchecked")
 			List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition")
 					.setParameter("paramName", cartasBuscadas[i]).setParameter("paramEdition", edicionCartasBuscadas[i])
 					.getResultList();
@@ -87,7 +84,6 @@ public class GestionController {
 		}
 
 		for (int j = 1; j < cartasPropias.length; j++) {
-			@SuppressWarnings("unchecked")
 			List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition")
 					.setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j])
 					.getResultList();
@@ -150,6 +146,7 @@ public class GestionController {
 		model.addAttribute("pageExtraScripts", listaJS);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void getAllCards(Model m) {
 		Gson gson = new Gson();
 		List<Carta> cartas = (List<Carta>) entityManager.createNamedQuery("allCards").getResultList();
@@ -163,8 +160,8 @@ public class GestionController {
 		m.addAttribute("jsonCards", json);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void getAllSets(Model m) {
-		// TODO Auto-generated method stub
 		List<Edicion> ediciones = (List<Edicion>) entityManager.createNamedQuery("getActiveSets").getResultList();
 		m.addAttribute("sets", ediciones);
 	}
