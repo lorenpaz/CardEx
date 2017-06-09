@@ -3,7 +3,15 @@
 	<div class="container">
         <div class="extended" id="intercambio">
         	<div class="centered text-center">
-        		<form action="${prefijo}intercambio/ofrecer" method="POST">
+        	     <c:choose>
+            	<c:when test="${contraOferta}">
+            	<c:set var="ruta" value="${prefijo}intercambio/reofrecer" />
+            	</c:when>
+            	<c:otherwise>
+            	<c:set var="ruta" value="${prefijo}intercambio/ofrecer" />
+            	</c:otherwise>
+            	</c:choose>
+            	<form action="${ruta}" method="POST">
 	            <div id="ofrece-column" class="offer-column col-intercambio">
 	                <h3>Tú</h3>
 	                <table class="table table-striped">
@@ -78,17 +86,13 @@
             	<button class="btn btn-primary" type="submit">Ofrecer</button>
             	<input	type="hidden" name="usuarioQuePido" value="${usuarioIntercambio.usuario}">
             	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            	<c:choose>
-            	<c:when test="${contraOferta}">
+            	<c:if test="${contraOferta}">
             	<input type="hidden" name="intercambioID" value="${intercambio.id}" />
-            	</c:when>
-            	<c:otherwise>
-            	<input type="hidden" name="intercambioID" value="0" />
-            	</c:otherwise>
-            	</c:choose>
+            	</c:if>
             	</form>
             </div>
         </div>
+        <c:if test="${contraOferta}">
         <h4 id="tituloResumen" class="text-center">Resumen de la oferta previa</h4>
         <div class="extended" id="intercambio">
         	<div class="centered text-center">
@@ -149,5 +153,6 @@
 		        </div>
 			</div>
     	</div>
+    	</c:if>
    </div>
     <%@ include file="../jspf/footer.jspf" %>
