@@ -42,11 +42,11 @@ public class GestionController {
 	@GetMapping({ "", "/" })
 	public String gestionCartas(Model model, HttpSession session, Principal principal) {
 
-		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", principal.getName()).getSingleResult();
+		/*Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam", principal.getName()).getSingleResult();*/
+		Usuario usuarioActual = (Usuario) session.getAttribute("user");
 
 		añadirCSSyJSAlModelo(model);
-		actualizaUsuarioSesion(session, usuarioActual);
 
 		getAllSets(model);
 		getAllCards(model);
@@ -135,7 +135,8 @@ public class GestionController {
 
 	private void actualizaUsuarioSesion(HttpSession session, Usuario u) {
 		// Actualizo el usuario de la sesión
-		session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));
+		Usuario actual = (Usuario) entityManager.createNamedQuery("userById").setParameter("idParam", u.getId()).getSingleResult();
+		session.setAttribute("user", actual);
 	}
 
 	public static void añadirCSSyJSAlModelo(Model model) {

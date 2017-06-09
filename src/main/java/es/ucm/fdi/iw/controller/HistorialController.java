@@ -48,8 +48,9 @@ public class HistorialController {
 			SecurityContextHolderAwareRequestWrapper request) {
 		
 		añadirCSSyJSAlModelo(model);
-		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", principal.getName()).getSingleResult();
+		Usuario usuarioActual = (Usuario) session.getAttribute("user");
+		/*Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam", principal.getName()).getSingleResult();*/
 
 		if (principal != null && session.getAttribute("user") == null) {
 			try {
@@ -162,7 +163,10 @@ public class HistorialController {
 		entityManager.merge(inter.getUsuarioRecibe());
 		entityManager.flush();
 		
-		actualizaUsuarioSesion(session, actual);
+		
+		Usuario u = entityManager.find(Usuario.class, actual.getId());
+		session.setAttribute("user", u);
+		actualizaUsuarioSesion(session, u);
 		return "redirect:";
 	}
 	
