@@ -74,3 +74,10 @@
 table th{
 	text-align: center;
 }
+
+#filter {
+    margin-bottom: 20px;
+    padding: 10px;
+    text-align: center;
+    display: inline-block;
+}
