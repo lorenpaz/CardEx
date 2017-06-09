@@ -93,14 +93,6 @@ public class HistorialController {
 			
 			for(CartaPropia carta : ofrecidas)
 			{
-				/*for(CartaPropia cartaP : ofrece.getCartasPropias())
-				{
-					if(cartaP.isInExchange() && carta.getCarta().equals(cartaP.getCarta()))
-					{
-							//se borra
-							ofrece.getCartasPropias().remove(cartaP);
-					}
-				}*/
 				ofrece.getCartasPropias().remove(carta);
 				carta.setInExchange(false);
 				carta.setUsuarioPropietario(recibe);
@@ -111,14 +103,6 @@ public class HistorialController {
 			
 			for(CartaPropia carta : recibidas)
 			{
-				/*for(CartaPropia cartaP :  recibe.getCartasPropias())
-				{
-					if(carta.getCarta().equals(cartaP.getCarta()))
-					{
-						//se borra
-						recibe.getCartasPropias().remove(cartaP);
-					}
-				}*/
 				recibe.getCartasPropias().remove(carta);
 				carta.setInExchange(false);
 				carta.setUsuarioPropietario(ofrece);
@@ -148,6 +132,20 @@ public class HistorialController {
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Rechazado");
 		inter.setUsuarioRealizaUltimaAccion( (Usuario) session.getAttribute("user"));
+		
+		for(CartaPropia c : inter.getCartasOfrecidas())
+		{
+			c.setInExchange(false);
+			entityManager.merge(c);
+			entityManager.flush();
+		}
+		for(CartaPropia c : inter.getCartasRecibidas())
+		{
+			c.setInExchange(false);
+			entityManager.merge(c);
+			entityManager.flush();
+		}
+		
 		//Actualizo la BBDD
 		entityManager.merge(inter);
 		entityManager.flush();

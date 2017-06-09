@@ -179,10 +179,22 @@ public class IntercambioController {
 		HttpSession session) 
 	{
 		Intercambio inter = entityManager.find(Intercambio.class, intercambioId);
+		Usuario actual = (Usuario) session.getAttribute("user");
 		
+		//Control de errores y/o usuario se equivoca con la ruta o quiere hacer trampas
+		if(!inter.getEstadoIntercambio().equals("Pendiente") || (
+		inter.getUsuarioOfrece().getId() != actual.getId() &&
+		inter.getUsuarioRecibe().getId() != actual.getId()))
+		{
+			return "redirect:../historial";
+		}
 		model.addAttribute("intercambio",inter);
 		añadirCSSyJSAlModelo(model);
 		model.addAttribute("contraOferta",true);
+	
+
+		Usuario usuarioContrario = actual.getId() == inter.getUsuarioRecibe().getId() ? inter.getUsuarioOfrece() : inter.getUsuarioRecibe();
+		model.addAttribute("usuarioIntercambio", usuarioContrario);
 		
 		return "intercambio";
 	}
