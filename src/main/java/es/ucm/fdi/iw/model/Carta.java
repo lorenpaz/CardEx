@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @NamedQueries({ @NamedQuery(name = "allCards", query = "select c from Carta c"),
+		@NamedQuery(name = "allActiveCards", query = "select c from Carta c where c.active = true"),
 		@NamedQuery(name = "findCardByNameAndEdition", query = "select c from Carta c where c.name = :paramName and c.setName= :paramEdition"),
 		@NamedQuery(name = "findCardByMultiverseID", query = "select c from Carta c where c.multiverseid = :paramMultiverse") })
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -22,22 +23,17 @@ public class Carta {
 	private String type;
 	private String[] types;
 	private String rarity;
-
 	private Edicion edicion;
 	private String setName;
-	//private String text;
 	private String artist;
 	private String power;
 	private String toughness;
-
 	private String layout;
 	private String multiverseid;
 	private String imageUrl;
-	//private String[] printings;
-
-	// private List<Usuario> usuariosQueMeTienen;
+	private boolean active;
+	
 	private List<Usuario> UsuariosQueMeBuscan;
-
 	private List<CartaPropia> cartaPropia;
 
 	@Id
@@ -123,14 +119,6 @@ public class Carta {
 		this.edicion = edicion;
 	}
 
-	/*public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}*/
-
 	public String getArtist() {
 		return artist;
 	}
@@ -179,14 +167,6 @@ public class Carta {
 		this.imageUrl = imageUrl;
 	}
 
-	/*public String[] getPrintings() {
-		return printings;
-	}
-
-	public void setPrintings(String[] printings) {
-		this.printings = printings;
-	}*/
-
 	public String getSetName() {
 		return setName;
 	}
@@ -212,5 +192,13 @@ public class Carta {
 	public void setCartasPropias(List<CartaPropia> cartaPropia) {
 		this.cartaPropia = cartaPropia;
 	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}	
 
 }

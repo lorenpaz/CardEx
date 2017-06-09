@@ -157,7 +157,7 @@ public class GestionController {
 	@SuppressWarnings("unchecked")
 	public void getAllCards(Model m) {
 		Gson gson = new Gson();
-		List<Carta> cartas = (List<Carta>) entityManager.createNamedQuery("allCards").getResultList();
+		List<Carta> cartas = (List<Carta>) entityManager.createNamedQuery("allActiveCards").getResultList();
 		for (Carta c : cartas) {
 			c.setCartasPropias(null);
 			c.setUsuariosQueMeBuscan(null);

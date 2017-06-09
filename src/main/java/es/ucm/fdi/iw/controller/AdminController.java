@@ -75,6 +75,7 @@ public class AdminController {
 			if(!existeEnBD(c.getMultiverseid()))
 			{
 				c.setEdicion(edition);
+				c.setActive(true);
 				entityManager.persist(c);
 			}
 		}
@@ -103,11 +104,12 @@ public class AdminController {
 			    .getResultList();
 		
 		for(Carta c : cartas){
-			entityManager.remove(c);
+			c.setActive(false);
+			entityManager.merge(c);
 		}
 		
 		Edicion e = (Edicion)entityManager.createNamedQuery("getSet").setParameter("codeParam",code).getSingleResult();
-		e.setFechaUltimaActualizacion("Sin Actualizar");
+		e.setFechaUltimaActualizacion(null);
 		entityManager.persist(e);
 		
 		entityManager.flush();
