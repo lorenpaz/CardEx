@@ -6,6 +6,14 @@
         	     <c:choose>
             	<c:when test="${contraOferta}">
             	<c:set var="ruta" value="${prefijo}intercambio/reofrecer" />
+            	<c:choose>
+             	<c:when test="${intercambio.usuarioOfrece.id == user.id}">
+             			<c:set var="cartasDelUsuarioIntercambio" value="${intercambio.cartasOfrecidas}" />
+             	</c:when>
+             	<c:otherwise>
+             			<c:set var="cartasDelUsuarioIntercambio" value="${intercambio.cartasRecibidas}" />
+             	</c:otherwise>
+                </c:choose>
             	</c:when>
             	<c:otherwise>
             	<c:set var="ruta" value="${prefijo}intercambio/ofrecer" />
@@ -22,6 +30,14 @@
 	                      <th>Cantidad</th>
                       </tr>
                       <c:forEach items="${user.cartasPropias}" var="cartaPropia">
+                      <c:if test="${contraOferta}">
+		               		<c:forEach items="${cartasDelUsuarioIntercambio}" var="cartaInter">
+		               		<c:if test="${cartaPropia.id == cartaInter.id}">
+		               			<c:set var="inThisExchange" value="true" />
+		               		</c:if>
+		               		</c:forEach>
+                      </c:if>
+                      <c:if test="${(!cartaPropia.inExchange) || (inThisExchange)}">
                       <tr id="spinner${cartaPropia.id}a">
                       	<td><c:out value="${cartaPropia.carta.name}"/></td>
                       	<td>
@@ -41,7 +57,8 @@
 						<input  type="hidden" name="cartasO[]" value="${cartaPropia.id}">
 						<input  type="number" name="quantityO[]" class="cantidad-carta" value="0" min="0" max="${cartaPropia.cantidad}" >
 						</td> 
-                      </tr>  
+                      </tr> 
+                      </c:if> 
                       </c:forEach>
                     </table>
 	            </div> 
@@ -60,6 +77,14 @@
 		                      <th>Cantidad</th>
 	                      </tr> 
                       <c:forEach items="${usuarioIntercambio.cartasPropias}" var="cartaPropia">
+                      <c:if test="${contraOferta}">
+		               		<c:forEach items="${cartasDelUsuarioIntercambio}" var="cartaInter">
+		               		<c:if test="${cartaPropia.id == cartaInter.id}">
+		               			<c:set var="inThisExchange" value="true" />
+		               		</c:if>
+		               		</c:forEach>
+                      </c:if>
+                      <c:if test="${(!cartaPropia.inExchange) || (inThisExchange)}">
                       <tr id="spinner${cartaPropia.id}b">
                       	<td><c:out value="${cartaPropia.carta.name}"/></td>
                       	<td>
@@ -79,7 +104,8 @@
 						<input  type="hidden" name="cartasP[]" value="${cartaPropia.id}">
 						<input  type="number" name="quantityP[]" class="cantidad-carta" value="0" min="0" max="${cartaPropia.cantidad}">
 						</td> 
-                      </tr>  
+                      </tr>
+                      </c:if>  
                       </c:forEach>
                     </table>
 	            </div>

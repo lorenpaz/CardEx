@@ -183,6 +183,7 @@ public class IntercambioController {
 		Usuario usuarioContrario = actual.getId() == inter.getUsuarioRecibe().getId() ? inter.getUsuarioOfrece() : inter.getUsuarioRecibe();
 		model.addAttribute("usuarioIntercambio", usuarioContrario);
 		
+		m.addAttribute("prefijo", "../../");
 		return "intercambio";
 	}
 	
