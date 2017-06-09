@@ -140,7 +140,7 @@
 			           		</c:otherwise>
 			              	</c:choose>
 			              	</td>
-			              	</td> 
+			              	<td> 
 			              	<label class="cantidad-carta">${cartaPropia.cantidad}</label>   	
 			                </td> 
 			              </tr>  
@@ -149,4 +149,5 @@
 		        </div>
 			</div>
     	</div>
+   </div>
     <%@ include file="../jspf/footer.jspf" %>
