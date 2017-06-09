@@ -1,7 +1,5 @@
 package es.ucm.fdi.iw.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
-
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 
-import es.ucm.fdi.iw.crawler.MagicTgIoAPI;
 import es.ucm.fdi.iw.model.Carta;
 import es.ucm.fdi.iw.model.CartaPropia;
 import es.ucm.fdi.iw.model.Edicion;
 import es.ucm.fdi.iw.model.Usuario;
-import es.ucm.fdi.iw.model.Valoracion;
 
 @Controller
 @RequestMapping("gestion_cartas")
@@ -87,11 +83,9 @@ public class GestionController {
 		for (CartaPropia c : usuarioActual.getCartasPropias()) {
 			if (!isInExchange(c, cartasOfrecidas, cartasRecibidas)) {
 				entityManager.remove(c);
-				// entityManager.flush();
 			}
 		}
 
-		// usuarioActual.setCartasPropias(new ArrayList<CartaPropia>());
 		for (int j = 1; j < cartasPropias.length; j++) {
 			@SuppressWarnings("unchecked")
 			List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition")
@@ -115,7 +109,6 @@ public class GestionController {
 			cp.setEstadoCarta(estadoCartasPropias[j]);
 
 			entityManager.persist(cp);
-			// entityManager.flush();
 
 			usuarioActual.getCartasPropias().add(cp);
 			int index = usuarioActual.getCartasPropias().indexOf(cp);
