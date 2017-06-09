@@ -53,84 +53,86 @@ public class GestionController {
 
 		añadirCSSyJSAlModelo(model);
 		actualizaUsuarioSesion(session, usuarioActual);
-		
+
 		getAllSets(model);
 		getAllCards(model);
 
 		return "gestion_cartas";
 	}
 
-	
-
 	@PostMapping("/registrarCartasUsuario")
 	@Transactional
-	public String registrarCartasUsuario (
-			@RequestParam("cardsS[]") String[] cartasBuscadas, @RequestParam("cardsSE[]") String[] edicionCartasBuscadas,
-			@RequestParam("cardsO[]") String[] cartasPropias,
-			@RequestParam("cardsOS[]") String[] estadoCartasPropias, @RequestParam("cardsOQ[]") String[] cantidadCartasPropias,
-			@RequestParam("cardsOE[]") String[] edicionCartasPropias,Principal principal, HttpSession session)
-	{
-		
+	public String registrarCartasUsuario(@RequestParam("cardsS[]") String[] cartasBuscadas,
+			@RequestParam("cardsSE[]") String[] edicionCartasBuscadas, @RequestParam("cardsO[]") String[] cartasPropias,
+			@RequestParam("cardsOS[]") String[] estadoCartasPropias,
+			@RequestParam("cardsOQ[]") String[] cantidadCartasPropias,
+			@RequestParam("cardsOE[]") String[] edicionCartasPropias, Principal principal, HttpSession session) {
+
 		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
 				.setParameter("userParam", principal.getName()).getSingleResult();
-		
-		//CartasBuscadas
+
+		// CartasBuscadas
 		usuarioActual.setCartasBuscadas(new ArrayList<Carta>());
-		for(int i=1; i<cartasBuscadas.length; i++){
+		for (int i = 1; i < cartasBuscadas.length; i++) {
 			@SuppressWarnings("unchecked")
-			List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasBuscadas[i]).setParameter("paramEdition", edicionCartasBuscadas[i]).getResultList();
+			List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition")
+					.setParameter("paramName", cartasBuscadas[i]).setParameter("paramEdition", edicionCartasBuscadas[i])
+					.getResultList();
 			usuarioActual.getCartasBuscadas().add(lista.get(0));
 		}
-	
+
 		List<CartaPropia> cartasOfrecidas = entityManager.createNamedQuery("exchangeOfrecidas").getResultList();
 		List<CartaPropia> cartasRecibidas = entityManager.createNamedQuery("exchangeRecibidas").getResultList();
-		//CartasPropias
-		for (CartaPropia c: usuarioActual.getCartasPropias()){
-			if(!isInExchange(c, cartasOfrecidas, cartasRecibidas)){
+		// CartasPropias
+		for (CartaPropia c : usuarioActual.getCartasPropias()) {
+			if (!isInExchange(c, cartasOfrecidas, cartasRecibidas)) {
 				entityManager.remove(c);
-				entityManager.flush();
+				// entityManager.flush();
 			}
 		}
-		
-			//usuarioActual.setCartasPropias(new ArrayList<CartaPropia>());
-			for(int j=1; j<cartasPropias.length; j++){
-				@SuppressWarnings("unchecked")
-				List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition").setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j]).getResultList();
-				Carta c = lista.get(0);
-				CartaPropia cp = null;
-				try{
-				 cp = (CartaPropia) entityManager.createNamedQuery("allOwnCardsByUserEditionName")
-						.setParameter("userParam", usuarioActual)
-						.setParameter("EdParam", c.getSetName())
+
+		// usuarioActual.setCartasPropias(new ArrayList<CartaPropia>());
+		for (int j = 1; j < cartasPropias.length; j++) {
+			@SuppressWarnings("unchecked")
+			List<Carta> lista = (List<Carta>) entityManager.createNamedQuery("findCardByNameAndEdition")
+					.setParameter("paramName", cartasPropias[j]).setParameter("paramEdition", edicionCartasPropias[j])
+					.getResultList();
+			//Cogemos la primera carta de la lista ya que hay algún caso en el que filtrando por carta y edición salen varias cartas
+			Carta c = lista.get(0);
+			CartaPropia cp = null;
+			try {
+				cp = (CartaPropia) entityManager.createNamedQuery("allOwnCardsByUserEditionName")
+						.setParameter("userParam", usuarioActual).setParameter("EdParam", c.getSetName())
 						.setParameter("NParam", c.getName()).getSingleResult();
-				}catch(Exception e){
-					cp = new CartaPropia(c, estadoCartasPropias[j],Integer.parseInt(cantidadCartasPropias[j]), usuarioActual, false);
-					cp.setCarta(c);
-					cp.setUsuarioPropietario(usuarioActual);
-				}
-				
-				cp.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
-				cp.setEstadoCarta(estadoCartasPropias[j]);
-				
-				entityManager.merge(cp);
-				entityManager.flush();
-				
-				usuarioActual.getCartasPropias().add(cp);
-				//int index = usuarioActual.getCartasPropias().indexOf(cp);
-				//usuarioActual.getCartasPropias().get(index).setUsuarioPropietario(usuarioActual);
+			} catch (Exception e) {
+				cp = new CartaPropia(c, estadoCartasPropias[j], Integer.parseInt(cantidadCartasPropias[j]),
+						usuarioActual, false);
+				cp.setCarta(c);
+				cp.setUsuarioPropietario(usuarioActual);
 			}
-		
+
+			cp.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
+			cp.setEstadoCarta(estadoCartasPropias[j]);
+
+			entityManager.persist(cp);
+			// entityManager.flush();
+
+			usuarioActual.getCartasPropias().add(cp);
+			int index = usuarioActual.getCartasPropias().indexOf(cp);
+			usuarioActual.getCartasPropias().get(index).setUsuarioPropietario(usuarioActual);
+		}
+
 		entityManager.persist(usuarioActual);
-		
-		actualizaUsuarioSesion(session,usuarioActual);
+		entityManager.flush();
+		actualizaUsuarioSesion(session, usuarioActual);
 
 		return "redirect:";
 	}
 
 	private boolean isInExchange(CartaPropia c, List<CartaPropia> cartasOfrecidas, List<CartaPropia> cartasRecibidas) {
-		if(cartasOfrecidas.contains(c) || cartasRecibidas.contains(c)){
+		if (cartasOfrecidas.contains(c) || cartasRecibidas.contains(c)) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -167,7 +169,7 @@ public class GestionController {
 		m.addAttribute("cards", cartas);
 		m.addAttribute("jsonCards", json);
 	}
-	
+
 	private void getAllSets(Model m) {
 		// TODO Auto-generated method stub
 		List<Edicion> ediciones = (List<Edicion>) entityManager.createNamedQuery("getActiveSets").getResultList();
