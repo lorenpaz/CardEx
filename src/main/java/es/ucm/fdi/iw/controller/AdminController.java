@@ -132,6 +132,7 @@ public class AdminController {
 		return "redirect:";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@PostMapping("/updateSets")
 	@Transactional
 	public String actualizaEdiciones(){
@@ -150,7 +151,7 @@ public class AdminController {
 	
 	private boolean existeEnBD(String multiverseId){
 		try{
-			Object c = entityManager.createNamedQuery("findCardByMultiverseID").setParameter("paramMultiverse", multiverseId).getSingleResult();
+			entityManager.createNamedQuery("findCardByMultiverseID").setParameter("paramMultiverse", multiverseId).getSingleResult();
 			return true;
 		}catch(Exception e){
 			return false;
