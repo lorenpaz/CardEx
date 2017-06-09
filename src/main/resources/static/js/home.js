@@ -74,16 +74,18 @@ function poblarListaUsuarios(card){
 
 function filterByUser(user){
 	filterUsers = $(usuariosJSON.usuarios).filter(function(){
-		var n = this.usuario;
-		return (n.includes(user));
+		var n = this.usuario.toLowerCase();
+		var u = user.toLowerCase();
+		return (n.includes(u));
 	});
 	return filterUsers[0];
 }
 
 function getUser(user){
 	var users = $(usuariosJSON.usuarios).filter(function(){
-		var n = this.usuario;
-		return (n.includes(user));
+		var n = this.usuario.toLowerCase();
+		var u = user.toLowerCase();
+		return (n.includes(u));
 	});
 	return users[0];
 }
@@ -106,13 +108,14 @@ function filterCardsByName(card){
 	var filterAux = [];
 	var filterOwnCardsAux = [];
 	var filterSearchCardsAux = [];
-	var i;
 	var usuarioAux = null;
 	var usuarioTmp;
+	card = card.toLowerCase();
 	for(i=0; i<filterUsers.length; i++){
 		var ownCardsAux = filterUsers[i].cartasPropias.filter(function(c){
 			usuarioTmp = c.usuarioPropietario;
-			return c.carta.name.includes(card);
+			cardName = c.carta.name.toLowerCase();
+			return cardName.includes(card);
 		});
 		if(ownCardsAux.length > 0){
 			filterOwnCardsAux.push(ownCardsAux);
@@ -123,7 +126,8 @@ function filterCardsByName(card){
 		}
 		usuarioTmp = filterUsers[i].usuario;
 		var searchCardsAux = filterUsers[i].cartasBuscadas.filter(function(c){
-			return c.name.includes(card);
+			cardName = c.name.toLowerCase();
+			return cardName.includes(card);
 		});
 		
 		if(searchCardsAux.length > 0){

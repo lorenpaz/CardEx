@@ -1,11 +1,7 @@
 package es.ucm.fdi.iw.model;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-
-import javax.persistence.*;
 
 public class UsuarioJSON {
 
