@@ -1,15 +1,16 @@
 <%@ include file="../jspf/header.jspf" %>
 <div class="container">
-	
-        <label>Tipo de oferta:</label>
+	<div id="filter" class="zona-info form-inline form-search">
+        <label for="offerFilter">Tipo de oferta:</label>
         <select class="input-large form-control filter" id="offerFilter">
             <option selected="" value="Pendiente">Pendientes</option>
             <option value="Aceptado">Aceptadas</option>
             <option value="Rechazado">Rechazadas</option>
             <option value="Finalizado">Finalizadas</option>
         </select>&nbsp;&nbsp;
-        <label>Usuario:</label>
+        <label for="userFilter">Usuario:</label>
         <input type="search" class="form-control filter" id="userFilter" placeholder="Busca un usuario">
+	 </div>
 	<c:forEach items="${intercambios}" var="intercambio" varStatus="status">
     <div id="intercambio">
 		<div id="intercambio-column" class="offer-column">
