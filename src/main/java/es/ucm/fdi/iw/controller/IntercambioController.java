@@ -9,9 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -28,8 +26,6 @@ import es.ucm.fdi.iw.model.Usuario;
 @Controller
 @RequestMapping("intercambio")
 public class IntercambioController {
-
-	private static Logger log = Logger.getLogger(IntercambioController.class);
 
 	@Autowired
 	private EntityManager entityManager;

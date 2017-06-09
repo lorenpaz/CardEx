@@ -1,13 +1,6 @@
 package es.ucm.fdi.iw.model;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.persistence.*;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class CartaJSON {
 
@@ -90,8 +83,4 @@ public class CartaJSON {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	
-	
-	
-
 }
