@@ -85,7 +85,6 @@ function createRow(name , edition){
 }
 
 function poblarTabla(rows){
-	var j;
 	for(j=0; j<rows.length; j++){
 		createRow(rows[j].name, rows[j].setName);
 	}
@@ -93,15 +92,13 @@ function poblarTabla(rows){
 
 function filterByEdition(edition){
 	filterCards = $(filterCards).filter(function(){
-		var n = this.setName;
-		return (n == edition);
+		return (this.setName == edition);
 	});
 }
 
 function filterByType(type){
 	filterCards = $(filterCards).filter(function(){
-		var n = this.type;
-		return (n.includes(type));
+		return (this.type.includes(type));
 	});
 }
 
@@ -156,7 +153,6 @@ function filterTable(edition, type, color){
 	
 	var transColor = [];
 	if(color.length>0){
-		let j;
 		for(j=0; j<color.length; j++){
 			if(color[j] == 'azul'){
 				transColor.push('U');

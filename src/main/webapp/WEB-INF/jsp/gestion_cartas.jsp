@@ -199,7 +199,7 @@
 
 </div>
 <script>
-	var cards = eval(${jsonCards})
+	var cards = ${jsonCards}
 </script>
 <!-- /.container -->
 <%@ include file="../jspf/footer.jspf"%>
