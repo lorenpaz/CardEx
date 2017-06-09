@@ -98,7 +98,10 @@ public class HistorialController {
 				carta.setUsuarioPropietario(recibe);
 				entityManager.persist(carta);
 				entityManager.flush();
-				recibe.getCartasPropias().add(carta);
+				if(!juntarDosCartasIguales(recibe.getCartasPropias(),carta,recibe))
+				{
+					recibe.getCartasPropias().add(carta);
+				}
 			}
 			
 			for(CartaPropia carta : recibidas)
@@ -108,11 +111,11 @@ public class HistorialController {
 				carta.setUsuarioPropietario(ofrece);
 				entityManager.merge(carta);
 				entityManager.flush();
-				ofrece.getCartasPropias().add(carta);
+				if(!juntarDosCartasIguales(ofrece.getCartasPropias(),carta,ofrece))
+				{
+					ofrece.getCartasPropias().add(carta);
+				}
 			}	
-			
-			entityManager.merge(recibe);
-			entityManager.merge(ofrece);
 		}else{
 			inter.setUsuarioRealizaUltimaAccion(usuarioActual);
 		}
@@ -128,28 +131,38 @@ public class HistorialController {
 	public String rechazar (@RequestParam("intercambio") long formIntercambio,
 	HttpSession session)
 	{
+		Usuario actual = (Usuario) session.getAttribute("user");
 		//Consigo el intercambio y lo modifico
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Rechazado");
-		inter.setUsuarioRealizaUltimaAccion( (Usuario) session.getAttribute("user"));
+		inter.setUsuarioRealizaUltimaAccion(actual);
 		
 		for(CartaPropia c : inter.getCartasOfrecidas())
 		{
 			c.setInExchange(false);
-			entityManager.merge(c);
-			entityManager.flush();
+			if(!juntarDosCartasIguales(inter.getUsuarioOfrece().getCartasPropias(),c,inter.getUsuarioOfrece()))
+			{
+				entityManager.merge(c);
+				entityManager.flush();
+			}
 		}
 		for(CartaPropia c : inter.getCartasRecibidas())
 		{
 			c.setInExchange(false);
-			entityManager.merge(c);
-			entityManager.flush();
+			if(!juntarDosCartasIguales(inter.getUsuarioRecibe().getCartasPropias(),c,inter.getUsuarioRecibe()))
+			{
+				entityManager.merge(c);
+				entityManager.flush();
+			}
 		}
 		
 		//Actualizo la BBDD
 		entityManager.merge(inter);
+		entityManager.merge(inter.getUsuarioOfrece());
+		entityManager.merge(inter.getUsuarioRecibe());
 		entityManager.flush();
 		
+		actualizaUsuarioSesion(session, actual);
 		return "redirect:";
 	}
 	
@@ -179,6 +192,7 @@ public class HistorialController {
 	
 		return "redirect:../intercambio/contraOferta/"+inter.getId();
 	}	
+	
 	public static void añadirCSSyJSAlModelo(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("styleHistorial.css");
@@ -221,4 +235,29 @@ public class HistorialController {
 		m.addAttribute("intercambiosJSON", json);
 		m.addAttribute("usuarioSesionJSON",gson.toJson(new UsuarioJSON(usuarioActual)));
 	}
+	
+	  	/*Método para realizar la acción contraria a duplicateCard
+	  	 * */
+		@Transactional
+		public boolean juntarDosCartasIguales(List<CartaPropia> listaCartas,CartaPropia copia,Usuario propietario)
+		{
+			for(CartaPropia original : listaCartas)
+			{
+				if(original.getCarta().getId() == copia.getCarta().getId() &&
+						original.getEstadoCarta() == copia.getEstadoCarta() &&
+						original.getUsuarioPropietario().getId() == copia.getUsuarioPropietario().getId() &&
+						original.isInExchange()== copia.isInExchange() &&
+						original.getId() != copia.getId()
+						)
+				{
+					original.setCantidad(original.getCantidad() + copia.getCantidad());
+					entityManager.merge(original);
+					propietario.getCartasPropias().remove(copia);
+					entityManager.merge(propietario);
+					entityManager.flush();
+					return true;
+				}
+			}
+			return false;
+		}
 }

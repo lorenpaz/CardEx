@@ -199,9 +199,58 @@ public class IntercambioController {
 	{
 		
 		Intercambio inter = entityManager.find(Intercambio.class, intercambioId);
+		
 		Usuario actual = (Usuario) session.getAttribute("user");
 		Usuario contrario = inter.getUsuarioOfrece().getId() == actual.getId() ? inter.getUsuarioRecibe() : inter.getUsuarioOfrece();
 		
+		List<CartaPropia> listaCartasOfrecidas = new ArrayList<CartaPropia>();
+		List<CartaPropia> listaCartasPedidas = new ArrayList<CartaPropia>();
+		
+
+		for(int i=0; i < cartasOfrecidas.length; i++){
+			
+			CartaPropia cartaOfrecida =  (CartaPropia) entityManager.find(CartaPropia.class, cartasOfrecidas[i]);
+			if(actual.getId() == inter.getUsuarioOfrece().getId())
+			{
+				if(cartaOfrecida.isInExchange())
+				{
+					cartaOfrecida.setCantidad(cantidadCartasOfrecidas[i]);
+					entityManager.persist(cartaOfrecida);
+					entityManager.flush();
+				}else{
+					
+				}
+			}
+			else{
+				if(cartaOfrecida.isInExchange())
+				{
+					
+				}else{
+					
+				}
+			}
+			
+			listaCartasOfrecidas.add(cartaOfrecida);
+		}
+		
+		for(int i=0; i < cartasPido.length; i++) {
+		
+			CartaPropia cartaPedida =  (CartaPropia) entityManager.find(CartaPropia.class, cartasPido[i]);
+			
+			listaCartasPedidas.add(cartaPedida);
+		}
+		
+		
+		inter.setCartasOfrecidas(listaCartasOfrecidas);
+		inter.setCartasRecibidas(listaCartasPedidas);
+		inter.setUsuarioRealizaUltimaAccion(actual);
+
+		entityManager.merge(actual);
+		entityManager.merge(contrario);
+		entityManager.merge(inter);
+		entityManager.flush();
+		
+		actualizaUsuarioSesion(session, actual);
 		
 		return "redirect:../historial";
 	}
@@ -223,6 +272,9 @@ public class IntercambioController {
 		  session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));
 	}
 	  
+	  /*Método para duplicar cartas. Usado para cuando se realiza un intercambio y queremos
+	   * diferenciar entre cartas en intercambios y las que no
+	   * */
 	  private CartaPropia duplicateCard(CartaPropia c)
 	  {
 		  return new CartaPropia(c.getCarta(),c.getEstadoCarta(),c.getCantidad(),c.getUsuarioPropietario(),false);
@@ -240,4 +292,27 @@ public class IntercambioController {
 		  return -1;
 	  }
 	 
+	  	/*Método para realizar la acción contraria a duplicateCard
+	  	 * */
+		@Transactional
+		public boolean juntarDosCartasIguales(List<CartaPropia> listaCartas,CartaPropia copia, Object object)
+		{
+			for(CartaPropia original : listaCartas)
+			{
+				if(original.getCarta().getId() == copia.getCarta().getId() &&
+						original.getEstadoCarta() == copia.getEstadoCarta() &&
+						original.getUsuarioPropietario().getId() == copia.getUsuarioPropietario().getId() &&
+						original.isInExchange()== copia.isInExchange() &&
+								original.getId() != copia.getId()
+						)
+				{
+					original.setCantidad(original.getCantidad() + copia.getCantidad());
+					entityManager.persist(original);
+					entityManager.remove(copia);
+					entityManager.flush();
+					return true;
+				}
+			}
+			return false;
+		}
 }
