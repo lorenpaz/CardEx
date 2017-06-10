@@ -6,6 +6,7 @@ public class CartaPropiaJSON {
 	private String estadoCarta;//DETERIORADA, JUGADA, NUEVA
 	private CartaJSON carta;
 	private int cantidad;
+	private boolean inExchange;
 	
 	public CartaPropiaJSON() {	}
 	
@@ -14,6 +15,7 @@ public class CartaPropiaJSON {
 		this.carta = new CartaJSON(c.getCarta());
 		this.estadoCarta = c.getEstadoCarta();
 		this.cantidad = c.getCantidad();
+		this.setInExchange(c.isInExchange());
 		this.usuarioPropietario = c.getUsuarioPropietario().getUsuario();
 	}
 
@@ -56,6 +58,14 @@ public class CartaPropiaJSON {
 
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	public boolean isInExchange() {
+		return inExchange;
+	}
+
+	public void setInExchange(boolean inExchange) {
+		this.inExchange = inExchange;
 	}
 	
 	

@@ -51,7 +51,9 @@ function poblarListasCartas(){
 	
 	$('#ofrece-column .list-group').empty();
 	for(i = 0; i < filterOwnCards.length; i++) {
-		createRowCardOfrece(filterOwnCards[i]);
+		if (!filterOwnCards[i].inExchange){
+			createRowCardOfrece(filterOwnCards[i]);
+		}
 	}
 	$('#pide-column .list-group').empty();
 	for(i = 0; i < filterSearchCards.length; i++) {
