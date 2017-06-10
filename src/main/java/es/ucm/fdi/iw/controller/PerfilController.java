@@ -113,7 +113,7 @@ public class PerfilController {
 				Integer.parseInt(formValor));
 		
 		
-		//actualizarMediaValoraciones(usuarioValorado);
+		actualizarMediaValoraciones(usuarioValorado);
 		
 		entityManager.persist(v);
 		entityManager.flush();
