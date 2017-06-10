@@ -21,10 +21,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.google.gson.Gson;
+
 import es.ucm.fdi.iw.crawler.MagicTgIoAPI;
 import es.ucm.fdi.iw.model.Carta;
 import es.ucm.fdi.iw.model.Edicion;
+import es.ucm.fdi.iw.model.EdicionJSON;
 import es.ucm.fdi.iw.model.Usuario;
+import es.ucm.fdi.iw.model.UsuarioJSON;
 
 @Controller	
 @RequestMapping("admin")
@@ -48,6 +52,7 @@ public class AdminController {
 		List<String> listaJS = new ArrayList<String>();
 		listaJS.add("jquery-3.1.1.min.js");
 		listaJS.add("bootstrap.min.js");
+		listaJS.add("admin.js");
  
 		model.addAttribute("pageExtraCSS", listaCSS);
 		model.addAttribute("pageExtraScripts", listaJS);
@@ -61,6 +66,36 @@ public class AdminController {
 		
 		model.addAttribute("usuarios",usuarios);
 		model.addAttribute("ediciones",ediciones);
+		
+		Gson gson = new Gson();
+		
+		String json = "{";
+		json +="\"usuarios\":[";
+		for(Usuario u : usuarios)
+		{
+			UsuarioJSON usuarioJSON = new UsuarioJSON(u);
+			json += gson.toJson(usuarioJSON);
+			if(usuarios.indexOf(u) != usuarios.size()- 1)
+			{
+				json+= ',';
+			} 
+		}
+		json += "]}";
+		model.addAttribute("usuariosJSON",json);
+		
+		String jsonEd = "{";
+		jsonEd +="\"ediciones\":[";
+		for(Edicion e : ediciones)
+		{
+			EdicionJSON edicionJSON = new EdicionJSON(e);
+			jsonEd += gson.toJson(edicionJSON);
+			if(ediciones.indexOf(e) != ediciones.size()- 1)
+			{
+				jsonEd+= ',';
+			} 
+		}
+		jsonEd += "]}";
+		model.addAttribute("edicionesJSON",jsonEd);
 	
 		return "admin";
 	}
