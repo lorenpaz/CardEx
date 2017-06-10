@@ -35,3 +35,8 @@ caption{
 	width: 50%;
 	margin-left: 20%;
 }
+
+.filters{
+	width: 20%;
+    float: right;
+}
