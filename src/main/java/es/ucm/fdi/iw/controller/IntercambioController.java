@@ -68,8 +68,8 @@ public class IntercambioController {
 		List<CartaPropia> listaCartasOfrecidas = new  ArrayList<CartaPropia>();
 		List<CartaPropia> listaCartasPedidas = new  ArrayList<CartaPropia>();
 		
-		List<CartaPropia> listaCartasPropiasUsuarioActual = usuarioActual.getCartasPropias();
-		List<CartaPropia> listaCartasPropiasUsuarioIntercambio = usuarioIntercambio.getCartasPropias();
+		List<CartaPropia> listaCartasPropiasUsuarioActual = new  ArrayList<CartaPropia>();
+		List<CartaPropia> listaCartasPropiasUsuarioIntercambio = new  ArrayList<CartaPropia>();
 		
 		//Rellenamos la lista de cartas Ofrecidas
 		for(int i=0; i < cartasOfrecidas.length; i++){
@@ -79,6 +79,7 @@ public class IntercambioController {
 			
 			if(cantidadCartasOfrecidas[i] == 0)
 			{
+				listaCartasPropiasUsuarioActual.add(carta);
 				break;
 			}
 			
@@ -88,7 +89,7 @@ public class IntercambioController {
 				//Carta duplicada
 				CartaPropia cartaDuplicada = duplicateCard(carta);
 				cartaDuplicada.setCantidad(carta.getCantidad() - cantidadCartasOfrecidas[i]);
-				entityManager.merge(cartaDuplicada);
+				entityManager.persist(cartaDuplicada);
 				entityManager.flush();
 				
 				//Actualiza la carta a InExchange y su cantidad
@@ -105,6 +106,7 @@ public class IntercambioController {
 			entityManager.flush();
 			//Añado a la lista de cartas intercambio
 				listaCartasOfrecidas.add(carta);
+				listaCartasPropiasUsuarioActual.add(carta);
 		}		
 		
 		//Rellenamos la lista de cartas Pedidas
@@ -115,6 +117,7 @@ public class IntercambioController {
 			
 			if(cantidadCartasPido[j] == 0)
 			{
+				listaCartasPropiasUsuarioIntercambio.add(carta);
 				break;
 			}
 			
@@ -124,7 +127,7 @@ public class IntercambioController {
 				//Carta duplicada
 				CartaPropia cartaDuplicada = duplicateCard(carta);
 				cartaDuplicada.setCantidad(carta.getCantidad() - cantidadCartasPido[j]);
-				entityManager.merge(cartaDuplicada);
+				entityManager.persist(cartaDuplicada);
 				entityManager.flush();
 				
 				//Actualiza la carta a InExchange y su cantidad
@@ -140,7 +143,8 @@ public class IntercambioController {
 			entityManager.merge(carta);
 			entityManager.flush();
 			
-			listaCartasPedidas.add(carta);	
+			listaCartasPedidas.add(carta);
+			listaCartasPropiasUsuarioIntercambio.add(carta);
 		} 
 		
 		//Actualizo las cartasPropias de los usuarios del intercambio
@@ -345,8 +349,9 @@ public class IntercambioController {
 	}
 	
 	  private void actualizaUsuarioSesion(HttpSession session, Usuario u) { 
-	 // Actualizo el usuario de la sesión 
-		  session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));
+	 // Actualizo el usuario de la sesión
+		  Usuario actual = entityManager.find(Usuario.class, u.getId());
+		  session.setAttribute("user", actual);
 	}
 	  
 	  /*Método para duplicar cartas. Usado para cuando se realiza un intercambio y queremos
