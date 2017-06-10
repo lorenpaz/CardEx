@@ -12,49 +12,51 @@
         <input type="search" class="form-control filter" id="userFilter" placeholder="Busca un usuario">
 	 </div>
 	<c:forEach items="${intercambios}" var="intercambio" varStatus="status">
+	<c:if test="${status.first}">
     <div id="intercambio">
 		<div id="intercambio-column" class="offer-column">
 			<div class="list-group">
-			<c:if test="${intercambio.estadoIntercambio == 'Pendiente'}">
+			<c:forEach items="${intercambios}" var="intercambi" varStatus="status2">
+			<c:if test="${intercambi.estadoIntercambio == 'Pendiente'}">
 			<c:choose>
-			<c:when test="${status.first}">
+			<c:when test="${status2.first}">
 				<c:choose>
-				<c:when test="${user.id == intercambio.usuarioOfrece.id}">
-				<a href="${intercambio.id}" aria-controls="tab-${intercambio.id}"
-				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item active"><c:out value="${intercambio.usuarioRecibe.usuario}"/>
+				<c:when test="${user.id == intercambi.usuarioOfrece.id}">
+				<a href="${intercambi.id}" aria-controls="tab-${intercambi.id}"
+				role="tab" data-toggle="tab" id="${intercambi.id}" class="list-group-item active"><c:out value="${intercambi.usuarioRecibe.usuario}"/>
 				<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span>
 				</span>
 				</a>
-				<c:set var="currentUser" value="${intercambio.usuarioRecibe.usuario}" />
+				<c:set var="currentUser" value="${intercambi.usuarioRecibe.usuario}" />
 				</c:when>
 				<c:otherwise>
-				<a href="${intercambio.id}" aria-controls="tab-${intercambio.id}"
-				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item active"><c:out value="${intercambio.usuarioOfrece.usuario}"/>
+				<a href="${intercambi.id}" aria-controls="tab-${intercambi.id}"
+				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item active"><c:out value="${intercambi.usuarioOfrece.usuario}"/>
 				<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span>
 				</span>
 				</a>
-				<c:set var="currentUser" value="${intercambio.usuarioOfrece.usuario}" />
+				<c:set var="currentUser" value="${intercambi.usuarioOfrece.usuario}" />
 				</c:otherwise>
 				</c:choose>
 			</c:when>
 			<c:otherwise>
 				<c:choose>
-				<c:when test="${user.id == intercambio.usuarioOfrece.id}">
-				<a href="${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioRecibe.id}"
-				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item usuarios"><c:out value="${intercambio.usuarioRecibe.usuario}"/></a>
+				<c:when test="${user.id == intercambi.usuarioOfrece.id}">
+				<a href="${intercambi.usuarioOfrece.id}" aria-controls="tab-${intercambi.usuarioRecibe.id}"
+				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item usuarios"><c:out value="${intercambi.usuarioRecibe.usuario}"/></a>
 				</c:when>
 				<c:otherwise>
-				<a href="${intercambio.usuarioOfrece.id}" aria-controls="tab-${intercambio.usuarioOfrece.id}"
-				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item usuarios"><c:out value="${intercambio.usuarioOfrece.usuario}"/></a>
+				<a href="${intercambi.usuarioOfrece.id}" aria-controls="tab-${intercambi.usuarioOfrece.id}"
+				role="tab" data-toggle="tab" id="${intercambio.id}" class="list-group-item usuarios"><c:out value="${intercambi.usuarioOfrece.usuario}"/></a>
 				</c:otherwise>
 				</c:choose>
 			</c:otherwise>
 			</c:choose>
 			</c:if>
+			</c:forEach>
 			</div>
 		</div>
         <div id="ofrece-column" class="offer-column">
-        <c:if test="${intercambio.estadoIntercambio == 'Pendiente'}">
         	<h3><c:out value="${intercambio.usuarioOfrece.usuario}"/> ofrece</h3>
             <table class="table table-striped" id="offerTable">
             <thead>
@@ -84,11 +86,9 @@
              </c:forEach>
              </tbody>
             </table>
-        </c:if>
         </div>
 
         <div id="pide-column" class="offer-column">
-        <c:if test="${intercambio.estadoIntercambio == 'Pendiente'}">
         	<h3><c:out value="${intercambio.usuarioRecibe.usuario}"/> ofrece</h3>
             <table class="table table-striped" id="orderTable">
             <thead>
@@ -118,9 +118,8 @@
              </c:forEach>
              </tbody>            
             </table>
-        </c:if>
         </div>
-		<c:if test="${status.first && intercambio.estadoIntercambio == 'Pendiente' && intercambio.usuarioRealizaUltimaAccion.id != user.id}">
+		<c:if test="${intercambio.estadoIntercambio == 'Pendiente' && intercambio.usuarioRealizaUltimaAccion.id != user.id}">
         <div id="action" class="offer-column">
             <div class="list-group">
             	<form method="post" action="${prefijo}historial/aceptar" id="enviarPOST">
@@ -141,10 +140,11 @@
             </div>
         </div>
         </c:if>
-        <c:if test="${status.first && intercambio.estadoIntercambio == 'Pendiente' && intercambio.usuarioRealizaUltimaAccion.id == user.id}">
+        <c:if test="${intercambio.estadoIntercambio == 'Pendiente' && intercambio.usuarioRealizaUltimaAccion.id == user.id}">
         	<div class="list-group waiting"> Esperando respuesta del otro usuario </div>
         </c:if>
     </div>
+    </c:if>
     </c:forEach>
 </div>
 <script>
