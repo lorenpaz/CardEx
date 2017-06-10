@@ -3,6 +3,7 @@ package es.ucm.fdi.iw.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -67,7 +68,7 @@ public class CartaPropia {
 		this.estadoCarta = estadoCarta;
 	}
 
-	@ManyToOne(targetEntity = Carta.class)
+	@ManyToOne(targetEntity = Carta.class, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	public Carta getCarta() {
 		return carta;
 	}
