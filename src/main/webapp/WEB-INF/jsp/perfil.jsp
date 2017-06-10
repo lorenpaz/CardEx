@@ -10,10 +10,10 @@
 	<div class="btn-pref btn-group btn-group-justified btn-group-lg">
 		<a class="btn btn-primary" href="#tab1" data-toggle="tab"> 
 			<span class="glyphicon glyphicon-user" aria-hidden="true"></span><br>
-			<span class="hidden-xs">Información Personal</span>
+			<span class="hidden-xs">Informaci&oacute;n Personal</span>
 		</a> <a class="btn btn-default" href="#tab2" data-toggle="tab">
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span><br>
-			<span class="hidden-xs">Valoración</span>
+			<span class="hidden-xs">Valoraci&oacute;n</span>
 		</a>
 		<c:if test="${empty visitante}">
 			<a class="btn btn-default" href="#tab3" data-toggle="tab"> 
@@ -53,7 +53,7 @@
 				</table>
 			</div>
 			<div class="tab-pane fade in" id="tab2">
-				Valoración media del usuario (Cantidad de valoraciones:
+				Valoraci&oacute;n media del usuario (Cantidad de valoraciones:
 				<c:out value="${cuantosUsuariosValoraron}" />
 				)<input id="input-21e"
 					value="<c:out value="${usuario.valoracionMedia}"/>" type="text"
@@ -126,32 +126,32 @@
 							value="${usuario.nombre}" /> <label for="surnameform">Cambiar
 							apellidos</label> <input id="surnameform" class="form-control"
 							name="apellidos" value="${usuario.apellidos}" /> <label
-							for="passform">Cambiar contraseña</label> <input id="passform"
+							for="passform">Cambiar contrase&ntilde;a</label> <input id="passform"
 							class="form-control" name="password" type="password" /> <label
-							for="repassform">Confirmar contraseña</label> <input
+							for="repassform">Confirmar contrase&ntilde;a</label> <input
 							id="repassform" class="form-control" name="passwordConfirm"
 							type="password" /> <label for="mailform">E-Mail</label> <input
 							id="mailform" class="form-control" name="email"
 							value="${usuario.email}" /> <label for="provform">Provincia</label>
 						<select id="provform" class="form-control" name="provincia">
 							<option selected>${usuario.provincia}</option>
-							<option>A Coruña</option>
+							<option>A Coru�a</option>
 							<option>Álava</option>
 							<option>Albacete</option>
 							<option>Alicante</option>
-							<option>Almería</option>
+							<option>Almeria</option>
 							<option>Asturias</option>
 							<option>Ávila</option>
 							<option>Badajoz</option>
 							<option>Baleares</option>
 							<option>Barcelona</option>
 							<option>Burgos</option>
-							<option>Cáceres</option>
-							<option>Cádiz</option>
+							<option>C�ceres</option>
+							<option>C�diz</option>
 							<option>Cantabria</option>
-							<option>Castellón</option>
+							<option>Castell�n</option>
 							<option>Ciudad Real</option>
-							<option>Córdoba</option>
+							<option>C�rdoba</option>
 							<option>Cuenca</option>
 							<option>Girona</option>
 							<option>Granada</option>
@@ -159,14 +159,14 @@
 							<option>Gipuzkoa</option>
 							<option>Huelva</option>
 							<option>Huesca</option>
-							<option>Jaén</option>
+							<option>Ja�n</option>
 							<option>La Rioja</option>
 							<option>Las Palmas</option>
-							<option>León</option>
-							<option>Lérida</option>
+							<option>Le�n</option>
+							<option>L�rida</option>
 							<option>Lugo</option>
 							<option>Madrid</option>
-							<option>Málaga</option>
+							<option>M�laga</option>
 							<option>Murcia</option>
 							<option>Navarra</option>
 							<option>Orense</option>
