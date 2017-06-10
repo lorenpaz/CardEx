@@ -15,6 +15,108 @@ function createRowUser(user){
 	addBehaviour();
 }
 
+function getModal(card, index){
+	var card;
+	if(index==1){
+		card = card.carta;
+	}else{
+		card = card;
+	}
+	if(card.name == undefined){
+		card.name = '';
+	}
+	if(card.setName == undefined){
+		card.setName = '';
+	}
+	if(card.imageUrl == undefined){
+		card.imageUrl = '';
+	}
+	if(card.color == undefined){
+		card.imageUrl = '';
+	}
+	if(card.type == undefined){
+		card.type = '';
+	}
+	if(card.types[0] == undefined){
+		card.types[0] = '';
+	}
+	if(card.artist == undefined){
+		card.artist = '';
+	}
+	if(card.power == undefined){
+		card.power = '';
+	}
+	if(card.toughness == undefined){
+		card.toughness = '';
+	}
+	if(card.rarity == undefined){
+		card.rarity = '';
+	}
+	if(card.manaCost == undefined){
+		card.manaCost = '';
+	}
+
+	var modal = `<div class="modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">Cerrar</button>
+		<h4 class="modal-title">`+card.name+`</h4>
+	</div>
+	<div class="modal-body">
+		<table id="MainTable">
+			<tr>
+				<td><img src="`+card.imageUrl+`" alt="`+card.name+`"
+					width="200" height="300" /></td>
+				<td>
+					<div id="firstparagraph">
+						<!--Detalles carta-->
+						<table id="details2">
+							<tr>
+								<td class="left">Edición:</td>
+								<td class="right">`+card.setName+`</td>
+							</tr>
+							<tr>
+								<td class="left">Color:</td>
+								<td class="right">`+card.color+`</td>
+							</tr>
+							<tr>
+								<td class="left">Tipo:</td>
+								<td class="right">`+card.type+`</td>
+							</tr>
+							<tr>
+								<td class="left">Tipo de criatura:</td>
+								<td class="right">`+card.types[0]+`</td>
+							</tr>
+							<tr>
+								<td class="left">Artista:</td>
+								<td class="right">`+card.artist+`</td>
+							</tr>
+							<tr>
+								<td class="left">Fuerza:
+								<td class="right">`+card.power+`</td>
+							</tr>
+							<tr>
+								<td class="left">Resistencia:</td>
+								<td class="right">`+card.toughness+`</td>
+							</tr>
+							<tr>
+								<td class="left">Frecuencia:</td>
+								<td class="right">`+card.rarity+`</td>
+							</tr>
+							<tr>
+								<td class="left">Coste de maná:</td>
+								<td class="right">`+card.manaCost+`</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="modal-footer"></div>
+</div>`;
+	return modal;
+}
+
 function createRowCardPide(card){
 	$('#pide-column .list-group').append(`<div class="tab-pane fade in">
 			<li class="list-group-item r">
@@ -24,7 +126,7 @@ function createRowCardPide(card){
 			<div class="modal fade" id="`+card.id+`" role="dialog">
 			<div class="modal-dialog">
 			<!-- Modal content-->
-			<h:modalCarta cartaPropia="`+card+`" />
+			`+getModal(card, 2)+`
 			</div>
 			</div>
 			</li>
@@ -39,7 +141,7 @@ function createRowCardOfrece(card){
 			<div class="modal fade" id="`+card.carta.id+`" role="dialog">
 			<div class="modal-dialog">
 			<!-- Modal content-->
-			<h:modalCarta cartaPropia="`+card+`" />
+			`+getModal(card, 1)+`
 			</div>
 			</div>
 			</li>
