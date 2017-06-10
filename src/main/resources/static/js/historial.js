@@ -140,7 +140,7 @@ function poblarListasCartas(){
 				$(botonFinalizar).insertAfter('#pide-column');
 			}
 		}
-		else if(filterExchanges[0].estadoIntercambio == 'Finalizado' && filterExchanges[0].usuarioRealizaUltimaAccion.id == usuarioSesionJSON.id) {
+		else if(filterExchanges[0].estadoIntercambio == 'Finalizado' && !filterExchanges[0].terminado) {
 			if($("#action").length)
 			{
 			$('#action').append(`<div class="list-group"> Esperando que finalice el intercambio el otro usuario </div>`);
@@ -169,7 +169,8 @@ function poblarListasCartas(){
             </form></div>`;
 				$(botonFinalizar).insertAfter('#pide-column');
 			}
-		}else if(filterExchanges[0].estadoIntercambio == 'Finalizado' && filterExchanges[0].usuarioRealizaUltimaAccion.id != usuarioSesionJSON.id){
+		}else if(filterExchanges[0].estadoIntercambio == 'Finalizado' && filterExchanges[0].usuarioRealizaUltimaAccion.id != usuarioSesionJSON.id
+				&& !filterExchanges[0].terminado){
 			if($("#action").length)
 			{
 			$('#action').append(
@@ -186,9 +187,24 @@ function poblarListasCartas(){
             	<button type="submit" class="list-group-item btn btn-primary">Finalizar</button>
             	<input type="hidden" name="intercambio" id="finalizar" value="`+ filterExchanges[0].id+`" />
           `+ csrf +  `
-            </form></div>`;
+            </form></div></div>`;
 				$(botonFinalizar).insertAfter('#pide-column');
 			}
+		}else if(filterExchanges[0].estadoIntercambio == 'Finalizado' && filterExchanges[0].terminado)
+		{
+			var n = filterExchanges[0].usuarioRecibe.id == usuarioSesionJSON.id ? filterExchanges[0].usuarioOfrece.id : filterExchanges[0].usuarioRecibe.id;
+			if($("#action").length)
+			{
+				$('#action').append(`<div class="list-group">Puedes valorar al usuario en su perfil: 
+					<form action="../perfil/`+n+`" method="get"><input type="submit" value="Accede a su perfil" /></form>` 
+					+`</div></div>`);
+				}else{
+					var boton = `<div id="action" class="offer-column"><div class="list-group">`+
+					`Puedes valorar al usuario en su perfil: 
+					<form action="../perfil/`+n+`" method="get"><input type="submit" value="Accede a su perfil" /></form>` 
+					+`</div></div>`;
+					$(boton).insertAfter('#pide-column');
+				}
 		}
 	}
 	
