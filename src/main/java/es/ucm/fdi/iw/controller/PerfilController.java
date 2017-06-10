@@ -116,22 +116,6 @@ public class PerfilController {
 
 		entityManager.persist(v);
 		entityManager.flush();
-		
-		/* Actualizamos el usuario que ha sido valorado 
-		List<Valoracion> valoracionesRec = usuarioValorado.getValoracionesRecibidas();
-		valoracionesRec.add(v);
-		usuarioValorado.setValoracionesRecibidas(valoracionesRec);
-		usuarioValorado.setValoracionMedia(Usuario.hacerMedia(valoracionesRec));
-
-		 Actualizamos el usuario que valora 
-		List<Valoracion> valoracionesDad = usuarioQueValora.getValoracionesDadas();
-		valoracionesDad.add(v);
-		usuarioQueValora.setValoracionesDadas(valoracionesDad);
-
-		// Actualizamos los usuarios de la BBDD
-		entityManager.merge(usuarioQueValora);
-		entityManager.merge(usuarioValorado);
-		entityManager.flush();*/
 
 		actualizaUsuarioSesion(session, usuarioQueValora);
 		return "redirect:../perfil/" + usuarioValorado.getId();
@@ -176,14 +160,11 @@ public class PerfilController {
 		model.addAttribute("cuantosUsuariosValoraron", count);
 		
 		//cuantos intercambios habia entre los dos usuarios
-		long cuantosIntercambios = (long) entityManager.createQuery("select count(i) from Intercambio i where "
-				+ "((i.usuarioOfrece = :actual and i.usuarioRecibe = :usuario) or "
-				+ "(i.usuarioOfrece = :usuario and i.usuarioRecibe = :actual))"
-				+ "and i.estadoIntercambio = :estadoIntercambio").
+		long cuantosIntercambios = ((long) entityManager.createQuery("select count(i) from Intercambio i where "
+				+ "(i.usuarioOfrece = :actual and i.usuarioRecibe = :usuario) or "
+				+ "(i.usuarioOfrece = :usuario and i.usuarioRecibe = :actual)").
 				setParameter("usuario", entityManager.find(Usuario.class, id)).
-				setParameter("actual", actual).
-				setParameter("estadoIntercambio", "Aceptado").getSingleResult();
-				
+				setParameter("actual", actual).getSingleResult());
 		long cuantasValoraciones = ((long) entityManager.createQuery("select count(v) from Valoracion v where "
 				+ "v.usuarioValorado = :usuario and v.usuarioQueValora = :actual").
 				setParameter("usuario", entityManager.find(Usuario.class, id)).

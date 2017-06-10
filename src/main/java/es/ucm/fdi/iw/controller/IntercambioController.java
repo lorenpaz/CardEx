@@ -75,7 +75,7 @@ public class IntercambioController {
 		for(int i=0; i < cartasOfrecidas.length; i++){
 			CartaPropia carta =  (CartaPropia) entityManager.find(CartaPropia.class, cartasOfrecidas[i]);
 			
-			int index = busquedaEnLista(listaCartasPropiasUsuarioActual,carta);
+			//int index = busquedaEnLista(listaCartasPropiasUsuarioActual,carta);
 			
 			if(cantidadCartasOfrecidas[i] == 0)
 			{
@@ -88,32 +88,30 @@ public class IntercambioController {
 				//Carta duplicada
 				CartaPropia cartaDuplicada = duplicateCard(carta);
 				cartaDuplicada.setCantidad(carta.getCantidad() - cantidadCartasOfrecidas[i]);
-				entityManager.persist(cartaDuplicada);
+				entityManager.merge(cartaDuplicada);
 				entityManager.flush();
 				
 				//Actualiza la carta a InExchange y su cantidad
-				listaCartasPropiasUsuarioActual.get(index).setCantidad(cantidadCartasOfrecidas[i]);
-				listaCartasPropiasUsuarioActual.get(index).setInExchange(true);
+				carta.setCantidad(cantidadCartasOfrecidas[i]);
+				carta.setInExchange(true);
 
 				//Añado a la lista del usuario tras la división
 				listaCartasPropiasUsuarioActual.add(cartaDuplicada);
 			}else{
 				//Actualiza la carta a InExchange
-				listaCartasPropiasUsuarioActual.get(index).setInExchange(true);
-				
-				entityManager.merge(listaCartasPropiasUsuarioActual.get(index));
-				entityManager.flush();
-
+				carta.setInExchange(true);
 			}
+			entityManager.merge(carta);
+			entityManager.flush();
 			//Añado a la lista de cartas intercambio
-				listaCartasOfrecidas.add(listaCartasPropiasUsuarioActual.get(index));
+				listaCartasOfrecidas.add(carta);
 		}		
 		
 		//Rellenamos la lista de cartas Pedidas
 		for(int j=0; j<cartasPido.length; j++){
 			CartaPropia carta =  (CartaPropia) entityManager.find(CartaPropia.class, cartasPido[j]);
 			
-			int index = busquedaEnLista(listaCartasPropiasUsuarioIntercambio,carta);
+			//int index = busquedaEnLista(listaCartasPropiasUsuarioIntercambio,carta);
 			
 			if(cantidadCartasPido[j] == 0)
 			{
@@ -126,20 +124,20 @@ public class IntercambioController {
 				//Carta duplicada
 				CartaPropia cartaDuplicada = duplicateCard(carta);
 				cartaDuplicada.setCantidad(carta.getCantidad() - cantidadCartasPido[j]);
-				entityManager.persist(cartaDuplicada);
+				entityManager.merge(cartaDuplicada);
 				entityManager.flush();
 				
 				//Actualiza la carta a InExchange y su cantidad
-				listaCartasPropiasUsuarioIntercambio.get(index).setCantidad(cantidadCartasPido[j]);
-				listaCartasPropiasUsuarioIntercambio.get(index).setInExchange(true);
+				carta.setCantidad(cantidadCartasPido[j]);
+				carta.setInExchange(true);
 				
 				//Añado a la lista del usuario tras la división
 				listaCartasPropiasUsuarioIntercambio.add(cartaDuplicada);
 			}else{
 				//Actualiza la carta a InExchange
-				listaCartasPropiasUsuarioIntercambio.get(index).setInExchange(true);
+				carta.setInExchange(true);
 			}
-			entityManager.merge(listaCartasPropiasUsuarioIntercambio.get(index));
+			entityManager.merge(carta);
 			entityManager.flush();
 			
 			listaCartasPedidas.add(carta);	
@@ -158,6 +156,7 @@ public class IntercambioController {
 		entityManager.flush();	
 		intercambio.setCartasOfrecidas(listaCartasOfrecidas);
 		intercambio.setCartasRecibidas(listaCartasPedidas);	
+
 		entityManager.persist(intercambio);
 		entityManager.flush();
 
@@ -167,7 +166,7 @@ public class IntercambioController {
 		return "redirect:../historial";
 	}
 	
-	@RequestMapping(value = "/contraOferta/{id}")
+	@RequestMapping(value = "/contraoferta/{id}")
 	@Transactional
 	public String contraoferta(@PathVariable("id") long intercambioId,Model model, Principal principal,
 		HttpSession session) 
@@ -187,12 +186,6 @@ public class IntercambioController {
 		//Recorro y se unen las cartas que sean iguales (cartas que se hayan dividido cuando se hizo la oferta anterior)
 		for(CartaPropia c : actual.getCartasPropias())
 		{
-			if(estaEnIntercambio(c, inter))
-			{
-				c.setInExchange(false);
-				entityManager.merge(c);
-				entityManager.flush();
-			}
 			if(juntarDosCartasIgualesPreviamenteDivididas(actual.getCartasPropias(),c,actual, inter))
 			{
 				actual.getCartasPropias().remove(c);
@@ -202,12 +195,6 @@ public class IntercambioController {
 		}
 		for(CartaPropia c : usuarioContrario.getCartasPropias())
 		{
-			if(estaEnIntercambio(c, inter))
-			{
-				c.setInExchange(false);
-				entityManager.merge(c);
-				entityManager.flush();
-			}
 			if(juntarDosCartasIgualesPreviamenteDivididas(usuarioContrario.getCartasPropias(),c,usuarioContrario,inter))
 			{
 				usuarioContrario.getCartasPropias().remove(c);
@@ -387,7 +374,13 @@ public class IntercambioController {
 	  	@Transactional
 		public boolean juntarDosCartasIgualesPreviamenteDivididas(List<CartaPropia> listaCartas,CartaPropia copia,Usuario propietario, Intercambio i)
 		{
-			boolean ok = false;			
+			boolean ok = false;	
+			if(estaEnIntercambio(copia, i))
+			{
+				copia.setInExchange(false);
+				entityManager.merge(copia);
+				entityManager.flush();
+			}
 			for(CartaPropia original : listaCartas)
 			{
 				if(original.getCarta().getId() == copia.getCarta().getId() &&
@@ -400,7 +393,7 @@ public class IntercambioController {
 				{
 					original.setCantidad(original.getCantidad() + copia.getCantidad());
 					entityManager.merge(original);
-					
+
 					ok = true;
 				}
 			}

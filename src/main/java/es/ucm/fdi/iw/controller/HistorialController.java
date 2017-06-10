@@ -85,6 +85,7 @@ public class HistorialController {
 		if(!inter.getUsuarioRealizaUltimaAccion().equals(usuarioActual))
 		{
 			inter.setUsuarioRealizaUltimaAccion(usuarioActual);
+			inter.setTerminado(true);
 			
 			//Obtego todo lo que necesito
 			List<CartaPropia> ofrecidas = inter.getCartasOfrecidas();
@@ -138,7 +139,7 @@ public class HistorialController {
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Rechazado");
 		inter.setUsuarioRealizaUltimaAccion(actual);
-		
+		inter.setTerminado(true);
 		for(CartaPropia c : inter.getCartasOfrecidas())
 		{
 			c.setInExchange(false);
@@ -195,13 +196,13 @@ public class HistorialController {
 	{
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 	
-		return "redirect:../intercambio/contraOferta/"+inter.getId();
+		return "redirect:../intercambio/contraoferta/"+inter.getId();
 	}	
 	
 	public static void añadirCSSyJSAlModelo(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("styleHistorial.css");
-
+		
 		List<String> listaJS = new ArrayList<String>();
 		listaJS.add("jquery-3.1.1.min.js");
 		listaJS.add("bootstrap.min.js");
