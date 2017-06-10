@@ -9,6 +9,7 @@ public class UsuarioJSON {
 	private String usuario;
 	private List<CartaPropiaJSON> cartasPropias;
 	private List<CartaJSON> cartasBuscadas;
+	private String fechaAlta;
 	private boolean activo;
 	
 	public UsuarioJSON() {}
@@ -19,6 +20,7 @@ public class UsuarioJSON {
 		this.usuario = u.getUsuario();
 		this.cartasPropias = parserList(u.getCartasPropias());
 		this.cartasBuscadas = parserListTwo(u.getCartasBuscadas());
+		this.fechaAlta = u.getFechaAlta().toString();
 	}
 	
 	
