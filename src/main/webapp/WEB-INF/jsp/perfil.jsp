@@ -10,10 +10,10 @@
 	<div class="btn-pref btn-group btn-group-justified btn-group-lg">
 		<a class="btn btn-primary" href="#tab1" data-toggle="tab"> 
 			<span class="glyphicon glyphicon-user" aria-hidden="true"></span><br>
-			<span class="hidden-xs">Informaci髇 Personal</span>
+			<span class="hidden-xs">Informaci贸n Personal</span>
 		</a> <a class="btn btn-default" href="#tab2" data-toggle="tab">
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span><br>
-			<span class="hidden-xs">Valoraci髇</span>
+			<span class="hidden-xs">Valoraci贸n</span>
 		</a>
 		<c:if test="${empty visitante}">
 			<a class="btn btn-default" href="#tab3" data-toggle="tab"> 
@@ -37,7 +37,14 @@
 					</tr>
 					<tr>
 						<th scope="row">E-Mail</th>
-						<td><c:out value="${usuario.email}" /></td>
+						<c:choose>
+							<c:when test="${visitante eq null || cuantosIntercambios > 0}">
+								<td><c:out value="${usuario.email}" /></td>
+							</c:when>
+							<c:otherwise>
+								<td>Hay que hacer un intercambio con este usuario para acceder a esta informaci贸n</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 					<tr>
 						<th scope="row">Provincia</th>
@@ -46,7 +53,7 @@
 				</table>
 			</div>
 			<div class="tab-pane fade in" id="tab2">
-				Valoraci髇 media del usuario (Cantidad de valoraciones:
+				Valoraci贸n media del usuario (Cantidad de valoraciones:
 				<c:out value="${cuantosUsuariosValoraron}" />
 				)<input id="input-21e"
 					value="<c:out value="${usuario.valoracionMedia}"/>" type="text"
@@ -119,32 +126,32 @@
 							value="${usuario.nombre}" /> <label for="surnameform">Cambiar
 							apellidos</label> <input id="surnameform" class="form-control"
 							name="apellidos" value="${usuario.apellidos}" /> <label
-							for="passform">Cambiar contrase馻</label> <input id="passform"
+							for="passform">Cambiar contrase帽a</label> <input id="passform"
 							class="form-control" name="password" type="password" /> <label
-							for="repassform">Confirmar contrase馻</label> <input
+							for="repassform">Confirmar contrase帽a</label> <input
 							id="repassform" class="form-control" name="passwordConfirm"
 							type="password" /> <label for="mailform">E-Mail</label> <input
 							id="mailform" class="form-control" name="email"
 							value="${usuario.email}" /> <label for="provform">Provincia</label>
 						<select id="provform" class="form-control" name="provincia">
 							<option selected>${usuario.provincia}</option>
-							<option>A Coru馻</option>
-							<option>羖ava</option>
+							<option>A Coru帽a</option>
+							<option>脕lava</option>
 							<option>Albacete</option>
 							<option>Alicante</option>
-							<option>Almer韆</option>
+							<option>Almer铆a</option>
 							<option>Asturias</option>
-							<option>羦ila</option>
+							<option>脕vila</option>
 							<option>Badajoz</option>
 							<option>Baleares</option>
 							<option>Barcelona</option>
 							<option>Burgos</option>
-							<option>C醕eres</option>
-							<option>C醖iz</option>
+							<option>C谩ceres</option>
+							<option>C谩diz</option>
 							<option>Cantabria</option>
-							<option>Castell髇</option>
+							<option>Castell贸n</option>
 							<option>Ciudad Real</option>
-							<option>C髍doba</option>
+							<option>C贸rdoba</option>
 							<option>Cuenca</option>
 							<option>Girona</option>
 							<option>Granada</option>
@@ -152,14 +159,14 @@
 							<option>Gipuzkoa</option>
 							<option>Huelva</option>
 							<option>Huesca</option>
-							<option>Ja閚</option>
+							<option>Ja茅n</option>
 							<option>La Rioja</option>
 							<option>Las Palmas</option>
-							<option>Le髇</option>
-							<option>L閞ida</option>
+							<option>Le贸n</option>
+							<option>L茅rida</option>
 							<option>Lugo</option>
 							<option>Madrid</option>
-							<option>M醠aga</option>
+							<option>M谩laga</option>
 							<option>Murcia</option>
 							<option>Navarra</option>
 							<option>Orense</option>
