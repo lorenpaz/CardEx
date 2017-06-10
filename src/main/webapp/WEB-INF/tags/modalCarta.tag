@@ -8,102 +8,53 @@
 	</div>
 	<div class="modal-body">
 		<table id="MainTable">
-			<td><img src="${carta.imageUrl}"
-				alt="${carta.name}" width="200" height="300" /></td>
-			<td>
-				<div id="firstparagraph">
-					<!--Detalles carta-->
-					<table id="details2">
-						<tr>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="amarillo datacell"><strong>
-									<p>${carta.name}</p>
-							</strong></td>
-						</tr>
-						<tr>
-							<td class="blanco datacell"><strong>
-									<p>Edición:
-							</strong>${carta.edicion.name}
-								</p></td>
-						</tr>
-						<tr>
-							<td class="blanco datacell"><strong>
-									<p>Color:
-							</strong> <c:forEach items=" ${carta.colors}" var="color"
-									varStatus="status1">
-									<c:if test="${!status1.first}">
-									-
-									</c:if>
-									<c:out value="${color}" />
-								</c:forEach></td>
-						</tr>
-						<tr>
-							<td class="blanco datacell"><strong>
-									<p>Tipo:
-							</strong>${carta.type}
-								</p></td>
-						</tr>
-						<tr>
-							<td class="blanco datacell"><strong>
-									<p>Tipo de criatura:
-							</strong> <c:forEach items=" ${carta.types}" var="criatura"
-									varStatus="status2">
-									<c:if test="${!status2.first}">
-									-
-									</c:if>
-									<c:out value="${criatura}" />
-								</c:forEach>
-								</p></td>
-						</tr>
-						<tr>
-							<td class="blanco datacell"><strong>
-									<p>Artista:
-							</strong>${carta.artist}
-								</p></td>
-						</tr>
-						<tr>
-							<td class="blanco datacell"><strong>
-									<p>Fuerza:
-							</strong>${carta.power}
-								</p></td>
-						</tr>
-						<tr>
-							<td class="blanco datacell"><strong>
-									<p>Resistencia:
-							</strong>${carta.toughness}
-								</p></td>
-						</tr>
-						<tr>
-							<td class="blanco datacell"><strong>
-									<p>Frecuencia:
-							</strong>${carta.rarity}
-								</p></td>
-						</tr>
-					</table>
-				</div> <!--Detalles 2 Carta -->
-				<div id="secondparagraph">
-					<table id="details">
-						<tr>
-							<td class="blanco datacell"><strong>
-									<p>Informaci&oacute;n:
-							</strong>
-								</p></td>
-						</tr>
-						<tr>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="blanco datacell"><p>Precio:
-									${carta.manaCost} $</p></td>
-						</tr>
-						<tr>
-							<td></td>
-						</tr>
-					</table>
-				</div>
-			<td>
+			<tr>
+				<td><img src="${carta.imageUrl}" alt="${carta.name}"
+					width="200" height="300" /></td>
+				<td>
+					<div id="firstparagraph">
+						<!--Detalles carta-->
+						<table id="details2">
+							<tr>
+								<td class="left">Edición:</td>
+								<td class="right">${carta.edicion.name}</td>
+							</tr>
+							<tr>
+								<td class="left">Color:</td>
+								<td class="right">${carta.colors[0]}</td>
+							</tr>
+							<tr>
+								<td class="left">Tipo:</td>
+								<td class="right">${carta.type}</td>
+							</tr>
+							<tr>
+								<td class="left">Tipo de criatura:</td>
+								<td class="right">${carta.types[0]}</td>
+							</tr>
+							<tr>
+								<td class="left">Artista:</td>
+								<td class="right">${carta.artist}</td>
+							</tr>
+							<tr>
+								<td class="left">Fuerza:
+								<td class="right">${carta.power}</td>
+							</tr>
+							<tr>
+								<td class="left">Resistencia:</td>
+								<td class="right">${carta.toughness}</td>
+							</tr>
+							<tr>
+								<td class="left">Frecuencia:</td>
+								<td class="right">${carta.rarity}</td>
+							</tr>
+							<tr>
+								<td class="left">Coste de maná:</td>
+								<td class="right">${carta.manaCost}</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
 		</table>
 	</div>
 	<div class="modal-footer"></div>

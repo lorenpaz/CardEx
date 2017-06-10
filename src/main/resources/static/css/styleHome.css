@@ -83,4 +83,19 @@
 	margin-top: 10px;
 }
 
+#details2 td{
+	padding: 4px;
+	height: 100%;
+}
+
+#details2 td.left{
+	width: 30%;
+	text-align: right;
+	font-weight: bold;
+}
+
+#details2 td.right{
+	width: 100%;
+	text-align: left;
+}
 
