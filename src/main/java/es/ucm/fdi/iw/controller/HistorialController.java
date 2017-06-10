@@ -222,7 +222,7 @@ public class HistorialController {
 		Gson gson = new Gson();
 		
 		@SuppressWarnings("unchecked")
-		List<Intercambio> intercambios = (List<Intercambio>) entityManager.createNamedQuery("allIntercambios").getResultList();
+		List<Intercambio> intercambios = (List<Intercambio>) entityManager.createNamedQuery("allIntercambiosUsuario").setParameter("user", usuarioActual).getResultList();
 		
 		String json = "{";
 		json +="\"intercambios\":[";

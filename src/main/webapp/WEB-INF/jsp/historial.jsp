@@ -3,7 +3,7 @@
 	<div id="filter" class="zona-info form-inline form-search">
         <label for="offerFilter">Tipo de oferta:</label>
         <select class="input-large form-control filter" id="offerFilter">
-            <option selected="" value="Pendiente">Pendientes</option>
+            <option selected value="Pendiente">Pendientes</option>
             <option value="Aceptado">Aceptadas</option>
             <option value="Rechazado">Rechazadas</option>
             <option value="Finalizado">Finalizadas</option>

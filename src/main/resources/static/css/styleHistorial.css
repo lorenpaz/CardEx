@@ -11,9 +11,10 @@
 }
 
 #intercambio{
-	height: 600px;
+	height: auto;
 	width: 100%;
 	padding: 10px;
+	clear: both;
 }
 
 /*#offer-group{
