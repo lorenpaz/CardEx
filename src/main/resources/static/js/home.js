@@ -115,7 +115,7 @@ function filterCardsByName(card){
 		var ownCardsAux = filterUsers[i].cartasPropias.filter(function(c){
 			usuarioTmp = c.usuarioPropietario;
 			cardName = c.carta.name.toLowerCase();
-			return cardName.includes(card);
+			return !c.inExchange && cardName.includes(card);
 		});
 		if(ownCardsAux.length > 0){
 			filterOwnCardsAux.push(ownCardsAux);
@@ -127,7 +127,7 @@ function filterCardsByName(card){
 		usuarioTmp = filterUsers[i].usuario;
 		var searchCardsAux = filterUsers[i].cartasBuscadas.filter(function(c){
 			cardName = c.name.toLowerCase();
-			return cardName.includes(card);
+			return !c.inExchange && cardName.includes(card);
 		});
 		
 		if(searchCardsAux.length > 0){

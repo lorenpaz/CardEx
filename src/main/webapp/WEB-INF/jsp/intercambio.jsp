@@ -110,7 +110,7 @@
                     </table>
 	            </div>
             	<button class="btn btn-primary" type="submit">Ofrecer</button>
-            	<input	type="hidden" name="usuarioQuePido" value="${usuarioIntercambio.usuario}">
+            	<input	type="hidden" name="usuarioQuePido" value="${usuarioIntercambio.id}">
             	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             	<c:if test="${contraOferta}">
             	<input type="hidden" name="intercambioID" value="${intercambio.id}" />

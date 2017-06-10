@@ -1,18 +1,4 @@
 
-/*function createRow(name , edition){
-	$('#table_cards tbody').append(`<tr>
-			<td class="filterable-cell">`+ name +`</td>
-			<td class="filterable-cell">`+ edition +`</td>
-			</tr>`);
-}*/
-
-/*function poblarTablas(rows){
-	var j;
-	for(j=0; j<rows.length; j++){
-		createRow(rows[j].name, rows[j].setName);
-	}
-}*/
-
 function createRowUserFirst(exchange){
 	user = exchange.usuarioRecibe.id == usuarioSesionJSON.id ? exchange.usuarioOfrece : exchange.usuarioRecibe;
 

@@ -41,7 +41,7 @@
 			<ul class="list-group">
 				<c:forEach items="${usuarios}" var="usuario" varStatus="status">
 					<c:forEach items="${usuario.cartasPropias}" var="cartaPropia">
-						<c:if test="${status.first}">
+						<c:if test="${status.first && !cartaPropia.inExchange}">
 							<li class="list-group-item r">
 								<div class="tab-pane fade in">
 

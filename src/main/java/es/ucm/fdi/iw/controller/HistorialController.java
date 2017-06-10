@@ -48,9 +48,8 @@ public class HistorialController {
 			SecurityContextHolderAwareRequestWrapper request) {
 		
 		añadirCSSyJSAlModelo(model);
-		Usuario usuarioActual = (Usuario) session.getAttribute("user");
-		/*Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", principal.getName()).getSingleResult();*/
+
+		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField").setParameter("userParam", principal.getName()).getSingleResult();
 
 		if (principal != null && session.getAttribute("user") == null) {
 			try {
@@ -59,6 +58,8 @@ public class HistorialController {
 			} catch (Exception e) {
 				log.info("No such user: " + principal.getName());
 			}
+		}else{
+			usuarioActual = (Usuario) session.getAttribute("user");
 		}
 
 		if (request.isUserInRole("ROLE_ADMIN"))
@@ -245,6 +246,7 @@ public class HistorialController {
 		@Transactional
 		public boolean juntarDosCartasIguales(List<CartaPropia> listaCartas,CartaPropia copia,Usuario propietario)
 		{
+			boolean ok = false;
 			for(CartaPropia original : listaCartas)
 			{
 				if(original.getCarta().getId() == copia.getCarta().getId() &&
@@ -259,9 +261,9 @@ public class HistorialController {
 					propietario.getCartasPropias().remove(copia);
 					entityManager.merge(propietario);
 					entityManager.flush();
-					return true;
+					ok = true;
 				}
 			}
-			return false;
+			return ok;
 		}
 }
