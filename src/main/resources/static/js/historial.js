@@ -288,6 +288,28 @@ function addBehaviour(){
 	});
 }
 
+function offerFilterChanges(){
+	let user = $('#userFilter').val();
+	let state = $('#offerFilter').val();
+	filterTable(state, user);
+    poblarListasCartas();
+    poblarListaUsuarios();
+	if(filterExchanges.length == 0)
+	{
+		$('.waiting').remove();
+		if(!$('#noHay').length)
+		{
+			$('#intercambio').append('<h2 id="noHay">No se han encontrado resultados para la busqueda realizada</h2>');
+		}	
+	}else{
+		if($('#noHay').length)
+		{
+			$('#noHay').remove();
+		}
+	}
+	filterExchanges = intercambiosJSON.intercambios;
+}
+
 var filterExchanges;
 var filterUsersList;
 var filterOfferCards;
@@ -303,27 +325,10 @@ $( function(){
 		filterOrderCards = filterExchanges[0].cartasRecibidas;
 		currentUser = usuarioActual;
 	}
+	offerFilterChanges();
 	
 	$("#offerFilter").change(function(){
-    	let user = $('#userFilter').val();
-    	let state = $('#offerFilter').val();
-    	filterTable(state, user);
-        poblarListasCartas();
-        poblarListaUsuarios();
-    	if(filterExchanges.length == 0)
-    	{
-    		$('.waiting').remove();
-    		if(!$('#noHay').length)
-    		{
-    			$('#intercambio').append('<h2 id="noHay">No se han encontrado resultados para la busqueda realizada</h2>');
-    		}	
-    	}else{
-    		if($('#noHay').length)
-    		{
-    			$('#noHay').remove();
-    		}
-    	}
-    	filterExchanges = intercambiosJSON.intercambios;
+		offerFilterChanges();
     });
 	
     $("#userFilter").on('keyup', function(){

@@ -55,7 +55,7 @@
 		</div>
         <div id="ofrece-column" class="offer-column">
         <c:if test="${intercambio.estadoIntercambio == 'Pendiente'}">
-        	<h3>Ofrece</h3>
+        	<h3><c:out value="${intercambio.usuarioOfrece.usuario}"/> ofrece</h3>
             <table class="table table-striped" id="offerTable">
             <thead>
                 <tr>
@@ -89,7 +89,7 @@
 
         <div id="pide-column" class="offer-column">
         <c:if test="${intercambio.estadoIntercambio == 'Pendiente'}">
-        	<h3>Pide</h3>
+        	<h3><c:out value="${intercambio.usuarioRecibe.usuario}"/> ofrece</h3>
             <table class="table table-striped" id="orderTable">
             <thead>
                 <tr>
