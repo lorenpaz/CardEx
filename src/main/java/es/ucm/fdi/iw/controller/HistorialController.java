@@ -104,6 +104,10 @@ public class HistorialController {
 				if(!juntarDosCartasIguales(recibe.getCartasPropias(),carta,recibe))
 				{
 					recibe.getCartasPropias().add(carta);
+				}else{
+					ofrece.getCartasPropias().remove(carta);
+					entityManager.merge(ofrece);
+					entityManager.flush();
 				}
 			}
 			
@@ -117,6 +121,10 @@ public class HistorialController {
 				if(!juntarDosCartasIguales(ofrece.getCartasPropias(),carta,ofrece))
 				{
 					ofrece.getCartasPropias().add(carta);
+				}else{
+					ofrece.getCartasPropias().remove(carta);
+					entityManager.merge(ofrece);
+					entityManager.flush();
 				}
 			}	
 		}else{
@@ -140,6 +148,9 @@ public class HistorialController {
 		inter.setEstadoIntercambio("Rechazado");
 		inter.setUsuarioRealizaUltimaAccion(actual);
 		inter.setTerminado(true);
+		
+		List<CartaPropia> cartasParaBorrar = new ArrayList<CartaPropia>();
+		
 		for(CartaPropia c : inter.getCartasOfrecidas())
 		{
 			c.setInExchange(false);
@@ -147,6 +158,11 @@ public class HistorialController {
 			{
 				entityManager.merge(c);
 				entityManager.flush();
+			}else{
+				inter.getUsuarioOfrece().getCartasPropias().remove(c);
+				entityManager.merge(inter.getUsuarioOfrece());
+				entityManager.flush();
+				cartasParaBorrar.add(c);
 			}
 		}
 		for(CartaPropia c : inter.getCartasRecibidas())
@@ -156,9 +172,19 @@ public class HistorialController {
 			{
 				entityManager.merge(c);
 				entityManager.flush();
+			}else{
+				inter.getUsuarioRecibe().getCartasPropias().remove(c);
+				entityManager.merge(inter.getUsuarioRecibe());
+				entityManager.flush();
+				cartasParaBorrar.add(c);
 			}
 		}
 		
+		for(CartaPropia c: cartasParaBorrar)
+		{
+			entityManager.remove(c);
+			entityManager.flush();
+		}
 		//Actualizo la BBDD
 		entityManager.merge(inter);
 		entityManager.merge(inter.getUsuarioOfrece());
@@ -259,9 +285,6 @@ public class HistorialController {
 				{
 					original.setCantidad(original.getCantidad() + copia.getCantidad());
 					entityManager.merge(original);
-					propietario.getCartasPropias().remove(copia);
-					entityManager.merge(propietario);
-					entityManager.flush();
 					ok = true;
 				}
 			}
