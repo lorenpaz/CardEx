@@ -111,9 +111,10 @@ public class PerfilController {
 
 		Valoracion v = Valoracion.crearValoracion(usuarioQueValora, usuarioValorado, formDescripcion,
 				Integer.parseInt(formValor));
-
-		log.info("Creating valoration " + v);
-
+		
+		
+		//actualizarMediaValoraciones(usuarioValorado);
+		
 		entityManager.persist(v);
 		entityManager.flush();
 
@@ -132,6 +133,8 @@ public class PerfilController {
 		Valoracion valoracion = (Valoracion) entityManager.find(Valoracion.class, idV);
 		entityManager.remove(valoracion);
 		entityManager.flush();
+		
+		//actualizarMediaValoraciones(otroUsuario);
 		
 		return "redirect:../perfil/" + otroUsuario.getId();
 	}
@@ -167,11 +170,19 @@ public class PerfilController {
 				setParameter("usuario", entityManager.find(Usuario.class, id)).
 				setParameter("actual", actual).
 				setParameter("estadoIntercambio", "Finalizado").getSingleResult());
+		long cuantosIntercambiosAceptados = ((long) entityManager.createQuery("select count(i) from Intercambio i where "
+				+ "((i.usuarioOfrece = :actual and i.usuarioRecibe = :usuario) or "
+				+ "(i.usuarioOfrece = :usuario and i.usuarioRecibe = :actual)) "
+				+ "and i.estadoIntercambio = :estadoIntercambio").
+				setParameter("usuario", entityManager.find(Usuario.class, id)).
+				setParameter("actual", actual).
+				setParameter("estadoIntercambio", "Aceptado").getSingleResult());
 		long cuantasValoraciones = ((long) entityManager.createQuery("select count(v) from Valoracion v where "
 				+ "v.usuarioValorado = :usuario and v.usuarioQueValora = :actual").
 				setParameter("usuario", entityManager.find(Usuario.class, id)).
 				setParameter("actual", actual).getSingleResult());
 		
+		model.addAttribute("cuantosIntercambiosAceptados", cuantosIntercambiosAceptados);
 		model.addAttribute("cuantosIntercambios", cuantosIntercambios);
 		model.addAttribute("cuantasValoraciones", cuantasValoraciones);
 		return "perfil";
@@ -198,6 +209,8 @@ public class PerfilController {
 			entityManager.remove(v);
 		}
 		entityManager.flush();
+		
+		//actualizarMediaValoraciones(u);
 
 		// elimina todos los intercambios no finalizados donde aparace usuario
 		// dado de baja
@@ -231,5 +244,21 @@ public class PerfilController {
 	private void actualizaUsuarioSesion(HttpSession session, Usuario u) {
 		// Actualizo el usuario de la sesión
 		session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void actualizarMediaValoraciones(Usuario usuario){
+		List<Valoracion> valoraciones = entityManager
+				.createQuery("SELECT v FROM Valoracion v WHERE v.usuarioValorado like :user")
+				.setParameter("user", usuario).getResultList();
+		
+		int suma = 0;
+		for (Valoracion valoracion : valoraciones) {
+			suma += valoracion.getValor();
+		}
+		float media = (float) suma / (float) valoraciones.size();
+		usuario.setValoracionMedia(media);
+
+		entityManager.merge(usuario);
 	}
 }

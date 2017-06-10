@@ -38,7 +38,7 @@
 					<tr>
 						<th scope="row">E-Mail</th>
 						<c:choose>
-							<c:when test="${visitante eq null || cuantosIntercambios > 0}">
+							<c:when test="${visitante eq null || cuantosIntercambiosAceptados > 0}">
 								<td><c:out value="${usuario.email}" /></td>
 							</c:when>
 							<c:otherwise>
