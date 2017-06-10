@@ -14,7 +14,12 @@ public class CartaJSON {
 	private String artist;
 	private String power;
 	private String imageUrl;
-	
+	private String manaCost;
+	private String toughness;
+	private String color;
+	private String rarity;
+	private String[] colors;
+	private String[] types;
 	
 	public CartaJSON(Carta c) {
 		this.id = c.getId();
@@ -22,11 +27,17 @@ public class CartaJSON {
 		//daba error cuando colorIdentity[] era null
 		this.colorIdentity = c.getColorIdentity() == null ? null : c.getColorIdentity()[0];
 		this.type = c.getType();
+		this.types = c.getTypes();
 		this.setName = c.getSetName();
 		this.text = "";//c.getText();
 		this.artist = c.getArtist();
 		this.power = c.getPower();
 		this.imageUrl = c.getImageUrl();
+		this.color = c.getColors()[0];
+		this.colors = c.getColors();
+		this.toughness = c.getToughness();
+		this.rarity = c.getRarity();
+		this.manaCost = c.getManaCost();
 	}
 	
 	public long getId() {
