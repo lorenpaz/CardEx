@@ -22,8 +22,19 @@ public class Intercambio {
 	private Usuario usuarioRealizaUltimaAccion;
 	private String estadoIntercambio;// Aceptado, Rechazado, Finalizado,
 										// Pendiente
+	private boolean terminado;
 	private List<CartaPropia> cartasOfrecidas;
 	private List<CartaPropia> cartasRecibidas;
+
+	
+	public boolean isTerminado() {
+		return terminado;
+	}
+
+	public void setTerminado(boolean terminado) {
+		this.terminado = terminado;
+	}
+
 
 	private Date fecha;
 
@@ -44,6 +55,7 @@ public class Intercambio {
 		this.cartasRecibidas = new ArrayList<CartaPropia>();
 		this.fecha = fecha;
 		this.usuarioRealizaUltimaAccion = usuarioRealizaUltimaAccion;
+		this.terminado = false;
 	}
 
 	public void setId(long idIntercambio) {

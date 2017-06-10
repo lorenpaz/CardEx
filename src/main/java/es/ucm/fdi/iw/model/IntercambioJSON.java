@@ -14,7 +14,16 @@ public class IntercambioJSON {
 	private List<CartaPropiaJSON> cartasRecibidas;
 	private String fecha;
 	private UsuarioJSON usuarioRealizaUltimaAccion;
+	private boolean terminado;
 	
+	public boolean isTerminado() {
+		return terminado;
+	}
+
+	public void setTerminado(boolean terminado) {
+		this.terminado = terminado;
+	}
+
 	public IntercambioJSON() {}
 
 	public IntercambioJSON(Intercambio i) {
@@ -26,6 +35,7 @@ public class IntercambioJSON {
 		this.cartasOfrecidas = parserList(i.getCartasOfrecidas());
 		this.cartasRecibidas = parserList(i.getCartasRecibidas());
 		this.fecha = i.getFecha().toString();
+		this.terminado = i.isTerminado();
 	}
 
 	private List<CartaPropiaJSON> parserList(List<CartaPropia> cartas) {
