@@ -176,11 +176,14 @@ public class PerfilController {
 		model.addAttribute("cuantosUsuariosValoraron", count);
 		
 		//cuantos intercambios habia entre los dos usuarios
-		long cuantosIntercambios = ((long) entityManager.createQuery("select count(i) from Intercambio i where "
-				+ "(i.usuarioOfrece = :actual and i.usuarioRecibe = :usuario) or "
-				+ "(i.usuarioOfrece = :usuario and i.usuarioRecibe = :actual)").
+		long cuantosIntercambios = (long) entityManager.createQuery("select count(i) from Intercambio i where "
+				+ "((i.usuarioOfrece = :actual and i.usuarioRecibe = :usuario) or "
+				+ "(i.usuarioOfrece = :usuario and i.usuarioRecibe = :actual))"
+				+ "and i.estadoIntercambio = :estadoIntercambio").
 				setParameter("usuario", entityManager.find(Usuario.class, id)).
-				setParameter("actual", actual).getSingleResult());
+				setParameter("actual", actual).
+				setParameter("estadoIntercambio", "Aceptado").getSingleResult();
+				
 		long cuantasValoraciones = ((long) entityManager.createQuery("select count(v) from Valoracion v where "
 				+ "v.usuarioValorado = :usuario and v.usuarioQueValora = :actual").
 				setParameter("usuario", entityManager.find(Usuario.class, id)).
