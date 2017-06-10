@@ -1,12 +1,12 @@
 function filterUser(user){
 	return allUsers.filter(function(u){
-		return u.usuario.includes(user);
+		return u.usuario.toLowerCase().includes(user.toLowerCase());
 	});
 }
 
 function filterEdition(ed){
 	return allEditions.filter(function(e){
-		return e.name.includes(ed);
+		return e.name.toLowerCase().includes(ed.toLowerCase());
 	});
 }
 
