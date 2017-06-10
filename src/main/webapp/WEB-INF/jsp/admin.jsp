@@ -12,11 +12,8 @@
 	<link href="${prefijo}${prefix}css/bootstrap.min.css" rel="stylesheet">
 	<!-- MetisMenu CSS -->
 	<link href="${prefijo}${prefix}css/metisMenu.min.css" rel="stylesheet">
-	<!-- Custom CSS -->
-	<link href="${prefijo}${prefix}css/sb-admin-2.min.css" rel="stylesheet">
 	<!-- Custom Fonts -->
 	<link href="${prefijo}${prefix}css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	<link href="${prefijo}${prefix}css/main.css" rel="stylesheet" type="text/css">
 	
 	<%-- pageExtraCSS --%>
 	<c:forEach var="i" items="${pageExtraCSS}" >
@@ -60,11 +57,8 @@
 	            <div class="well">
 	              <div class="tab-content">
 	                <div class="tab-pane fade in active" id="tab1">
-	                 <form class="form-inline form-search" method="post">
-	                    <input type="search" class="form-control" placeholder="Usuario"/>
-	                    <input type="submit" class="btn btn-primary" value="Buscar"/>
-	                  </form>
-	                  <table class="table table-striped table-hover">
+	                  <input id="filterUser" type="search" class="form-control filters" placeholder="Usuario"/>
+	                  <table id="tablaUsuarios" class="table table-striped table-hover">
 	                  	<tr>
 	                      <th>Usuario</th>
 	                      <th>Fecha de Alta</th>
@@ -75,7 +69,7 @@
 	                    
 	                    <c:forEach items="${usuarios}" var="usuario">
 						    <tr>
-		                      <td><c:out value="${usuario.nombre}"/></td>
+		                      <td><c:out value="${usuario.usuario}"/></td>
 		                      <td><c:out value="${usuario.fechaAlta}"/></td>
 		                      	<c:if test= "${usuario.activo eq false}">
 									<td>Inactivo</td>
@@ -112,7 +106,7 @@
 	                
 	                <div class="tab-pane fade in" id="tab2">
 	                
-	                
+	                		<input id="filterEdition" type="search" class="form-control filters" placeholder="Edicion"/>
 		                	<form class="form-inline form-search" method="post" action="${prefijo}admin/updateSets">
 		                     <button type="submit" class="btn btn-default">Actualizar Ediciones</button>
 		                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -120,7 +114,7 @@
 		                  	
 		                  	
 		                  	
-	                        <table class="table table-striped table-hover">
+	                        <table id="tablaEdiciones" class="table table-striped table-hover">
 		                        <caption>Ediciones</caption>
 		                        <tr>
 		                        <th>Colección</th>
@@ -171,8 +165,6 @@
 										</c:choose>
 								    </tr>
 								</c:forEach>
-		                       
-		                        
 	                      	</table>
 	                    </div>
 	                </div>
@@ -180,11 +172,11 @@
 			</div>     
 		</div>
 	</div>
-
+	
 <script>
-$(function() {
-		$( "#tabs" ).tabs();
-  } );
-</script> 
+	var csrf = '<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />';
+	var usuariosJSON = ${usuariosJSON};
+	var edicionesJSON = ${edicionesJSON};
+</script>
     
  <%@ include file="../jspf/footer.jspf" %>
