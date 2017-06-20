@@ -10,7 +10,7 @@
 	<div class="btn-pref btn-group btn-group-justified btn-group-lg">
 		<a class="btn btn-primary" href="#tab1" data-toggle="tab"> 
 			<span class="glyphicon glyphicon-user" aria-hidden="true"></span><br>
-			<span class="hidden-xs">Informaci&oacute;n Personal</span>
+			<span class="hidden-xs">Información Personal</span>
 		</a> <a class="btn btn-default" href="#tab2" data-toggle="tab">
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span><br>
 			<span class="hidden-xs">Valoraci&oacute;n</span>
@@ -42,7 +42,7 @@
 								<td><c:out value="${usuario.email}" /></td>
 							</c:when>
 							<c:otherwise>
-								<td>Hay que hacer un intercambio con este usuario para acceder a esta informaciÃ³n</td>
+								<td>Hay que hacer un intercambio con este usuario para acceder a esta información</td>
 							</c:otherwise>
 						</c:choose>
 					</tr>
@@ -69,13 +69,13 @@
 										id="valorarUsuario" method="POST">
 										Valora al usuario
 										<textarea id="opinion" rows="4" cols="50" class="center"
-											form="valorarUsuario" name="descripcion"></textarea>
+								 			form="valorarUsuario" name="descripcion"></textarea>
 										<input id="input-21e" value="3" type="text" class="rating"
 											data-min=0 data-max=5 data-step=1 data-size="xs" name="valor">
 										<button type="submit" class="btn btn-sm btn-success right">Valorar</button>
 										<input type="hidden" name="${_csrf.parameterName}"
 											value="${_csrf.token}" /> <input type="hidden"
-											name="usuarioValorado" value="${usuario.usuario}" />
+											name="usuarioValorado" value="${usuario.id}" />
 									</form>
 								</td>
 							</c:when>
@@ -105,7 +105,7 @@
 									<form action="${prefijo}perfil/eliminarValoracion" method="post">
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
 										<input type="hidden" name="valoracionId" value="${valoracion.id}" />
-										<input type="hidden" name="otroUsuario" value="${usuario.usuario}" />
+										<input type="hidden" name="otroUsuario" value="${usuario.id}" />
 										<button type="submit" class="close" aria-label="Close">
 	  										<span aria-hidden="true">&times;</span>
 										</button>

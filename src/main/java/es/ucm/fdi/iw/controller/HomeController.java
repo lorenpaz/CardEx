@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.google.gson.Gson;
 
+import es.ucm.fdi.iw.model.Intercambio;
 import es.ucm.fdi.iw.model.Usuario;
 import es.ucm.fdi.iw.model.UsuarioJSON;
 
@@ -81,9 +82,34 @@ public class HomeController {
 		if (request.isUserInRole("ROLE_ADMIN"))
 			return "redirect:admin";
 
+		//Enviamos al modelo el usuarioActual (en JSON y normal)
+		añadirUsuarioActualJSON(model, usuarioActual);
+		model.addAttribute("usuarioActual",usuarioActual);
+		
+		mensajesPendientes(model,usuarioActual);
+		
 		return "home";
 	}
 
+	private void añadirUsuarioActualJSON(Model model, Usuario usuarioActual)
+	{
+		UsuarioJSON usuarioActualJSON = new UsuarioJSON(usuarioActual);
+		Gson gson = new Gson();
+		
+		String jsonAux = gson.toJson(usuarioActualJSON);
+		model.addAttribute("usuarioActualJSON", jsonAux);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void mensajesPendientes(Model model, Usuario usuarioActual)
+	{
+		List<Intercambio> intercambios = entityManager.createNamedQuery("allIntercambiosUsuarioPendiente")
+				.setParameter("estado", "Pendiente")
+				.setParameter("user", usuarioActual)
+				.getResultList();
+		model.addAttribute("numeroDeMensajes",intercambios.size());
+	}
+	
 	public static void añadirCSSyJSAlModelo(Model model) {
 		List<String> listaCSS = new ArrayList<String>();
 		listaCSS.add("styleHome.css");

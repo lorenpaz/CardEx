@@ -50,6 +50,8 @@ public class PerfilController {
 		
 		añadirCSSyJSAlModelo(model);
 		Usuario u = (Usuario) session.getAttribute("user");
+		u = entityManager.find(Usuario.class, u.getId());
+		
 		model.addAttribute("usuario", u);
 		
 		long count = ((long) entityManager.createQuery("select count(v) from Valoracion v where v.usuarioValorado = :usuario").
@@ -69,7 +71,8 @@ public class PerfilController {
 
 		// Obtengo el usuario actual
 		Usuario u = (Usuario) session.getAttribute("user");
-
+		u = entityManager.find(Usuario.class, u.getId());
+		
 		log.info("Modifying user " + u);
 		if (formNombre != "" && formNombre != u.getNombre()) {
 			u.setNombre(formNombre);
@@ -91,8 +94,6 @@ public class PerfilController {
 			u.setContraseña(passwordEncoder.encode(formContraseña));
 		}
 
-		// Actualizamos el usuario de la BBDD
-		entityManager.merge(u);
 		log.info("Cambios realizados");
 
 		actualizaUsuarioSesion(session, u);
@@ -101,14 +102,14 @@ public class PerfilController {
 
 	@PostMapping("/valorarUsuario")
 	@Transactional
-	public String valorarUsuario(@RequestParam("usuarioValorado") String formUsuarioValorado,
+	public String valorarUsuario(@RequestParam("usuarioValorado") long usuarioValoradoId,
 			@RequestParam("descripcion") String formDescripcion, @RequestParam("valor") String formValor,
 			Principal principal, HttpSession session) {
 		Usuario usuarioQueValora = (Usuario) session.getAttribute("user");
-
-		Usuario usuarioValorado = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", formUsuarioValorado).getSingleResult();
-
+		usuarioQueValora = entityManager.find(Usuario.class, usuarioQueValora.getId());
+		
+		Usuario usuarioValorado = entityManager.find(Usuario.class, usuarioValoradoId);
+		
 		Valoracion v = Valoracion.crearValoracion(usuarioQueValora, usuarioValorado, formDescripcion,
 				Integer.parseInt(formValor));
 		
@@ -124,17 +125,16 @@ public class PerfilController {
 	
 	@PostMapping(value = "/eliminarValoracion")
 	@Transactional
-	public String eliminaValoracion(@RequestParam("otroUsuario") String otroUsuarioForm,
+	public String eliminaValoracion(@RequestParam("otroUsuario") long usuarioId,
 			@RequestParam("valoracionId") long idV, Principal principal, HttpSession session){
 		
-		Usuario otroUsuario = (Usuario) entityManager.createNamedQuery("userByUserField").
-				setParameter("userParam", otroUsuarioForm).getSingleResult();
-				
-		Valoracion valoracion = (Valoracion) entityManager.find(Valoracion.class, idV);
+		Usuario otroUsuario = entityManager.find(Usuario.class, usuarioId);
+		
+		Valoracion valoracion = entityManager.find(Valoracion.class, idV);
 		entityManager.remove(valoracion);
 		entityManager.flush();
 		
-		//actualizarMediaValoraciones(otroUsuario);
+		actualizarMediaValoraciones(otroUsuario);
 		
 		return "redirect:../perfil/" + otroUsuario.getId();
 	}
@@ -152,6 +152,9 @@ public class PerfilController {
 
 		añadirCSSyJSAlModelo(model);
 		Usuario actual = (Usuario) session.getAttribute("user");
+		actual = entityManager.find(Usuario.class, actual.getId());
+		
+		
 		model.addAttribute("usuarioLogeado", actual);
 		if (id != actual.getId())
 			model.addAttribute("visitante", "true");
@@ -194,9 +197,9 @@ public class PerfilController {
 	@Transactional
 	public ModelAndView eliminaUsuario(Principal principal, HttpSession session) {
 		Usuario u = (Usuario) session.getAttribute("user");
+		u = entityManager.find(Usuario.class, u);
+		
 		u.setActivo(false);
-		entityManager.merge(u);
-		entityManager.flush();
 
 		// elimina todas valoraciones donde aparace usuario que esta dado de
 		// baja
@@ -208,7 +211,6 @@ public class PerfilController {
 		for (Valoracion v : valoraciones) {
 			entityManager.remove(v);
 		}
-		entityManager.flush();
 		
 		//actualizarMediaValoraciones(u);
 
@@ -258,7 +260,5 @@ public class PerfilController {
 		}
 		float media = (float) suma / (float) valoraciones.size();
 		usuario.setValoracionMedia(media);
-
-		entityManager.merge(usuario);
 	}
 }

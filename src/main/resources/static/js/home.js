@@ -1,5 +1,8 @@
 function createRowUserFirst(user){
-	$('#intercambio-column .list-group').append(`<a href="`+user.id+`" aria-controls="tab-`+user.id+`"
+	$('#intercambio-column .list-group').append(`<form method="get" action="${prefijo}perfil/` + user.id + `">
+	<button type="submit"><span class="badge">
+	<span class="glyphicon glyphicon-chevron-down"></span>
+</span></button></form>` + `<a href="`+user.id+`" aria-controls="tab-`+user.id+`"
 			role="tab" data-toggle="tab" class="list-group-item active">
 			`+user.usuario+`
 			<span class="badge"> <span class="glyphicon glyphicon-chevron-right"></span></span>
@@ -9,7 +12,10 @@ function createRowUserFirst(user){
 }
 
 function createRowUser(user){
-	$('#intercambio-column .list-group').append(`<a href="`+user.id+`" aria-controls="tab-`+user.id+`"
+	$('#intercambio-column .list-group').append(`<form method="get" action="${prefijo}perfil/` + user.id + `">
+			<button type="submit"><span class="badge">
+			<span class="glyphicon glyphicon-chevron-down"></span>
+		</span></button></form>` + `<a href="../perfil/`+user.id+`"></a>`+`<a href="`+user.id+`" aria-controls="tab-`+user.id+`"
 			role="tab" data-toggle="tab" class="list-group-item usuarios">
 			`+user.usuario+`</a>`);
 	addBehaviour();
@@ -104,7 +110,7 @@ function getModal(card, index){
 							</tr>
 							<tr>
 								<td class="left">Coste de maná:</td>
-								<td class="right">`+card.manaCost+`</td>
+								<td class="right">`+manaTipo(card.manaCost)+`</td>
 							</tr>
 						</table>
 					</div>
@@ -117,10 +123,41 @@ function getModal(card, index){
 	return modal;
 }
 
+function manaTipo(mana) {
+	
+	var manaText = ``;
+	for (var i = 0, len = mana.length; i < len; i++) {
+		 if(mana[i] == 'B')
+		 {
+			 manaText += `<div id="blueball">&nbsp;</div>`;
+		 }
+		 else if(mana[i] == 'G')
+		 {
+			 manaText += `<div id="greenball">&nbsp;</div>`;
+		 }
+		 if(mana[i] == 'R')
+		 {
+			 manaText += `<div id="redball">&nbsp;</div>`;
+		 }
+		 if(mana[i] == 'W')
+		 {
+			 manaText += `<div id="whiteball">&nbsp;</div>`;
+		 }
+		 if(mana[i] == 'K')
+		 {
+			 manaText += `<div id="blackball">&nbsp;</div>`;
+		 }
+	}
+	
+	return manaText;
+}
+
 function createRowCardPide(card){
+	if(cardInsideOfferList(card))
+	{
 	$('#pide-column .list-group').append(`<div class="tab-pane fade in">
 			<li class="list-group-item r">
-			<a class="nostyle" href="#" data-toggle="modal" data-target="#`
+			<a class="nostyle bold" href="#" data-toggle="modal" data-target="#`
 			+ card.id+`">`+card.name+`</a>
 			<!--Cartas -->
 			<div class="modal fade" id="`+card.id+`" role="dialog">
@@ -131,12 +168,29 @@ function createRowCardPide(card){
 			</div>
 			</li>
 	</div>`);
+	}else{
+		$('#pide-column .list-group').append(`<div class="tab-pane fade in">
+				<li class="list-group-item r">
+				<a class="nostyle" href="#" data-toggle="modal" data-target="#`
+				+ card.id+`">`+card.name+`</a>
+				<!--Cartas -->
+				<div class="modal fade" id="`+card.id+`" role="dialog">
+				<div class="modal-dialog">
+				<!-- Modal content-->
+				`+getModal(card, 2)+`
+				</div>
+				</div>
+				</li>
+		</div>`);	
+	}
 }
 
 function createRowCardOfrece(card){
+	
+	if(cardInsideSearchCard(card)){
 	$('#ofrece-column .list-group').append(`<div class="tab-pane fade in">
 			<li class="list-group-item r">
-			<a class="nostyle" href="#" data-toggle="modal" data-target="#` + card.carta.id+`">`+card.carta.name+`</a>
+			<a class="nostyle bold" href="#" data-toggle="modal" data-target="#` + card.carta.id+`">`+card.carta.name+`</a>
 			<!--Cartas -->
 			<div class="modal fade" id="`+card.carta.id+`" role="dialog">
 			<div class="modal-dialog">
@@ -146,8 +200,37 @@ function createRowCardOfrece(card){
 			</div>
 			</li>
 	</div>`);
+	}else{
+		$('#ofrece-column .list-group').append(`<div class="tab-pane fade in">
+				<li class="list-group-item r">
+				<a class="nostyle" href="#" data-toggle="modal" data-target="#` + card.carta.id+`">`+card.carta.name+`</a>
+				<!--Cartas -->
+				<div class="modal fade" id="`+card.carta.id+`" role="dialog">
+				<div class="modal-dialog">
+				<!-- Modal content-->
+				`+getModal(card, 1)+`
+				</div>
+				</div>
+				</li>
+		</div>`);
+	}
 }
+
+function cardInsideOfferList(card){
 	
+	var auxiliar = usuarioActualJSON.cartasPropias.filter( function(c){
+		return card.id == c.carta.id;
+	});
+	return auxiliar.length == 0 ? false : true;
+}
+
+function cardInsideSearchCard(card){
+	
+	var auxiliar = usuarioActualJSON.cartasBuscadas.filter( function(c){
+		return c.id == card.carta.id;
+	});
+	return auxiliar.length == 0 ? false : true;
+}
 
 function poblarListasCartas(){
 	
@@ -287,7 +370,7 @@ function addBehaviour(){
 	        filterCardsByCardAndUser(user, card);
 	        poblarListasCartas();
 	    	var anterior = $('.active').addClass('usuarios').removeClass('active');
-	    	$('.badge').remove();
+	    	$('a .badge').remove();
 	    	$('#usuarioQuieroIntercambio').remove();
 	    	
 	        $(this).addClass('active');

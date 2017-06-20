@@ -45,7 +45,8 @@ public class GestionController {
 		/*Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
 				.setParameter("userParam", principal.getName()).getSingleResult();*/
 		Usuario usuarioActual = (Usuario) session.getAttribute("user");
-
+		usuarioActual = entityManager.find(Usuario.class, usuarioActual.getId());
+		
 		añadirCSSyJSAlModelo(model);
 
 		getAllSets(model);
@@ -63,8 +64,8 @@ public class GestionController {
 			@RequestParam("cardsOQ[]") String[] cantidadCartasPropias,
 			@RequestParam("cardsOE[]") String[] edicionCartasPropias, Principal principal, HttpSession session) {
 
-		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", principal.getName()).getSingleResult();
+		Usuario usuarioActual = (Usuario) session.getAttribute("user");
+		usuarioActual = entityManager.find(Usuario.class, usuarioActual.getId());
 
 		// CartasBuscadas
 		usuarioActual.setCartasBuscadas(new ArrayList<Carta>());
@@ -135,7 +136,7 @@ public class GestionController {
 
 	private void actualizaUsuarioSesion(HttpSession session, Usuario u) {
 		// Actualizo el usuario de la sesión
-		Usuario actual = (Usuario) entityManager.createNamedQuery("userById").setParameter("idParam", u.getId()).getSingleResult();
+		Usuario actual = entityManager.find(Usuario.class, u.getId());
 		session.setAttribute("user", actual);
 	}
 

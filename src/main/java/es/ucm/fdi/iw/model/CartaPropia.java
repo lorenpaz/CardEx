@@ -14,7 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 @NamedQueries({
-	@NamedQuery(name = "allOwnCardsByUserEditionName", query = "select c from CartaPropia c where c.usuarioPropietario = :userParam  and c.carta.setName = :EdParam and c.carta.name = :NParam")
+	@NamedQuery(name = "allOwnCardsByUserEditionName", query = "select c from CartaPropia c where c.usuarioPropietario = :userParam  and c.carta.setName = :EdParam and c.carta.name = :NParam"),
+	@NamedQuery(name = "delOwnCardById", query = "delete from CartaPropia c where c.id = :idParam")
 	})
 @Entity
 public class CartaPropia {

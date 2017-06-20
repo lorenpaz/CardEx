@@ -99,3 +99,51 @@
 	text-align: left;
 }
 
+.bold {
+	font-weight: bold;
+}
+
+#redball {
+      width: 16px;
+      height: 16px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      background: red; 
+    }
+    
+#whiteball {
+      width: 16px;
+      height: 16px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      background: white; 
+}
+    
+ #greenball {
+      width: 16px;
+      height: 16px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      background: green; 
+}
+
+#blueball {
+      width: 16px;
+      height: 16px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      background: blue; 
+}
+
+#blackball {
+      width: 16px;
+      height: 16px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      background: black; 
+}

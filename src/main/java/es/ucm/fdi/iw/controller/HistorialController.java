@@ -78,6 +78,7 @@ public class HistorialController {
 	{
 		
 		Usuario usuarioActual = (Usuario) session.getAttribute("user");
+		usuarioActual = entityManager.find(Usuario.class, usuarioActual.getId());
 		
 		//Consigo el intercambio y le cambio el estado
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
@@ -100,14 +101,12 @@ public class HistorialController {
 				carta.setInExchange(false);
 				carta.setUsuarioPropietario(recibe);
 				entityManager.persist(carta);
-				entityManager.flush();
 				if(!juntarDosCartasIguales(recibe.getCartasPropias(),carta,recibe))
 				{
 					recibe.getCartasPropias().add(carta);
 				}else{
 					ofrece.getCartasPropias().remove(carta);
 					entityManager.merge(ofrece);
-					entityManager.flush();
 				}
 			}
 			
@@ -117,14 +116,12 @@ public class HistorialController {
 				carta.setInExchange(false);
 				carta.setUsuarioPropietario(ofrece);
 				entityManager.merge(carta);
-				entityManager.flush();
 				if(!juntarDosCartasIguales(ofrece.getCartasPropias(),carta,ofrece))
 				{
 					ofrece.getCartasPropias().add(carta);
 				}else{
 					ofrece.getCartasPropias().remove(carta);
 					entityManager.merge(ofrece);
-					entityManager.flush();
 				}
 			}	
 		}else{
@@ -143,6 +140,8 @@ public class HistorialController {
 	HttpSession session)
 	{
 		Usuario actual = (Usuario) session.getAttribute("user");
+		actual = entityManager.find(Usuario.class, actual.getId());
+		
 		//Consigo el intercambio y lo modifico
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Rechazado");
@@ -157,11 +156,9 @@ public class HistorialController {
 			if(!juntarDosCartasIguales(inter.getUsuarioOfrece().getCartasPropias(),c,inter.getUsuarioOfrece()))
 			{
 				entityManager.merge(c);
-				entityManager.flush();
 			}else{
 				inter.getUsuarioOfrece().getCartasPropias().remove(c);
 				entityManager.merge(inter.getUsuarioOfrece());
-				entityManager.flush();
 				cartasParaBorrar.add(c);
 			}
 		}
@@ -171,11 +168,9 @@ public class HistorialController {
 			if(!juntarDosCartasIguales(inter.getUsuarioRecibe().getCartasPropias(),c,inter.getUsuarioRecibe()))
 			{
 				entityManager.merge(c);
-				entityManager.flush();
 			}else{
 				inter.getUsuarioRecibe().getCartasPropias().remove(c);
 				entityManager.merge(inter.getUsuarioRecibe());
-				entityManager.flush();
 				cartasParaBorrar.add(c);
 			}
 		}
@@ -183,7 +178,6 @@ public class HistorialController {
 		for(CartaPropia c: cartasParaBorrar)
 		{
 			entityManager.remove(c);
-			entityManager.flush();
 		}
 		//Actualizo la BBDD
 		entityManager.merge(inter);
@@ -191,10 +185,7 @@ public class HistorialController {
 		entityManager.merge(inter.getUsuarioRecibe());
 		entityManager.flush();
 		
-		
-		Usuario u = entityManager.find(Usuario.class, actual.getId());
-		session.setAttribute("user", u);
-		actualizaUsuarioSesion(session, u);
+		actualizaUsuarioSesion(session, actual);
 		return "redirect:";
 	}
 	
@@ -207,10 +198,6 @@ public class HistorialController {
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Aceptado");
 		inter.setUsuarioRealizaUltimaAccion( (Usuario) session.getAttribute("user"));
-		
-		//Actualizo la BBDD
-		entityManager.merge(inter);
-		entityManager.flush();
 		
 		return "redirect:";
 	}

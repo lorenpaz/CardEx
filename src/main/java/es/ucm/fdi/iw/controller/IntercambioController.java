@@ -61,8 +61,9 @@ public class IntercambioController {
 
 		//Usuarios
 		Usuario usuarioActual = (Usuario) session.getAttribute("user");
-		Usuario usuarioIntercambio = (Usuario) entityManager.createNamedQuery("userById")
-				.setParameter("idParam",usuarioQuieroIntercambio).getSingleResult();
+		usuarioActual = entityManager.find(Usuario.class, usuarioActual.getId());
+		
+		Usuario usuarioIntercambio = entityManager.find(Usuario.class, usuarioQuieroIntercambio);
 				
 		//Listas
 		List<CartaPropia> listaCartasOfrecidas = new  ArrayList<CartaPropia>();
@@ -90,7 +91,6 @@ public class IntercambioController {
 				CartaPropia cartaDuplicada = duplicateCard(carta);
 				cartaDuplicada.setCantidad(carta.getCantidad() - cantidadCartasOfrecidas[i]);
 				entityManager.persist(cartaDuplicada);
-				entityManager.flush();
 				
 				//Actualiza la carta a InExchange y su cantidad
 				carta.setCantidad(cantidadCartasOfrecidas[i]);
@@ -103,7 +103,6 @@ public class IntercambioController {
 				carta.setInExchange(true);
 			}
 			entityManager.merge(carta);
-			entityManager.flush();
 			//Añado a la lista de cartas intercambio
 				listaCartasOfrecidas.add(carta);
 				listaCartasPropiasUsuarioActual.add(carta);
@@ -128,7 +127,6 @@ public class IntercambioController {
 				CartaPropia cartaDuplicada = duplicateCard(carta);
 				cartaDuplicada.setCantidad(carta.getCantidad() - cantidadCartasPido[j]);
 				entityManager.persist(cartaDuplicada);
-				entityManager.flush();
 				
 				//Actualiza la carta a InExchange y su cantidad
 				carta.setCantidad(cantidadCartasPido[j]);
@@ -141,7 +139,6 @@ public class IntercambioController {
 				carta.setInExchange(true);
 			}
 			entityManager.merge(carta);
-			entityManager.flush();
 			
 			listaCartasPedidas.add(carta);
 			listaCartasPropiasUsuarioIntercambio.add(carta);
@@ -150,14 +147,11 @@ public class IntercambioController {
 		//Actualizo las cartasPropias de los usuarios del intercambio
 		usuarioActual.setCartasPropias(listaCartasPropiasUsuarioActual);
 		usuarioIntercambio.setCartasPropias(listaCartasPropiasUsuarioIntercambio);
-		entityManager.merge(usuarioActual);
-		entityManager.merge(usuarioIntercambio);
-		entityManager.flush();
 		
 		//Creo el intercambio
 		Intercambio intercambio = new Intercambio(usuarioActual,usuarioIntercambio,"Pendiente",new Date(Calendar.getInstance().getTime().getTime()),usuarioActual);
 		entityManager.persist(intercambio);
-		entityManager.flush();	
+
 		intercambio.setCartasOfrecidas(listaCartasOfrecidas);
 		intercambio.setCartasRecibidas(listaCartasPedidas);	
 		intercambio.setUsuarioRealizaUltimaAccion(usuarioActual);
@@ -177,7 +171,10 @@ public class IntercambioController {
 	{
 		Intercambio inter = entityManager.find(Intercambio.class, intercambioId);
 		Usuario actual = (Usuario) session.getAttribute("user");
+		actual = entityManager.find(Usuario.class, actual.getId());
+		
 		Usuario usuarioContrario = actual.getId() == inter.getUsuarioRecibe().getId() ? inter.getUsuarioOfrece() : inter.getUsuarioRecibe();
+		usuarioContrario = entityManager.find(Usuario.class, usuarioContrario.getId());
 		
 		//Control de errores y/o usuario se equivoca con la ruta o quiere hacer trampas
 		if(!inter.getEstadoIntercambio().equals("Pendiente") || (
@@ -200,9 +197,9 @@ public class IntercambioController {
 		for(CartaPropia c : listaParaBorrar)
 		{
 			actual.getCartasPropias().remove(c);
-			entityManager.merge(actual);
-			entityManager.flush();
+			entityManager.createNamedQuery("delOwnCardById").setParameter("idParam", c.getId()).executeUpdate();
 		}
+		listaParaBorrar.clear();
 		for(CartaPropia c : usuarioContrario.getCartasPropias())
 		{
 			if(juntarDosCartasIgualesPreviamenteDivididas(usuarioContrario.getCartasPropias(),c,usuarioContrario,inter))
@@ -214,8 +211,7 @@ public class IntercambioController {
 		for(CartaPropia c : listaParaBorrar)
 		{
 			usuarioContrario.getCartasPropias().remove(c);
-			entityManager.merge(usuarioContrario);
-			entityManager.flush();
+			entityManager.createNamedQuery("delOwnCardById").setParameter("idParam", c.getId()).executeUpdate();
 		}
 		
 		model.addAttribute("intercambio",inter);
@@ -243,8 +239,9 @@ public class IntercambioController {
 		
 		//Usuarios
 		Usuario usuarioActual = (Usuario) session.getAttribute("user");
-		Usuario usuarioIntercambio = (Usuario) entityManager.createNamedQuery("userById")
-				.setParameter("idParam",usuarioQuieroIntercambio).getSingleResult();
+		usuarioActual = entityManager.find(Usuario.class, usuarioActual.getId());
+		
+		Usuario usuarioIntercambio = entityManager.find(Usuario.class, usuarioQuieroIntercambio);
 				
 		//Listas
 		List<CartaPropia> listaCartasOfrecidas = new  ArrayList<CartaPropia>();
@@ -272,7 +269,7 @@ public class IntercambioController {
 				CartaPropia cartaDuplicada = duplicateCard(carta);
 				cartaDuplicada.setCantidad(carta.getCantidad() - cantidadCartasOfrecidas[i]);
 				entityManager.persist(cartaDuplicada);
-				entityManager.flush();
+
 				
 				//Actualiza la carta a InExchange y su cantidad
 				carta.setCantidad(cantidadCartasOfrecidas[i]);
@@ -285,7 +282,7 @@ public class IntercambioController {
 				carta.setInExchange(true);
 			}
 			entityManager.merge(carta);
-			entityManager.flush();
+
 			//Añado a la lista de cartas intercambio
 				listaCartasOfrecidas.add(carta);
 				listaCartasPropiasUsuarioActual.add(carta);
@@ -310,7 +307,7 @@ public class IntercambioController {
 				CartaPropia cartaDuplicada = duplicateCard(carta);
 				cartaDuplicada.setCantidad(carta.getCantidad() - cantidadCartasPido[j]);
 				entityManager.persist(cartaDuplicada);
-				entityManager.flush();
+
 				
 				//Actualiza la carta a InExchange y su cantidad
 				carta.setCantidad(cantidadCartasPido[j]);
@@ -323,7 +320,7 @@ public class IntercambioController {
 				carta.setInExchange(true);
 			}
 			entityManager.merge(carta);
-			entityManager.flush();
+
 			
 			listaCartasPedidas.add(carta);
 			listaCartasPropiasUsuarioIntercambio.add(carta);
@@ -333,9 +330,7 @@ public class IntercambioController {
 		//Actualizo las cartasPropias de los usuarios del intercambio
 		usuarioActual.setCartasPropias(listaCartasPropiasUsuarioActual);
 		usuarioIntercambio.setCartasPropias(listaCartasPropiasUsuarioIntercambio);
-		entityManager.merge(usuarioActual);
-		entityManager.merge(usuarioIntercambio);
-		entityManager.flush();
+
 		
 		//Actualizo el intercambio
 		Intercambio intercambio = entityManager.find(Intercambio.class, intercambioId);
@@ -401,7 +396,6 @@ public class IntercambioController {
 			{
 				copia.setInExchange(false);
 				entityManager.merge(copia);
-				entityManager.flush();
 			}
 			for(CartaPropia original : listaCartas)
 			{

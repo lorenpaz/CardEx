@@ -33,7 +33,7 @@ public class CartaJSON {
 		this.artist = c.getArtist();
 		this.power = c.getPower();
 		this.imageUrl = c.getImageUrl();
-		this.color = c.getColors()[0];
+		this.color = c.getColors() == null || c.getColors().length == 0 ? "" : c.getColors()[0];
 		this.colors = c.getColors();
 		this.toughness = c.getToughness();
 		this.rarity = c.getRarity();

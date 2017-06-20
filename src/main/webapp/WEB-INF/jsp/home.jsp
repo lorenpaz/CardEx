@@ -10,12 +10,20 @@
 			for="usuarioFilter">Usuario <input type="search"
 			id="usuarioFilter" class="form-control"
 			placeholder="Busca un usuario" /></label>
+		<c:if test="${numeroDeMensajes != 0}">
+			<label>Tienes <c:out value="${numeroDeMensajes}" /> intercambios pendientes!</label>
+		</c:if>
 	</div>
 	<div id="intercambio">
 		<div id="intercambio-column" class="offer-column">
 			<h3>Usuarios</h3>
 			<div class="list-group">
 				<c:forEach items="${usuarios}" var="usuario" varStatus="status">
+				<form method="get" action="${prefijo}perfil/${usuario.id}">
+					<button type="submit"><span class="badge">
+						<span class="glyphicon glyphicon-chevron-down"></span>
+					</span></button>
+				</form>
 					<c:choose>
 						<c:when test="${status.first}">
 							<a href="${usuario.id}" aria-controls="tab-${usuario.id}"
@@ -44,10 +52,20 @@
 						<c:if test="${status.first && !cartaPropia.inExchange}">
 							<li class="list-group-item r">
 								<div class="tab-pane fade in">
-
-									<a class="nostyle" href="#" data-toggle="modal"
-										data-target="#${cartaPropia.carta.id}"><c:out
-											value="${cartaPropia.carta.name}" /></a>
+									<c:forEach items="${usuarioActual.cartasBuscadas}" var="cartaBuscada">
+										<c:if test="${cartaPropia.carta.id == cartaBuscada.id}">
+											<c:set var="busca" value="true" />
+										</c:if>
+									</c:forEach>		
+									<c:choose>
+									<c:when test="${busca}">
+									<a class="nostyle bold" href="#" data-toggle="modal" data-target="#${cartaPropia.carta.id}"><c:out value="${cartaPropia.carta.name}" /></a>
+									<c:set var="busca" value="false" />
+									</c:when>
+									<c:otherwise>
+									<a class="nostyle" href="#" data-toggle="modal" data-target="#${cartaPropia.carta.id}"><c:out value="${cartaPropia.carta.name}" /></a>
+									</c:otherwise>
+									</c:choose>
 									<!--Cartas -->
 									<div class="modal fade" id="${cartaPropia.carta.id}"
 										role="dialog">
@@ -72,9 +90,21 @@
 						<c:if test="${status.first}">
 							<li class="list-group-item r">
 								<div class="tab-pane fade in">
-									<a class="nostyle" href="#" data-toggle="modal"
-										data-target="#${cartaBuscada.id}"><c:out
-											value="${cartaBuscada.name}" /></a>
+								<c:forEach items="${usuarioActual.cartasPropias}" var="cartaPropia">
+									<c:if test="${cartaPropia.carta.id == cartaBuscada.id}">
+										<c:set var="busca" value="true" />
+									</c:if>
+								</c:forEach>
+									<c:choose>
+									<c:when test="${busca}">
+									<a class="nostyle bold" href="#" data-toggle="modal" data-target="#${cartaBuscada.id}"><c:out value="${cartaBuscada.name}" /></a>
+									<c:set var="busca" value="false" />
+									</c:when>
+									<c:otherwise>
+									<a class="nostyle" href="#" data-toggle="modal" data-target="#${cartaBuscada.id}"><c:out value="${cartaBuscada.name}" /></a>
+									</c:otherwise>
+									</c:choose>
+									
 									<!--Cartas -->
 									<div class="modal fade" id="${cartaBuscada.id}" role="dialog">
 										<div class="modal-dialog">
@@ -100,5 +130,8 @@
 </div>
 <script>
 	var usuariosJSON = ${usuariosJSON}
+</script>
+<script>
+	var usuarioActualJSON = ${usuarioActualJSON}
 </script>
 <%@ include file="../jspf/footer.jspf"%>
