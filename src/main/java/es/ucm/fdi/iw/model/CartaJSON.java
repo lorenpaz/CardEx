@@ -14,7 +14,7 @@ public class CartaJSON {
 	private String artist;
 	private String power;
 	private String imageUrl;
-	private String manaCost;
+	private String[] manaCost;
 	private String toughness;
 	private String color;
 	private String rarity;
@@ -37,7 +37,7 @@ public class CartaJSON {
 		this.colors = c.getColors();
 		this.toughness = c.getToughness();
 		this.rarity = c.getRarity();
-		this.manaCost = c.getManaCost();
+		this.manaCost = c.getManaCost().split("");
 	}
 	
 	public long getId() {

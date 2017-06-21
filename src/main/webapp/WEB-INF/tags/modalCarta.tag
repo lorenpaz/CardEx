@@ -49,7 +49,27 @@
 							</tr>
 							<tr>
 								<td class="left">Coste de maná:</td>
-								<td class="right">${carta.manaCost}</td>
+								<td class="right">
+								<c:forEach items="${carta.manaCost}" var="caracter">
+									<c:choose>
+									<c:when test="${caracter == 'B'}">
+									<div id="blueball">&nbsp;</div>
+									</c:when>
+									<c:when test="${caracter == 'G'}">
+									<div id="greenball">&nbsp;</div>
+									</c:when>
+									<c:when test="${caracter == 'W'}">
+									<div id="blueball">&nbsp;</div>
+									</c:when>
+									<c:when test="${caracter == 'R'}">
+									<div id="redball">&nbsp;</div>
+									</c:when>									
+									<c:otherwise>
+									<div id="ball"></div>
+									</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								</td>
 							</tr>
 						</table>
 					</div>

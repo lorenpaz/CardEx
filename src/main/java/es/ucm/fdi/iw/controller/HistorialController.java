@@ -46,10 +46,11 @@ public class HistorialController {
 	@GetMapping({ "", "/" })
 	public String root(Model model, Principal principal, HttpSession session,
 			SecurityContextHolderAwareRequestWrapper request) {
-		
+
 		añadirCSSyJSAlModelo(model);
 
-		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField").setParameter("userParam", principal.getName()).getSingleResult();
+		Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
+				.setParameter("userParam", principal.getName()).getSingleResult();
 
 		if (principal != null && session.getAttribute("user") == null) {
 			try {
@@ -58,223 +59,185 @@ public class HistorialController {
 			} catch (Exception e) {
 				log.info("No such user: " + principal.getName());
 			}
-		}else{
+		} else {
 			usuarioActual = (Usuario) session.getAttribute("user");
 		}
 
 		if (request.isUserInRole("ROLE_ADMIN"))
 			return "redirect:admin";
 
-		getAllExchanges(model,usuarioActual);
+		getAllExchanges(model, usuarioActual);
 
 		return "historial";
 	}
 
-	
 	@PostMapping("/finalizar")
 	@Transactional
-	public String finalizar (@RequestParam("intercambio") long formIntercambio,
-	HttpSession session)
-	{
-		
+	public String finalizar(@RequestParam("intercambio") long formIntercambio, HttpSession session) {
+
 		Usuario usuarioActual = (Usuario) session.getAttribute("user");
 		usuarioActual = entityManager.find(Usuario.class, usuarioActual.getId());
-		
-		//Consigo el intercambio y le cambio el estado
+
+		// Consigo el intercambio y le cambio el estado
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Finalizado");
-		if(!inter.getUsuarioRealizaUltimaAccion().equals(usuarioActual))
-		{
+		if (!inter.getUsuarioRealizaUltimaAccion().equals(usuarioActual)) {
 			inter.setUsuarioRealizaUltimaAccion(usuarioActual);
 			inter.setTerminado(true);
-			
-			//Obtego todo lo que necesito
+
+			// Obtego todo lo que necesito
 			List<CartaPropia> ofrecidas = inter.getCartasOfrecidas();
 			List<CartaPropia> recibidas = inter.getCartasRecibidas();
 			Usuario ofrece = inter.getUsuarioOfrece();
 			Usuario recibe = inter.getUsuarioRecibe();
-			
-			
-			for(CartaPropia carta : ofrecidas)
-			{
+
+			for (CartaPropia carta : ofrecidas) {
 				ofrece.getCartasPropias().remove(carta);
+				carta = entityManager.find(CartaPropia.class, carta.getId());
 				carta.setInExchange(false);
 				carta.setUsuarioPropietario(recibe);
-				entityManager.persist(carta);
-				if(!juntarDosCartasIguales(recibe.getCartasPropias(),carta,recibe))
-				{
+				
+				if (!juntarDosCartasIguales(recibe.getCartasPropias(), carta, recibe)) {
 					recibe.getCartasPropias().add(carta);
-				}else{
+				} else {
 					ofrece.getCartasPropias().remove(carta);
-					entityManager.merge(ofrece);
 				}
 			}
-			
-			for(CartaPropia carta : recibidas)
-			{
+
+			for (CartaPropia carta : recibidas) {
 				recibe.getCartasPropias().remove(carta);
+				carta = entityManager.find(CartaPropia.class, carta.getId());
 				carta.setInExchange(false);
 				carta.setUsuarioPropietario(ofrece);
-				entityManager.merge(carta);
-				if(!juntarDosCartasIguales(ofrece.getCartasPropias(),carta,ofrece))
-				{
+				
+				if (!juntarDosCartasIguales(ofrece.getCartasPropias(), carta, ofrece)) {
 					ofrece.getCartasPropias().add(carta);
-				}else{
+				} else {
 					ofrece.getCartasPropias().remove(carta);
-					entityManager.merge(ofrece);
 				}
-			}	
-		}else{
+			}
+		} else {
 			inter.setUsuarioRealizaUltimaAccion(usuarioActual);
 		}
-		entityManager.merge(inter);
-		entityManager.flush();
 		
+		entityManager.flush();
+
 		actualizaUsuarioSesion(session, usuarioActual);
 		return "redirect:";
 	}
-	
+
 	@PostMapping("/rechazar")
 	@Transactional
-	public String rechazar (@RequestParam("intercambio") long formIntercambio,
-	HttpSession session)
-	{
+	public String rechazar(@RequestParam("intercambio") long formIntercambio, HttpSession session) {
 		Usuario actual = (Usuario) session.getAttribute("user");
 		actual = entityManager.find(Usuario.class, actual.getId());
-		
-		//Consigo el intercambio y lo modifico
+
+		// Consigo el intercambio y lo modifico
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Rechazado");
 		inter.setUsuarioRealizaUltimaAccion(actual);
 		inter.setTerminado(true);
 		
-		List<CartaPropia> cartasParaBorrar = new ArrayList<CartaPropia>();
+		Usuario ofrece = entityManager.find(Usuario.class, inter.getUsuarioOfrece().getId());
+		Usuario recibe = entityManager.find(Usuario.class, inter.getUsuarioRecibe().getId());
 		
-		for(CartaPropia c : inter.getCartasOfrecidas())
-		{
+		for (CartaPropia c : inter.getCartasOfrecidas()) {
+			c = entityManager.find(CartaPropia.class, c.getId());
 			c.setInExchange(false);
-			if(!juntarDosCartasIguales(inter.getUsuarioOfrece().getCartasPropias(),c,inter.getUsuarioOfrece()))
-			{
-				entityManager.merge(c);
-			}else{
-				inter.getUsuarioOfrece().getCartasPropias().remove(c);
-				entityManager.merge(inter.getUsuarioOfrece());
-				cartasParaBorrar.add(c);
+			if (juntarDosCartasIguales(ofrece.getCartasPropias(), c, ofrece)) {
+				ofrece.getCartasPropias().remove(c);
 			}
 		}
-		for(CartaPropia c : inter.getCartasRecibidas())
-		{
+		for (CartaPropia c : inter.getCartasRecibidas()) {
+			c = entityManager.find(CartaPropia.class, c.getId());
 			c.setInExchange(false);
-			if(!juntarDosCartasIguales(inter.getUsuarioRecibe().getCartasPropias(),c,inter.getUsuarioRecibe()))
-			{
-				entityManager.merge(c);
-			}else{
-				inter.getUsuarioRecibe().getCartasPropias().remove(c);
-				entityManager.merge(inter.getUsuarioRecibe());
-				cartasParaBorrar.add(c);
+			if (juntarDosCartasIguales(recibe.getCartasPropias(), c,recibe)) {
+				recibe.getCartasPropias().remove(c);
 			}
 		}
 		
-		for(CartaPropia c: cartasParaBorrar)
-		{
-			entityManager.remove(c);
-		}
-		//Actualizo la BBDD
-		entityManager.merge(inter);
-		entityManager.merge(inter.getUsuarioOfrece());
-		entityManager.merge(inter.getUsuarioRecibe());
 		entityManager.flush();
-		
+
 		actualizaUsuarioSesion(session, actual);
 		return "redirect:";
 	}
-	
+
 	@PostMapping("/aceptar")
 	@Transactional
-	public String aceptar (@RequestParam("intercambio") long formIntercambio,
-	HttpSession session)
-	{
-		//Consigo el intercambio y lo modifico
+	public String aceptar(@RequestParam("intercambio") long formIntercambio, HttpSession session) {
+		// Consigo el intercambio y lo modifico
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
 		inter.setEstadoIntercambio("Aceptado");
-		inter.setUsuarioRealizaUltimaAccion( (Usuario) session.getAttribute("user"));
-		
+		inter.setUsuarioRealizaUltimaAccion((Usuario) session.getAttribute("user"));
+
 		return "redirect:";
 	}
-	
+
 	@PostMapping("/contraoferta")
 	@Transactional
-	public String contraOferta (@RequestParam("intercambio") long formIntercambio,
-	HttpSession session)
-	{
+	public String contraOferta(@RequestParam("intercambio") long formIntercambio, HttpSession session) {
 		Intercambio inter = entityManager.find(Intercambio.class, formIntercambio);
-	
-		return "redirect:../intercambio/contraoferta/"+inter.getId();
-	}	
-	
-	public static void añadirCSSyJSAlModelo(Model model) {
-		List<String> listaCSS = new ArrayList<String>();
-		listaCSS.add("styleHistorial.css");
-		
-		List<String> listaJS = new ArrayList<String>();
-		listaJS.add("jquery-3.1.1.min.js");
-		listaJS.add("bootstrap.min.js");
-		listaJS.add("historial.js");
-		
-		model.addAttribute("pageExtraCSS", listaCSS);
-		model.addAttribute("pageExtraScripts", listaJS);
+
+		return "redirect:../intercambio/contraoferta/" + inter.getId();
 	}
 
-	
-	  private void actualizaUsuarioSesion(HttpSession session, Usuario u) { 
-	 // Actualizo el usuario de la sesión 
-		  session.setAttribute("user", entityManager.find(Usuario.class, u.getId())); 
-	  }
-	  
-	public void getAllExchanges(Model m,Usuario usuarioActual){	
+	private void actualizaUsuarioSesion(HttpSession session, Usuario u) {
+		// Actualizo el usuario de la sesión
+		session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));
+	}
+
+	public void getAllExchanges(Model m, Usuario usuarioActual) {
 		Gson gson = new Gson();
-		
+
 		@SuppressWarnings("unchecked")
-		List<Intercambio> intercambios = (List<Intercambio>) entityManager.createNamedQuery("allIntercambiosUsuario").setParameter("user", usuarioActual).getResultList();
-		
+		List<Intercambio> intercambios = (List<Intercambio>) entityManager.createNamedQuery("allIntercambiosUsuario")
+				.setParameter("user", usuarioActual).getResultList();
+
 		String json = "{";
-		json +="\"intercambios\":[";
-		for(Intercambio i : intercambios)
-		{
+		json += "\"intercambios\":[";
+		for (Intercambio i : intercambios) {
 			IntercambioJSON intercambioJSON = new IntercambioJSON(i);
 			json += gson.toJson(intercambioJSON);
-			if(intercambios.indexOf(i) != intercambios.size()- 1)
-			{
-				json+= ',';
-			} 
+			if (intercambios.indexOf(i) != intercambios.size() - 1) {
+				json += ',';
+			}
 		}
 		json += "]}";
 
 		m.addAttribute("intercambios", intercambios);
 		m.addAttribute("intercambiosJSON", json);
-		m.addAttribute("usuarioSesionJSON",gson.toJson(new UsuarioJSON(usuarioActual)));
+		m.addAttribute("usuarioSesionJSON", gson.toJson(new UsuarioJSON(usuarioActual)));
 	}
-	
-	  	/*Método para realizar la acción contraria a duplicateCard
-	  	 * */
-		@Transactional
-		public boolean juntarDosCartasIguales(List<CartaPropia> listaCartas,CartaPropia copia,Usuario propietario)
-		{
-			boolean ok = false;
-			for(CartaPropia original : listaCartas)
-			{
-				if(original.getCarta().getId() == copia.getCarta().getId() &&
-						original.getEstadoCarta() == copia.getEstadoCarta() &&
-						original.getUsuarioPropietario().getId() == copia.getUsuarioPropietario().getId() &&
-						original.isInExchange()== copia.isInExchange() &&
-						original.getId() != copia.getId()
-						)
-				{
-					original.setCantidad(original.getCantidad() + copia.getCantidad());
-					entityManager.merge(original);
-					ok = true;
-				}
+
+	/*
+	 * Método para realizar la acción contraria a duplicateCard
+	 */
+	@Transactional
+	public boolean juntarDosCartasIguales(List<CartaPropia> listaCartas, CartaPropia copia, Usuario propietario) {
+
+		for (CartaPropia original : listaCartas) {
+			if (original.getCarta().getId() == copia.getCarta().getId()
+					&& original.getEstadoCarta() == copia.getEstadoCarta()
+					&& original.getUsuarioPropietario().getId() == copia.getUsuarioPropietario().getId()
+					&& original.isInExchange() == copia.isInExchange() && original.getId() != copia.getId()) {
+				CartaPropia aux = entityManager.find(CartaPropia.class, original.getId());
+				aux.setCantidad(original.getCantidad() + copia.getCantidad());
+				return true;
 			}
-			return ok;
 		}
+		return false;
+	}
+
+	public static void añadirCSSyJSAlModelo(Model model) {
+		List<String> listaCSS = new ArrayList<String>();
+		listaCSS.add("styleHistorial.css");
+
+		List<String> listaJS = new ArrayList<String>();
+		listaJS.add("jquery-3.1.1.min.js");
+		listaJS.add("bootstrap.min.js");
+		listaJS.add("historial.js");
+
+		model.addAttribute("pageExtraCSS", listaCSS);
+		model.addAttribute("pageExtraScripts", listaJS);
+	}
 }

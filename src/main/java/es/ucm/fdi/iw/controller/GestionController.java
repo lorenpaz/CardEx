@@ -42,8 +42,6 @@ public class GestionController {
 	@GetMapping({ "", "/" })
 	public String gestionCartas(Model model, HttpSession session, Principal principal) {
 
-		/*Usuario usuarioActual = (Usuario) entityManager.createNamedQuery("userByUserField")
-				.setParameter("userParam", principal.getName()).getSingleResult();*/
 		Usuario usuarioActual = (Usuario) session.getAttribute("user");
 		usuarioActual = entityManager.find(Usuario.class, usuarioActual.getId());
 		
@@ -112,15 +110,15 @@ public class GestionController {
 			cp.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
 			cp.setEstadoCarta(estadoCartasPropias[j]);
 
-			entityManager.persist(cp);
+			//entityManager.persist(cp);
 
 			usuarioActual.getCartasPropias().add(cp);
 			int index = usuarioActual.getCartasPropias().indexOf(cp);
 			usuarioActual.getCartasPropias().get(index).setUsuarioPropietario(usuarioActual);
 		}
 
-		entityManager.persist(usuarioActual);
-		entityManager.flush();
+	//	entityManager.persist(usuarioActual);
+	//	entityManager.flush();
 		actualizaUsuarioSesion(session, usuarioActual);
 
 		return "redirect:";
