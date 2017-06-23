@@ -180,6 +180,7 @@ public class PerfilController {
 				setParameter("usuario", entityManager.find(Usuario.class, id)).
 				setParameter("actual", actual).
 				setParameter("estadoIntercambio", "Aceptado").getSingleResult());
+		
 		long cuantasValoraciones = ((long) entityManager.createQuery("select count(v) from Valoracion v where "
 				+ "v.usuarioValorado = :usuario and v.usuarioQueValora = :actual").
 				setParameter("usuario", entityManager.find(Usuario.class, id)).

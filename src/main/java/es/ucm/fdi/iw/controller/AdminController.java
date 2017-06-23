@@ -107,11 +107,11 @@ public class AdminController {
 		Collection<Carta> cartasAPI = api.getCartasPorEdicion(code);
 		Edicion edition = (Edicion) entityManager.createNamedQuery("getSet").setParameter("codeParam", code).getSingleResult();
 		for(Carta c : cartasAPI){
+			c = entityManager.find(Carta.class, c.getId());
 			if(!existeEnBD(c.getMultiverseid()))
 			{
 				c.setEdicion(edition);
 				c.setActive(true);
-				entityManager.persist(c);
 			}
 		}
 		
@@ -121,7 +121,6 @@ public class AdminController {
 		
 		Edicion e = (Edicion)entityManager.createNamedQuery("getSet").setParameter("codeParam",code).getSingleResult();
 		e.setFechaUltimaActualizacion(sFecha);
-		entityManager.persist(e);
 		
 		entityManager.flush();
 		return "redirect:";	
@@ -139,13 +138,12 @@ public class AdminController {
 			    .getResultList();
 		
 		for(Carta c : cartas){
+			c = entityManager.find(Carta.class, c.getId());
 			c.setActive(false);
-			entityManager.merge(c);
 		}
 		
 		Edicion e = (Edicion)entityManager.createNamedQuery("getSet").setParameter("codeParam",code).getSingleResult();
 		e.setFechaUltimaActualizacion(null);
-		entityManager.persist(e);
 		
 		entityManager.flush();
 		return "redirect:";
@@ -156,7 +154,6 @@ public class AdminController {
 	public String habilitaUser(@RequestParam("id") Long id){
 		Usuario u = entityManager.find(Usuario.class, id);
 		u.setActivo(true);
-		entityManager.persist(u);
 		return "redirect:";
 	}
 	
@@ -165,7 +162,6 @@ public class AdminController {
 	public String deshabilitaUser(@RequestParam("id") Long id){
 		Usuario u = entityManager.find(Usuario.class, id);
 		u.setActivo(false);
-		entityManager.persist(u);
 		return "redirect:";
 	}
 	

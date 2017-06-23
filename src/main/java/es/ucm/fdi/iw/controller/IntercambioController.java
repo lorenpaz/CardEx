@@ -238,7 +238,7 @@ public class IntercambioController {
 
 		// Rellenamos la lista de cartas Ofrecidas
 		for (int i = 0; i < cartasOfrecidas.length; i++) {
-			CartaPropia carta = (CartaPropia) entityManager.find(CartaPropia.class, cartasOfrecidas[i]);
+			CartaPropia carta = entityManager.find(CartaPropia.class, cartasOfrecidas[i]);
 
 			// int index =
 			// busquedaEnLista(listaCartasPropiasUsuarioActual,carta);
@@ -275,9 +275,6 @@ public class IntercambioController {
 		for (int j = 0; j < cartasPido.length; j++) {
 			CartaPropia carta = (CartaPropia) entityManager.find(CartaPropia.class, cartasPido[j]);
 
-			// int index =
-			// busquedaEnLista(listaCartasPropiasUsuarioIntercambio,carta);
-
 			if (cantidadCartasPido[j] == 0) {
 				listaCartasPropiasUsuarioIntercambio.add(carta);
 				continue;
@@ -307,16 +304,20 @@ public class IntercambioController {
 		}
 
 		// Actualizo las cartasPropias de los usuarios del intercambio
-		usuarioActual.setCartasPropias(listaCartasPropiasUsuarioActual);
-		usuarioIntercambio.setCartasPropias(listaCartasPropiasUsuarioIntercambio);
+		usuarioActual.getCartasPropias().clear();
+		usuarioActual.getCartasPropias().addAll(listaCartasPropiasUsuarioActual);
+		usuarioIntercambio.getCartasPropias().clear();
+		usuarioIntercambio.getCartasPropias().addAll(listaCartasPropiasUsuarioIntercambio);
 
 		// Actualizo el intercambio
 		Intercambio intercambio = entityManager.find(Intercambio.class, intercambioId);
 		intercambio.setUsuarioOfrece(usuarioActual);
 		intercambio.setUsuarioRecibe(usuarioIntercambio);
 		intercambio.setUsuarioRealizaUltimaAccion(usuarioActual);
-		intercambio.setCartasOfrecidas(listaCartasOfrecidas);
-		intercambio.setCartasRecibidas(listaCartasPedidas);
+		intercambio.getCartasOfrecidas().clear();
+		intercambio.getCartasOfrecidas().addAll(listaCartasOfrecidas);
+		intercambio.getCartasRecibidas().clear();
+		intercambio.getCartasRecibidas().addAll(listaCartasPedidas);
 
 		// Debido a que lo he modificado
 		actualizaUsuarioSesion(session, usuarioActual);
@@ -375,6 +376,7 @@ public class IntercambioController {
 					&& original.getUsuarioPropietario().getId() == copia.getUsuarioPropietario().getId()
 					&& original.isInExchange() == copia.isInExchange() && original.getId() != copia.getId()
 					&& estaEnIntercambio(copia, i)) {
+				original = entityManager.find(CartaPropia.class, original.getId());
 				original.setCantidad(original.getCantidad() + copia.getCantidad());
 
 				ok = true;

@@ -89,11 +89,13 @@ public class HistorialController {
 			List<CartaPropia> ofrecidas = inter.getCartasOfrecidas();
 			List<CartaPropia> recibidas = inter.getCartasRecibidas();
 			Usuario ofrece = inter.getUsuarioOfrece();
+			ofrece = entityManager.find(Usuario.class, ofrece.getId());
 			Usuario recibe = inter.getUsuarioRecibe();
-
+			recibe = entityManager.find(Usuario.class, recibe.getId());
+			
 			for (CartaPropia carta : ofrecidas) {
-				ofrece.getCartasPropias().remove(carta);
 				carta = entityManager.find(CartaPropia.class, carta.getId());
+				ofrece.getCartasPropias().remove(carta);
 				carta.setInExchange(false);
 				carta.setUsuarioPropietario(recibe);
 				
@@ -105,8 +107,8 @@ public class HistorialController {
 			}
 
 			for (CartaPropia carta : recibidas) {
-				recibe.getCartasPropias().remove(carta);
 				carta = entityManager.find(CartaPropia.class, carta.getId());
+				recibe.getCartasPropias().remove(carta);
 				carta.setInExchange(false);
 				carta.setUsuarioPropietario(ofrece);
 				
@@ -118,6 +120,7 @@ public class HistorialController {
 			}
 		} else {
 			inter.setUsuarioRealizaUltimaAccion(usuarioActual);
+			inter.setEstadoIntercambio("Aceptado");
 		}
 		
 		entityManager.flush();
@@ -157,8 +160,16 @@ public class HistorialController {
 		}
 		
 		entityManager.flush();
-
+		 actual = ofrece.getId() == actual.getId() ? ofrece : recibe;
+		 
+		 Usuario aux = entityManager.find(Usuario.class, ofrece.getId());
+		 Usuario aux2 = entityManager.find(Usuario.class, recibe.getId());
+		 
 		actualizaUsuarioSesion(session, actual);
+		
+		aux = entityManager.find(Usuario.class, ofrece.getId());
+		aux2 = entityManager.find(Usuario.class, recibe.getId());
+		
 		return "redirect:";
 	}
 

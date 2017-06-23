@@ -110,15 +110,12 @@ public class GestionController {
 			cp.setCantidad(Integer.parseInt(cantidadCartasPropias[j]));
 			cp.setEstadoCarta(estadoCartasPropias[j]);
 
-			//entityManager.persist(cp);
-
 			usuarioActual.getCartasPropias().add(cp);
 			int index = usuarioActual.getCartasPropias().indexOf(cp);
 			usuarioActual.getCartasPropias().get(index).setUsuarioPropietario(usuarioActual);
 		}
 
-	//	entityManager.persist(usuarioActual);
-	//	entityManager.flush();
+		entityManager.flush();
 		actualizaUsuarioSesion(session, usuarioActual);
 
 		return "redirect:";
@@ -158,6 +155,7 @@ public class GestionController {
 		Gson gson = new Gson();
 		List<Carta> cartas = (List<Carta>) entityManager.createNamedQuery("allActiveCards").getResultList();
 		for (Carta c : cartas) {
+			c = entityManager.find(Carta.class, c.getId());
 			c.setCartasPropias(null);
 			c.setUsuariosQueMeBuscan(null);
 			c.setEdicion(null);
