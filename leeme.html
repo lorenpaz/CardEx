@@ -35,22 +35,15 @@ o administradores, que podrán eliminar usuarios o actualizar la base de datos d
 Enlace al último commit: <a href="https://github.com/lorenpaz/CardEx/commit/21bcba6f0434cae217fee6925f79606f7eacb540" target="_blank" >Commit</a>
 
 <h2>Comentarios al profesor</h2>
-<ul>
-	<li>Se realizan bajas lógicas de usuarios y de cartas</li>
-	<li>Al dar de baja un usuario desde su perfil, se eliminan sus intercambios y valoraciones</li>
-	<li>Si una carta de un usuario está en un intercambio, no se puede gestionar ni introducir en otro intercambio</li>
-	<li>Una vez termina el intercambio, se deja al usuario la posibilidad de acceder al perfil del otro usuario y valorarle</li>
-	<li>Se puede valorar a otro usuario solamente una vez, cuando se ha hecho un intercambio con él. Se puede borrar la valoración que se ha hecho.</li>
-	<li>Tenemos todas las ediciones bajadas, pero no todas las cartas debido al gran número de cartas en la API</li>
-	<li>Funcionamiento del intercambio:
-		<br>Cuando se realizar un intercambio, dependiendo del número de cartas propias que tengan lo usuarios (usuarioOfrece y usuarioRecibe) <br>
-		se realiza una división de la CartaPropia o no. Se realiza en los casos en los que no ofreces/pides toda la cantidad de esa cartaPropia. <br>
-		Esto lo hemos realizado para que se puedan gestionar aquellas cartas que no estén en el intercambio.
-		<br>
-		Cuando el intercambio es rechazado o se realiza una contraoferta, realizamos el proceso contrario: unir dos cartas propias iguales, las cuales fueron divididas cuando se empezó el intercambio
-	</li>
-</ul>
-
+Todas las modificaciones pedidas en el examen se han realizado de manera satisfactoria:
+	<ul>
+	<li>En negrita aparecen las cartas que buscas y que poseen el resto de usuarios, y viceversa</li>
+	<li>Acceso a perfil de los usuarios en el home</li>
+	<li>Mostrar un mensaje en el home cuando tiene el usuario ofertas pendientes</li>
+	<li>Mostrar el manaCost con 'bolas'</li>
+	</ul>
+También, la obtención de usuarios/cartas se realiza de forma 'fresco', por lo que hemos suprimido bastantes merge, persist, etc
+Por último, hemos modificado los setColeccion por addElement o deleteElement, como nos recomendaste.
 <h2>Vistas</h2>
 
 <ul>
