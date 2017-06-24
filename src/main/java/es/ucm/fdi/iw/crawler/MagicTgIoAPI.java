@@ -68,6 +68,7 @@ public class MagicTgIoAPI {
 					//card.setPrintings(aux);
 					System.out.println("---------------"+"\n"+card.toString()+"\n");
 					card.setEdicion(set);
+					card.setManaCost(getManaList(card.getManaCost()));
 					entityManager.persist(card);
 					entityManager.flush();
 					}
@@ -95,6 +96,7 @@ public class MagicTgIoAPI {
 					aux[0]="fg";
 					//card.setPrintings(aux);
 					card.setEdicion(set);
+					card.setManaCost(getManaList(card.getManaCost()));
 					entityManager.persist(card);
 					entityManager.flush();
 					}
@@ -147,6 +149,7 @@ public class MagicTgIoAPI {
 				try {
 				//	System.out.println("cada carta:"+arr.getJSONObject(i).toString());
 					Carta c = JSON_MAPPER.readValue(arr.getJSONObject(i).toString(),Carta.class);
+					c.setManaCost(getManaList(c.getManaCost()));
 				    cartas.add(c);
 				} catch (JsonParseException e) {
 					// TODO Auto-generated catch block
@@ -180,6 +183,7 @@ public class MagicTgIoAPI {
 				try {
 				//	System.out.println("cada carta:"+arr.getJSONObject(i).toString());
 					Carta c = JSON_MAPPER.readValue(arr.getJSONObject(i).toString(),Carta.class);
+					c.setManaCost(getManaList(c.getManaCost()));
 				    cartas.add(c);
 				} catch (JsonParseException e) {
 					// TODO Auto-generated catch block
@@ -237,6 +241,23 @@ public class MagicTgIoAPI {
 		}
 		
 		return (List<Edicion>) sets;
+	}
+	
+	private String getManaList(String mana) {
+		char c;
+		String manaC = "";
+		if(mana != null){
+			for(int i=0; i<mana.length(); i++){
+				c = mana.charAt(i);
+				if(c != '{' && c != '}'){
+					manaC += String.valueOf(c) + ",";
+				}
+			}
+			return manaC.substring(0,  manaC.length()-1);
+		}else{
+			return "";
+		}
+		
 	}
 
 }
