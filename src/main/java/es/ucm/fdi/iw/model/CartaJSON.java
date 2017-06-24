@@ -1,5 +1,8 @@
 package es.ucm.fdi.iw.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class CartaJSON {
@@ -14,7 +17,7 @@ public class CartaJSON {
 	private String artist;
 	private String power;
 	private String imageUrl;
-	private String[] manaCost;
+	private List<String> manaCost;
 	private String toughness;
 	private String color;
 	private String rarity;
@@ -37,9 +40,21 @@ public class CartaJSON {
 		this.colors = c.getColors();
 		this.toughness = c.getToughness();
 		this.rarity = c.getRarity();
-		this.manaCost = c.getManaCost().split("");
+		this.manaCost = getManaList(c.getManaCost());
 	}
 	
+	private List<String> getManaList(String mana) {
+		char c;
+		List<String> list = new ArrayList<>();
+		for(int i=0; i<mana.length(); i++){
+			c = mana.charAt(i);
+			if(c != ','){
+				list.add(String.valueOf(c));
+			}
+		}
+		return list;
+	}
+
 	public long getId() {
 		return id;
 	}
