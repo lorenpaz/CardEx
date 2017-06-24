@@ -131,21 +131,23 @@ function manaTipo(mana) {
 		 {
 			 manaText += `<div id="blueball">&nbsp;</div>`;
 		 }
-		 if(mana[i] == 'G')
+		else if(mana[i] == 'G')
 		 {
 			 manaText += `<div id="greenball">&nbsp;</div>`;
 		 }
-		 if(mana[i] == 'R')
+		else if(mana[i] == 'R')
 		 {
 			 manaText += `<div id="redball">&nbsp;</div>`;
 		 }
-		 if(mana[i] == 'W')
+		else if(mana[i] == 'W')
 		 {
 			 manaText += `<div id="whiteball">&nbsp;</div>`;
 		 }
-		 if(mana[i] == 'B')
+		else if(mana[i] == 'B')
 		 {
 			 manaText += `<div id="blackball">&nbsp;</div>`;
+		 }else{
+			 manaText += `<div id="ball">`+mana[i] +`</div>`;
 		 }
 	}
 	
