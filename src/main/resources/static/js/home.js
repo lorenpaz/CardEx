@@ -77,7 +77,7 @@ function getModal(card, index){
 						<!--Detalles carta-->
 						<table id="details2">
 							<tr>
-								<td class="left">Edición:</td>
+								<td class="left">Edicion:</td>
 								<td class="right">`+card.setName+`</td>
 							</tr>
 							<tr>
@@ -109,7 +109,7 @@ function getModal(card, index){
 								<td class="right">`+card.rarity+`</td>
 							</tr>
 							<tr>
-								<td class="left">Coste de maná:</td>
+								<td class="left">Coste de mana:</td>
 								<td class="right">`+manaTipo(card.manaCost)+`</td>
 							</tr>
 						</table>
@@ -127,11 +127,11 @@ function manaTipo(mana) {
 	
 	var manaText = ``;
 	for (var i = 0, len = mana.length; i < len; i++) {
-		 if(mana[i] == 'B')
+		 if(mana[i] == 'U')
 		 {
 			 manaText += `<div id="blueball">&nbsp;</div>`;
 		 }
-		 else if(mana[i] == 'G')
+		 if(mana[i] == 'G')
 		 {
 			 manaText += `<div id="greenball">&nbsp;</div>`;
 		 }
@@ -143,7 +143,7 @@ function manaTipo(mana) {
 		 {
 			 manaText += `<div id="whiteball">&nbsp;</div>`;
 		 }
-		 if(mana[i] == 'K')
+		 if(mana[i] == 'B')
 		 {
 			 manaText += `<div id="blackball">&nbsp;</div>`;
 		 }
