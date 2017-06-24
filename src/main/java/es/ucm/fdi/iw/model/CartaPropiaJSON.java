@@ -16,7 +16,7 @@ public class CartaPropiaJSON {
 		this.estadoCarta = c.getEstadoCarta();
 		this.cantidad = c.getCantidad();
 		this.setInExchange(c.isInExchange());
-		this.usuarioPropietario = c.getUsuarioPropietario().getUsuario();
+		this.usuarioPropietario = c.getUsuarioPropietario() == null ? null : c.getUsuarioPropietario().getUsuario();
 	}
 
 	public long getId() {

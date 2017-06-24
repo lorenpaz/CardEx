@@ -148,6 +148,7 @@ public class HistorialController {
 			c = entityManager.find(CartaPropia.class, c.getId());
 			c.setInExchange(false);
 			if (juntarDosCartasIguales(ofrece.getCartasPropias(), c, ofrece)) {
+				c.setUsuarioPropietario(null);
 				ofrece.getCartasPropias().remove(c);
 			}
 		}
@@ -155,20 +156,15 @@ public class HistorialController {
 			c = entityManager.find(CartaPropia.class, c.getId());
 			c.setInExchange(false);
 			if (juntarDosCartasIguales(recibe.getCartasPropias(), c,recibe)) {
+				c.setUsuarioPropietario(null);
 				recibe.getCartasPropias().remove(c);
 			}
 		}
 		
 		entityManager.flush();
-		 actual = ofrece.getId() == actual.getId() ? ofrece : recibe;
-		 
-		 Usuario aux = entityManager.find(Usuario.class, ofrece.getId());
-		 Usuario aux2 = entityManager.find(Usuario.class, recibe.getId());
+		 //actual = ofrece.getId() == actual.getId() ? ofrece : recibe;
 		 
 		actualizaUsuarioSesion(session, actual);
-		
-		aux = entityManager.find(Usuario.class, ofrece.getId());
-		aux2 = entityManager.find(Usuario.class, recibe.getId());
 		
 		return "redirect:";
 	}
@@ -191,10 +187,11 @@ public class HistorialController {
 
 		return "redirect:../intercambio/contraoferta/" + inter.getId();
 	}
-
+	
 	private void actualizaUsuarioSesion(HttpSession session, Usuario u) {
 		// Actualizo el usuario de la sesión
-		session.setAttribute("user", entityManager.find(Usuario.class, u.getId()));
+		Usuario actual = entityManager.find(Usuario.class, u.getId());
+		session.setAttribute("user", actual);
 	}
 
 	public void getAllExchanges(Model m, Usuario usuarioActual) {
