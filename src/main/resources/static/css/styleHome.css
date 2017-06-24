@@ -110,6 +110,7 @@
       -moz-border-radius: 8px;
       border-radius: 8px;
       background: red; 
+      border: 2px solid;
     }
     
 #whiteball {
@@ -118,7 +119,8 @@
       -webkit-border-radius: 8px;
       -moz-border-radius: 8px;
       border-radius: 8px;
-      background: white; 
+      border: 2px solid;
+      background: ivory; 
 }
     
  #greenball {
@@ -127,6 +129,7 @@
       -webkit-border-radius: 8px;
       -moz-border-radius: 8px;
       border-radius: 8px;
+       border: 2px solid;
       background: green; 
 }
 
@@ -137,6 +140,7 @@
       -moz-border-radius: 8px;
       border-radius: 8px;
       background: blue; 
+      border: 2px solid;
 }
 
 #blackball {
@@ -146,4 +150,21 @@
       -moz-border-radius: 8px;
       border-radius: 8px;
       background: black; 
+      border: 2px solid;
+}
+
+#ball {
+      width: 20px;
+      height: 20px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      background: grey; 
+      color: white;
+      border: 2px solid;
+      text-align: center;
+}
+
+.manaRight{
+	display: inline-flex;
 }
