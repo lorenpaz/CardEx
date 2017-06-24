@@ -49,26 +49,35 @@
 							</tr>
 							<tr>
 								<td class="left">Coste de maná:</td>
-								<td class="right">
-								<c:forEach items="${carta.manaCost}" var="caracter">
-									<c:choose>
-									<c:when test="${caracter == 'B'}">
-									<div id="blueball">&nbsp;</div>
-									</c:when>
-									<c:when test="${caracter == 'G'}">
+								<td class="right manaRight">
+								<c:forTokens items="${carta.manaCost}" delims = "," var = "caracter">
+									<c:set var="letra" value="${false}"></c:set>
+									
+									
+									<c:if test="${caracter eq 'B'}">
+									<c:set var="letra" value="${true}"></c:set>
+									<div id="blackball">&nbsp;</div>
+									</c:if>
+									<c:if test="${caracter eq 'G'}">
+									<c:set var="letra" value="${true}"></c:set>
 									<div id="greenball">&nbsp;</div>
-									</c:when>
-									<c:when test="${caracter == 'W'}">
-									<div id="blueball">&nbsp;</div>
-									</c:when>
-									<c:when test="${caracter == 'R'}">
+									</c:if>
+									<c:if test="${caracter eq 'W'}">
+									<c:set var="letra" value="${true}"></c:set>
+									<div id="whiteball">&nbsp;</div>
+									</c:if>
+									<c:if test="${caracter eq 'R'}">
+									<c:set var="letra" value="${true}"></c:set>
 									<div id="redball">&nbsp;</div>
-									</c:when>									
-									<c:otherwise>
-									<div id="ball"></div>
-									</c:otherwise>
-									</c:choose>
-								</c:forEach>
+									</c:if>	
+									<c:if test="${caracter eq 'U'}">
+									<c:set var="letra" value="${true}"></c:set>
+									<div id="blueball">&nbsp;</div>
+									</c:if>									
+									<c:if test="${letra == false}">
+									<div id="ball"><c:out value="${caracter}"></c:out></div>
+									</c:if>							
+								</c:forTokens>
 								</td>
 							</tr>
 						</table>
